@@ -1,0 +1,2 @@
+Orange==2.5a4
+mysql-connector-python==1.0.12

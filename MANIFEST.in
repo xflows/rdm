@@ -1,0 +1,6 @@
+include CHANGELOG.md
+include LICENSE.md
+include README.md
+
+recursive-include rdm *
+global-exclude *.pyc
