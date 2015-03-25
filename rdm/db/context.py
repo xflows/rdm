@@ -2,7 +2,6 @@ from collections import defaultdict
 import pprint
 import copy
 
-from django import forms
 import mysql.connector as sql
 import converters
 
@@ -105,32 +104,6 @@ class DBContext:
         other_tables = dict(zip(other_tbl_names, conv.other_Orange_tables()))
         tables.update(other_tables)
         return tables
-
-    def update(self, postdata):
-        '''
-        Updates the default selections with user's selections.
-        '''
-        widget_id = postdata.get('widget_id')[0]
-        self.target_table = postdata.get('target_table%s' % widget_id)[0]
-        self.target_att = postdata.get('target_att%s' % widget_id)[0]
-        #self.target_att_val = postdata.get('target_att_val%s' % widget_id)[0]
-        self.tables = postdata.get('tables%s' % widget_id, [])
-        if self.target_table not in self.tables:
-            raise Exception('The selected target table "%s" is not among the selected tables.' % self.target_table)
-        # Propagate the selected tables
-        for table in self.cols.keys():
-            if table not in self.tables:
-                del self.cols[table]
-        for pair in self.connected.keys():
-            if pair[0] in self.tables and pair[1] in self.tables:
-                continue
-            del self.connected[pair]
-        for table in self.tables:
-            self.cols[table] = postdata.get('%s_columns%s' % (table, widget_id), [])
-            if table == self.target_table and self.target_att not in self.cols[table]:
-                raise Exception('The selected target attribute ("%s") is not among the columns selected for the target table ("%s").' % (self.target_att, self.target_table))
-        if self.in_memory:
-            self.orng_tables = self.read_into_orange()
 
     def fmt_cols(self, cols):
         return ','.join(["`%s`" % col for col in cols])

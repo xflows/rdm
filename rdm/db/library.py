@@ -3,6 +3,7 @@ MySQL connectivity library.
 
 @author: Anze Vavpetic <anze.vavpetic@ijs.si>
 '''
+from django import forms
 import mysql.connector as sql
 from context import DBConnection, DBContext
 from converters import RSD_Converter, Aleph_Converter, Orange_Converter, TreeLikerConverter
@@ -24,8 +25,33 @@ def mysql_db_context_finished(postdata, input_dict, output_dict):
     con = input_dict['connection']
     find_con = input_dict['find_connections'] == 'true'
     context = DBContext(con, find_connections=find_con)
-    context.update(postdata)
+    _update_context(context, postdata)
     return {'context' : context}
+
+def _update_context(context, postdata):
+    '''
+    Updates the default selections with user's selections.
+    '''
+    widget_id = postdata.get('widget_id')[0]
+    context.target_table = postdata.get('target_table%s' % widget_id)[0]
+    context.target_att = postdata.get('target_att%s' % widget_id)[0]
+    context.tables = postdata.get('tables%s' % widget_id, [])
+    if context.target_table not in context.tables:
+        raise Exception('The selected target table "%s" is not among the selected tables.' % context.target_table)
+    # Propagate the selected tables
+    for table in context.cols.keys():
+        if table not in context.tables:
+            del context.cols[table]
+    for pair in context.connected.keys():
+        if pair[0] in context.tables and pair[1] in context.tables:
+            continue
+        del context.connected[pair]
+    for table in context.tables:
+        context.cols[table] = postdata.get('%s_columns%s' % (table, widget_id), [])
+        if table == context.target_table and context.target_att not in context.cols[table]:
+            raise Exception('The selected target attribute ("%s") is not among the columns selected for the target table ("%s").' % (context.target_att, context.target_table))
+    if context.in_memory:
+        context.orng_tables = context.read_into_orange()
 
 def mysql_rsd_converter(input_dict):
     dump = input_dict['dump'] == 'true'
