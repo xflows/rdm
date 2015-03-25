@@ -98,7 +98,7 @@ def ilp_wordification(input_dict):
     for _ in range(1):
         wordification = Wordification(target_table,other_tables,context,word_att_length,idf)
         wordification.run(1)
-        wordification.calculate_tf_idfs(weighting_measure)
+        wordification.calculate_weights(weighting_measure)
         #wordification.prune(50)
         #wordification.to_arff()
 

@@ -88,7 +88,7 @@ def att_to_s(att):
 
 class Wordification(object):
 
-    def __init__(self,target_table,other_tables,context,word_att_length,idf=None):
+    def __init__(self,target_table,other_tables,context,word_att_length=1,idf=None):
         """
         Wordification object constructor.
         
@@ -156,7 +156,7 @@ class Wordification(object):
         for i,ex in enumerate(self.target_table):
             self.resulting_classes.append(ex.get_class())
 
-    def calculate_tf_idfs(self,measure):
+    def calculate_weights(self, measure='tfidf'):
         """
         Counts word frequency and calculates tf-idf values for words in every document.
         """
@@ -201,7 +201,6 @@ class Wordification(object):
 
 
     def to_arff(self):
-        print "begin to_arff"
 
         arff_string="@RELATION "+self.target_table.name+"\n\n"
         words = set()

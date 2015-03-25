@@ -114,7 +114,6 @@ class DBContext:
         '''
         con = self.connection.connect()
         cursor = con.cursor() 
-        print "SELECT %s FROM %s" % (self.fmt_cols(cols), table)
         cursor.execute("SELECT %s FROM %s" % (self.fmt_cols(cols), table))
         result = [cols for cols in cursor]
         con.close()
@@ -146,7 +145,6 @@ class DBContext:
             con = self.connection.connect()
             cursor = con.cursor() 
             attributes = self.db.fmt_cols(cols)
-            print "SELECT %s FROM %s WHERE `%s`='%s'" % (attributes, table, pk_att, pk)
             cursor.execute("SELECT %s FROM %s WHERE `%s`='%s'" % (attributes, table, pk_att, pk))
             result = [cols for cols in cursor]
             con.close()
