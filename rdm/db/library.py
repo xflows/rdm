@@ -6,7 +6,7 @@ MySQL connectivity library.
 from django import forms
 import mysql.connector as sql
 from context import DBConnection, DBContext
-from converters import RSD_Converter, Aleph_Converter, Orange_Converter, TreeLikerConverter
+from converters import RSDConverter, AlephConverter, OrangeConverter, TreeLikerConverter
 from mapper import domain_map
 
 
@@ -55,7 +55,7 @@ def _update_context(context, postdata):
 
 def mysql_rsd_converter(input_dict):
     dump = input_dict['dump'] == 'true'
-    rsd = RSD_Converter(input_dict['context'], discr_intervals=input_dict['discr_intervals'] or {})
+    rsd = RSDConverter(input_dict['context'], discr_intervals=input_dict['discr_intervals'] or {})
     return {'examples' : rsd.all_examples(), 'bk' : rsd.background_knowledge()}
 
 def mysql_aleph_converter(input_dict):
@@ -63,7 +63,7 @@ def mysql_aleph_converter(input_dict):
     target_att_val = input_dict['target_att_val']
     if not target_att_val:
         raise Exception('Please specify a target attribute value.')
-    aleph = Aleph_Converter(input_dict['context'], target_att_val=target_att_val, discr_intervals=input_dict['discr_intervals'] or {})
+    aleph = AlephConverter(input_dict['context'], target_att_val=target_att_val, discr_intervals=input_dict['discr_intervals'] or {})
     return {'pos_examples' : aleph.positive_examples(), 'neg_examples' : aleph.negative_examples(), 'bk' : aleph.background_knowledge()}
 
 def mysql_treeliker_converter(input_dict):
@@ -77,7 +77,7 @@ def mysql_query_to_odt(input_dict):
 
 def mysql_orange_converter(input_dict):
     context = input_dict['context']
-    orange = Orange_Converter(context)
+    orange = OrangeConverter(context)
     return {'target_table_dataset' : orange.target_Orange_table(),'other_table_datasets': orange.other_Orange_tables()}
 
 def ilp_map_rsd(input_dict):

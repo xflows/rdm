@@ -17,7 +17,7 @@ class Converter:
     def __del__(self):  
         self.connection.close()
 
-class ILP_Converter(Converter):
+class ILPConverter(Converter):
     '''
     Base class for converting between a given database context (selected tables, columns, etc)
     to inputs acceptable by a specific ILP system.
@@ -106,14 +106,14 @@ class ILP_Converter(Converter):
 
     def dump_tables(self):
         dump = []
-        fmt_cols = lambda cols: ','.join([("%s" % col) if ILP_Converter.numeric(col) else ("'%s'" % str(col).replace("'", '"')) for col in cols])
+        fmt_cols = lambda cols: ','.join([("%s" % col) if ILPConverter.numeric(col) else ("'%s'" % str(col).replace("'", '"')) for col in cols])
         for table in self.db.tables:
             attributes = self.db.cols[table]
             dump.append(':- table %s/%d.' % (table, len(attributes)))
             dump.append('\n'.join(["%s(%s)." % (table, fmt_cols(cols)) for cols in self.db.rows(table, attributes)]))
         return dump
 
-class RSD_Converter(ILP_Converter):
+class RSDConverter(ILPConverter):
     '''
     Converts the database context to RSD inputs.
     '''
@@ -141,13 +141,13 @@ class RSD_Converter(ILP_Converter):
 
         return '\n'.join(modeslist + getters + self.user_settings() + self.dump_tables())
 
-class Aleph_Converter(ILP_Converter):
+class AlephConverter(ILPConverter):
     '''
     Converts the database context to Aleph inputs.
     '''
     def __init__(self, *args, **kwargs):
         self.target_att_val = kwargs.pop('target_att_val')
-        ILP_Converter.__init__(self, *args, **kwargs)
+        ILPConverter.__init__(self, *args, **kwargs)
         self.__pos_examples, self.__neg_examples = None, None
         self.target_predicate = re.sub('\s+', '_', self.target_att_val).lower()
 
@@ -213,7 +213,7 @@ class Aleph_Converter(ILP_Converter):
                 '\t%s(%s).' % (table, variables)]
 
 
-class Orange_Converter(Converter):
+class OrangeConverter(Converter):
     '''
     Converts the selected tables in the given context to orange example tables.
     '''
@@ -286,9 +286,9 @@ class Orange_Converter(Converter):
         '''
         mysql_type = self.types[table_name][col]
         n_vals = len(self.db.col_vals[table_name][col])
-        if mysql_type in Orange_Converter.continuous_types or (n_vals >= 50 and mysql_type in Orange_Converter.integer_types):
+        if mysql_type in OrangeConverter.continuous_types or (n_vals >= 50 and mysql_type in OrangeConverter.integer_types):
             return 'c'
-        elif mysql_type in Orange_Converter.ordinal_types+Orange_Converter.integer_types:
+        elif mysql_type in OrangeConverter.ordinal_types+OrangeConverter.integer_types:
             return 'd'
         else:
             return 'string'
@@ -473,4 +473,4 @@ if __name__ == '__main__':
     context = DBContext(DBConnection('ilp','ilp123','ged.ijs.si','muta_42'))
     context.target_table = 'drugs'
     context.target_att = 'active'
-    conv = Aleph_Converter(context)
+    conv = AlephConverter(context)

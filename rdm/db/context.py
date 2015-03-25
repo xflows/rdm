@@ -96,7 +96,7 @@ class DBContext:
         self.in_memory = in_memory
 
     def read_into_orange(self):
-        conv = converters.Orange_Converter(self)
+        conv = converters.OrangeConverter(self)
         tables = {
             self.target_table: conv.target_Orange_table()
         }

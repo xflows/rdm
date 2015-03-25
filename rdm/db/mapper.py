@@ -5,7 +5,7 @@ import os
 import re
 import arff
 
-from converters import RSD_Converter, TreeLikerConverter
+from converters import RSDConverter, TreeLikerConverter
 
 
 def _feature_numbers(features):
@@ -27,8 +27,8 @@ def domain_map(features, feature_format, train_context, test_context,
 
     dataset = None
     if feature_format in ['rsd', 'aleph']:
-        train_rsd = RSD_Converter(train_context)
-        test_rsd = RSD_Converter(test_context, discr_intervals=intervals)
+        train_rsd = RSDConverter(train_context)
+        test_rsd = RSDConverter(test_context, discr_intervals=intervals)
         mapper_target_name = train_context.target_table + '_mapper'
         train_examples = train_rsd.all_examples(pred_name=mapper_target_name)
         test_examples = test_rsd.all_examples(pred_name=mapper_target_name)
