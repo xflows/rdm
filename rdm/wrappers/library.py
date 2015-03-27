@@ -12,6 +12,7 @@ from security import check_input
 
 from services.webservice import WebService
 
+
 def ilp_aleph(input_dict):
     aleph = Aleph()
     settings = input_dict['settings']
@@ -31,6 +32,7 @@ def ilp_aleph(input_dict):
     # Run aleph
     results = aleph.induce(mode, pos, neg, b)
     return {'theory': results[0], 'features': results[1]}
+
 
 def ilp_rsd(input_dict):
     rsd = RSD()
@@ -54,8 +56,10 @@ def ilp_rsd(input_dict):
     return {'features' : features, 'arff' : arff, 'rules' : rules}
 
 
+
 def ilp_sdmsegs_rule_viewer(input_dict):
     return {}
+
 
 def ilp_sdmaleph(input_dict):
     import orange
@@ -102,10 +106,6 @@ def ilp_wordification(input_dict):
         #wordification.prune(50)
         #wordification.to_arff()
 
-    if 1==0:
-        from wordification import Wordification_features_test
-        wft=Wordification_features_test(target_table,other_tables,context)
-        wft.print_results()
     return {'arff' : wordification.to_arff(),'corpus': wordification.wordify(),'idf':wordification.idf}
 
 

@@ -189,4 +189,3 @@ class DBContext:
             'fkeys' : self.fkeys,
             'orng_tables': [(name, len(table)) for name, table in self.orng_tables.items()] if self.orng_tables else 'not in memory'
         })
-
