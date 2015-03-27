@@ -1,0 +1,31 @@
+@RELATION "default"
+% f1: target_east(A):-trains_has_cars(A,B),cars_roof(B,peaked)
+@ATTRIBUTE f1 {+,-}
+% f2: target_east(A):-trains_has_cars(A,B),cars_position(B,3),cars_load_shape(B,triangle)
+@ATTRIBUTE f2 {+,-}
+% f3: target_east(A):-trains_has_cars(A,B),cars_shape(B,hexagon)
+@ATTRIBUTE f3 {+,-}
+% f4: target_east(A):-trains_has_cars(A,B),cars_len(B,short),cars_roof(B,flat)
+@ATTRIBUTE f4 {+,-}
+@ATTRIBUTE class {negative,positive}
+@DATA
+-,+,+,-,positive
+-,-,+,-,positive
+-,-,-,+,positive
+-,-,+,-,positive
+-,-,+,-,positive
+-,-,+,+,positive
+-,-,+,-,positive
+-,+,-,-,positive
+-,-,-,-,positive
+-,-,+,-,positive
+-,-,-,-,negative
+-,-,-,-,negative
+-,-,-,-,negative
+-,-,-,-,negative
+-,-,-,-,negative
+-,-,-,-,negative
+-,-,-,-,negative
+-,-,-,-,negative
+-,-,-,-,negative
+-,-,-,-,negative

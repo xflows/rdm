@@ -4,8 +4,8 @@ import sys
 sys.path.append('..')
 
 
-from rdm.db import DBConnection, DBContext, OrangeConverter, RSDConverter
-from rdm.wrappers import Wordification, RSD
+from rdm.db import DBConnection, DBContext, OrangeConverter, RSDConverter, AlephConverter, TreeLikerConverter
+from rdm.wrappers import Wordification, RSD, Aleph, TreeLiker
 from conf import TEST_DB, RESULTS_FOLDER
 
 
@@ -40,10 +40,31 @@ class TestWrappers(unittest.TestCase):
     def test_rsd(self):
         conv = RSDConverter(self.context)
         rsd = RSD()
-        features, arff, _ = rsd.induce(conv.background_knowledge(), examples=conv.all_examples())
+        features, arff, _ = rsd.induce(conv.background_knowledge(),
+                                       examples=conv.all_examples())
 
         with open(os.path.join(RESULTS_FOLDER, 'wrappers', 'rsd', 'trains.arff')) as f:
             self.assertMultiLineEqual(arff, f.read())
 
         with open(os.path.join(RESULTS_FOLDER, 'wrappers', 'rsd', 'trains.frs')) as f:
             self.assertMultiLineEqual(features, f.read())
+
+
+    def test_aleph(self):
+        conv = AlephConverter(self.context, target_att_val = 'east')
+        aleph = Aleph()
+        theory, features = aleph.induce('induce_features', conv.positive_examples(), 
+                                        conv.negative_examples(),
+                                        conv.background_knowledge())
+
+        with open(os.path.join(RESULTS_FOLDER, 'wrappers', 'aleph', 'trains.arff')) as f:
+            self.assertMultiLineEqual(theory, f.read())
+
+
+    def test_treeliker(self):
+        conv = TreeLikerConverter(self.context)
+        treeliker = TreeLiker(conv.dataset(), conv.default_template())
+        arff, _ = treeliker.run()
+
+        with open(os.path.join(RESULTS_FOLDER, 'wrappers', 'treeliker', 'trains.arff')) as f:
+            self.assertMultiLineEqual(arff, f.read())

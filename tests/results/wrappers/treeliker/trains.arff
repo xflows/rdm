@@ -1,0 +1,200 @@
+@relation propositionalization
+
+@attribute 'has_cars(A), has_len(A, \'long\')' {'+','-'}
+@attribute 'has_cars(A), has_len(A, \'long\'), has_load_shape(A, \'circle\')' {'+','-'}
+@attribute 'has_cars(A), has_len(A, \'long\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_len(A, \'long\'), has_roof(A, \'none\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_len(A, \'long\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_len(A, \'short\')' {'+'}
+@attribute 'has_cars(A), has_load_num(A, \'0\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_len(A, \'long\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_len(A, \'long\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_load_shape(A, \'rectangle\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_load_shape(A, \'rectangle\'), has_len(A, \'long\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_load_shape(A, \'triangle\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_position(A, \'1\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_position(A, \'1\'), has_len(A, \'long\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_position(A, \'1\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_position(A, \'1\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_position(A, \'1\'), has_wheels(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_position(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_position(A, \'2\'), has_len(A, \'long\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_position(A, \'2\'), has_load_shape(A, \'rectangle\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_position(A, \'2\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_position(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_position(A, \'3\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'1\'), has_wheels(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'2\'), has_len(A, \'long\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'3\'), has_position(A, \'4\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'3\'), has_roof(A, \'none\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_load_num(A, \'3\'), has_wheels(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'circle\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'circle\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'circle\'), has_shape(A, \'bucket\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'diamond\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'hexagon\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'hexagon\'), has_position(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'hexagon\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'hexagon\'), has_wheels(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'rectangle\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'rectangle\'), has_len(A, \'long\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'rectangle\'), has_len(A, \'long\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'rectangle\'), has_len(A, \'long\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'rectangle\'), has_len(A, \'short\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'rectangle\'), has_position(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'rectangle\'), has_roof(A, \'jagged\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'rectangle\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'rectangle\'), has_roof(A, \'none\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'rectangle\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'rectangle\'), has_wheels(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'triangle\'), has_position(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'triangle\'), has_position(A, \'4\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'triangle\'), has_shape(A, \'bucket\')' {'+','-'}
+@attribute 'has_cars(A), has_load_shape(A, \'triangle\'), has_shape(A, \'u_shaped\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_len(A, \'long\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_len(A, \'long\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_len(A, \'long\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_len(A, \'short\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_len(A, \'short\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_load_shape(A, \'circle\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_load_shape(A, \'circle\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_load_shape(A, \'hexagon\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_load_shape(A, \'rectangle\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_load_shape(A, \'rectangle\'), has_len(A, \'long\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_load_shape(A, \'rectangle\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_load_shape(A, \'rectangle\'), has_shape(A, \'bucket\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_load_shape(A, \'triangle\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_load_shape(A, \'triangle\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_shape(A, \'bucket\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_shape(A, \'u_shaped\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'1\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_len(A, \'long\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_len(A, \'short\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_len(A, \'short\'), has_load_shape(A, \'circle\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_load_num(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_load_shape(A, \'circle\'), has_shape(A, \'u_shaped\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_load_shape(A, \'rectangle\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_load_shape(A, \'rectangle\'), has_len(A, \'long\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_load_shape(A, \'rectangle\'), has_len(A, \'short\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_load_shape(A, \'rectangle\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_load_shape(A, \'rectangle\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_load_shape(A, \'triangle\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_load_shape(A, \'triangle\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_roof(A, \'none\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_shape(A, \'bucket\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_shape(A, \'u_shaped\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'2\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'4\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'4\'), has_len(A, \'short\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'4\'), has_roof(A, \'jagged\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'4\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_position(A, \'4\'), has_shape(A, \'u_shaped\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_len(A, \'long\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_len(A, \'short\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_load_num(A, \'1\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_load_num(A, \'1\'), has_load_shape(A, \'triangle\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_load_num(A, \'1\'), has_position(A, \'1\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_load_num(A, \'1\'), has_position(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_load_num(A, \'1\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_load_num(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_load_shape(A, \'circle\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_load_shape(A, \'hexagon\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_load_shape(A, \'rectangle\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_position(A, \'1\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_position(A, \'1\'), has_len(A, \'long\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_position(A, \'2\'), has_len(A, \'long\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'flat\'), has_wheels(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'jagged\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'jagged\'), has_load_shape(A, \'circle\')' {'+','-'}
+@attribute 'has_cars(A), has_roof(A, \'peaked\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'bucket\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_len(A, \'short\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_len(A, \'short\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_num(A, \'1\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_num(A, \'1\'), has_load_shape(A, \'rectangle\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_num(A, \'1\'), has_load_shape(A, \'triangle\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_num(A, \'1\'), has_position(A, \'1\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_num(A, \'1\'), has_position(A, \'1\'), has_load_shape(A, \'rectangle\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_num(A, \'1\'), has_position(A, \'1\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_num(A, \'1\'), has_position(A, \'1\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_num(A, \'1\'), has_position(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_num(A, \'1\'), has_position(A, \'2\'), has_load_shape(A, \'rectangle\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_num(A, \'1\'), has_position(A, \'2\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_num(A, \'1\'), has_position(A, \'4\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_shape(A, \'circle\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_shape(A, \'circle\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_shape(A, \'rectangle\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_shape(A, \'rectangle\'), has_len(A, \'short\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_shape(A, \'rectangle\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_shape(A, \'rectangle\'), has_roof(A, \'none\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_load_shape(A, \'rectangle\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'1\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'1\'), has_len(A, \'short\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'1\'), has_len(A, \'short\'), has_load_shape(A, \'circle\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'1\'), has_load_shape(A, \'rectangle\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'1\'), has_load_shape(A, \'rectangle\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'1\'), has_load_shape(A, \'triangle\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'1\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'1\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'2\'), has_load_shape(A, \'circle\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'2\'), has_load_shape(A, \'rectangle\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'2\'), has_load_shape(A, \'rectangle\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'2\'), has_load_shape(A, \'rectangle\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'2\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'2\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'3\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_position(A, \'4\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_roof(A, \'none\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_sides(A, \'not_double\'), has_len(A, \'short\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_sides(A, \'not_double\'), has_len(A, \'short\'), has_load_shape(A, \'circle\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_sides(A, \'not_double\'), has_len(A, \'short\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_sides(A, \'not_double\'), has_load_num(A, \'1\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_sides(A, \'not_double\'), has_load_num(A, \'1\'), has_load_shape(A, \'circle\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_sides(A, \'not_double\'), has_load_num(A, \'1\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_sides(A, \'not_double\'), has_load_shape(A, \'triangle\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_sides(A, \'not_double\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_sides(A, \'not_double\'), has_roof(A, \'none\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'rectangle\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_shape(A, \'u_shaped\')' {'+','-'}
+@attribute 'has_cars(A), has_sides(A, \'double\'), has_load_shape(A, \'circle\')' {'+','-'}
+@attribute 'has_cars(A), has_sides(A, \'not_double\'), has_len(A, \'short\'), has_load_shape(A, \'circle\')' {'+','-'}
+@attribute 'has_cars(A), has_sides(A, \'not_double\'), has_load_num(A, \'1\'), has_load_shape(A, \'circle\')' {'+','-'}
+@attribute 'has_cars(A), has_sides(A, \'not_double\'), has_load_num(A, \'1\'), has_position(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_sides(A, \'not_double\'), has_load_num(A, \'1\'), has_position(A, \'3\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_sides(A, \'not_double\'), has_load_shape(A, \'triangle\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_sides(A, \'not_double\'), has_load_shape(A, \'triangle\'), has_wheels(A, \'2\')' {'+','-'}
+@attribute 'has_cars(A), has_sides(A, \'not_double\'), has_roof(A, \'none\')' {'+','-'}
+@attribute 'has_cars(A), has_wheels(A, \'3\')' {'+','-'}
+@attribute 'has_cars(A), has_wheels(A, \'3\'), has_roof(A, \'jagged\')' {'+','-'}
+@attribute 'classification' {'east','west'}
+
+
+@data
+'-', '-', '-', '-', '-', '+', '-', '-', '-', '+', '-', '+', '-', '-', '-', '-', '-', '+', '-', '+', '+', '+', '+', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '+', '+', '+', '-', '+', '-', '-', '+', '-', '-', '-', '+', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '+', '-', '-', '-', '+', '-', '+', '+', '+', '-', '-', '+', '+', '+', '-', '+', '-', '-', '-', '-', '-', '+', '-', '+', '-', '-', '-', '-', '-', '-', '+', '-', '-', '+', '-', '-', '+', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '+', '+', '+', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '+', '-', '+', '+', '+', '+', '+', '-', '-', 'east'
+'+', '+', '-', '-', '+', '+', '-', '+', '+', '+', '-', '-', '+', '-', '-', '+', '-', '+', '-', '+', '+', '+', '+', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '+', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '+', '-', '-', '-', '+', '-', '+', '+', '+', '-', '-', '+', '+', '+', '-', '+', '+', '+', '-', '+', '-', '+', '+', '-', '+', '-', '-', '-', '+', '-', '+', '-', '-', '-', '-', '-', '+', '-', '-', '-', '+', '+', '+', '+', '+', '+', '-', '+', '+', '-', '+', '-', '-', '-', '+', '+', '-', '+', '+', '+', '+', '+', '+', '+', '-', '+', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '+', '-', '+', '+', '+', '+', '-', '+', '+', '+', '+', '-', '+', '+', '+', '-', '-', '-', '+', '+', '+', '-', '-', '+', '-', '-', 'east'
+'+', '-', '+', '+', '+', '+', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '+', '-', '+', '+', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '+', '-', '-', '+', '+', '+', '-', '-', '-', '-', '-', '+', '+', '+', '-', '-', '-', '-', '-', '+', '+', '+', '-', '-', '-', '+', '-', '-', '+', '-', '+', '-', '-', '-', '+', '-', '+', '+', '+', '-', '-', '+', '+', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '+', '+', '+', '+', '-', '-', '+', '+', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', 'west'
+'+', '-', '-', '-', '-', '+', '-', '+', '-', '-', '-', '+', '+', '+', '-', '-', '+', '+', '-', '-', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '-', '+', '+', '-', '-', '-', '-', '-', '+', '+', '-', '+', '-', '+', '-', '-', '-', '-', '+', '-', '+', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '+', '+', '+', '+', '-', 'west'
+'+', '-', '+', '+', '+', '+', '-', '+', '-', '-', '-', '+', '+', '-', '+', '+', '-', '+', '+', '-', '+', '+', '+', '+', '-', '+', '+', '+', '-', '+', '+', '-', '-', '+', '-', '+', '+', '+', '+', '+', '+', '-', '-', '-', '+', '+', '+', '-', '+', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '+', '+', '+', '-', '+', '+', '-', '+', '+', '+', '-', '+', '-', '+', '+', '+', '-', '+', '+', '+', '+', '+', '+', '-', '-', '-', '+', '+', '+', '-', '-', '-', '-', '+', '-', '+', '-', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '-', '-', '+', '+', '+', '+', '-', '+', '+', '+', '-', 'east'
+'+', '+', '-', '-', '+', '+', '+', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '+', '-', '-', '+', '+', '+', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '+', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '-', '-', '-', '-', '+', '+', '+', '-', '-', 'west'
+'+', '-', '+', '+', '+', '+', '-', '+', '-', '-', '-', '+', '-', '-', '-', '-', '-', '+', '-', '-', '+', '+', '-', '+', '-', '+', '-', '+', '-', '+', '+', '-', '-', '+', '+', '-', '+', '+', '+', '+', '+', '-', '-', '-', '+', '+', '+', '-', '-', '+', '-', '+', '+', '+', '+', '-', '-', '-', '-', '-', '+', '+', '+', '-', '-', '-', '+', '-', '-', '+', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '+', '+', '+', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '+', '+', '+', '-', '-', '-', '-', '-', '-', '+', '-', '+', '-', '+', '+', '+', '-', '+', '+', '+', '+', '-', '-', '+', '+', '-', '+', '+', '+', '+', '-', '-', '-', '+', '+', '+', '-', '-', '+', '+', '+', '+', '+', '+', '+', '+', '-', '+', '+', '+', '+', '-', '+', '+', '+', '-', '+', '+', '+', '+', '+', 'east'
+'+', '-', '-', '-', '+', '+', '+', '+', '-', '+', '+', '+', '+', '+', '-', '-', '+', '+', '-', '-', '-', '+', '+', '+', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '+', '-', '-', '+', '-', '-', '+', '+', '+', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '+', '-', '-', '+', '-', '+', '+', '-', '-', '+', '+', '-', '+', '-', '-', '-', '-', '-', '+', '-', '+', '-', '-', '-', '+', '+', '+', '+', '+', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '+', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '+', '+', '-', '+', '+', '-', '+', '+', '+', '+', '+', '-', '-', '+', '+', '+', '+', '+', '+', '+', '+', '+', 'east'
+'+', '-', '-', '-', '-', '+', '-', '+', '-', '+', '+', '-', '+', '-', '+', '+', '-', '+', '-', '+', '+', '+', '-', '+', '-', '-', '-', '-', '-', '+', '+', '+', '-', '-', '-', '-', '-', '+', '+', '-', '-', '+', '+', '+', '+', '+', '+', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '+', '-', '+', '-', '-', '-', '+', '-', '+', '+', '+', '-', '-', '+', '+', '-', '-', '+', '+', '+', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '+', '+', '+', '+', '+', '-', '-', '-', '-', '-', '+', '+', '+', '-', '-', '-', '+', '+', '+', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '+', '+', '+', '+', '+', '+', '-', '-', '+', '+', '+', '-', '+', '+', '-', '+', '-', '+', '+', '+', '-', '-', '+', '+', '+', '-', '-', '-', '+', '+', '+', 'west'
+'+', '-', '+', '+', '+', '+', '-', '+', '+', '+', '-', '+', '+', '+', '+', '+', '-', '+', '-', '+', '+', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '+', '-', '+', '-', '-', '-', '+', '-', '-', '+', '+', '+', '-', '+', '-', '-', '-', '+', '+', '+', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '+', '-', '-', '+', '-', '+', '-', '-', '-', '+', '-', '+', '+', '+', '-', '-', '+', '+', '-', '-', '+', '-', '-', '-', '-', '-', '+', '-', '+', '+', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '+', '+', '+', '+', '+', '+', '-', '+', '+', '+', '+', '+', '-', '-', '-', '+', '+', '+', '+', '+', '+', '-', '-', '-', '-', '-', '+', '+', '+', '-', '+', '+', '+', '+', '+', '+', '-', '-', '+', '+', '+', '-', '+', '+', '-', '+', '+', '+', '+', '+', '-', '-', '-', '-', '+', '+', '-', '+', '+', '-', '-', 'east'
+'-', '-', '-', '-', '-', '+', '-', '-', '-', '+', '-', '+', '+', '-', '+', '+', '-', '+', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '+', '+', '+', '-', '+', '+', '+', '-', '-', '-', '-', '+', '+', '-', '-', '-', '+', '-', '+', '-', '-', '-', '+', '-', '-', '+', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '+', '+', '+', '-', '+', '+', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '+', '+', '+', '-', '+', '+', '-', '+', '-', '+', '+', '+', '-', '-', '-', '-', '-', '-', '+', '+', '+', '-', '-', 'east'
+'+', '-', '+', '+', '+', '+', '-', '+', '+', '-', '-', '-', '+', '+', '+', '+', '-', '+', '-', '-', '+', '+', '+', '-', '-', '+', '+', '+', '-', '+', '+', '-', '-', '+', '-', '+', '-', '+', '+', '+', '+', '-', '-', '-', '+', '+', '+', '-', '-', '-', '-', '-', '+', '+', '+', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '+', '-', '-', '+', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '+', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '-', '-', '+', '-', '+', '+', '+', '-', '+', '-', '+', '+', '+', '-', '+', '+', '+', '+', '-', '-', '-', '-', '-', '+', '+', '+', '+', '-', '-', '-', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '-', '+', '+', '+', '-', '+', '+', '+', '-', '-', '-', '-', '+', '-', '-', 'west'
+'+', '+', '-', '-', '+', '+', '-', '-', '-', '-', '-', '+', '+', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '-', '-', '+', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '+', '+', '+', '-', '+', '+', '-', '+', '+', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '+', '+', '+', '+', '+', '-', '-', '-', '-', '+', '-', '-', '-', '+', '+', '+', '-', '+', '+', '-', '+', '+', '+', '+', '+', '-', '-', '-', '-', '-', '-', '+', '+', '+', '-', '-', 'west'
+'+', '-', '-', '-', '-', '+', '-', '+', '-', '+', '+', '+', '+', '-', '-', '+', '-', '+', '+', '+', '-', '+', '+', '+', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '+', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '-', '+', '+', '+', '-', '+', '-', '+', '+', '-', '+', '+', '+', '-', '-', '-', '-', '+', '+', '+', '+', '+', '+', '-', '-', '+', '+', '+', '-', '-', '+', '-', '+', '-', '-', '-', '-', '+', '+', '+', '-', '-', '-', '-', '+', '+', '-', '+', '-', '-', '-', '-', '+', '+', '-', '+', '+', '+', '+', '-', '+', '+', '+', '-', '-', '-', '+', '-', '-', '+', '+', '-', '-', '-', '-', '-', '+', '-', 'east'
+'+', '-', '-', '-', '+', '+', '-', '-', '-', '+', '-', '-', '+', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '+', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '+', '-', '+', '+', '-', '-', '+', '+', '-', '+', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', 'west'
+'-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '+', '+', '-', '+', '+', '-', '+', '-', '-', '+', '+', '+', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '-', '+', '-', '+', '+', '-', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '+', '+', '+', '+', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '-', '+', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '+', '+', '-', '+', '+', '-', '+', '+', '+', '+', '+', '+', '-', '+', '+', '+', '+', '+', '+', '+', '-', '-', 'east'
+'+', '-', '+', '+', '+', '+', '+', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '-', '+', '-', '+', '+', '+', '+', '-', '+', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '+', '-', '+', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '+', '+', '+', '-', '+', '+', '+', '+', '-', '-', '-', '-', '-', '-', '+', '-', '-', '+', '+', '+', '+', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '+', '+', '+', '+', '-', '-', '+', '-', '-', '-', '-', '+', '-', '+', '-', '+', '-', '+', '+', '+', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '-', '-', '-', '-', '-', '+', '+', '+', '+', '-', 'west'
+'+', '-', '+', '-', '-', '+', '-', '-', '-', '-', '-', '+', '+', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '-', '-', '-', '-', '+', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '-', '+', '+', '+', '-', '-', '+', '-', '+', '+', '-', '+', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '+', '+', '-', '+', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '+', '-', '-', '-', '-', '-', '+', '+', '+', '+', '-', 'west'
+'+', '-', '-', '-', '-', '+', '-', '+', '-', '+', '+', '-', '+', '-', '+', '+', '-', '+', '+', '+', '-', '-', '-', '+', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '+', '+', '-', '-', '-', '-', '-', '-', '-', '+', '-', '+', '+', '+', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '+', '-', '-', '+', '-', '-', '-', '-', '+', '-', '-', '+', '-', '+', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '+', '-', '+', '+', '-', '-', '-', '-', '+', '+', '-', 'west'
+'+', '-', '-', '-', '-', '+', '-', '+', '-', '-', '-', '+', '+', '+', '-', '-', '+', '+', '-', '-', '-', '+', '+', '+', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '+', '+', '+', '+', '+', '+', '+', '+', '-', '-', '-', '-', '+', '+', '-', '+', '+', '-', '-', '-', '-', '+', '+', '+', '-', '+', '+', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '-', '-', '-', '-', '+', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '+', '+', '-', '+', '+', '+', '+', '+', '+', '+', '+', '-', '+', '+', '+', '-', '-', '+', '+', '+', '+', '-', '+', '+', '+', '-', 'east'

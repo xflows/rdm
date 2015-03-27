@@ -144,11 +144,11 @@ class DBContext:
         else:
             con = self.connection.connect()
             cursor = con.cursor() 
-            attributes = self.db.fmt_cols(cols)
+            attributes = self.fmt_cols(cols)
             cursor.execute("SELECT %s FROM %s WHERE `%s`='%s'" % (attributes, table, pk_att, pk))
             result = [cols for cols in cursor]
             con.close()
-            return results
+            return result
 
     def fetch_types(self, table, cols):
         '''
