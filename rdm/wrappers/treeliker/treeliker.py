@@ -26,16 +26,22 @@ class TreeLiker:
         cdir = os.path.dirname(os.path.abspath(__file__))
         shutil.copytree('%s/bin/' % cdir, '%s/bin/' % self.tmpdir)
 
-    def run(self, cleanup=True):
+    def run(self, cleanup=True, printOutput=False):
         '''
         Runs TreeLiker with the given settings.
         '''
         self._copy_data()
         self._batch()
 
+        dumpFile = None
+        if not printOutput:
+            dumpFile = tempfile.TemporaryFile()
+
         p = Popen(['java', '-Xmx3G', '-cp', 'bin/TreeLiker.jar', 
                    'ida.ilp.treeLiker.TreeLikerMain', '-batch', self.batch], 
-                   cwd=self.tmpdir)
+                   cwd=self.tmpdir,
+                   stdout=dumpFile,
+                   stderr=dumpFile)
         stdout_str, stderr_str = p.communicate()
 
         if not self.test_dataset:

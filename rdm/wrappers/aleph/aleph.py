@@ -94,7 +94,7 @@ class Aleph(object):
         self.postGoal = goal
         self.postScript = script
 
-    def induce(self, mode, pos, neg, b, filestem='default'):
+    def induce(self, mode, pos, neg, b, filestem='default', printOutput=False):
         """
         Induce a theory or features in 'mode'.
 
@@ -114,8 +114,16 @@ class Aleph(object):
 
         logger.info("Running aleph...")
 
+        dumpFile = None
+        if not printOutput:
+            dumpFile = tempfile.TemporaryFile()
+
         # Run the aleph script.
-        p = SafePopen(['yap', '-s50000', '-h200000', '-L', Aleph.SCRIPT], cwd=self.tmpdir).safe_run()
+        p = SafePopen(['yap', '-s50000', '-h200000', '-L', Aleph.SCRIPT],
+                      cwd=self.tmpdir,
+                      stdout=dumpFile,
+                      stderr=dumpFile
+        ).safe_run()
         stdout_str, stderr_str = p.communicate()
 
         logger.info("Done.")
@@ -222,12 +230,3 @@ class Aleph(object):
 	    vals.append(cls)
             cat('%s' % ','.join(vals))
         return arff.getvalue()
-
-
-if __name__ == '__main__':
-    aleph = Aleph()
-    print aleph.induce('induce_features',
-                        open('test/train.f').read(), 
-                        open('test/train.n').read(), 
-                        open('test/train.b').read(), 
-                        filestem='trains_test')

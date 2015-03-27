@@ -74,7 +74,12 @@ class RSD(object):
         for name, val in pairs:
             self.set(name, val)
 
-    def induce(self, b, filestem='default', examples=None, pos=None, neg=None, cn2sd=True):
+    def induce(self, b, filestem='default',
+               examples=None,
+               pos=None,
+               neg=None,
+               cn2sd=True,
+               printOutput=False):
         """
         Generate features and find subgroups.
         
@@ -97,6 +102,10 @@ class RSD(object):
         # Write scripts
         self.__scripts(filestem)
 
+        dumpFile = None
+        if not printOutput:
+            dumpFile = tempfile.TemporaryFile()
+
         # Run the script
         logger.info("Running RSD...")
         try:
@@ -104,7 +113,10 @@ class RSD(object):
                 # Skip subgroup discovery part?
                 if script == RSD.SUBGROUPS and not cn2sd:
                     continue
-                p = SafePopen(['yap', '-s50000', '-h200000', '-L', script], cwd=self.tmpdir, stdout=PIPE).safe_run()
+                p = SafePopen(['yap', '-s50000', '-h200000', '-L', script],
+                              cwd=self.tmpdir,
+                              stdout=dumpFile,
+                              stderr=dumpFile).safe_run()
                 stdout_str, stderr_str = p.communicate()
                 logger.debug(stdout_str)
                 logger.debug(stderr_str)
@@ -204,12 +216,3 @@ class RSD(object):
         w('i,')
         w('w.')
         script_subgroups.close()
-
-if __name__ == '__main__':
-    examples = open('example/trains.pl').read()
-    b = open('example/trains.b').read()
-    rsd = RSD()
-    features, weka, rules = rsd.induce(b, examples=examples)
-    print features
-    print weka
-    print rules
