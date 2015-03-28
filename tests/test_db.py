@@ -34,7 +34,7 @@ class TestContext(unittest.TestCase):
             TEST_DB['database']
         )
 
-    def test_read(self):
+    def test_db_read(self):
         '''
             tables:           list of selected tables
             cols:             dict of columns for each table

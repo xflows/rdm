@@ -165,7 +165,6 @@ class DBContext:
         return types
 
     def compute_col_vals(self):
-        import time
         con = self.connection.connect()
         cursor = con.cursor()
         for table, cols in self.cols.items():
