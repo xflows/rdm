@@ -10,12 +10,33 @@ class DBConnection:
     '''
     Database credentials.
     '''
+
+    class Manager:
+        '''
+        Context Manager.
+        '''
+        def __init__(self, user, password, host, database):
+            self.con = sql.connect(
+                user=user,
+                password=password,
+                host=host, 
+                database=database
+            )
+
+        def __enter__(self):
+            return self.con
+
+        def __exit__(self, exc_type, exc_value, traceback):
+            self.con.close()
+
+
     def __init__(self, user, password, host, database):
         self.user = user
         self.password = password
         self.host = host
         self.database = database
         self.check_connection()
+
 
     def check_connection(self):
         try:
@@ -24,13 +45,20 @@ class DBConnection:
         except Exception,e:
             raise Exception('Problem connecting to the database. Please re-check your credentials.')
 
+
+    def connection(self):
+        return self.connect().con
+
+
     def connect(self):
-        return sql.connect(user=self.user, password=self.password, host=self.host, database=self.database)
+        return DBConnection.Manager(self.user, self.password, self.host, self.database)
 
 
 class DBContext:
-    def __init__(self, connection, find_connections=False, in_memory=True):
+    def __init__(self, datasource, find_connections=False, in_memory=True):
         '''
+        @datasource: a DataSource instance.
+
         Initializes the fields:
             tables:           list of selected tables
             cols:             dict of columns for each table
@@ -43,57 +71,28 @@ class DBContext:
             target_table:     selected table for learning
             target_att:       selected column for learning
         '''
-        self.connection = connection
-        con = connection.connect()
-        cursor = con.cursor()
-        cursor.execute('SHOW tables')
-        self.tables = [table for (table,) in cursor]
+        self.src = datasource
+        self.tables = self.src.tables()
         self.cols = {}
         for table in self.tables:
-            cursor.execute("SELECT column_name FROM information_schema.columns WHERE table_name = '%s' AND table_schema='%s'" % (table,connection.database))
-            self.cols[table] = [col for (col,) in cursor]
+            self.cols[table] = self.src.table_columns(table)
+
         self.all_cols = dict(self.cols)
         self.col_vals = {}
 
-        self.connected = defaultdict(list)
-        cursor.execute(
-           "SELECT table_name, column_name, referenced_table_name, referenced_column_name \
-            FROM information_schema.KEY_COLUMN_USAGE \
-            WHERE referenced_table_name IS NOT NULL AND table_schema='%s'" % connection.database)
-        self.fkeys = defaultdict(set)
-        self.reverse_fkeys = {}
-        self.pkeys = {}
-        if find_connections:
-            for table in self.tables:
-                for col in self.cols[table]:
-                    if col.endswith('_id'):
-                        ref_table = (col[:-4] + 'ies') if col[-4] == 'y' and col[-5] != 'e' else (col[:-3] + 's')
-                        if ref_table in self.tables:
-                            self.connected[(table, ref_table)].append((col, 'id'))
-                            self.connected[(ref_table, table)].append(('id', col))
-                            self.fkeys[table].add(col)
-                            self.reverse_fkeys[(table, col)] = ref_table
+        conn_data = self.src.connected(
+            self.tables,
+            self.cols,
+            find_connections=find_connections
+        )
+        self.connected, self.pkeys, self.fkeys, self.reverse_fkeys = conn_data
 
-                    if col == 'id':
-                        self.pkeys[table] = col
-        for (table, col, ref_table, ref_col) in cursor:
-            self.connected[(table, ref_table)].append((col, ref_col))
-            self.connected[(ref_table, table)].append((ref_col, col))
-            self.fkeys[table].add(col)
-            self.reverse_fkeys[(table, col)] = ref_table
-
-        cursor.execute(
-            "SELECT table_name, column_name \
-             FROM information_schema.KEY_COLUMN_USAGE \
-             WHERE constraint_name='PRIMARY' AND table_schema='%s'" % connection.database)
-        for (table, pk) in cursor:
-            self.pkeys[table] = pk
         self.target_table = self.tables[0]
         self.target_att = None
-        con.close()
 
         self.orng_tables = None
         self.in_memory = in_memory
+
 
     def read_into_orange(self):
         conv = converters.OrangeConverter(self)
@@ -105,19 +104,13 @@ class DBContext:
         tables.update(other_tables)
         return tables
 
-    def fmt_cols(self, cols):
-        return ','.join(["`%s`" % col for col in cols])
 
     def fetch(self, table, cols):
         '''
         Fetches rows from the db.
         '''
-        con = self.connection.connect()
-        cursor = con.cursor() 
-        cursor.execute("SELECT %s FROM %s" % (self.fmt_cols(cols), table))
-        result = [cols for cols in cursor]
-        con.close()
-        return result
+        return self.src.fetch(table, cols)
+
 
     def rows(self, table, cols):
         '''
@@ -131,6 +124,7 @@ class DBContext:
         else:
             return self.fetch(table, cols)
 
+
     def select_where(self, table, cols, pk_att, pk):
         '''
         SELECT with WHERE clause.
@@ -142,40 +136,26 @@ class DBContext:
                     data.append([ex[str(col)] for col in cols])
             return data
         else:
-            con = self.connection.connect()
-            cursor = con.cursor() 
-            attributes = self.fmt_cols(cols)
-            cursor.execute("SELECT %s FROM %s WHERE `%s`='%s'" % (attributes, table, pk_att, pk))
-            result = [cols for cols in cursor]
-            con.close()
-            return result
+            return self.src.select_where(table, cols, pk_att, pk)
+
 
     def fetch_types(self, table, cols):
         '''
         Returns a dictionary of field types for the given table and columns.
         '''
-        con = self.connection.connect()
-        cursor = con.cursor() 
-        cursor.execute("SELECT %s FROM `%s` LIMIT 1" % (self.fmt_cols(cols), table))
-        cursor.fetchall()
-        types = {}
-        for desc in cursor.description:
-            types[desc[0]] = sql.FieldType.get_info(desc[1])
-        con.close()
-        return types
+        return self.src.fetch_types(table, cols)
+
 
     def compute_col_vals(self):
-        con = self.connection.connect()
-        cursor = con.cursor()
         for table, cols in self.cols.items():
             self.col_vals[table] = {}
             for col in cols:
-                cursor.execute("SELECT DISTINCT BINARY `%s`, `%s` FROM `%s`" % (col, col, table))
-                self.col_vals[table][col] = [val for (_,val) in cursor]
-        con.close()
+                self.col_vals[table][col] = self.src.column_values(table, col)
+
 
     def copy(self):
         return copy.deepcopy(self)
+
 
     def __repr__(self):
         return pprint.pformat({

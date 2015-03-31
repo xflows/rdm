@@ -5,17 +5,14 @@ Classes for handling DBContexts for ILP systems.
 '''
 import re
 
+
 class Converter:
     '''
     Base class for converters.
     '''
     def __init__(self, dbcontext):
         self.db = dbcontext
-        self.connection = dbcontext.connection.connect()
-        self.cursor = self.connection.cursor()
 
-    def __del__(self):  
-        self.connection.close()
 
 class ILPConverter(Converter):
     '''

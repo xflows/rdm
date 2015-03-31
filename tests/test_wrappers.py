@@ -4,7 +4,7 @@ import sys
 sys.path.append('..')
 
 
-from rdm.db import DBConnection, DBContext, OrangeConverter, RSDConverter, AlephConverter, TreeLikerConverter
+from rdm.db import DBConnection, DBContext, OrangeConverter, RSDConverter, AlephConverter, TreeLikerConverter, MySQLDataSource
 from rdm.wrappers import Wordification, RSD, Aleph, TreeLiker
 from conf import TEST_DB, RESULTS_FOLDER
 
@@ -18,7 +18,7 @@ class TestWrappers(unittest.TestCase):
             TEST_DB['host'],
             TEST_DB['database']
         )
-        self.context = DBContext(self.connection)
+        self.context = DBContext(MySQLDataSource(self.connection))
         self.context.target_table = 'trains'
         self.context.target_att = 'direction'
 

@@ -3,7 +3,7 @@ import sys
 sys.path.append('..')
 
 
-from rdm.db import DBConnection, DBContext
+from rdm.db import DBConnection, DBContext, MySQLDataSource
 from conf import TEST_DB
 
 
@@ -47,6 +47,6 @@ class TestContext(unittest.TestCase):
             target_table:     selected table for learning
             target_att:       selected column for learning
         '''
-        self.context = DBContext(self.connection)
+        self.context = DBContext(MySQLDataSource(self.connection))
         self.assertListEqual(self.context.tables, ['cars', 'trains'])
         self.assertTrue(('cars', 'trains') in self.context.connected)

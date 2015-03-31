@@ -5,6 +5,7 @@ MySQL connectivity library.
 '''
 from django import forms
 import mysql.connector as sql
+from datasource import MySQLDatasource
 from context import DBConnection, DBContext
 from converters import RSDConverter, AlephConverter, OrangeConverter, TreeLikerConverter
 from mapper import domain_map
@@ -26,7 +27,7 @@ def mysql_db_context(input_dict):
 def mysql_db_context_finished(postdata, input_dict, output_dict):
     con = input_dict['connection']
     find_con = input_dict['find_connections'] == 'true'
-    context = DBContext(con, find_connections=find_con)
+    context = DBContext(MySQLDatasource(con), find_connections=find_con)
     _update_context(context, postdata)
     return {'context' : context}
 
