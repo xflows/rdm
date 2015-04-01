@@ -6,7 +6,7 @@
       "treeview_image": "", 
       "uid": "50f8a9cf-046c-43e9-9681-d700cbbbb689", 
       "windows_queue": false, 
-      "package": "mysql", 
+      "package": "rdm.db", 
       "interaction_view": "", 
       "has_progress_bar": false, 
       "image": "", 

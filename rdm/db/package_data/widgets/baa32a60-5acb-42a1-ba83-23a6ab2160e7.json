@@ -6,7 +6,7 @@
       "treeview_image": "", 
       "uid": "baa32a60-5acb-42a1-ba83-23a6ab2160e7", 
       "is_streaming": false, 
-      "package": "mysql", 
+      "package": "rdm.db", 
       "interaction_view": "mysql_orange_converter", 
       "has_progress_bar": false, 
       "image": "", 

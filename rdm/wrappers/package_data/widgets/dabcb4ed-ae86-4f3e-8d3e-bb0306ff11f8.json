@@ -6,7 +6,7 @@
       "treeview_image": "", 
       "uid": "dabcb4ed-ae86-4f3e-8d3e-bb0306ff11f8", 
       "is_streaming": false, 
-      "package": "ilp", 
+      "package": "rdm.wrappers", 
       "interaction_view": "", 
       "has_progress_bar": false, 
       "image": "", 

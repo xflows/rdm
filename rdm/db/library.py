@@ -5,7 +5,7 @@ MySQL connectivity library.
 '''
 from django import forms
 import mysql.connector as sql
-from datasource import MySQLDatasource
+from datasource import MySQLDataSource
 from context import DBConnection, DBContext
 from converters import RSDConverter, AlephConverter, OrangeConverter, TreeLikerConverter
 from mapper import domain_map
@@ -16,7 +16,7 @@ def mysql_connect(input_dict):
     password = str(input_dict['password'])
     host = str(input_dict['host'])
     db = str(input_dict['database'])
-    con = DBConnection(user, password, host, db)
+    con = MySQLDataSource(DBConnection(user, password, host, db))
     return {'connection' : con}
 
 
@@ -27,7 +27,7 @@ def mysql_db_context(input_dict):
 def mysql_db_context_finished(postdata, input_dict, output_dict):
     con = input_dict['connection']
     find_con = input_dict['find_connections'] == 'true'
-    context = DBContext(MySQLDatasource(con), find_connections=find_con)
+    context = DBContext(con, find_connections=find_con)
     _update_context(context, postdata)
     return {'context' : context}
 
