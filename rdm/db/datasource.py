@@ -64,7 +64,10 @@ class DataSource:
 
 
 class MySQLDataSource(DataSource):
-    
+    '''
+    A DataSource implementation for accessing datasets from a MySQL DBMS.
+    '''
+
     def __init__(self, connection):
         '''
         @connection: a DBConnection instance.

@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>rdm.db.datasource &mdash; Python-RDM 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Python-RDM 0.1 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> Python-RDM</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installing-the-python-rdm-package">Installing the Python-RDM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#prerequisites-of-specific-ilp-rdm-algorithms">Prerequisites of specific ILP/RDM algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../example.html">Example use case</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../clowdflows.html">ClowdFlows integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference.html#module-rdm.db.datasource">Database interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference.html#module-rdm.db.wrappers">Algorithm wrappers</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">Python-RDM</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>rdm.db.datasource</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for rdm.db.datasource</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">exceptions</span> <span class="kn">import</span> <span class="ne">NotImplementedError</span>
+<span class="kn">import</span> <span class="nn">mysql.connector</span> <span class="kn">as</span> <span class="nn">sql</span>
+
+
+<div class="viewcode-block" id="DataSource"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource">[docs]</a><span class="k">class</span> <span class="nc">DataSource</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    A data abstraction layer for accessing datasets.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="DataSource.tables"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.tables">[docs]</a>    <span class="k">def</span> <span class="nf">tables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns a list of table names.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="DataSource.table_columns"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.table_columns">[docs]</a>    <span class="k">def</span> <span class="nf">table_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns a list of columns for the given table.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="DataSource.connected"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.connected">[docs]</a>    <span class="k">def</span> <span class="nf">connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns a list of tuples of connected table pairs.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="DataSource.table_primary_key"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.table_primary_key">[docs]</a>    <span class="k">def</span> <span class="nf">table_primary_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns the primary key attribute name for the given table.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="DataSource.fetch"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Fetches rows for the given table and columns.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="DataSource.select_where"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.select_where">[docs]</a>    <span class="k">def</span> <span class="nf">select_where</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Select with where clause.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="DataSource.fetch_types"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.fetch_types">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns a dictionary of field types for the given table and columns.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="DataSource.column_values"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.column_values">[docs]</a>    <span class="k">def</span> <span class="nf">column_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns a list of distinct values for the given table and column.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+</div></div>
+<div class="viewcode-block" id="MySQLDataSource"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.MySQLDataSource">[docs]</a><span class="k">class</span> <span class="nc">MySQLDataSource</span><span class="p">(</span><span class="n">DataSource</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    A DataSource implementation for accessing datasets from a MySQL DBMS.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        @connection: a DBConnection instance.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">connection</span>
+
+
+    <span class="k">def</span> <span class="nf">tables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;SHOW tables&#39;</span><span class="p">)</span>
+            <span class="n">tables</span> <span class="o">=</span> <span class="p">[</span><span class="n">table</span> <span class="k">for</span> <span class="p">(</span><span class="n">table</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">tables</span>
+
+
+    <span class="k">def</span> <span class="nf">table_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;SELECT column_name FROM information_schema.columns WHERE table_name = &#39;</span><span class="si">%s</span><span class="s">&#39; AND table_schema=&#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">database</span><span class="p">))</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="p">(</span><span class="n">col</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">columns</span>
+
+
+    <span class="k">def</span> <span class="nf">connected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tables</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">find_connections</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="n">connected</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="n">fkeys</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+        <span class="n">reverse_fkeys</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">pkeys</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+               <span class="s">&quot;SELECT table_name, column_name, referenced_table_name, referenced_column_name </span><span class="se">\</span>
+<span class="s">                FROM information_schema.KEY_COLUMN_USAGE </span><span class="se">\</span>
+<span class="s">                WHERE referenced_table_name IS NOT NULL AND table_schema=&#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">database</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">find_connections</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">[</span><span class="n">table</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;_id&#39;</span><span class="p">):</span>
+                            <span class="n">ref_table</span> <span class="o">=</span> <span class="p">(</span><span class="n">col</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;ies&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">col</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;y&#39;</span> <span class="ow">and</span> <span class="n">col</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;e&#39;</span> <span class="k">else</span> <span class="p">(</span><span class="n">col</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;s&#39;</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">ref_table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
+                                <span class="n">connected</span><span class="p">[(</span><span class="n">table</span><span class="p">,</span> <span class="n">ref_table</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">col</span><span class="p">,</span> <span class="s">&#39;id&#39;</span><span class="p">))</span>
+                                <span class="n">connected</span><span class="p">[(</span><span class="n">ref_table</span><span class="p">,</span> <span class="n">table</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">col</span><span class="p">))</span>
+                                <span class="n">fkeys</span><span class="p">[</span><span class="n">table</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+                                <span class="n">reverse_fkeys</span><span class="p">[(</span><span class="n">table</span><span class="p">,</span> <span class="n">col</span><span class="p">)]</span> <span class="o">=</span> <span class="n">ref_table</span>
+                        <span class="k">if</span> <span class="n">col</span> <span class="o">==</span> <span class="s">&#39;id&#39;</span><span class="p">:</span>
+                            <span class="n">pkeys</span><span class="p">[</span><span class="n">table</span><span class="p">]</span> <span class="o">=</span> <span class="n">col</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">ref_table</span><span class="p">,</span> <span class="n">ref_col</span><span class="p">)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+                <span class="n">connected</span><span class="p">[(</span><span class="n">table</span><span class="p">,</span> <span class="n">ref_table</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">col</span><span class="p">,</span> <span class="n">ref_col</span><span class="p">))</span>
+                <span class="n">connected</span><span class="p">[(</span><span class="n">ref_table</span><span class="p">,</span> <span class="n">table</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">ref_col</span><span class="p">,</span> <span class="n">col</span><span class="p">))</span>
+                <span class="n">fkeys</span><span class="p">[</span><span class="n">table</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+                <span class="n">reverse_fkeys</span><span class="p">[(</span><span class="n">table</span><span class="p">,</span> <span class="n">col</span><span class="p">)]</span> <span class="o">=</span> <span class="n">ref_table</span>
+
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s">&quot;SELECT table_name, column_name </span><span class="se">\</span>
+<span class="s">                 FROM information_schema.KEY_COLUMN_USAGE </span><span class="se">\</span>
+<span class="s">                 WHERE constraint_name=&#39;PRIMARY&#39; AND table_schema=&#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">database</span><span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">pk</span><span class="p">)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+                <span class="n">pkeys</span><span class="p">[</span><span class="n">table</span><span class="p">]</span> <span class="o">=</span> <span class="n">pk</span>
+
+        <span class="k">return</span> <span class="n">connected</span><span class="p">,</span> <span class="n">pkeys</span><span class="p">,</span> <span class="n">fkeys</span><span class="p">,</span> <span class="n">reverse_fkeys</span>
+
+
+    <span class="k">def</span> <span class="nf">fmt_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&quot;`</span><span class="si">%s</span><span class="s">`&quot;</span> <span class="o">%</span> <span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">])</span>
+
+
+    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> 
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;SELECT </span><span class="si">%s</span><span class="s"> FROM </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">table</span><span class="p">))</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span> <span class="k">for</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+
+    <span class="k">def</span> <span class="nf">select_where</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> 
+            <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;SELECT </span><span class="si">%s</span><span class="s"> FROM </span><span class="si">%s</span><span class="s"> WHERE `</span><span class="si">%s</span><span class="s">`=&#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">attributes</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">))</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span> <span class="k">for</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+
+    <span class="k">def</span> <span class="nf">fetch_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> 
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;SELECT </span><span class="si">%s</span><span class="s"> FROM `</span><span class="si">%s</span><span class="s">` LIMIT 1&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">table</span><span class="p">))</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="n">types</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
+                <span class="n">types</span><span class="p">[</span><span class="n">desc</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">FieldType</span><span class="o">.</span><span class="n">get_info</span><span class="p">(</span><span class="n">desc</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">types</span>
+
+
+    <span class="k">def</span> <span class="nf">column_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;SELECT DISTINCT BINARY `</span><span class="si">%s</span><span class="s">`, `</span><span class="si">%s</span><span class="s">` FROM `</span><span class="si">%s</span><span class="s">`&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">table</span><span class="p">))</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">val</span> <span class="k">for</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">values</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Anze Vavpetic, Matic Perovsek.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

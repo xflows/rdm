@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API Reference &mdash; Python-RDM 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Python-RDM 0.1 documentation" href="index.html"/>
+        <link rel="prev" title="ClowdFlows integration" href="clowdflows.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> Python-RDM</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-the-python-rdm-package">Installing the Python-RDM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites-of-specific-ilp-rdm-algorithms">Prerequisites of specific ILP/RDM algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Example use case</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clowdflows.html">ClowdFlows integration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-rdm.db.datasource">Database interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rdm.db.wrappers">Algorithm wrappers</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Python-RDM</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/api_reference.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<p>The package is divided into two main independent subpackages: <code class="docutils literal"><span class="pre">rdm.db</span></code> and <code class="docutils literal"><span class="pre">rdm.wrappers</span></code>.</p>
+<div class="section" id="module-rdm.db.datasource">
+<span id="database-interaction"></span><h2>Database interaction<a class="headerlink" href="#module-rdm.db.datasource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="rdm.db.datasource.DataSource">
+<em class="property">class </em><code class="descclassname">rdm.db.datasource.</code><code class="descname">DataSource</code><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>A data abstraction layer for accessing datasets.</p>
+<dl class="method">
+<dt id="rdm.db.datasource.DataSource.column_values">
+<code class="descname">column_values</code><span class="sig-paren">(</span><em>table</em>, <em>col</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.column_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.column_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of distinct values for the given table and column.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.datasource.DataSource.connected">
+<code class="descname">connected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.connected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.connected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of tuples of connected table pairs.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.datasource.DataSource.fetch">
+<code class="descname">fetch</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches rows for the given table and columns.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.datasource.DataSource.fetch_types">
+<code class="descname">fetch_types</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.fetch_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.fetch_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary of field types for the given table and columns.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.datasource.DataSource.select_where">
+<code class="descname">select_where</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em>, <em>pk_att</em>, <em>pk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.select_where"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.select_where" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select with where clause.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.datasource.DataSource.table_columns">
+<code class="descname">table_columns</code><span class="sig-paren">(</span><em>table_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.table_columns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.table_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of columns for the given table.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.datasource.DataSource.table_primary_key">
+<code class="descname">table_primary_key</code><span class="sig-paren">(</span><em>table_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.table_primary_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.table_primary_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the primary key attribute name for the given table.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.datasource.DataSource.tables">
+<code class="descname">tables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.tables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.tables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of table names.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rdm.db.datasource.MySQLDataSource">
+<em class="property">class </em><code class="descclassname">rdm.db.datasource.</code><code class="descname">MySQLDataSource</code><span class="sig-paren">(</span><em>connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#MySQLDataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.MySQLDataSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>A DataSource implementation for accessing datasets from a MySQL DBMS.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-rdm.db.wrappers">
+<span id="algorithm-wrappers"></span><h2>Algorithm wrappers<a class="headerlink" href="#module-rdm.db.wrappers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="rdm.wrappers.Aleph">
+<em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">Aleph</code><span class="sig-paren">(</span><em>verbosity=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/aleph/aleph.html#Aleph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Aleph" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="rdm.wrappers.Aleph.induce">
+<code class="descname">induce</code><span class="sig-paren">(</span><em>mode</em>, <em>pos</em>, <em>neg</em>, <em>b</em>, <em>filestem='default'</em>, <em>printOutput=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/aleph/aleph.html#Aleph.induce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Aleph.induce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Induce a theory or features in &#8216;mode&#8217;.</p>
+<p>&#64;param filestem The base name of this experiment.
+&#64;param mode In which mode to induce rules/features.
+&#64;param pos String of positive examples.
+&#64;param neg String of negative examples.
+&#64;param b String with background knowledge.</p>
+<p>&#64;return The theory as a string or an arff dataset in induce_features mode.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.wrappers.Aleph.set">
+<code class="descname">set</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/aleph/aleph.html#Aleph.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Aleph.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the value of setting &#8216;name&#8217; to &#8216;value&#8217;.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.wrappers.Aleph.setPostScript">
+<code class="descname">setPostScript</code><span class="sig-paren">(</span><em>goal</em>, <em>script</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/aleph/aleph.html#Aleph.setPostScript"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Aleph.setPostScript" title="Permalink to this definition">¶</a></dt>
+<dd><p>After learning call the given script using &#8216;goal&#8217;.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.wrappers.Aleph.settingsAsFacts">
+<code class="descname">settingsAsFacts</code><span class="sig-paren">(</span><em>settings</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/aleph/aleph.html#Aleph.settingsAsFacts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Aleph.settingsAsFacts" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Parses a string of settings in the form:</dt>
+<dd>set(name1, val1), set(name2, val2)...</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="clowdflows.html" class="btn btn-neutral" title="ClowdFlows integration"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Anze Vavpetic, Matic Perovsek.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
