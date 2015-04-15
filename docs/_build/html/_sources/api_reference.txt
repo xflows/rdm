@@ -9,16 +9,83 @@ Database interaction
 
 .. py:module:: rdm.db.datasource
 
+Databases can be accessed via different so-called data sources. You can add your own data source by subclassing the base ``rdm.db.datasource.DataSource`` class.
+
+Base DataSource
+^^^^^^^^^^^^^^^
+
 .. autoclass:: rdm.db.datasource.DataSource
     :members:
+
+MySQLDataSource
+^^^^^^^^^^^^^^^ 
 
 .. autoclass:: rdm.db.datasource.MySQLDataSource
     :members:
 
+.. py:module:: rdm.db.context
+
+Database Context
+^^^^^^^^^^^^^^^^
+
+A ``DBContext`` object represents a *view* of a particular data source that can be used for learning. Example uses include: selecting only particular tables, table columns, a target attribute, and so on.
+
+.. autoclass:: rdm.db.context.DBContext
+    :members:
+
+.. py:module:: rdm.db.converters
+
+Database converters
+-------------------
+
+Converters are used to change the representation of the input database to a native representation of a particular algorithm.
+
+.. autoclass:: rdm.db.converters.Converter
+    :members:
+
+.. autoclass:: rdm.db.converters.ILPConverter
+    :members:
+
+.. autoclass:: rdm.db.converters.RSDConverter
+    :members:
+
+.. autoclass:: rdm.db.converters.AlephConverter
+    :members:
+
+.. autoclass:: rdm.db.converters.OrangeConverter
+    :members:
+
+.. autoclass:: rdm.db.converters.TreeLikerConverter
+    :members:
+
+.. py:module:: rdm.wrappers
+
 Algorithm wrappers
 ------------------
 
-.. py:module:: rdm.db.wrappers
+The ``rdm.wrappers`` module provides classes for working with the various algorithm wrappers.
+
+
+Aleph
+^^^^^
 
 .. autoclass:: rdm.wrappers.Aleph
+    :members:
+
+RSD
+^^^
+
+.. autoclass:: rdm.wrappers.RSD
+    :members:
+
+TreeLiker
+^^^^^^^^^
+
+.. autoclass:: rdm.wrappers.TreeLiker
+    :members:
+
+Wordification
+^^^^^^^^^^^^^
+
+.. autoclass:: rdm.wrappers.Wordification
     :members:

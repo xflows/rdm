@@ -31,6 +31,7 @@
 
   
     <link rel="top" title="Python-RDM 0.1 documentation" href="index.html"/>
+        <link rel="next" title="TODO" href="todo.html"/>
         <link rel="prev" title="ClowdFlows integration" href="clowdflows.html"/> 
 
   
@@ -74,9 +75,11 @@
 <li class="toctree-l1"><a class="reference internal" href="clowdflows.html">ClowdFlows integration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-rdm.db.datasource">Database interaction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-rdm.db.wrappers">Algorithm wrappers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database-converters">Database converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#algorithm-wrappers">Algorithm wrappers</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">TODO</a></li>
 </ul>
 
           
@@ -117,6 +120,9 @@
 <p>The package is divided into two main independent subpackages: <code class="docutils literal"><span class="pre">rdm.db</span></code> and <code class="docutils literal"><span class="pre">rdm.wrappers</span></code>.</p>
 <div class="section" id="module-rdm.db.datasource">
 <span id="database-interaction"></span><h2>Database interaction<a class="headerlink" href="#module-rdm.db.datasource" title="Permalink to this headline">¶</a></h2>
+<p>Databases can be accessed via different so-called data sources. You can add your own data source by subclassing the base <code class="docutils literal"><span class="pre">rdm.db.datasource.DataSource</span></code> class.</p>
+<div class="section" id="base-datasource">
+<h3>Base DataSource<a class="headerlink" href="#base-datasource" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="rdm.db.datasource.DataSource">
 <em class="property">class </em><code class="descclassname">rdm.db.datasource.</code><code class="descname">DataSource</code><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource" title="Permalink to this definition">¶</a></dt>
@@ -171,15 +177,116 @@
 
 </dd></dl>
 
+</div>
+<div class="section" id="mysqldatasource">
+<h3>MySQLDataSource<a class="headerlink" href="#mysqldatasource" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="rdm.db.datasource.MySQLDataSource">
 <em class="property">class </em><code class="descclassname">rdm.db.datasource.</code><code class="descname">MySQLDataSource</code><span class="sig-paren">(</span><em>connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#MySQLDataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.MySQLDataSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>A DataSource implementation for accessing datasets from a MySQL DBMS.</p>
 </dd></dl>
 
+<span class="target" id="module-rdm.db.context"></span></div>
+<div class="section" id="database-context">
+<h3>Database Context<a class="headerlink" href="#database-context" title="Permalink to this headline">¶</a></h3>
+<p>A <code class="docutils literal"><span class="pre">DBContext</span></code> object represents a <em>view</em> of a particular data source that can be used for learning. Example uses include: selecting only particular tables, table columns, a target attribute, and so on.</p>
+<dl class="class">
+<dt id="rdm.db.context.DBContext">
+<em class="property">class </em><code class="descclassname">rdm.db.context.</code><code class="descname">DBContext</code><span class="sig-paren">(</span><em>datasource</em>, <em>find_connections=False</em>, <em>in_memory=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="rdm.db.context.DBContext.fetch">
+<code class="descname">fetch</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches rows from the db.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.context.DBContext.fetch_types">
+<code class="descname">fetch_types</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext.fetch_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext.fetch_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary of field types for the given table and columns.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.context.DBContext.rows">
+<code class="descname">rows</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext.rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext.rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches rows from the local cache or from the db if there&#8217;s no cache.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.context.DBContext.select_where">
+<code class="descname">select_where</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em>, <em>pk_att</em>, <em>pk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext.select_where"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext.select_where" title="Permalink to this definition">¶</a></dt>
+<dd><p>SELECT with WHERE clause.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-rdm.db.converters"></span></div>
 </div>
-<div class="section" id="module-rdm.db.wrappers">
-<span id="algorithm-wrappers"></span><h2>Algorithm wrappers<a class="headerlink" href="#module-rdm.db.wrappers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="database-converters">
+<h2>Database converters<a class="headerlink" href="#database-converters" title="Permalink to this headline">¶</a></h2>
+<p>Converters are used to change the representation of the input database to a native representation of a particular algorithm.</p>
+<dl class="class">
+<dt id="rdm.db.converters.Converter">
+<em class="property">class </em><code class="descclassname">rdm.db.converters.</code><code class="descname">Converter</code><span class="sig-paren">(</span><em>dbcontext</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#Converter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.Converter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for converters.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="rdm.db.converters.ILPConverter">
+<em class="property">class </em><code class="descclassname">rdm.db.converters.</code><code class="descname">ILPConverter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#ILPConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.ILPConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for converting between a given database context (selected tables, columns, etc)
+to inputs acceptable by a specific ILP system.</p>
+<p>If possible, all subclasses should use lazy selects by forwarding the DB connection.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="rdm.db.converters.RSDConverter">
+<em class="property">class </em><code class="descclassname">rdm.db.converters.</code><code class="descname">RSDConverter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#RSDConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.RSDConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the database context to RSD inputs.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="rdm.db.converters.AlephConverter">
+<em class="property">class </em><code class="descclassname">rdm.db.converters.</code><code class="descname">AlephConverter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#AlephConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.AlephConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the database context to Aleph inputs.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="rdm.db.converters.OrangeConverter">
+<em class="property">class </em><code class="descclassname">rdm.db.converters.</code><code class="descname">OrangeConverter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#OrangeConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.OrangeConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the selected tables in the given context to orange example tables.</p>
+<dl class="method">
+<dt id="rdm.db.converters.OrangeConverter.convert_table">
+<code class="descname">convert_table</code><span class="sig-paren">(</span><em>table_name</em>, <em>cls_att=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#OrangeConverter.convert_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.OrangeConverter.convert_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the target table as an orange example table.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.converters.OrangeConverter.orng_type">
+<code class="descname">orng_type</code><span class="sig-paren">(</span><em>table_name</em>, <em>col</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#OrangeConverter.orng_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.OrangeConverter.orng_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assigns a given mysql column an orange type.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rdm.db.converters.TreeLikerConverter">
+<em class="property">class </em><code class="descclassname">rdm.db.converters.</code><code class="descname">TreeLikerConverter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#TreeLikerConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.TreeLikerConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a db context to the TreeLiker dataset format.</p>
+<dl class="method">
+<dt id="rdm.db.converters.TreeLikerConverter.dataset">
+<code class="descname">dataset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#TreeLikerConverter.dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.TreeLikerConverter.dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the db context as a list of interpretations, i.e., a list of 
+facts true for each example.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-rdm.wrappers"></span></div>
+<div class="section" id="algorithm-wrappers">
+<h2>Algorithm wrappers<a class="headerlink" href="#algorithm-wrappers" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">rdm.wrappers</span></code> module provides classes for working with the various algorithm wrappers.</p>
+<div class="section" id="aleph">
+<h3>Aleph<a class="headerlink" href="#aleph" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="rdm.wrappers.Aleph">
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">Aleph</code><span class="sig-paren">(</span><em>verbosity=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/aleph/aleph.html#Aleph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Aleph" title="Permalink to this definition">¶</a></dt>
@@ -219,6 +326,102 @@
 </dd></dl>
 
 </div>
+<div class="section" id="rsd">
+<h3>RSD<a class="headerlink" href="#rsd" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="rdm.wrappers.RSD">
+<em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">RSD</code><span class="sig-paren">(</span><em>verbosity=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/rsd/rsd.html#RSD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.RSD" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="rdm.wrappers.RSD.induce">
+<code class="descname">induce</code><span class="sig-paren">(</span><em>b</em>, <em>filestem='default'</em>, <em>examples=None</em>, <em>pos=None</em>, <em>neg=None</em>, <em>cn2sd=True</em>, <em>printOutput=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/rsd/rsd.html#RSD.induce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.RSD.induce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate features and find subgroups.</p>
+<p>&#64;param filestem The base name of this experiment.
+&#64;param examples Classified examples; can be used instead of separate pos / neg files below.
+&#64;param pos String of positive examples.
+&#64;param neg String of negative examples.
+&#64;param b String with background knowledge.
+&#64;param cn2sd Find subgroups after feature construction?</p>
+<dl class="docutils">
+<dt>Returns a tuple (features, weka, rules), where:</dt>
+<dd><ul class="first last simple">
+<li>features is a set of prolog clauses of generated features,</li>
+<li>weka is the propositional form of the input data,</li>
+<li>rules is a set of generated cn2sd subgroup descriptions; 
+this will be an empty string if cn2sd is set to False.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.wrappers.RSD.set">
+<code class="descname">set</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/rsd/rsd.html#RSD.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.RSD.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the value of setting &#8216;name&#8217; to &#8216;value&#8217;.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.wrappers.RSD.settingsAsFacts">
+<code class="descname">settingsAsFacts</code><span class="sig-paren">(</span><em>settings</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/rsd/rsd.html#RSD.settingsAsFacts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.RSD.settingsAsFacts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses a string of settings in the form set(name1, val1), set(name2, val2)...</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="treeliker">
+<h3>TreeLiker<a class="headerlink" href="#treeliker" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="rdm.wrappers.TreeLiker">
+<em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">TreeLiker</code><span class="sig-paren">(</span><em>dataset</em>, <em>template</em>, <em>test_dataset=None</em>, <em>settings={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/treeliker/treeliker.html#TreeLiker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.TreeLiker" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="rdm.wrappers.TreeLiker.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>cleanup=True</em>, <em>printOutput=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/treeliker/treeliker.html#TreeLiker.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.TreeLiker.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs TreeLiker with the given settings.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="wordification">
+<h3>Wordification<a class="headerlink" href="#wordification" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="rdm.wrappers.Wordification">
+<em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">Wordification</code><span class="sig-paren">(</span><em>target_table</em>, <em>other_tables</em>, <em>context</em>, <em>word_att_length=1</em>, <em>idf=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="rdm.wrappers.Wordification.att_to_s">
+<code class="descname">att_to_s</code><span class="sig-paren">(</span><em>att</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.att_to_s"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.att_to_s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a &#8220;wordification&#8221; word for the given attribute</p>
+<p>&#64;param att Orange attribute</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.wrappers.Wordification.calculate_weights">
+<code class="descname">calculate_weights</code><span class="sig-paren">(</span><em>measure='tfidf'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.calculate_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.calculate_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts word frequency and calculates tf-idf values for words in every document.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.wrappers.Wordification.prune">
+<code class="descname">prune</code><span class="sig-paren">(</span><em>minimum_word_frequency_percentage=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.prune"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.prune" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter out words that occur less than minimum_word_frequency times.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.wrappers.Wordification.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>num_of_processes=6</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies the wordification methodology on the target table</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.wrappers.Wordification.wordify">
+<code class="descname">wordify</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.wordify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.wordify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs string of all documents.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
 </div>
 
 
@@ -226,6 +429,8 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="todo.html" class="btn btn-neutral float-right" title="TODO">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="clowdflows.html" class="btn btn-neutral" title="ClowdFlows integration"><span class="fa fa-arrow-circle-left"></span> Previous</a>
