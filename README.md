@@ -14,6 +14,10 @@ Currently, the project offers support for MySQL databases and the following algo
 * Droping orange to use scikit-learn instead.
 * Adding support for other RDBMSs.
 
+## Docs ##
+
+The documentation is available on [Read the Docs](http://rdm.readthedocs.org/en/latest/) (work in progress).
+
 ## Prerequisites ##
 
 * python >= 2.6
