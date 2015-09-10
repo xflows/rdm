@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ClowdFlows integration &mdash; Python-RDM 0.1 documentation</title>
+  <title>ClowdFlows &mdash; Python-RDM 0.1 documentation</title>
   
 
   
@@ -31,6 +31,7 @@
 
   
     <link rel="top" title="Python-RDM 0.1 documentation" href="index.html"/>
+        <link rel="next" title="API Reference" href="api_reference.html"/>
         <link rel="prev" title="Example use case" href="example.html"/> 
 
   
@@ -71,7 +72,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example use case</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">ClowdFlows integration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">ClowdFlows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#clowdflows-resources">ClowdFlows resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-rdm.db.datasource">Database interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#database-converters">Database converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#algorithm-wrappers">Algorithm wrappers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">TODO</a></li>
 </ul>
 
           
@@ -96,7 +107,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>ClowdFlows integration</li>
+    <li>ClowdFlows</li>
       <li class="wy-breadcrumbs-aside">
         
           <a href="_sources/clowdflows.txt" rel="nofollow"> View page source</a>
@@ -107,9 +118,27 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="clowdflows-integration">
-<h1>ClowdFlows integration<a class="headerlink" href="#clowdflows-integration" title="Permalink to this headline">¶</a></h1>
-<p>TODO.</p>
+  <div class="section" id="clowdflows">
+<h1>ClowdFlows<a class="headerlink" href="#clowdflows" title="Permalink to this headline">¶</a></h1>
+<p>ClowdFlows is an open source web-based data mining platform. The python-rdm package
+also includes ClowdFlows widgets, which can be used to easily compose workflows
+for mining relational databases.</p>
+<p>Here&#8217;s an example workflow that demonstrates the usage of RDM widgets in Clowdflows.
+More specifically, the workflow constructs a decision tree on the Michalski Trains dataset (stored in a MySQL database) using Aleph to propositionalize the dataset.</p>
+<div class="figure" id="id1">
+<a class="reference external image-reference" href="http://clowdflows.org/workflow/2224/"><img alt="_images/aleph-mysql.PNG" src="_images/aleph-mysql.PNG" /></a>
+<p class="caption"><span class="caption-text">Click the image to open the ClowdFlows workflow.</span></p>
+</div>
+<div class="section" id="clowdflows-resources">
+<h2>ClowdFlows resources<a class="headerlink" href="#clowdflows-resources" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://clowdflows.com">Public instance of ClowdFlows</a></li>
+<li><a class="reference external" href="https://github.com/janezkranjc/clowdflows">GitHub repository</a></li>
+<li><a class="reference external" href="https://github.com/janezkranjc/clowdflows/wiki">Wiki</a></li>
+<li><a class="reference external" href="http://kt.ijs.si/darko_aleksovski/cf_doc/user_doc_bycategory.html">User documentation</a></li>
+<li><a class="reference external" href="http://kt.ijs.si/darko_aleksovski/cf_doc/api_reference.html">Developer documentation</a></li>
+</ul>
+</div>
 </div>
 
 
@@ -117,6 +146,8 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api_reference.html" class="btn btn-neutral float-right" title="API Reference">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="example.html" class="btn btn-neutral" title="Example use case"><span class="fa fa-arrow-circle-left"></span> Previous</a>
