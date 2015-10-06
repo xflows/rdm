@@ -1,5 +1,5 @@
 
-TODO
+Wishlist
 ======================================
 
 Currently planned fixes/features:

@@ -38,3 +38,11 @@ Wordification
 ^^^^^^^^^^^^^
 
 * orange 2.5 (this is planned to be dropped in favor of scikit-learn)
+
+
+Documentation
+-------------
+
+You'll need Sphinx to build the documentation::
+    
+    pip install -U Sphinx

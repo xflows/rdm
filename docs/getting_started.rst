@@ -4,6 +4,9 @@ Getting started
 
 .. code:: python
 
+  from rdm.db import DBConnection, DBContext, AlephConverter, MySQLDataSource
+  from rdm.wrappers import Aleph
+
   # Provide connection information
   connection = DBConnection(
       'ilp',             # User

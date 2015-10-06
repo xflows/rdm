@@ -5,6 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>rdm.db.converters &mdash; Python-RDM 0.1 documentation</title>
@@ -14,7 +15,6 @@
   
 
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
   
   
@@ -34,7 +34,7 @@
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="../../../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -44,11 +44,27 @@
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        
-          <a href="../../../index.html" class="fa fa-home"> Python-RDM</a>
-        
-        
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Python-RDM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -56,38 +72,27 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-      </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
           
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installing-the-python-rdm-package">Installing the Python-RDM package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#prerequisites-of-specific-ilp-rdm-algorithms">Prerequisites of specific ILP/RDM algorithms</a></li>
-</ul>
-</li>
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../example.html">Example use case</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../clowdflows.html">ClowdFlows</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../clowdflows.html#clowdflows-resources">ClowdFlows resources</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api_reference.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../api_reference.html#module-rdm.db.datasource">Database interaction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../api_reference.html#database-converters">Database converters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../api_reference.html#algorithm-wrappers">Algorithm wrappers</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../todo.html">TODO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../clowdflows.html">ClowdFlows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wishlist.html">Wishlist</a></li>
 </ul>
 
+            
           
-        
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -102,7 +107,13 @@
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../../../index.html">Docs</a> &raquo;</li>
       
@@ -111,11 +122,14 @@
     <li>rdm.db.converters</li>
       <li class="wy-breadcrumbs-aside">
         
+          
+        
       </li>
   </ul>
   <hr/>
 </div>
-          <div role="main" class="document">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <h1>Source code for rdm.db.converters</h1><div class="highlight"><pre>
 <span class="sd">&#39;&#39;&#39;</span>
@@ -593,6 +607,7 @@
     <span class="n">conv</span> <span class="o">=</span> <span class="n">AlephConverter</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
 </pre></div>
 
+           </div>
           </div>
           <footer>
   
@@ -602,12 +617,13 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, Anze Vavpetic, Matic Perovsek.
+
     </p>
   </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-  
 </footer>
+
         </div>
       </div>
 

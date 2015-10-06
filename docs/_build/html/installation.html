@@ -45,17 +45,27 @@
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-        
-          <a href="index.html" class="icon icon-home"> Python-RDM
-        
+          
+            <a href="index.html" class="icon icon-home"> Python-RDM
+          
 
-        
-        </a>
+          
+          </a>
 
-        
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -64,14 +74,14 @@
   </form>
 </div>
 
-        
-      </div>
+          
+        </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
-          
-              <ul class="current">
+            
+            
+                <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installing-the-python-rdm-package">Installing the Python-RDM package</a></li>
@@ -81,35 +91,20 @@
 <li class="toctree-l3"><a class="reference internal" href="#wordification">Wordification</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example use case</a></li>
-<li class="toctree-l1"><a class="reference internal" href="clowdflows.html">ClowdFlows integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-rdm.db.datasource">Database interaction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#base-datasource">Base DataSource</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#mysqldatasource">MySQLDataSource</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#database-context">Database Context</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#database-converters">Database converters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#algorithm-wrappers">Algorithm wrappers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#aleph">Aleph</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#rsd">RSD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#treeliker">TreeLiker</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#wordification">Wordification</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="todo.html">TODO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clowdflows.html">ClowdFlows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wishlist.html">Wishlist</a></li>
 </ul>
 
+            
           
-        
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -124,7 +119,13 @@
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
@@ -139,7 +140,8 @@
   </ul>
   <hr/>
 </div>
-          <div role="main" class="document">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
@@ -183,9 +185,17 @@
 </ul>
 </div>
 </div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>You&#8217;ll need Sphinx to build the documentation:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install -U Sphinx
+</pre></div>
+</div>
+</div>
 </div>
 
 
+           </div>
           </div>
           <footer>
   
@@ -204,9 +214,10 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, Anze Vavpetic, Matic Perovsek.
+
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 

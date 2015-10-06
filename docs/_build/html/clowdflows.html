@@ -5,6 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>ClowdFlows &mdash; Python-RDM 0.1 documentation</title>
@@ -14,7 +15,6 @@
   
 
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
   
   
@@ -35,7 +35,7 @@
         <link rel="prev" title="Example use case" href="example.html"/> 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -45,11 +45,27 @@
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        
-          <a href="index.html" class="fa fa-home"> Python-RDM</a>
-        
-        
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Python-RDM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -57,38 +73,31 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-      </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
           
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-the-python-rdm-package">Installing the Python-RDM package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites-of-specific-ilp-rdm-algorithms">Prerequisites of specific ILP/RDM algorithms</a></li>
-</ul>
-</li>
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example use case</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">ClowdFlows</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#clowdflows-resources">ClowdFlows resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-documentation">User Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#developer-documentation">Developer Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-rdm.db.datasource">Database interaction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#database-converters">Database converters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#algorithm-wrappers">Algorithm wrappers</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="todo.html">TODO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wishlist.html">Wishlist</a></li>
 </ul>
 
+            
           
-        
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -103,54 +112,80 @@
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
     <li>ClowdFlows</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="_sources/clowdflows.txt" rel="nofollow"> View page source</a>
+          
+            <a href="_sources/clowdflows.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
   </ul>
   <hr/>
 </div>
-          <div role="main" class="document">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="clowdflows">
 <h1>ClowdFlows<a class="headerlink" href="#clowdflows" title="Permalink to this headline">¶</a></h1>
 <p>ClowdFlows is an open source web-based data mining platform. The python-rdm package
 also includes ClowdFlows widgets, which can be used to easily compose workflows
 for mining relational databases.</p>
+<div class="section" id="user-documentation">
+<h2>User Documentation<a class="headerlink" href="#user-documentation" title="Permalink to this headline">¶</a></h2>
 <p>Here&#8217;s an example workflow that demonstrates the usage of RDM widgets in Clowdflows.
 More specifically, the workflow constructs a decision tree on the Michalski Trains dataset (stored in a MySQL database) using Aleph to propositionalize the dataset.</p>
-<div class="figure" id="id1">
+<div class="figure" id="id3">
 <a class="reference external image-reference" href="http://clowdflows.org/workflow/2224/"><img alt="_images/aleph-mysql.PNG" src="_images/aleph-mysql.PNG" /></a>
 <p class="caption"><span class="caption-text">Click the image to open the ClowdFlows workflow.</span></p>
 </div>
-<div class="section" id="clowdflows-resources">
-<h2>ClowdFlows resources<a class="headerlink" href="#clowdflows-resources" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><a class="reference external" href="http://clowdflows-documentation.readthedocs.org/en/latest/user_doc_bycategory.html">Full ClowdFlows User docs</a></li>
 <li><a class="reference external" href="http://clowdflows.com">Public instance of ClowdFlows</a></li>
+</ul>
+</div>
+<div class="section" id="developer-documentation">
+<h2>Developer Documentation<a class="headerlink" href="#developer-documentation" title="Permalink to this headline">¶</a></h2>
+<p>You can relatively easily extend your local ClowdFlows installation by developing new widgets. See the <a class="reference external" href="http://clowdflows-documentation.readthedocs.org/en/latest/cf_dev_wiki/dev-doc-home.html">Developer documentation</a> on ReadTheDocs.org, for instructions on how to develop and deploy widgets.</p>
+<p>You are of course welcome to share your widgets with everyone. To do so, please issue a pull request.</p>
+<ul class="simple">
 <li><a class="reference external" href="https://github.com/janezkranjc/clowdflows">GitHub repository</a></li>
 <li><a class="reference external" href="https://github.com/janezkranjc/clowdflows/wiki">Wiki</a></li>
-<li><a class="reference external" href="http://kt.ijs.si/darko_aleksovski/cf_doc/user_doc_bycategory.html">User documentation</a></li>
-<li><a class="reference external" href="http://kt.ijs.si/darko_aleksovski/cf_doc/api_reference.html">Developer documentation</a></li>
+<li><a class="reference external" href="http://clowdflows-documentation.readthedocs.org/en/latest/cf_dev_wiki/dev-doc-home.html">Developer documentation</a></li>
+</ul>
+<p>The <code class="docutils literal"><span class="pre">python-rdm</span></code> ClowdFlows widgets follow the main ClowdFlows convention; <code class="docutils literal"><span class="pre">rdm.db</span></code> and <code class="docutils literal"><span class="pre">rdm.wrappers</span></code> can be imported as ClowdFlows packages and have the following internal structure:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">rdm/&lt;package_name&gt;</span></code> - package root,</li>
+<li><code class="docutils literal"><span class="pre">rdm/&lt;package_name&gt;/package_data</span></code> - widget database fixtures,</li>
+<li><code class="docutils literal"><span class="pre">rdm/&lt;package_name&gt;/static</span></code> - widget-related static files, e.g., icons,</li>
+<li><code class="docutils literal"><span class="pre">rdm/&lt;package_name&gt;/library.py</span></code> - main widget views,</li>
+<li><code class="docutils literal"><span class="pre">rdm/&lt;package_name&gt;/interaction_views.py</span></code> - widget views that require a user interaction before doing a computation,</li>
+<li><code class="docutils literal"><span class="pre">rdm/&lt;package_name&gt;/visualization_views.py</span></code> - widget views that visualize something after computation.</li>
 </ul>
 </div>
 </div>
 
 
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="api_reference.html" class="btn btn-neutral float-right" title="API Reference">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="api_reference.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="example.html" class="btn btn-neutral" title="Example use case"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="example.html" class="btn btn-neutral" title="Example use case" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -160,12 +195,13 @@ More specifically, the workflow constructs a decision tree on the Michalski Trai
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, Anze Vavpetic, Matic Perovsek.
+
     </p>
   </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-  
 </footer>
+
         </div>
       </div>
 

@@ -5,6 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>API Reference &mdash; Python-RDM 0.1 documentation</title>
@@ -14,7 +15,6 @@
   
 
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
   
   
@@ -31,11 +31,11 @@
 
   
     <link rel="top" title="Python-RDM 0.1 documentation" href="index.html"/>
-        <link rel="next" title="TODO" href="todo.html"/>
-        <link rel="prev" title="ClowdFlows integration" href="clowdflows.html"/> 
+        <link rel="next" title="Wishlist" href="wishlist.html"/>
+        <link rel="prev" title="ClowdFlows" href="clowdflows.html"/> 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -45,11 +45,27 @@
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        
-          <a href="index.html" class="fa fa-home"> Python-RDM</a>
-        
-        
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Python-RDM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -57,35 +73,43 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-      </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
           
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-the-python-rdm-package">Installing the Python-RDM package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites-of-specific-ilp-rdm-algorithms">Prerequisites of specific ILP/RDM algorithms</a></li>
-</ul>
-</li>
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example use case</a></li>
-<li class="toctree-l1"><a class="reference internal" href="clowdflows.html">ClowdFlows integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clowdflows.html">ClowdFlows</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-rdm.db.datasource">Database interaction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#database-converters">Database converters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#algorithm-wrappers">Algorithm wrappers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rdm.db.datasource">Database interaction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#base-datasource">Base DataSource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mysqldatasource">MySQLDataSource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#database-context">Database Context</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="todo.html">TODO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database-converters">Database converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#algorithm-wrappers">Algorithm wrappers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#aleph">Aleph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rsd">RSD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#treeliker">TreeLiker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wordification">Wordification</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wishlist.html">Wishlist</a></li>
 </ul>
 
+            
           
-        
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -100,20 +124,29 @@
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
     <li>API Reference</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="_sources/api_reference.txt" rel="nofollow"> View page source</a>
+          
+            <a href="_sources/api_reference.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
   </ul>
   <hr/>
 </div>
-          <div role="main" class="document">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="api-reference">
 <h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
@@ -408,7 +441,7 @@ this will be an empty string if cn2sd is set to False.</li>
 
 <dl class="method">
 <dt id="rdm.wrappers.Wordification.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>num_of_processes=6</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">run</code><span class="sig-paren">(</span><em>num_of_processes=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the wordification methodology on the target table</p>
 </dd></dl>
 
@@ -425,15 +458,16 @@ this will be an empty string if cn2sd is set to False.</li>
 </div>
 
 
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="todo.html" class="btn btn-neutral float-right" title="TODO">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="wishlist.html" class="btn btn-neutral float-right" title="Wishlist" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="clowdflows.html" class="btn btn-neutral" title="ClowdFlows integration"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="clowdflows.html" class="btn btn-neutral" title="ClowdFlows" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -443,12 +477,13 @@ this will be an empty string if cn2sd is set to False.</li>
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, Anze Vavpetic, Matic Perovsek.
+
     </p>
   </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-  
 </footer>
+
         </div>
       </div>
 
