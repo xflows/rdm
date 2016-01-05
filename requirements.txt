@@ -1,2 +1,3 @@
 Orange==2.5a4
---allow-external mysql-connector-python
+mysql-connector-python
+psycopg2==2.6.1

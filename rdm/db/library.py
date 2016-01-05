@@ -3,10 +3,13 @@ MySQL connectivity library.
 
 @author: Anze Vavpetic <anze.vavpetic@ijs.si>
 '''
+import os
+import tempfile
+import time
 from django import forms
 import mysql.connector as sql
-from datasource import MySQLDataSource
-from context import DBConnection, DBContext
+from datasource import MySQLDataSource, PgSQLDataSource
+from context import DBVendor, DBConnection, DBContext
 from converters import RSDConverter, AlephConverter, OrangeConverter, TreeLikerConverter
 from mapper import domain_map
 
@@ -16,8 +19,9 @@ def mysql_connect(input_dict):
     password = str(input_dict['password'])
     host = str(input_dict['host'])
     db = str(input_dict['database'])
-    con = MySQLDataSource(DBConnection(user, password, host, db))
-    return {'connection' : con}
+    vendor = str(input_dict['vendor'])
+    dbcon = DBConnection(user, password, host, db, vendor=vendor)
+    return {'connection' : dbcon}
 
 
 def mysql_db_context(input_dict):

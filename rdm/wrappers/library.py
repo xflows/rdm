@@ -9,6 +9,8 @@ from rsd import RSD
 from wordification import Wordification
 from treeliker import TreeLiker
 from security import check_input
+from proper import Proper
+from tertius import Tertius, OneBC
 
 from services.webservice import WebService
 
@@ -124,3 +126,78 @@ def ilp_treeliker(input_dict):
     treeliker = TreeLiker(dataset, template, settings=settings)
     arff_train, arff_test = treeliker.run()
     return {'arff': arff_train, 'treeliker': treeliker}
+
+
+def ilp_hedwig(input_dict):
+    import hedwig
+
+    format = input_dict['format']
+    ont_format = '.tsv' if format == 'csv' else '.' + format
+
+    examples_file = tempfile.NamedTemporaryFile(suffix='.' + format, delete=False)
+    examples_file.write(input_dict['examples'])
+    examples_file.close()
+
+    bk_dir = tempfile.mkdtemp()
+    for bk in input_dict['bk']:
+        f = tempfile.NamedTemporaryFile(suffix=ont_format, delete=False, dir=bk_dir)
+        f.write(bk)
+        f.close()
+
+    result = hedwig.run({
+        'data': examples_file.name,
+        'bk_dir': bk_dir,
+        'adjust': input_dict['adjust'],
+        'FDR': float(input_dict['fdr']),
+        'format': format,
+        'support': float(input_dict['sup']),
+        'learner': input_dict['learner'],
+        'depth': int(input_dict['depth']),
+        'optimalsubclass': input_dict['optimal'] == "true",
+        'beam': int(input_dict['beam']),
+        'alpha': float(input_dict['alpha']),
+        'score': input_dict['score_fun'],
+        'uris': input_dict['uris'],
+        'negations': input_dict['negations'] == "true",
+        
+        # Presets
+        'leaves': True,
+        'covered': None,
+        'target': None,
+        'mode': 'subgroups',
+        'output': 'foo.txt',
+        'verbose': False,
+        'nocache': True
+    })
+
+    return {'rules': result}
+
+
+def ilp_cardinalization(input_dict):
+    proper = Proper(input_dict,False)
+    output_dict = proper.run()
+    return output_dict
+
+
+def ilp_quantiles(input_dict):
+    proper = Proper(input_dict,False)
+    output_dict = proper.run()
+    return output_dict
+
+
+def ilp_relaggs(input_dict):
+    proper = Proper(input_dict,True)
+    output_dict = proper.run()
+    return output_dict
+
+
+def ilp_1bc(input_dict):
+    onebc = OneBC(input_dict)
+    output_dict = onebc.run()
+    return output_dict
+
+
+def ilp_tertius(input_dict):
+    tertiusInst = Tertius(input_dict)
+    output_dict = tertiusInst.run()
+    return output_dict

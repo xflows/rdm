@@ -1,0 +1,394 @@
+[
+  {
+    "model": "workflows.abstractwidget", 
+    "fields": {
+      "category": "52dedd63-2d1b-42ee-a216-dc55e8df2413", 
+      "treeview_image": "", 
+      "uid": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "windows_queue": false, 
+      "package": "rdm.wrappers", 
+      "interaction_view": "", 
+      "has_progress_bar": false, 
+      "image": "", 
+      "description": "A subgroup discovery tool that can use ontological domain knowledge (RDF graphs) in the learning process. Subgroup descriptions contain terms from the given domain knowledge and enable potentially better generalizations.", 
+      "static_image": "", 
+      "action": "ilp_hedwig", 
+      "visualization_view": "", 
+      "streaming_visualization_view": "", 
+      "post_interact_action": "", 
+      "wsdl_method": "", 
+      "wsdl": "", 
+      "interactive": false, 
+      "is_streaming": false, 
+      "order": 1, 
+      "name": "Hedwig"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "name": "Score function", 
+      "short_name": "sf", 
+      "default": "lift", 
+      "description": "Score function", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "select", 
+      "variable": "score_fun", 
+      "parameter": true, 
+      "order": 5, 
+      "uid": "0f9a2b56-fea6-4c85-920a-00432bba3bc7"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "name": "Rule depth", 
+      "short_name": "dpt", 
+      "default": "5", 
+      "description": "Maximum number of conjunctions", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "text", 
+      "variable": "depth", 
+      "parameter": true, 
+      "order": 8, 
+      "uid": "1233703e-e7cd-40a6-a992-037fd5921273"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "name": "Examples", 
+      "short_name": "ex", 
+      "default": "", 
+      "description": "Learning examples", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": null, 
+      "variable": "examples", 
+      "parameter": false, 
+      "order": 1, 
+      "uid": "20ba0698-da17-4e2e-b933-d63ada8fc639"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "name": "Input format", 
+      "short_name": "fmt", 
+      "default": "n3", 
+      "description": "Input file format of examples", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "select", 
+      "variable": "format", 
+      "parameter": true, 
+      "order": 3, 
+      "uid": "21abb44b-6bfb-4a51-8b7e-4692b5ba2894"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "name": "Maximum FDR rate", 
+      "short_name": "fdr", 
+      "default": "0.05", 
+      "description": "Max false discovery rate; applies if fdr is used", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "text", 
+      "variable": "fdr", 
+      "parameter": true, 
+      "order": 13, 
+      "uid": "296fed44-da06-47e9-90b9-dc5d043b2dfa"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "name": "Show URIs in rules", 
+      "short_name": "uri", 
+      "default": "false", 
+      "description": "Show URIs in rule conjunctions", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "uris", 
+      "parameter": true, 
+      "order": 14, 
+      "uid": "5b0fc03e-f4d9-44c7-a329-f0d9519ed951"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "name": "Optimal subclass specialization", 
+      "short_name": "opt", 
+      "default": "false", 
+      "description": "In each step the full hierarchy under a particular concept is searched", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "optimal", 
+      "parameter": true, 
+      "order": 10, 
+      "uid": "7893b444-a18c-4e04-90b9-96574bbfdf21"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "name": "Minimum support", 
+      "short_name": "sup", 
+      "default": "0.1", 
+      "description": "Minimum rule support", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "text", 
+      "variable": "sup", 
+      "parameter": true, 
+      "order": 6, 
+      "uid": "8298a2bf-8caf-4090-9389-5f8848f569d2"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "name": "Use negations", 
+      "short_name": "neg", 
+      "default": "false", 
+      "description": "Use negations in rules", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "negations", 
+      "parameter": true, 
+      "order": 9, 
+      "uid": "89e3aa18-5bcb-44f7-a199-b0240ac09e4b"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "name": "Multiple-hypothesis testing correction method", 
+      "short_name": "adj", 
+      "default": "fwer", 
+      "description": "Adjustment method for the multiple-testing problem", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "select", 
+      "variable": "adjust", 
+      "parameter": true, 
+      "order": 12, 
+      "uid": "ac538f5e-af72-416c-a8b8-f97806eb208e"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "name": "P-value threshold", 
+      "short_name": "alp", 
+      "default": "0.05", 
+      "description": "P-value threshold; applies if fwer is used", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "text", 
+      "variable": "alpha", 
+      "parameter": true, 
+      "order": 11, 
+      "uid": "b39d94a9-4b91-4b78-95f9-cdc9b4de8b2a"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "name": "Learner variant", 
+      "short_name": "lnr", 
+      "default": "heuristic", 
+      "description": "Type of learner to use", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "select", 
+      "variable": "learner", 
+      "parameter": true, 
+      "order": 4, 
+      "uid": "cbd9e821-d06f-47dd-862e-064458bd8a78"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "name": "Beam size", 
+      "short_name": "b", 
+      "default": "20", 
+      "description": "Beam size", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "text", 
+      "variable": "beam", 
+      "parameter": true, 
+      "order": 7, 
+      "uid": "eb6d90cf-648a-4128-857e-f3546dc0d88e"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "name": "Background knowledge", 
+      "short_name": "bk", 
+      "default": "", 
+      "description": "Background knowledge file (e.g., a n3 file)", 
+      "required": false, 
+      "multi": true, 
+      "parameter_type": null, 
+      "variable": "bk", 
+      "parameter": false, 
+      "order": 2, 
+      "uid": "f72c7ba2-7933-4754-b7ba-f5a8ad885b98"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoutput", 
+    "fields": {
+      "widget": "2a87ad50-dcb3-4ab9-8830-f9b2298d23f4", 
+      "name": "Rules", 
+      "short_name": "rls", 
+      "description": "Rules", 
+      "variable": "rules", 
+      "order": 1, 
+      "uid": "2ab56b97-6c2d-40e8-82de-f0650aba0be8"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "fwer", 
+      "uid": "0b5a23d5-6a56-4370-b2cf-98d9604b74ec", 
+      "value": "fwer", 
+      "abstract_input": "ac538f5e-af72-416c-a8b8-f97806eb208e"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "fdr", 
+      "uid": "102d5a1e-156d-4da6-8045-7f2d574b00c5", 
+      "value": "fdr", 
+      "abstract_input": "ac538f5e-af72-416c-a8b8-f97806eb208e"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "n3", 
+      "uid": "149388bd-6c63-44b1-89d7-a22537a6abf8", 
+      "value": "n3", 
+      "abstract_input": "21abb44b-6bfb-4a51-8b7e-4692b5ba2894"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "csv", 
+      "uid": "3d7ad6c2-b3be-40fb-a4ce-b29430e33c60", 
+      "value": "csv", 
+      "abstract_input": "21abb44b-6bfb-4a51-8b7e-4692b5ba2894"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "lift", 
+      "uid": "3d8477a1-16d4-4f33-af62-8cdc64ce2fa0", 
+      "value": "lift", 
+      "abstract_input": "0f9a2b56-fea6-4c85-920a-00432bba3bc7"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "wracc", 
+      "uid": "4af00907-aa22-4046-9a0b-e8bacc8597b7", 
+      "value": "wracc", 
+      "abstract_input": "0f9a2b56-fea6-4c85-920a-00432bba3bc7"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "z_score", 
+      "uid": "54161115-addc-44fd-9b1b-25a8715d7fed", 
+      "value": "z_score", 
+      "abstract_input": "0f9a2b56-fea6-4c85-920a-00432bba3bc7"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "precision", 
+      "uid": "641d374a-4286-4760-bcb4-7aa335ec63bf", 
+      "value": "precision", 
+      "abstract_input": "0f9a2b56-fea6-4c85-920a-00432bba3bc7"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "chisq", 
+      "uid": "93b30202-cc64-4037-996d-545af23d7d2b", 
+      "value": "chisq", 
+      "abstract_input": "0f9a2b56-fea6-4c85-920a-00432bba3bc7"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "leverage", 
+      "uid": "9bdf56c8-95a7-4fd5-b0ff-3d948ad36625", 
+      "value": "leverage", 
+      "abstract_input": "0f9a2b56-fea6-4c85-920a-00432bba3bc7"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "optimal", 
+      "uid": "9cadb06b-991c-47e1-bceb-a3b24d965546", 
+      "value": "optimal", 
+      "abstract_input": "cbd9e821-d06f-47dd-862e-064458bd8a78"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "heuristic", 
+      "uid": "d0113e35-c925-4c6e-b67b-10cb04a22a00", 
+      "value": "heuristic", 
+      "abstract_input": "cbd9e821-d06f-47dd-862e-064458bd8a78"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "t_score", 
+      "uid": "fed2afbc-2964-4d72-a33f-66b03af4c6ab", 
+      "value": "t_score", 
+      "abstract_input": "0f9a2b56-fea6-4c85-920a-00432bba3bc7"
+    }
+  }
+]

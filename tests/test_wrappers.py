@@ -16,9 +16,10 @@ class TestWrappers(unittest.TestCase):
             TEST_DB['user'],
             TEST_DB['pass'],
             TEST_DB['host'],
-            TEST_DB['database']
+            TEST_DB['database'],
+            vendor=TEST_DB['vendor']
         )
-        self.context = DBContext(MySQLDataSource(self.connection))
+        self.context = DBContext(self.connection)
         self.context.target_table = 'trains'
         self.context.target_att = 'direction'
 

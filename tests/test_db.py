@@ -3,7 +3,7 @@ import sys
 sys.path.append('..')
 
 
-from rdm.db import DBConnection, DBContext, MySQLDataSource
+from rdm.db import DBVendor, DBConnection, DBContext, MySQLDataSource
 from conf import TEST_DB
 
 
@@ -14,7 +14,8 @@ class TestConnection(unittest.TestCase):
             TEST_DB['user'],
             TEST_DB['pass'],
             TEST_DB['host'],
-            TEST_DB['database']
+            TEST_DB['database'],
+            vendor=TEST_DB['vendor']
         )
         try:
             self.connection.check_connection()
@@ -31,7 +32,8 @@ class TestContext(unittest.TestCase):
             TEST_DB['user'],
             TEST_DB['pass'],
             TEST_DB['host'],
-            TEST_DB['database']
+            TEST_DB['database'],
+            vendor=TEST_DB['vendor']
         )
 
     def test_db_read(self):
@@ -47,6 +49,6 @@ class TestContext(unittest.TestCase):
             target_table:     selected table for learning
             target_att:       selected column for learning
         '''
-        self.context = DBContext(MySQLDataSource(self.connection))
+        self.context = DBContext(self.connection)
         self.assertListEqual(self.context.tables, ['cars', 'trains'])
         self.assertTrue(('cars', 'trains') in self.context.connected)

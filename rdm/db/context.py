@@ -2,8 +2,16 @@ from collections import defaultdict
 import pprint
 import copy
 
-import mysql.connector as sql
+import mysql.connector as mysql
+import psycopg2 as postgresql
 import converters
+
+from datasource import MySQLDataSource, PgSQLDataSource
+
+
+class DBVendor:
+    MySQL = 'mysql'
+    PostgreSQL = 'postgresql'
 
 
 class DBConnection:
@@ -15,8 +23,8 @@ class DBConnection:
         '''
         Context Manager.
         '''
-        def __init__(self, user, password, host, database):
-            self.con = sql.connect(
+        def __init__(self, user, password, host, database, dal_connect_fun):
+            self.con = dal_connect_fun(
                 user=user,
                 password=password,
                 host=host, 
@@ -30,18 +38,26 @@ class DBConnection:
             self.con.close()
 
 
-    def __init__(self, user, password, host, database):
+    def __init__(self, user, password, host, database, vendor=DBVendor.MySQL):
         self.user = user
         self.password = password
         self.host = host
         self.database = database
+        self.vendor = vendor
         self.check_connection()
+
+        if self.vendor == DBVendor.MySQL:
+            self.src = MySQLDataSource(self)
+        elif self.vendor == DBVendor.PostgreSQL:
+            self.src = PgSQLDataSource(self)
+        else:
+            raise Exception("Unknown DB vendor: {}".format(vendor))
 
 
     def check_connection(self):
         try:
-            con = sql.connect(user=self.user, password=self.password, host=self.host, database=self.database)
-            con.close()
+            with self.connect() as _:
+                pass
         except Exception,e:
             raise Exception('Problem connecting to the database. Please re-check your credentials.')
 
@@ -51,13 +67,18 @@ class DBConnection:
 
 
     def connect(self):
-        return DBConnection.Manager(self.user, self.password, self.host, self.database)
+        if self.vendor == DBVendor.MySQL:
+            dal_connect_fun = mysql.connect
+        elif self.vendor == DBVendor.PostgreSQL:
+            dal_connect_fun = postgresql.connect
+
+        return DBConnection.Manager(self.user, self.password, self.host, self.database, dal_connect_fun)
 
 
 class DBContext:
-    def __init__(self, datasource, find_connections=False, in_memory=True):
+    def __init__(self, connection, find_connections=False, in_memory=True):
         '''
-        @datasource: a DataSource instance.
+        @connection: a DBConnection instance.
 
         Initializes the fields:
             tables:           list of selected tables
@@ -71,7 +92,7 @@ class DBContext:
             target_table:     selected table for learning
             target_att:       selected column for learning
         '''
-        self.src = datasource
+        self.src = connection.src
         self.tables = self.src.tables()
         self.cols = {}
         for table in self.tables:

@@ -1,0 +1,9 @@
+{
+  "model": "workflows.category", 
+  "fields": {
+    "name": "Semantic Data Mining", 
+    "parent": "ed859be5-cc13-46b9-b249-c8f026732c1c", 
+    "order": 1, 
+    "uid": "52dedd63-2d1b-42ee-a216-dc55e8df2413"
+  }
+}
