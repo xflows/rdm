@@ -265,7 +265,7 @@ class PgSQLDataSource(DataSource):
         return columns
 
     def fmt_cols(self, cols):
-        return ','.join(["`%s`" % col for col in cols])
+        return ','.join(["%s" % col for col in cols])
     
     def fetch_types(self, table, cols):
         with self.connect() as con:
@@ -281,7 +281,8 @@ class PgSQLDataSource(DataSource):
     def fetch(self, table, cols):
         with self.connect() as con:
             cursor = con.cursor() 
-            # TODO
+            cursor.execute("SELECT %s FROM %s" % (self.fmt_cols(cols), table))
+            print "SELECT %s FROM %s" % (self.fmt_cols(cols), table)
             result = [cols for cols in cursor]
         return result
 
