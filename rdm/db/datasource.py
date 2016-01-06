@@ -282,7 +282,6 @@ class PgSQLDataSource(DataSource):
         with self.connect() as con:
             cursor = con.cursor() 
             cursor.execute("SELECT %s FROM %s" % (self.fmt_cols(cols), table))
-            print "SELECT %s FROM %s" % (self.fmt_cols(cols), table)
             result = [cols for cols in cursor]
         return result
 
