@@ -102,9 +102,13 @@ class ILPConverter(Converter):
                 pass
         return False
 
+    @staticmethod
+    def fmt_col(col):
+        return "%s" % col if ILPConverter.numeric(col) else "'%s'" % str(col).replace("'", '"')
+
     def dump_tables(self):
         dump = []
-        fmt_cols = lambda cols: ','.join([("%s" % col) if ILPConverter.numeric(col) else ("'%s'" % str(col).replace("'", '"')) for col in cols])
+        fmt_cols = lambda cols: ','.join([ILPConverter.fmt_col(col) for col in cols])
         for table in self.db.tables:
             attributes = self.db.cols[table]
             dump.append(':- table %s/%d.' % (table, len(attributes)))
@@ -119,7 +123,7 @@ class RSDConverter(ILPConverter):
         target = self.db.target_table
         pred_name = pred_name if pred_name else target
         examples = self.db.rows(target, [self.db.target_att, self.db.pkeys[target]])
-        return '\n'.join(["%s('%s', %s)." % (pred_name, cls, pk) for cls, pk in examples])
+        return '\n'.join(["%s(%s, %s)." % (pred_name, ILPConverter.fmt_col(cls), pk) for cls, pk in examples])
 
     def background_knowledge(self):
         modeslist, getters = [self.mode(self.db.target_table, [('+', self.db.target_table)], head=True)], []
@@ -166,8 +170,8 @@ class AlephConverter(ILPConverter):
             if not pos_rows:
                 raise Exception('No positive examples with the given target attribute value, please re-check.')
 
-            self.__pos_examples = '\n'.join(['%s(%s).' % (self.__target_predicate(), id) for _, id in pos_rows])
-            self.__neg_examples = '\n'.join(['%s(%s).' % (self.__target_predicate(), id) for _, id in neg_rows])
+            self.__pos_examples = '\n'.join(['%s(%s).' % (self.__target_predicate(), ILPConverter.fmt_col(id)) for _, id in pos_rows])
+            self.__neg_examples = '\n'.join(['%s(%s).' % (self.__target_predicate(), ILPConverter.fmt_col(id)) for _, id in neg_rows])
         return self.__pos_examples, self.__neg_examples
 
     def positive_examples(self):
