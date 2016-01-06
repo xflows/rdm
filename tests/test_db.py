@@ -4,7 +4,7 @@ sys.path.append('..')
 
 
 from rdm.db import DBVendor, DBConnection, DBContext, MySQLDataSource
-from conf import TEST_DB
+from conf import TEST_DB, TEST_DB_POSTGRES
 
 
 class TestConnection(unittest.TestCase):
@@ -25,6 +25,22 @@ class TestConnection(unittest.TestCase):
         self.assertTrue(connection_success)
 
 
+    def test_pgsql(self):
+        self.connection = DBConnection(
+            TEST_DB_POSTGRES['user'],
+            TEST_DB_POSTGRES['pass'],
+            TEST_DB_POSTGRES['host'],
+            TEST_DB_POSTGRES['database'],
+            vendor=TEST_DB_POSTGRES['vendor']
+        )
+        try:
+            self.connection.check_connection()
+            connection_success = True
+        except:
+            connection_success = False
+        self.assertTrue(connection_success)
+
+
 class TestContext(unittest.TestCase):
 
     def setUp(self):
@@ -34,6 +50,14 @@ class TestContext(unittest.TestCase):
             TEST_DB['host'],
             TEST_DB['database'],
             vendor=TEST_DB['vendor']
+        )
+
+        self.connection_pg = DBConnection(
+            TEST_DB_POSTGRES['user'],
+            TEST_DB_POSTGRES['pass'],
+            TEST_DB_POSTGRES['host'],
+            TEST_DB_POSTGRES['database'],
+            vendor=TEST_DB_POSTGRES['vendor']
         )
 
     def test_db_read(self):
@@ -50,5 +74,9 @@ class TestContext(unittest.TestCase):
             target_att:       selected column for learning
         '''
         self.context = DBContext(self.connection)
-        self.assertListEqual(self.context.tables, ['cars', 'trains'])
+        self.assertItemsEqual(self.context.tables, ['cars', 'trains'])
         self.assertTrue(('cars', 'trains') in self.context.connected)
+
+        self.context = DBContext(self.connection_pg)
+        self.assertItemsEqual(self.context.tables, ['building', 'urbanblock'])
+        self.assertTrue(('building', 'urbanblock') in self.context.connected)

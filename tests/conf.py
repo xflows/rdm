@@ -10,11 +10,10 @@ TEST_DB = {
 }
 
 TEST_DB_POSTGRES = {
-    # TODO: Setup test postresql db
-    # 'user': 'ilp',
-    # 'pass': 'ilp123',
-    # 'host': 'workflow.ijs.si',
-    # 'database': 'ilp',
+    'user': 'ilp',
+    'pass': 'ilp123',
+    'host': '10.0.2.2',
+    'database': 'ilp',
     'vendor': 'postgresql'
 }
 
