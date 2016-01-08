@@ -219,9 +219,10 @@ class OrangeConverter(Converter):
     '''
     Converts the selected tables in the given context to orange example tables.
     '''
-    continuous_types = ('FLOAT','DOUBLE','DECIMAL','NEWDECIMAL')
-    integer_types = ('TINY','SHORT','LONG','LONGLONG','INT24')
-    ordinal_types = ('YEAR','VARCHAR','SET','VAR_STRING','STRING','BIT')
+    continuous_types = ('FLOAT','DOUBLE','DECIMAL','NEWDECIMAL','double precision')
+    integer_types = ('TINY','SHORT','LONG','LONGLONG','INT24','integer')
+    ordinal_types = ('YEAR','VARCHAR','SET','VAR_STRING','STRING','BIT','text','character varying', 'character')
+
     
     def __init__(self, *args, **kwargs):
         Converter.__init__(self, *args, **kwargs)

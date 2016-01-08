@@ -10,7 +10,7 @@ from django import forms
 import mysql.connector as sql
 from datasource import MySQLDataSource, PgSQLDataSource
 from context import DBConnection, DBContext
-from converters import RSDConverter, AlephConverter, OrangeConverter, TreeLikerConverter
+from converters import RSDConverter, AlephConverter, OrangeConverter, TreeLikerConverter, PrdFctConverter
 from mapper import domain_map
 
 
@@ -92,6 +92,33 @@ def database_orange_converter(input_dict):
     context = input_dict['context']
     orange = OrangeConverter(context)
     return {'target_table_dataset' : orange.target_Orange_table(),'other_table_datasets': orange.other_Orange_tables()}
+
+
+def database_prd_fct_converter(input_dict):   
+    context = input_dict['context']
+    prd_fct = PrdFctConverter(context)
+    
+
+    #progress bar issue
+    url=os.path.dirname(os.path.abspath(__file__))
+    url=os.path.normpath(os.path.join(url,'..','..','mothra','public','files'))
+    #if not os.path.exists(url):
+    #    os.makedirs(url)  
+    #url=os.path.normpath(os.path.join(url,str(widget.workflow_id)))
+    #if not os.path.exists(url):
+    #    os.makedirs(url)
+
+    url = tempfile.mkdtemp(dir=url)
+    timenow = int(round(time.time() * 1000))
+    prd_file_url=os.path.join(url,"prdFctTemp%s.prd"%str(timenow))
+    with open(prd_file_url, "w") as prd:
+        prd.write( prd_fct.create_prd_file());   
+
+    fct_file_url=os.path.join(url,"prdFctTemp%s.fct"%str(timenow))
+    with open(fct_file_url, "w") as fct:
+        fct.write( prd_fct.create_fct_file());      
+
+    return {'prd_file' : prd_file_url,'fct_file': fct_file_url}
 
 
 def ilp_map_rsd(input_dict):
