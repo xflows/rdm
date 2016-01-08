@@ -11,7 +11,7 @@
       "has_progress_bar": false, 
       "image": "", 
       "description": "", 
-      "static_image": "mysql.png", 
+      "static_image": "database.png", 
       "action": "mysql_treeliker_converter", 
       "visualization_view": "", 
       "streaming_visualization_view": "", 
