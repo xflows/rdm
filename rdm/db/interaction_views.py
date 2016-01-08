@@ -7,7 +7,7 @@ import json
 from django.shortcuts import render
 from context import DBContext
 
-def mysql_db_context(request, input_dict, output_dict, widget):
+def database_db_context(request, input_dict, output_dict, widget):
     con = input_dict['connection']
     find_con = input_dict['find_connections'] == 'true'
     initial_context = DBContext(con, find_connections=find_con)

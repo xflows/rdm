@@ -12,7 +12,7 @@
       "image": "", 
       "description": "", 
       "static_image": "database.png", 
-      "action": "mysql_rsd_converter", 
+      "action": "database_rsd_converter", 
       "visualization_view": "", 
       "streaming_visualization_view": "", 
       "post_interact_action": "", 

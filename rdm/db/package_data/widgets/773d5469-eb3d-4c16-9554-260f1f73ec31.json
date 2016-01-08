@@ -12,7 +12,7 @@
       "image": "", 
       "description": "", 
       "static_image": "database.png", 
-      "action": "mysql_prd_fct_converter", 
+      "action": "database_prd_fct_converter", 
       "visualization_view": "", 
       "streaming_visualization_view": "", 
       "post_interact_action": "", 
