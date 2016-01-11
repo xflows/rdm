@@ -49,5 +49,5 @@ Pull requests and issues are welcome.
 
 Anže Vavpetič (@anzev), Alain Shakour (@alshak), Matic Perovšek (@mperice)
 
-[Knowldge Technologies Department](http://kt.ijs.si), Jožef Stefan Institute, Ljubljana
-[Engineering, Computer and Imaging Sciences Laboratory](http://icube-bfo.unistra.fr/en/index.php/Home), University of Strasbourg, France
+* [Knowldge Technologies Department](http://kt.ijs.si), Jožef Stefan Institute, Ljubljana
+* [Engineering, Computer and Imaging Sciences Laboratory](http://icube-bfo.unistra.fr/en/index.php/Home), University of Strasbourg, France
