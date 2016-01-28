@@ -98,17 +98,7 @@ def database_prd_fct_converter(input_dict):
     context = input_dict['context']
     prd_fct = PrdFctConverter(context)
     
-
-    #progress bar issue
-    url=os.path.dirname(os.path.abspath(__file__))
-    url=os.path.normpath(os.path.join(url,'..','..','mothra','public','files'))
-    #if not os.path.exists(url):
-    #    os.makedirs(url)  
-    #url=os.path.normpath(os.path.join(url,str(widget.workflow_id)))
-    #if not os.path.exists(url):
-    #    os.makedirs(url)
-
-    url = tempfile.mkdtemp(dir=url)
+    url = tempfile.mkdtemp()
     timenow = int(round(time.time() * 1000))
     prd_file_url=os.path.join(url,"prdFctTemp%s.prd"%str(timenow))
     with open(prd_file_url, "w") as prd:
@@ -117,9 +107,8 @@ def database_prd_fct_converter(input_dict):
     fct_file_url=os.path.join(url,"prdFctTemp%s.fct"%str(timenow))
     with open(fct_file_url, "w") as fct:
         fct.write( prd_fct.create_fct_file());      
-
+       
     return {'prd_file' : prd_file_url,'fct_file': fct_file_url}
-
 
 def ilp_map_rsd(input_dict):
     return do_map(input_dict, 'rsd')

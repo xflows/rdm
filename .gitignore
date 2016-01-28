@@ -3,4 +3,12 @@ dist
 build
 *.egg-info
 .coverage
+.cproject
+.project
+.pydevproject
 
+# Tertius
+rdm/wrappers/tertius/src/*.res
+rdm/wrappers/tertius/src/*.o
+rdm/wrappers/tertius/bin/tertius
+rdm/wrappers/tertius/bin/1BC
