@@ -178,73 +178,65 @@ def ilp_cardinalization(input_dict):
     output_dict = proper.run()
     return output_dict
 
-
 def ilp_quantiles(input_dict):
     proper = Proper(input_dict,False)
     output_dict = proper.run()
     return output_dict
-
 
 def ilp_relaggs(input_dict):
     proper = Proper(input_dict,True)
     output_dict = proper.run()
     return output_dict
 
-
 def ilp_1bc(input_dict):
     onebc = OneBC(input_dict,False)
     output_dict = onebc.run()
     return output_dict
-
 
 def ilp_1bc2(input_dict):
     onebc = OneBC(input_dict,True)
     output_dict = onebc.run()
     return output_dict
 
-
 def ilp_tertius(input_dict):
     tertiusInst = Tertius(input_dict)
     output_dict = tertiusInst.run()
     return output_dict
 
-
 def ilp_multiple_classes_to_one_binary_score(input_dict):
     output_dict = {}
-    try:
-        pos_col = int(input_dict['pos_col'])
-    except ValueError:
-        raise Exception('"Positive column number" should be an integer')
-    else:
-        if pos_col < 0:
-            raise Exception('"Positive column number" should be a positive integer')
+    pos_col = input_dict['pos_col']
+    neg_col = input_dict['neg_col']
 
-    try:
-        neg_col = int(input_dict['neg_col'])
-    except ValueError:
-        raise Exception('"Negative column number" should be an integer')
-    else:
-        if neg_col < 0:
-            raise Exception('"Negative column number" should be a positive integer')
     
-    output_dict['binary_score'] = to_binary_score(input_dict['multiple_classes'],int(input_dict['pos_col']),int(input_dict['neg_col']))
+    output_dict['binary_score'] = to_binary_score(input_dict['multiple_classes'],input_dict['pos_col'],input_dict['neg_col'])
     return output_dict
 
-
 def to_binary_score(multiple_score,pos_col,neg_col):
-    score_line = multiple_score.strip().split('\n')
-    score_arr = [x.split(',') for x in score_line]
-    pos_tag = pos_col - 3
-    neg_tag = neg_col - 3
+    score_lines = multiple_score.strip().split('\n')
+    score_arr = [line.split(',') for line in score_lines]
+    pos_idx = -1
+    neg_idx = -1
     actual = []
     predicted = []
-    for x in score_arr:
-        if int(x[1]) == pos_tag:
-            actual.append(1)
-            predicted.append(float(x[pos_col-1]) - float(x[neg_col-1]))
-        elif int(x[1]) == neg_tag:
-            actual.append(0)            
-            predicted.append(float(x[pos_col-1]) - float(x[neg_col-1]))
+    isLabels = True
+    for line in score_arr:
+        if isLabels:
+            for i, word in enumerate(line):
+                if word == pos_col:
+                    pos_idx = i
+                elif word == neg_col:
+                    neg_idx = i
+            isLabels = False
+        else:
+            if pos_idx == -1 or neg_idx == -1:
+                raise Exception('Column names not found.')
+            if line[1] == pos_col:
+                actual.append(1)
+                predicted.append(float(line[pos_idx]) - float(line[neg_idx]))
+            elif line[1] == neg_col:
+                actual.append(0)
+                predicted.append(float(line[pos_idx]) - float(line[neg_idx]))
 
     res = {"name":"Curve", "actual":actual, "predicted":predicted}
-    return res 
+    return res

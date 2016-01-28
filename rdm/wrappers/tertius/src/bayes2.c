@@ -40,9 +40,9 @@ void print_parameter(FILE *a_file,int a_predicate,int a_subpredicate)
   for (i=0;i<the_predicate->num_param;i++) {
     the_type = &(the_type_table[the_predicate->types[i]]);
     if (the_type->global == TRUE)
-      fprintf(a_file,"\t%s",the_type->constants[0][the_subpredicate->val_params[i]]);
+      fprintf(a_file,"%s",the_type->constants[0][the_subpredicate->val_params[i]]);
     else
-      fprintf(a_file,"\t%s",the_type->constants[the_part][the_subpredicate->val_params[i]]);
+      fprintf(a_file,"%s",the_type->constants[the_part][the_subpredicate->val_params[i]]);
   } /* for each component of the parameter */
 }
 
@@ -294,8 +294,10 @@ void print_probabilities(FILE *a_file)
   tsubpredicate *the_subpredicate;
 
   fprintf(a_file,"\t\t\t");
-  for (the_class=0;the_class<the_num_classes;the_class++)
+  for (the_class=0;the_class<the_num_classes;the_class++){
+    fprintf(a_file,"\t");
     print_parameter(a_file,the_target_predicate,the_class);
+  }
   fprintf(a_file,"\n");
   fprintf(a_file,"\t\t\t");
   for (the_class=0;the_class<the_num_classes;the_class++)
@@ -307,6 +309,7 @@ void print_probabilities(FILE *a_file)
       for (the_context_index=0;the_context_index<the_type_table[the_predicate->types[the_predicate->num_param]].num_contexts;the_context_index++)
 	for (the_subpredicate_index=0;the_subpredicate_index<the_predicate->num_subpredicate;the_subpredicate_index++) {
 	  fprintf(a_file,"\t%s",the_predicate->name);
+	  fprintf(a_file,"\t");
 	  print_parameter(a_file,the_predicate_index,the_subpredicate_index);
 	  /*fprintf(a_file,"\t%d",the_context_index);*/
 	  fprintf(a_file,"\t");
@@ -351,6 +354,7 @@ void export_differences(FILE *a_file)
 	  the_subpredicate = the_predicate->subpredicates[the_subpredicate_index];
 	  fprintf(a_file,"%f %f",the_subpredicate->probabilities[the_context_index][0], the_subpredicate->probabilities[the_context_index][1]);
 	  fprintf(a_file,"\t%s",the_predicate->name);
+	  fprintf(a_file,"\t");
 	  print_parameter(a_file,the_predicate_index,the_subpredicate_index);
 	  /*fprintf(a_file,"\t%d",the_context_index);*/
 	  fprintf(a_file,"\t");
@@ -366,8 +370,10 @@ void print_individual_parameter_class(FILE *a_file,int an_individual,int a_type,
   fprintf(a_file,"Individual\t%s\tproperty\t%s\tvalue",
 	  the_type_table[a_type].constants[the_part][an_individual],
 	  the_predicate_table[a_predicate].name);
+  fprintf(a_file,"\t");
   print_parameter(a_file,a_predicate,a_subpredicate);
   fprintf(a_file,"\tclass");
+  fprintf(a_file,"\t");
   print_parameter(a_file,the_target_predicate,a_class);
   fprintf(a_file,"\n");
 }
@@ -970,6 +976,15 @@ int call_recursive_1BC(long *a_num_success,long *a_num_test,int status,int a_fol
   troc *the_roc;
   tlist *the_list;
   
+  if (status == CLASSIFY) {
+	   int the_subpredicate_index;
+	   fprintf(stderr,"Id,%s",the_predicate_table[the_target_predicate].name);
+	   for (the_subpredicate_index=0;the_subpredicate_index<the_predicate_table[the_target_predicate].num_subpredicate;the_subpredicate_index++) {
+		  fprintf(stderr,",");
+		  print_parameter(stderr,the_target_predicate,the_subpredicate_index);
+		} /* for each subpredicate */
+  	    fprintf(stderr,"\n");
+  }
   the_part = first_partition();
   while (! last_partition(the_part)) {
     if ( ((the_num_fold == 1) && (a_fold_table == NULL))
@@ -1019,7 +1034,12 @@ int call_recursive_1BC(long *a_num_success,long *a_num_test,int status,int a_fol
 		      the_list->next = *a_roc_list;
 		      *a_roc_list = the_list;
 		      /* display the id, the actual and the predicted classes, and the "ratio" of probabilities */
-		      fprintf(stderr,"%s, %d, %d, %lf\n",the_roc->individual,the_actual_class,the_predicted_class,the_probabilities[0]-the_probabilities[1]);
+		      fprintf(stderr,"%s,",the_roc->individual);
+		      print_parameter(stderr,the_target_predicate,the_actual_class);
+		      for (i=0;i<the_num_classes;i++){
+                        fprintf(stderr,",%lf",the_probabilities[i]);
+		      }
+                      fprintf(stderr,"\n");
 		    } /* (the_error == 0) */
 		  } /* (the_error == 0) */
 		} /* (the_error == 0) */

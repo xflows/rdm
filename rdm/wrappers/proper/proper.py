@@ -2,10 +2,31 @@ import time
 from subprocess import Popen, PIPE
 import os
 
+def _set_target_table(context, new_table):
+        context.__init__(context.src.connection, find_connections='yes')
+        context.target_table = new_table
+        context.tables = [new_table]
+        context.cols = {}
+        context.cols[new_table] = context.src.table_columns(new_table)
+        if context.target_table not in context.tables:
+            raise Exception('The selected target table "%s" is not among the selected tables.' % context.target_table)
+        # Propagate the selected tables
+        for table in context.cols.keys():
+            if table not in context.tables:
+                del context.cols[table]
+        for pair in context.connected.keys():
+            if pair[0] in context.tables and pair[1] in context.tables:
+                continue
+            del context.connected[pair]
+        if context.in_memory:
+            context.orng_tables = context.read_into_orange()
+            
+        return context
+            
 class Proper(object):
     def __init__(self,input_dict,is_relaggs):
         self.context = input_dict['context'];
-        self.result_table = '_%s_%s' % (('relaggs' if is_relaggs else ('quantiles' if 'discretize_parts' in input_dict else 'cardinalize' )), int(round(time.time() * 1000)) )
+        self.result_table = '_%s_%s' % (('relaggs' if is_relaggs else ('quantiles' if 'quantiles_number' in input_dict else 'cardinalize' )), int(round(time.time() * 1000)) )
         self.args_list = self.init_args_list(input_dict,is_relaggs)
     
     def init_args_list(self, input_dict,is_relaggs):
@@ -20,20 +41,28 @@ class Proper(object):
         args_list += [
                 '-use_foreign_keys',
                 '-associated_tables', ','.join(set(input_dict['context'].tables).difference(input_dict['context'].target_table)),
-                '-user',input_dict['context'].connection.user,
-                '-password', input_dict['context'].connection.password, 
+                '-user',input_dict['context'].src.connection.user,
+                '-password', input_dict['context'].src.connection.password, 
                 '-result_table', self.result_table, 
-                '-driver', input_dict['context'].connection.dal.get_driver_name(),
+                '-driver', input_dict['context'].src.get_driver_name(),
                 '-exclude_fields', excluded_fields,
                 '-field',input_dict['context'].target_att,
-                '-url', input_dict['context'].connection.dal.get_jdbc_prefix() + input_dict['context'].connection.host + '/',
-                '-database', input_dict['context'].connection.database,                    
+                '-url', input_dict['context'].src.get_jdbc_prefix() + input_dict['context'].src.connection.host + '/',
+                '-database', input_dict['context'].src.connection.database,                    
                 '-table', input_dict['context'].target_table]
         
+               
         try:
-            args_list += ['-discretize', '1','-discretize-parts', input_dict['discretize_parts'] ]
+            quantiles_number = input_dict['quantiles_number']
         except KeyError:
             pass
+        else:
+            try:
+                int(quantiles_number)
+            except ValueError:
+                raise Exception('Number of quantiles should be an integer')
+            else:
+                args_list += ['-discretize', '1','-discretize-parts', quantiles_number]
     
         return args_list        
         
@@ -43,7 +72,7 @@ class Proper(object):
         p = Popen(self.args_list,cwd=os.path.dirname(os.path.abspath(__file__)), stdout=PIPE)
         stdout_str, stderr_str = p.communicate()
         
-        output_dict['context'] = self.context.change_table(self.result_table)        
+        output_dict['context'] = _set_target_table(self.context,self.result_table)        
         return output_dict
     
     def parse_excluded_fields(self, context):   
