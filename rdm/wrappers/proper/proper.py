@@ -2,9 +2,10 @@ import time
 from subprocess import Popen, PIPE
 import os
 
-def _set_target_table(context, new_table):
+def _set_target_table(context, new_table, target_att):
         context.__init__(context.src.connection, find_connections='yes')
         context.target_table = new_table
+        context.target_att = target_att
         context.tables = [new_table]
         context.cols = {}
         context.cols[new_table] = context.src.table_columns(new_table)
@@ -72,7 +73,7 @@ class Proper(object):
         p = Popen(self.args_list,cwd=os.path.dirname(os.path.abspath(__file__)), stdout=PIPE)
         stdout_str, stderr_str = p.communicate()
         
-        output_dict['context'] = _set_target_table(self.context,self.result_table)        
+        output_dict['context'] = _set_target_table(self.context,self.result_table,self.context.target_att)        
         return output_dict
     
     def parse_excluded_fields(self, context):   

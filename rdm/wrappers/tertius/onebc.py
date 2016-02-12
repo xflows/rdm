@@ -32,7 +32,8 @@ class OneBC(object):
         except ValueError:
             pass
         else:
-            args_list += ['-cross', str(cross_number)]
+            if cross_number >= 1:
+                args_list += ['-cross', str(cross_number)]
             
         try:
             srand = int(input_dict['srand'])
