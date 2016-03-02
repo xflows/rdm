@@ -27,7 +27,10 @@ def _set_target_table(context, new_table, target_att):
 class Proper(object):
     def __init__(self,input_dict,is_relaggs):
         self.context = input_dict['context'];
-        self.result_table = '_%s_%s' % (('relaggs' if is_relaggs else ('quantiles' if 'quantiles_number' in input_dict else 'cardinalize' )), int(round(time.time() * 1000)) )
+        self.result_table = '_%s_%s%s_%s' % (input_dict['context'].src.connection.database,
+                                             ('r' if is_relaggs else ('q' if 'quantiles_number' in input_dict else 'c' )),
+                                             input_dict['quantiles_number'] if 'quantiles_number' in input_dict else '',
+                                              int(round(time.time() * 1000)) )
         self.args_list = self.init_args_list(input_dict,is_relaggs)
     
     def init_args_list(self, input_dict,is_relaggs):
