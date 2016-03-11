@@ -67,6 +67,18 @@ class Proper(object):
                 raise Exception('Number of quantiles should be an integer')
             else:
                 args_list += ['-discretize', '1','-discretize-parts', quantiles_number]
+                
+        try:
+            threshold_number = input_dict['threshold_number']
+        except KeyError:
+            pass
+        else:
+            try:
+                int(threshold_number)
+            except ValueError:
+                raise Exception('Number of threshold should be an integer')
+            else:
+                args_list += ['-nb_thres_eq_freq', threshold_number]
     
         return args_list        
         
