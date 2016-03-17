@@ -45,7 +45,7 @@ class Caraf(object):
         except ValueError:
             raise Exception('Forest size should be an integer')
         
-        self.args_list = ['java', '-Xmx512m', '-jar', 'caraf/bin/caraf.jar']
+        self.args_list = ['java', '-Xmx512m', '-jar', 'bin/caraf.jar']
         self.args_list += [fct_file,'-p',prd_file,'-ta',target_pred,'-h',heuristic,'-l',leaf_size,'-f',forest_size]
 
         try:

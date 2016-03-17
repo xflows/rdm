@@ -213,7 +213,6 @@ def ilp_multiple_classes_to_one_binary_score(input_dict):
 
 def ilp_caraf(input_dict):
     caraf = Caraf(input_dict)
-    # lancer caraf 
     output_dict = caraf.run()    
     return output_dict
 
