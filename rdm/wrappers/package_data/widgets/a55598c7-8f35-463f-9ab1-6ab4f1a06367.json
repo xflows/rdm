@@ -1,0 +1,464 @@
+[
+  {
+    "model": "workflows.abstractwidget", 
+    "fields": {
+      "category": "ed859be5-cc13-46b9-b249-c8f026732c1c", 
+      "treeview_image": "", 
+      "uid": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "windows_queue": false, 
+      "package": "rdm.wrappers", 
+      "interaction_view": "", 
+      "has_progress_bar": false, 
+      "image": "", 
+      "description": "More information about Caraf is available here:\r\nhttps://link.springer.com/chapter/10.1007/978-3-319-23708-4_4#page-1", 
+      "static_image": "", 
+      "action": "ilp_caraf", 
+      "visualization_view": "", 
+      "streaming_visualization_view": "", 
+      "post_interact_action": "", 
+      "wsdl_method": "", 
+      "wsdl": "", 
+      "interactive": false, 
+      "is_streaming": false, 
+      "order": 1, 
+      "name": "Caraf"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Fct file", 
+      "short_name": "fct", 
+      "default": "", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "file", 
+      "variable": "fct_file", 
+      "parameter": false, 
+      "order": 2, 
+      "uid": "0b48173e-80a2-44f4-8078-a4bdc8324e6b"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Interquartile Range", 
+      "short_name": "iqr", 
+      "default": "true", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "interquartile_range", 
+      "parameter": true, 
+      "order": 20, 
+      "uid": "0b7fb776-2316-4003-9f1d-d0671f100038"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Ratio", 
+      "short_name": "rat", 
+      "default": "true", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "ratio", 
+      "parameter": true, 
+      "order": 15, 
+      "uid": "11972d02-f1b7-4759-b20c-f48218d15386"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Heuristic", 
+      "short_name": "heu", 
+      "default": "random", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "select", 
+      "variable": "heuristic", 
+      "parameter": true, 
+      "order": 8, 
+      "uid": "16bd00f3-6571-4d55-8b6f-ba93690a9724"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "First Quartile", 
+      "short_name": "fqu", 
+      "default": "true", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "first_quartile", 
+      "parameter": true, 
+      "order": 18, 
+      "uid": "21a30a4a-ed30-4f28-baa0-b548e27388ea"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Cross Validation Folds", 
+      "short_name": "cvf", 
+      "default": "", 
+      "description": "", 
+      "required": false, 
+      "multi": false, 
+      "parameter_type": "text", 
+      "variable": "cross_validation_folds", 
+      "parameter": true, 
+      "order": 4, 
+      "uid": "3c46ec7a-777d-46fa-b260-03ffa533c920"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Target Predicate", 
+      "short_name": "tpr", 
+      "default": "", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "text", 
+      "variable": "target_pred", 
+      "parameter": true, 
+      "order": 9, 
+      "uid": "42005284-707e-4144-a2f7-81bb0e21d7b8"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Min Leaf Size", 
+      "short_name": "mls", 
+      "default": "1", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "text", 
+      "variable": "leaf_size", 
+      "parameter": true, 
+      "order": 7, 
+      "uid": "427ab2e2-2868-4ec9-86de-47ec87ecc991"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Random Seed", 
+      "short_name": "sed", 
+      "default": "", 
+      "description": "", 
+      "required": false, 
+      "multi": false, 
+      "parameter_type": "text", 
+      "variable": "random_seed", 
+      "parameter": true, 
+      "order": 5, 
+      "uid": "573900fe-4c21-4a0b-899a-70baea715d38"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Forest Size", 
+      "short_name": "sfo", 
+      "default": "1", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "text", 
+      "variable": "forest_size", 
+      "parameter": true, 
+      "order": 6, 
+      "uid": "5b920c20-44ad-447d-9bcf-c8ae5f0f9317"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Median", 
+      "short_name": "med", 
+      "default": "true", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "median", 
+      "parameter": true, 
+      "order": 17, 
+      "uid": "6734204d-037a-446a-87df-c2f9b7506f34"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Sum", 
+      "short_name": "sum", 
+      "default": "true", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "sum", 
+      "parameter": true, 
+      "order": 13, 
+      "uid": "70c59af1-44fe-43cb-b78e-95d78f73b819"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Minimum", 
+      "short_name": "min", 
+      "default": "true", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "min", 
+      "parameter": true, 
+      "order": 11, 
+      "uid": "83f3bebd-5bb5-40a8-aee5-fb59a2b364fa"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Mean", 
+      "short_name": "mea", 
+      "default": "true", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "mean", 
+      "parameter": true, 
+      "order": 14, 
+      "uid": "a2eea626-696a-4c34-884e-9920d982c585"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Count", 
+      "short_name": "cnt", 
+      "default": "true", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "cnt", 
+      "parameter": true, 
+      "order": 10, 
+      "uid": "af7b6834-fafb-4368-9bf4-e55f983ce68c"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "First Decile", 
+      "short_name": "fde", 
+      "default": "true", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "first_decile", 
+      "parameter": true, 
+      "order": 21, 
+      "uid": "ba350c86-07aa-40da-949d-442441a90761"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Ninth Decile", 
+      "short_name": "nde", 
+      "default": "true", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "ninth_decile", 
+      "parameter": true, 
+      "order": 22, 
+      "uid": "c0d5a71c-2e62-4052-8081-74813b078c22"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Maximum", 
+      "short_name": "max", 
+      "default": "true", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "max", 
+      "parameter": true, 
+      "order": 12, 
+      "uid": "d48dacad-e448-4b31-822f-d9065f0d799e"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Third Quartile", 
+      "short_name": "tqu", 
+      "default": "true", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "third_quartile", 
+      "parameter": true, 
+      "order": 19, 
+      "uid": "e49a95e8-a18f-4a2d-ab66-39955293e7f3"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Prd file", 
+      "short_name": "prd", 
+      "default": "", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "file", 
+      "variable": "prd_file", 
+      "parameter": false, 
+      "order": 1, 
+      "uid": "f02062bd-d07b-46c1-918f-2170e229b6d2"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Standard Deviation", 
+      "short_name": "std", 
+      "default": "true", 
+      "description": "", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "std", 
+      "parameter": true, 
+      "order": 16, 
+      "uid": "fcda24ed-419c-4066-be70-c3b7f651c781"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Test file", 
+      "short_name": "tst", 
+      "default": "", 
+      "description": "", 
+      "required": false, 
+      "multi": false, 
+      "parameter_type": "file", 
+      "variable": "tst_file", 
+      "parameter": true, 
+      "order": 3, 
+      "uid": "ff497492-04a0-43c2-ac83-02e72030c3ca"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoutput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Eval file", 
+      "short_name": "eva", 
+      "description": "", 
+      "variable": "eval_file", 
+      "order": 2, 
+      "uid": "0e31fa8e-9b2f-42ed-b7d0-51866909897a"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoutput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Predictions file", 
+      "short_name": "pre", 
+      "description": "", 
+      "variable": "predictions_file", 
+      "order": 3, 
+      "uid": "28130970-9759-4093-b83e-e319063a1c57"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoutput", 
+    "fields": {
+      "widget": "a55598c7-8f35-463f-9ab1-6ab4f1a06367", 
+      "name": "Model file", 
+      "short_name": "xml", 
+      "description": "", 
+      "variable": "model_file", 
+      "order": 1, 
+      "uid": "80b86360-f4cd-42f2-97cd-f5479c37789c"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "RRHCCA", 
+      "uid": "1fca58af-e189-41e2-9b8b-1366a7788c0b", 
+      "value": "RRHCCA", 
+      "abstract_input": "16bd00f3-6571-4d55-8b6f-ba93690a9724"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "Random", 
+      "uid": "3c83f27f-b3cc-4447-8231-f41873bcaff7", 
+      "value": "random", 
+      "abstract_input": "16bd00f3-6571-4d55-8b6f-ba93690a9724"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoption", 
+    "fields": {
+      "name": "Global", 
+      "uid": "b3daedf5-a318-4c21-8dcd-4bcfe9b67802", 
+      "value": "global", 
+      "abstract_input": "16bd00f3-6571-4d55-8b6f-ba93690a9724"
+    }
+  }
+]

@@ -1,6 +1,5 @@
 import re
 import json
-import tempfile
 from string import ascii_lowercase as chars
 from random import choice
 
@@ -11,9 +10,9 @@ from treeliker import TreeLiker
 from security import check_input
 from proper import Proper
 from tertius import Tertius, OneBC
+from caraf import Caraf
 
 from services.webservice import WebService
-
 
 def ilp_aleph(input_dict):
     aleph = Aleph()
@@ -210,6 +209,11 @@ def ilp_multiple_classes_to_one_binary_score(input_dict):
 
     
     output_dict['binary_score'] = to_binary_score(input_dict['multiple_classes'],input_dict['pos_col'],input_dict['neg_col'])
+    return output_dict
+
+def ilp_caraf(input_dict):
+    caraf = Caraf(input_dict)
+    output_dict = caraf.run()    
     return output_dict
 
 def to_binary_score(multiple_score,pos_col,neg_col):

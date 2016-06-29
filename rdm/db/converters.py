@@ -219,7 +219,7 @@ class OrangeConverter(Converter):
     '''
     Converts the selected tables in the given context to orange example tables.
     '''
-    continuous_types = ('FLOAT','DOUBLE','DECIMAL','NEWDECIMAL','double precision')
+    continuous_types = ('FLOAT','DOUBLE','DECIMAL','NEWDECIMAL','double precision','numeric')
     integer_types = ('TINY','SHORT','LONG','LONGLONG','INT24','integer')
     ordinal_types = ('YEAR','VARCHAR','SET','VAR_STRING','STRING','BIT','text','character varying', 'character')
 

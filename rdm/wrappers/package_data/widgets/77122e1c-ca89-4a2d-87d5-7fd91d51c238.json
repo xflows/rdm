@@ -42,6 +42,23 @@
     }
   }, 
   {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "77122e1c-ca89-4a2d-87d5-7fd91d51c238", 
+      "name": "threshold number", 
+      "short_name": "nbt", 
+      "default": "", 
+      "description": "", 
+      "required": false, 
+      "multi": false, 
+      "parameter_type": "text", 
+      "variable": "threshold_number", 
+      "parameter": true, 
+      "order": 2, 
+      "uid": "6df1df4a-7393-4d44-98ae-ce4ea6f99e3f"
+    }
+  }, 
+  {
     "model": "workflows.abstractoutput", 
     "fields": {
       "widget": "77122e1c-ca89-4a2d-87d5-7fd91d51c238", 
