@@ -132,11 +132,11 @@
            <div itemprop="articleBody">
             
   <h1>Source code for rdm.wrappers.aleph.aleph</h1><div class="highlight"><pre>
-<span class="c">#</span>
-<span class="c"># Python interface to Aleph.</span>
-<span class="c">#</span>
-<span class="c"># author: Anze Vavpetic &lt;anze.vavpetic@ijs.si&gt;, 2011</span>
-<span class="c">#</span>
+<span></span><span class="c1">#</span>
+<span class="c1"># Python interface to Aleph.</span>
+<span class="c1">#</span>
+<span class="c1"># author: Anze Vavpetic &lt;anze.vavpetic@ijs.si&gt;, 2011</span>
+<span class="c1">#</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -147,7 +147,7 @@
 <span class="kn">from</span> <span class="nn">stat</span> <span class="kn">import</span> <span class="n">S_IREAD</span><span class="p">,</span> <span class="n">S_IEXEC</span>
 <span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">PIPE</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">!=</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">!=</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">..security</span> <span class="kn">import</span> <span class="n">SafePopen</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">os</span>
@@ -157,34 +157,34 @@
 
 <span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">False</span>
 
-<span class="c"># Setup a logger</span>
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&quot;Aleph [Python]&quot;</span><span class="p">)</span>
+<span class="c1"># Setup a logger</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;Aleph [Python]&quot;</span><span class="p">)</span>
 <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span> <span class="k">if</span> <span class="n">DEBUG</span> <span class="k">else</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 <span class="n">ch</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
-<span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%(name)s</span><span class="s"> </span><span class="si">%(levelname)s</span><span class="s">: </span><span class="si">%(message)s</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%(name)s</span><span class="s2"> </span><span class="si">%(levelname)s</span><span class="s2">: </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">ch</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
 <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Aleph"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.Aleph">[docs]</a><span class="k">class</span> <span class="nc">Aleph</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c"># The aleph source file is presumed to be in the same dir as this file.</span>
-    <span class="n">THIS_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span> <span class="k">else</span> <span class="s">&#39;.&#39;</span>
-    <span class="n">ALEPH_FN</span> <span class="o">=</span> <span class="s">&#39;aleph.pl&#39;</span>
-    <span class="n">FEATURES_FN</span> <span class="o">=</span> <span class="s">&#39;features.pl&#39;</span>
-    <span class="n">RULES_SUFFIX</span> <span class="o">=</span> <span class="s">&#39;Rules&#39;</span>
-    <span class="n">FEATURES_SUFFIX</span> <span class="o">=</span> <span class="s">&#39;Features&#39;</span>
-    <span class="n">PROP_DATASET_SUFFIX</span> <span class="o">=</span> <span class="s">&#39;Propositional&#39;</span>
-    <span class="n">SCRIPT</span> <span class="o">=</span> <span class="s">&#39;run_aleph.pl&#39;</span>
+    <span class="c1"># The aleph source file is presumed to be in the same dir as this file.</span>
+    <span class="n">THIS_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;.&#39;</span>
+    <span class="n">ALEPH_FN</span> <span class="o">=</span> <span class="s1">&#39;aleph.pl&#39;</span>
+    <span class="n">FEATURES_FN</span> <span class="o">=</span> <span class="s1">&#39;features.pl&#39;</span>
+    <span class="n">RULES_SUFFIX</span> <span class="o">=</span> <span class="s1">&#39;Rules&#39;</span>
+    <span class="n">FEATURES_SUFFIX</span> <span class="o">=</span> <span class="s1">&#39;Features&#39;</span>
+    <span class="n">PROP_DATASET_SUFFIX</span> <span class="o">=</span> <span class="s1">&#39;Propositional&#39;</span>
+    <span class="n">SCRIPT</span> <span class="o">=</span> <span class="s1">&#39;run_aleph.pl&#39;</span>
 
     <span class="n">ESSENTIAL_PARAMS</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s">&#39;depth&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-        <span class="s">&#39;evalfn&#39;</span><span class="p">:</span> <span class="s">&#39;coverage&#39;</span><span class="p">,</span>
-        <span class="s">&#39;i&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s">&#39;language&#39;</span><span class="p">:</span> <span class="s">&#39;inf&#39;</span><span class="p">,</span>
-        <span class="s">&#39;m&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
-        <span class="s">&#39;max_features&#39;</span><span class="p">:</span> <span class="s">&#39;inf&#39;</span><span class="p">,</span>
-        <span class="s">&#39;minpos&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s">&#39;noise&#39;</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="s1">&#39;depth&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;evalfn&#39;</span><span class="p">:</span> <span class="s1">&#39;coverage&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;i&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s1">&#39;language&#39;</span><span class="p">:</span> <span class="s1">&#39;inf&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;m&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="s1">&#39;max_features&#39;</span><span class="p">:</span> <span class="s1">&#39;inf&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;minpos&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="mi">0</span>
     <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">NOTSET</span><span class="p">):</span>
@@ -195,40 +195,40 @@
 <span class="sd">                       This controls the verbosity of the output.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">aleph_script</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">ALEPH_FN</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aleph_script</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">ALEPH_FN</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">postGoal</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">postScript</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="c"># Dictionary of non-default settings</span>
+        <span class="c1"># Dictionary of non-default settings</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">verbosity</span><span class="p">)</span>
 
-        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">Aleph</span><span class="o">.</span><span class="n">THIS_DIR</span><span class="p">,</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">ALEPH_FN</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
-        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">Aleph</span><span class="o">.</span><span class="n">THIS_DIR</span><span class="p">,</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">FEATURES_FN</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">Aleph</span><span class="o">.</span><span class="n">THIS_DIR</span><span class="p">,</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">ALEPH_FN</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">Aleph</span><span class="o">.</span><span class="n">THIS_DIR</span><span class="p">,</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">FEATURES_FN</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Aleph.set"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.Aleph.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the value of setting &#39;name&#39; to &#39;value&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
+
 <div class="viewcode-block" id="Aleph.settingsAsFacts"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.Aleph.settingsAsFacts">[docs]</a>    <span class="k">def</span> <span class="nf">settingsAsFacts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parses a string of settings in the form:</span>
 <span class="sd">            set(name1, val1), set(name2, val2)...</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;set\(([a-zA-Z0-9_]+),(\[a-zA-Z0-9_]+)\)&#39;</span><span class="p">)</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;set\(([a-zA-Z0-9_]+),(\[a-zA-Z0-9_]+)\)&#39;</span><span class="p">)</span>
         <span class="n">pairs</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Aleph.setPostScript"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.Aleph.setPostScript">[docs]</a>    <span class="k">def</span> <span class="nf">setPostScript</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">goal</span><span class="p">,</span> <span class="n">script</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        After learning call the given script using &#39;goal&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">postGoal</span> <span class="o">=</span> <span class="n">goal</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">postScript</span> <span class="o">=</span> <span class="n">script</span>
-</div>
-<div class="viewcode-block" id="Aleph.induce"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.Aleph.induce">[docs]</a>    <span class="k">def</span> <span class="nf">induce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">neg</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">filestem</span><span class="o">=</span><span class="s">&#39;default&#39;</span><span class="p">,</span> <span class="n">printOutput</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">postScript</span> <span class="o">=</span> <span class="n">script</span></div>
+
+<div class="viewcode-block" id="Aleph.induce"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.Aleph.induce">[docs]</a>    <span class="k">def</span> <span class="nf">induce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">neg</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">filestem</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">printOutput</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Induce a theory or features in &#39;mode&#39;.</span>
 
@@ -240,53 +240,53 @@
 
 <span class="sd">        @return The theory as a string or an arff dataset in induce_features mode.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># Write the inputs to appropriate files.</span>
+        <span class="c1"># Write the inputs to appropriate files.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__prepare</span><span class="p">(</span><span class="n">filestem</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">neg</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 
-        <span class="c"># Make a script to run aleph (with appropriate settings).</span>
+        <span class="c1"># Make a script to run aleph (with appropriate settings).</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__script</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">filestem</span><span class="p">)</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Running aleph...&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Running aleph...&quot;</span><span class="p">)</span>
 
         <span class="n">dumpFile</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">printOutput</span><span class="p">:</span>
             <span class="n">dumpFile</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryFile</span><span class="p">()</span>
 
-        <span class="c"># Run the aleph script.</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">SafePopen</span><span class="p">([</span><span class="s">&#39;yap&#39;</span><span class="p">,</span> <span class="s">&#39;-s50000&#39;</span><span class="p">,</span> <span class="s">&#39;-h200000&#39;</span><span class="p">,</span> <span class="s">&#39;-L&#39;</span><span class="p">,</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">SCRIPT</span><span class="p">],</span>
+        <span class="c1"># Run the aleph script.</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">SafePopen</span><span class="p">([</span><span class="s1">&#39;yap&#39;</span><span class="p">,</span> <span class="s1">&#39;-s50000&#39;</span><span class="p">,</span> <span class="s1">&#39;-h200000&#39;</span><span class="p">,</span> <span class="s1">&#39;-L&#39;</span><span class="p">,</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">SCRIPT</span><span class="p">],</span>
                       <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span>
                       <span class="n">stdout</span><span class="o">=</span><span class="n">dumpFile</span><span class="p">,</span>
                       <span class="n">stderr</span><span class="o">=</span><span class="n">dumpFile</span>
         <span class="p">)</span><span class="o">.</span><span class="n">safe_run</span><span class="p">()</span>
         <span class="n">stdout_str</span><span class="p">,</span> <span class="n">stderr_str</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Done.&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Done.&quot;</span><span class="p">)</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="k">if</span> <span class="n">mode</span> <span class="o">!=</span> <span class="s">&#39;induce_features&#39;</span><span class="p">:</span>
-            <span class="c"># Return the rules written in the output file.</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">!=</span> <span class="s1">&#39;induce_features&#39;</span><span class="p">:</span>
+            <span class="c1"># Return the rules written in the output file.</span>
             <span class="n">rules_fn</span> <span class="o">=</span> <span class="n">filestem</span> <span class="o">+</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">RULES_SUFFIX</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">rules_fn</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">rules_fn</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
             <span class="n">features</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">features_fn</span> <span class="o">=</span> <span class="n">filestem</span> <span class="o">+</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">FEATURES_SUFFIX</span>
-            <span class="n">features</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">features_fn</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">features</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">features_fn</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
             <span class="n">dataset_fn</span> <span class="o">=</span> <span class="n">filestem</span> <span class="o">+</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">PROP_DATASET_SUFFIX</span>
-            <span class="n">pl_dataset</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">dataset_fn</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">pl_dataset</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">dataset_fn</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__to_arff</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">pl_dataset</span><span class="p">,</span> <span class="n">filestem</span><span class="p">)</span>
 
 
-        <span class="c"># Cleanup.</span>
+        <span class="c1"># Cleanup.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__cleanup</span><span class="p">()</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span></div>
+
     <span class="k">def</span> <span class="nf">__prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filestem</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">neg</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Prepares the needed files.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">posFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">.f&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
-        <span class="n">negFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">.n&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
-        <span class="n">bFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">.b&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">posFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.f&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">negFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.n&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">bFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.b&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
 
         <span class="n">posFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
         <span class="n">negFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">neg</span><span class="p">)</span>
@@ -303,66 +303,66 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Problem removing temporary files. </span><span class="se">\</span>
-<span class="s">                         The files are probably in use.&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Problem removing temporary files. </span><span class="se">\</span>
+<span class="s1">                         The files are probably in use.&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__script</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">filestem</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Makes the script file to be run by yap.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">scriptPath</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">SCRIPT</span><span class="p">)</span>
-        <span class="n">script</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">scriptPath</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">scriptPath</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">SCRIPT</span><span class="p">)</span>
+        <span class="n">script</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">scriptPath</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
 
-        <span class="c"># Permit the owner to execute and read this script</span>
+        <span class="c1"># Permit the owner to execute and read this script</span>
         <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">scriptPath</span><span class="p">,</span> <span class="n">S_IREAD</span> <span class="o">|</span> <span class="n">S_IEXEC</span><span class="p">)</span>
 
-        <span class="n">cat</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">script</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-        <span class="n">cat</span><span class="p">(</span><span class="s">&quot;:- initialization(run_aleph).&quot;</span><span class="p">)</span>
-        <span class="n">cat</span><span class="p">(</span><span class="s">&quot;run_aleph :- &quot;</span><span class="p">)</span>
-        <span class="n">cat</span><span class="p">(</span><span class="s">&quot;consult(aleph),&quot;</span><span class="p">)</span>
-        <span class="n">cat</span><span class="p">(</span><span class="s">&quot;read_all(&#39;</span><span class="si">%s</span><span class="s">&#39;),&quot;</span> <span class="o">%</span> <span class="n">filestem</span><span class="p">)</span>
-        <span class="c"># Cat all the non-default settings</span>
+        <span class="n">cat</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">script</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">cat</span><span class="p">(</span><span class="s2">&quot;:- initialization(run_aleph).&quot;</span><span class="p">)</span>
+        <span class="n">cat</span><span class="p">(</span><span class="s2">&quot;run_aleph :- &quot;</span><span class="p">)</span>
+        <span class="n">cat</span><span class="p">(</span><span class="s2">&quot;consult(aleph),&quot;</span><span class="p">)</span>
+        <span class="n">cat</span><span class="p">(</span><span class="s2">&quot;read_all(&#39;</span><span class="si">%s</span><span class="s2">&#39;),&quot;</span> <span class="o">%</span> <span class="n">filestem</span><span class="p">)</span>
+        <span class="c1"># Cat all the non-default settings</span>
         <span class="k">for</span> <span class="n">setting</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">cat</span><span class="p">(</span><span class="s">&quot;set(</span><span class="si">%s</span><span class="s">, </span><span class="si">%s</span><span class="s">),&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">setting</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
-        <span class="n">cat</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">,&quot;</span> <span class="o">%</span> <span class="n">mode</span><span class="p">)</span>
+            <span class="n">cat</span><span class="p">(</span><span class="s2">&quot;set(</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">),&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">setting</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+        <span class="n">cat</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">,&quot;</span> <span class="o">%</span> <span class="n">mode</span><span class="p">)</span>
 
-        <span class="n">eof</span> <span class="o">=</span> <span class="s">&#39;,&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">postScript</span> <span class="k">else</span> <span class="s">&#39;.&#39;</span>
-        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;induce_features&#39;</span><span class="p">:</span>
-            <span class="n">cat</span><span class="p">(</span><span class="s">&quot;consult(features),&quot;</span><span class="p">)</span>
+        <span class="n">eof</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">postScript</span> <span class="k">else</span> <span class="s1">&#39;.&#39;</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;induce_features&#39;</span><span class="p">:</span>
+            <span class="n">cat</span><span class="p">(</span><span class="s2">&quot;consult(features),&quot;</span><span class="p">)</span>
             <span class="n">features_fn</span> <span class="o">=</span> <span class="n">filestem</span> <span class="o">+</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">FEATURES_SUFFIX</span>
             <span class="n">dataset_fn</span> <span class="o">=</span> <span class="n">filestem</span> <span class="o">+</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">PROP_DATASET_SUFFIX</span>
-            <span class="n">cat</span><span class="p">(</span><span class="s">&#39;save_features(</span><span class="si">%s</span><span class="s">),&#39;</span> <span class="o">%</span> <span class="n">features_fn</span><span class="p">)</span>
-            <span class="n">cat</span><span class="p">(</span><span class="s">&#39;save_dataset(</span><span class="si">%s</span><span class="s">)</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">dataset_fn</span><span class="p">,</span> <span class="n">eof</span><span class="p">))</span>
+            <span class="n">cat</span><span class="p">(</span><span class="s1">&#39;save_features(</span><span class="si">%s</span><span class="s1">),&#39;</span> <span class="o">%</span> <span class="n">features_fn</span><span class="p">)</span>
+            <span class="n">cat</span><span class="p">(</span><span class="s1">&#39;save_dataset(</span><span class="si">%s</span><span class="s1">)</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">dataset_fn</span><span class="p">,</span> <span class="n">eof</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">rules_fn</span> <span class="o">=</span> <span class="n">filestem</span> <span class="o">+</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">RULES_SUFFIX</span>
-            <span class="n">cat</span><span class="p">(</span><span class="s">&quot;write_rules(&#39;</span><span class="si">%s</span><span class="s">&#39;)</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">rules_fn</span><span class="p">,</span> <span class="n">eof</span><span class="p">))</span>
+            <span class="n">cat</span><span class="p">(</span><span class="s2">&quot;write_rules(&#39;</span><span class="si">%s</span><span class="s2">&#39;)</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">rules_fn</span><span class="p">,</span> <span class="n">eof</span><span class="p">))</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">postScript</span><span class="p">:</span>
-            <span class="n">cat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">postGoal</span> <span class="o">+</span> <span class="s">&quot;.&quot;</span><span class="p">)</span>
+            <span class="n">cat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">postGoal</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
             <span class="n">cat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">postScript</span><span class="p">)</span>
         <span class="n">script</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__to_arff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">pl_dataset</span><span class="p">,</span> <span class="n">filestem</span><span class="p">):</span>
         <span class="n">arff</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
-        <span class="n">cat</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">arff</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+        <span class="n">cat</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">arff</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-        <span class="n">cat</span><span class="p">(</span><span class="s">&#39;@RELATION &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="n">filestem</span><span class="p">)</span>
-        <span class="n">features</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r&quot;feature\((\d+),\((.*)\)\).&quot;</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span>
+        <span class="n">cat</span><span class="p">(</span><span class="s1">&#39;@RELATION &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="n">filestem</span><span class="p">)</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">r&quot;feature\((\d+),\((.*)\)\).&quot;</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">fid</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-            <span class="n">cat</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%%</span><span class="s"> f</span><span class="si">%s</span><span class="s">: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fid</span><span class="p">,</span> <span class="n">feature</span><span class="p">))</span>
-            <span class="n">cat</span><span class="p">(</span><span class="s">&#39;@ATTRIBUTE f</span><span class="si">%s</span><span class="s"> {+,-}&#39;</span> <span class="o">%</span> <span class="n">fid</span><span class="p">)</span>
+            <span class="n">cat</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%%</span><span class="s1"> f</span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fid</span><span class="p">,</span> <span class="n">feature</span><span class="p">))</span>
+            <span class="n">cat</span><span class="p">(</span><span class="s1">&#39;@ATTRIBUTE f</span><span class="si">%s</span><span class="s1"> {+,-}&#39;</span> <span class="o">%</span> <span class="n">fid</span><span class="p">)</span>
 
-        <span class="c"># Class attribute</span>
+        <span class="c1"># Class attribute</span>
         <span class="n">class_id</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
-        <span class="n">cat</span><span class="p">(</span><span class="s">&#39;@ATTRIBUTE class {negative,positive}&#39;</span><span class="p">)</span>
+        <span class="n">cat</span><span class="p">(</span><span class="s1">&#39;@ATTRIBUTE class {negative,positive}&#39;</span><span class="p">)</span>
 
-        <span class="n">cat</span><span class="p">(</span><span class="s">&#39;@DATA&#39;</span><span class="p">)</span>
-        <span class="n">examples</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r&quot;example\((\w+),(\[[\d,]*\]),(\w+)\)\.&quot;</span><span class="p">,</span> <span class="n">pl_dataset</span><span class="p">)</span>
+        <span class="n">cat</span><span class="p">(</span><span class="s1">&#39;@DATA&#39;</span><span class="p">)</span>
+        <span class="n">examples</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">r&quot;example\((\w+),(\[[\d,]*\]),(\w+)\)\.&quot;</span><span class="p">,</span> <span class="n">pl_dataset</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">cls</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">:</span>
             <span class="n">vals</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">class_id</span><span class="p">):</span>
-                <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;+&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">features</span><span class="p">)</span> <span class="k">else</span> <span class="s">&#39;-&#39;</span><span class="p">)</span>
+                <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;+&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">features</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
 	    <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span>
-            <span class="n">cat</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="s">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">vals</span><span class="p">))</span>
+            <span class="n">cat</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">vals</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">arff</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span></div>
 </pre></div>
 

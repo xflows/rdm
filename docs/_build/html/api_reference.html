@@ -86,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example use case</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clowdflows.html">ClowdFlows</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">API Reference</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-rdm.db.datasource">Database interaction</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#base-datasource">Base DataSource</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mysqldatasource">MySQLDataSource</a></li>
@@ -126,7 +126,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -167,8 +167,14 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="rdm.db.datasource.DataSource.connect">
+<code class="descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a connection object.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="rdm.db.datasource.DataSource.connected">
-<code class="descname">connected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.connected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.connected" title="Permalink to this definition">¶</a></dt>
+<code class="descname">connected</code><span class="sig-paren">(</span><em>tables</em>, <em>cols</em>, <em>find_connections=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.connected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.connected" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of tuples of connected table pairs.</p>
 </dd></dl>
 
@@ -185,9 +191,21 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="rdm.db.datasource.DataSource.foreign_keys">
+<code class="descname">foreign_keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.foreign_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.foreign_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of foreign key relations.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="rdm.db.datasource.DataSource.select_where">
 <code class="descname">select_where</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em>, <em>pk_att</em>, <em>pk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.select_where"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.select_where" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select with where clause.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.datasource.DataSource.table_column_names">
+<code class="descname">table_column_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.table_column_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.table_column_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of table / column names.</p>
 </dd></dl>
 
 <dl class="method">
@@ -225,7 +243,7 @@
 <p>A <code class="docutils literal"><span class="pre">DBContext</span></code> object represents a <em>view</em> of a particular data source that can be used for learning. Example uses include: selecting only particular tables, table columns, a target attribute, and so on.</p>
 <dl class="class">
 <dt id="rdm.db.context.DBContext">
-<em class="property">class </em><code class="descclassname">rdm.db.context.</code><code class="descname">DBContext</code><span class="sig-paren">(</span><em>datasource</em>, <em>find_connections=False</em>, <em>in_memory=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rdm.db.context.</code><code class="descname">DBContext</code><span class="sig-paren">(</span><em>connection</em>, <em>find_connections=False</em>, <em>in_memory=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="rdm.db.context.DBContext.fetch">
 <code class="descname">fetch</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext.fetch" title="Permalink to this definition">¶</a></dt>
@@ -441,7 +459,7 @@ this will be an empty string if cn2sd is set to False.</li>
 
 <dl class="method">
 <dt id="rdm.wrappers.Wordification.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>num_of_processes=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">run</code><span class="sig-paren">(</span><em>num_of_processes=8</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the wordification methodology on the target table</p>
 </dd></dl>
 

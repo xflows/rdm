@@ -132,10 +132,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for rdm.wrappers.rsd.rsd</h1><div class="highlight"><pre>
-<span class="c"># Python interface to RSD.</span>
-<span class="c"># </span>
-<span class="c"># author: Anze Vavpetic &lt;anze.vavpetic@ijs.si&gt;, 2012</span>
-<span class="c">#</span>
+<span></span><span class="c1"># Python interface to RSD.</span>
+<span class="c1"># </span>
+<span class="c1"># author: Anze Vavpetic &lt;anze.vavpetic@ijs.si&gt;, 2012</span>
+<span class="c1">#</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -154,31 +154,31 @@
 
 <span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">True</span>
 
-<span class="c"># Setup a logger</span>
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&quot;RSD [Python]&quot;</span><span class="p">)</span>
+<span class="c1"># Setup a logger</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;RSD [Python]&quot;</span><span class="p">)</span>
 <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span> <span class="k">if</span> <span class="n">DEBUG</span> <span class="k">else</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 <span class="n">ch</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
-<span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%(name)s</span><span class="s"> </span><span class="si">%(levelname)s</span><span class="s">: </span><span class="si">%(message)s</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%(name)s</span><span class="s2"> </span><span class="si">%(levelname)s</span><span class="s2">: </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">ch</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
 <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
 
 <div class="viewcode-block" id="RSD"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.RSD">[docs]</a><span class="k">class</span> <span class="nc">RSD</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="n">THIS_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span> <span class="k">else</span> <span class="s">&#39;.&#39;</span>
-    <span class="n">RSD_FILES</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;featurize.pl&#39;</span><span class="p">,</span> <span class="s">&#39;process.pl&#39;</span><span class="p">,</span> <span class="s">&#39;rules.pl&#39;</span><span class="p">]</span>
+    <span class="n">THIS_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;.&#39;</span>
+    <span class="n">RSD_FILES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;featurize.pl&#39;</span><span class="p">,</span> <span class="s1">&#39;process.pl&#39;</span><span class="p">,</span> <span class="s1">&#39;rules.pl&#39;</span><span class="p">]</span>
 
-    <span class="c"># Generated scripts filenames</span>
-    <span class="n">CONSTRUCT</span> <span class="o">=</span> <span class="s">&#39;_construct.pl&#39;</span>
-    <span class="n">SAVE</span> <span class="o">=</span> <span class="s">&#39;_save.pl&#39;</span>
-    <span class="n">SUBGROUPS</span> <span class="o">=</span> <span class="s">&#39;_subgroups.pl&#39;</span>
+    <span class="c1"># Generated scripts filenames</span>
+    <span class="n">CONSTRUCT</span> <span class="o">=</span> <span class="s1">&#39;_construct.pl&#39;</span>
+    <span class="n">SAVE</span> <span class="o">=</span> <span class="s1">&#39;_save.pl&#39;</span>
+    <span class="n">SUBGROUPS</span> <span class="o">=</span> <span class="s1">&#39;_subgroups.pl&#39;</span>
 
     <span class="n">SCRIPTS</span> <span class="o">=</span> <span class="p">[</span><span class="n">CONSTRUCT</span><span class="p">,</span> <span class="n">SAVE</span><span class="p">,</span> <span class="n">SUBGROUPS</span><span class="p">]</span>
 
     <span class="n">ESSENTIAL_PARAMS</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s">&#39;clauselength&#39;</span> <span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-        <span class="s">&#39;depth&#39;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-        <span class="s">&#39;negation&#39;</span> <span class="p">:</span> <span class="s">&#39;none&#39;</span><span class="p">,</span>
-        <span class="s">&#39;min_coverage&#39;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s">&#39;filtering&#39;</span> <span class="p">:</span> <span class="s">&#39;true&#39;</span>
+        <span class="s1">&#39;clauselength&#39;</span> <span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;depth&#39;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s1">&#39;negation&#39;</span> <span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;min_coverage&#39;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">&#39;filtering&#39;</span> <span class="p">:</span> <span class="s1">&#39;true&#39;</span>
     <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">NOTSET</span><span class="p">):</span>
@@ -189,26 +189,26 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">verbosity</span><span class="p">)</span>
 
-        <span class="c"># Copy needed files to tmp dir</span>
+        <span class="c1"># Copy needed files to tmp dir</span>
         <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">RSD</span><span class="o">.</span><span class="n">RSD_FILES</span><span class="p">:</span>
-            <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">RSD</span><span class="o">.</span><span class="n">THIS_DIR</span><span class="p">,</span> <span class="n">fn</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">RSD</span><span class="o">.</span><span class="n">THIS_DIR</span><span class="p">,</span> <span class="n">fn</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
 
 <div class="viewcode-block" id="RSD.set"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.RSD.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the value of setting &#39;name&#39; to &#39;value&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
+
 <div class="viewcode-block" id="RSD.settingsAsFacts"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.RSD.settingsAsFacts">[docs]</a>    <span class="k">def</span> <span class="nf">settingsAsFacts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parses a string of settings in the form set(name1, val1), set(name2, val2)...</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;set\(([a-zA-Z0-9_]+),(\[a-zA-Z0-9_]+)\)&#39;</span><span class="p">)</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;set\(([a-zA-Z0-9_]+),(\[a-zA-Z0-9_]+)\)&#39;</span><span class="p">)</span>
         <span class="n">pairs</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="RSD.induce"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.RSD.induce">[docs]</a>    <span class="k">def</span> <span class="nf">induce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">filestem</span><span class="o">=</span><span class="s">&#39;default&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RSD.induce"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.RSD.induce">[docs]</a>    <span class="k">def</span> <span class="nf">induce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">filestem</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span>
                <span class="n">examples</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                <span class="n">pos</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                <span class="n">neg</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -230,64 +230,64 @@
 <span class="sd">            - rules is a set of generated cn2sd subgroup descriptions; </span>
 <span class="sd">              this will be an empty string if cn2sd is set to False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># Write the inputs</span>
+        <span class="c1"># Write the inputs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__prepare</span><span class="p">(</span><span class="n">filestem</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">examples</span><span class="o">=</span><span class="n">examples</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">neg</span><span class="o">=</span><span class="n">neg</span><span class="p">)</span>
 
-        <span class="c"># Write scripts</span>
+        <span class="c1"># Write scripts</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__scripts</span><span class="p">(</span><span class="n">filestem</span><span class="p">)</span>
 
         <span class="n">dumpFile</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">printOutput</span><span class="p">:</span>
             <span class="n">dumpFile</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryFile</span><span class="p">()</span>
 
-        <span class="c"># Run the script</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Running RSD...&quot;</span><span class="p">)</span>
+        <span class="c1"># Run the script</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Running RSD...&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">script</span> <span class="ow">in</span> <span class="n">RSD</span><span class="o">.</span><span class="n">SCRIPTS</span><span class="p">:</span>
-                <span class="c"># Skip subgroup discovery part?</span>
+                <span class="c1"># Skip subgroup discovery part?</span>
                 <span class="k">if</span> <span class="n">script</span> <span class="o">==</span> <span class="n">RSD</span><span class="o">.</span><span class="n">SUBGROUPS</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">cn2sd</span><span class="p">:</span>
                     <span class="k">continue</span>
-                <span class="n">p</span> <span class="o">=</span> <span class="n">SafePopen</span><span class="p">([</span><span class="s">&#39;yap&#39;</span><span class="p">,</span> <span class="s">&#39;-s50000&#39;</span><span class="p">,</span> <span class="s">&#39;-h200000&#39;</span><span class="p">,</span> <span class="s">&#39;-L&#39;</span><span class="p">,</span> <span class="n">script</span><span class="p">],</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">SafePopen</span><span class="p">([</span><span class="s1">&#39;yap&#39;</span><span class="p">,</span> <span class="s1">&#39;-s50000&#39;</span><span class="p">,</span> <span class="s1">&#39;-h200000&#39;</span><span class="p">,</span> <span class="s1">&#39;-L&#39;</span><span class="p">,</span> <span class="n">script</span><span class="p">],</span>
                               <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span>
                               <span class="n">stdout</span><span class="o">=</span><span class="n">dumpFile</span><span class="p">,</span>
                               <span class="n">stderr</span><span class="o">=</span><span class="n">dumpFile</span><span class="p">)</span><span class="o">.</span><span class="n">safe_run</span><span class="p">()</span>
                 <span class="n">stdout_str</span><span class="p">,</span> <span class="n">stderr_str</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">stdout_str</span><span class="p">)</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">stderr_str</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Done.&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Done.&quot;</span><span class="p">)</span>
 
-            <span class="c"># Return the rules written in the output file.</span>
-            <span class="n">features</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span> <span class="o">+</span> <span class="s">&#39;_frs.pl&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-            <span class="n">weka</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span> <span class="o">+</span> <span class="s">&#39;.arff&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-            <span class="n">rules</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span> <span class="o">+</span> <span class="s">&#39;.rules&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="k">if</span> <span class="n">cn2sd</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
+            <span class="c1"># Return the rules written in the output file.</span>
+            <span class="n">features</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span> <span class="o">+</span> <span class="s1">&#39;_frs.pl&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">weka</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span> <span class="o">+</span> <span class="s1">&#39;.arff&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">rules</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span> <span class="o">+</span> <span class="s1">&#39;.rules&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="k">if</span> <span class="n">cn2sd</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">__cleanup</span><span class="p">()</span>
             <span class="k">return</span> <span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">weka</span><span class="p">,</span> <span class="n">rules</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s">&quot;Yap compiler could not be loaded! (see http://www.dcc.fc.up.pt/~vsc/Yap/).&quot;</span><span class="p">)</span>
-</div>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Yap compiler could not be loaded! (see http://www.dcc.fc.up.pt/~vsc/Yap/).&quot;</span><span class="p">)</span></div>
+
     <span class="k">def</span> <span class="nf">__prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filestem</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">examples</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">neg</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Prepares the needed files.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">examples</span><span class="p">:</span>
-            <span class="n">examplesFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">.pl&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+            <span class="n">examplesFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.pl&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
             <span class="n">examplesFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">examples</span><span class="p">)</span>
             <span class="n">examplesFile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">pos</span> <span class="ow">and</span> <span class="n">neg</span><span class="p">:</span>
-            <span class="n">posFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">.f&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
-            <span class="n">negFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">.n&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+            <span class="n">posFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.f&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+            <span class="n">negFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.n&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
             <span class="n">posFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
             <span class="n">negFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">neg</span><span class="p">)</span>
             <span class="n">posFile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="n">negFile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;You need to provide either a single file of classified examples or </span><span class="se">\</span>
-<span class="s">                two files, positive and negative examples.&#39;</span><span class="p">)</span>
-        <span class="n">bFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">.b&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
-        <span class="c"># Write settings.</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;You need to provide either a single file of classified examples or </span><span class="se">\</span>
+<span class="s1">                two files, positive and negative examples.&#39;</span><span class="p">)</span>
+        <span class="n">bFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.b&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">filestem</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="c1"># Write settings.</span>
         <span class="k">for</span> <span class="n">setting</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">bFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;:- set(</span><span class="si">%s</span><span class="s">,</span><span class="si">%s</span><span class="s">).</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">setting</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span>
+            <span class="n">bFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;:- set(</span><span class="si">%s</span><span class="s1">,</span><span class="si">%s</span><span class="s1">).</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">setting</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span>
         <span class="n">bFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
         <span class="n">bFile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
@@ -298,57 +298,57 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Problem removing temporary files. The files are probably in use.&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Problem removing temporary files. The files are probably in use.&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__scripts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filestem</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generates the required scripts.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">script_construct</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">RSD</span><span class="o">.</span><span class="n">CONSTRUCT</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
-        <span class="n">script_save</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">RSD</span><span class="o">.</span><span class="n">SAVE</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
-        <span class="n">script_subgroups</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">RSD</span><span class="o">.</span><span class="n">SUBGROUPS</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">script_construct</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">RSD</span><span class="o">.</span><span class="n">CONSTRUCT</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">script_save</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">RSD</span><span class="o">.</span><span class="n">SAVE</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">script_subgroups</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">RSD</span><span class="o">.</span><span class="n">SUBGROUPS</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
 
-        <span class="c"># Permit the owner to execute and read this script</span>
+        <span class="c1"># Permit the owner to execute and read this script</span>
         <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">RSD</span><span class="o">.</span><span class="n">SCRIPTS</span><span class="p">:</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">fn</span><span class="p">),</span> <span class="n">S_IREAD</span> <span class="o">|</span> <span class="n">S_IEXEC</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">fn</span><span class="p">),</span> <span class="n">S_IREAD</span> <span class="o">|</span> <span class="n">S_IEXEC</span><span class="p">)</span>
 
-        <span class="c"># Writes one line of script</span>
-        <span class="n">new_script</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">script</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">script</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+        <span class="c1"># Writes one line of script</span>
+        <span class="n">new_script</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">script</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">script</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-        <span class="c">#</span>
-        <span class="c"># &#39;Construction&#39; script</span>
-        <span class="c">#</span>
+        <span class="c1">#</span>
+        <span class="c1"># &#39;Construction&#39; script</span>
+        <span class="c1">#</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">new_script</span><span class="p">(</span><span class="n">script_construct</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;:- initialization(main).&#39;</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;main :-&#39;</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;[featurize],&#39;</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;r(</span><span class="si">%s</span><span class="s">),&#39;</span> <span class="o">%</span> <span class="n">filestem</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;w.&#39;</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;:- initialization(main).&#39;</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;main :-&#39;</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;[featurize],&#39;</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;r(</span><span class="si">%s</span><span class="s1">),&#39;</span> <span class="o">%</span> <span class="n">filestem</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;w.&#39;</span><span class="p">)</span>
         <span class="n">script_construct</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-        <span class="c">#</span>
-        <span class="c"># &#39;Saving&#39; script</span>
-        <span class="c">#</span>
+        <span class="c1">#</span>
+        <span class="c1"># &#39;Saving&#39; script</span>
+        <span class="c1">#</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">new_script</span><span class="p">(</span><span class="n">script_save</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;:- initialization(main).&#39;</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;main :-&#39;</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;[process],&#39;</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;r(</span><span class="si">%s</span><span class="s">),&#39;</span> <span class="o">%</span> <span class="n">filestem</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;w,&#39;</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;w(weka, </span><span class="si">%s</span><span class="s">),&#39;</span> <span class="o">%</span> <span class="n">filestem</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;w(rsd, </span><span class="si">%s</span><span class="s">).&#39;</span> <span class="o">%</span> <span class="n">filestem</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;:- initialization(main).&#39;</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;main :-&#39;</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;[process],&#39;</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;r(</span><span class="si">%s</span><span class="s1">),&#39;</span> <span class="o">%</span> <span class="n">filestem</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;w,&#39;</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;w(weka, </span><span class="si">%s</span><span class="s1">),&#39;</span> <span class="o">%</span> <span class="n">filestem</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;w(rsd, </span><span class="si">%s</span><span class="s1">).&#39;</span> <span class="o">%</span> <span class="n">filestem</span><span class="p">)</span>
         <span class="n">script_save</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-        <span class="c">#</span>
-        <span class="c"># &#39;Subgroups&#39; script</span>
-        <span class="c">#</span>
+        <span class="c1">#</span>
+        <span class="c1"># &#39;Subgroups&#39; script</span>
+        <span class="c1">#</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">new_script</span><span class="p">(</span><span class="n">script_subgroups</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;:- initialization(main).&#39;</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;main :-&#39;</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;[rules],&#39;</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;r(</span><span class="si">%s</span><span class="s">),&#39;</span> <span class="o">%</span> <span class="n">filestem</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;i,&#39;</span><span class="p">)</span>
-        <span class="n">w</span><span class="p">(</span><span class="s">&#39;w.&#39;</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;:- initialization(main).&#39;</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;main :-&#39;</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;[rules],&#39;</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;r(</span><span class="si">%s</span><span class="s1">),&#39;</span> <span class="o">%</span> <span class="n">filestem</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;i,&#39;</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">(</span><span class="s1">&#39;w.&#39;</span><span class="p">)</span>
         <span class="n">script_subgroups</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 </pre></div>
 

@@ -83,7 +83,7 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example use case</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clowdflows.html">ClowdFlows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
@@ -110,7 +110,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -134,27 +134,30 @@
             
   <div class="section" id="getting-started">
 <h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Provide connection information</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rdm.db</span> <span class="k">import</span> <span class="n">DBConnection</span><span class="p">,</span> <span class="n">DBContext</span><span class="p">,</span> <span class="n">AlephConverter</span><span class="p">,</span> <span class="n">MySQLDataSource</span>
+<span class="kn">from</span> <span class="nn">rdm.wrappers</span> <span class="k">import</span> <span class="n">Aleph</span>
+
+<span class="c1"># Provide connection information</span>
 <span class="n">connection</span> <span class="o">=</span> <span class="n">DBConnection</span><span class="p">(</span>
-    <span class="s">&#39;ilp&#39;</span><span class="p">,</span>             <span class="c"># User</span>
-    <span class="s">&#39;ilp123&#39;</span><span class="p">,</span>          <span class="c"># Password</span>
-    <span class="s">&#39;workflow.ijs.si&#39;</span><span class="p">,</span> <span class="c"># Host</span>
-    <span class="s">&#39;ilp&#39;</span>              <span class="c"># Database</span>
+    <span class="s1">&#39;ilp&#39;</span><span class="p">,</span>             <span class="c1"># User</span>
+    <span class="s1">&#39;ilp123&#39;</span><span class="p">,</span>          <span class="c1"># Password</span>
+    <span class="s1">&#39;workflow.ijs.si&#39;</span><span class="p">,</span> <span class="c1"># Host</span>
+    <span class="s1">&#39;ilp&#39;</span>              <span class="c1"># Database</span>
 <span class="p">)</span>
 <span class="n">data_source</span> <span class="o">=</span> <span class="n">MySQLDataSource</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
 
-<span class="c"># Define learning context</span>
+<span class="c1"># Define learning context</span>
 <span class="n">context</span> <span class="o">=</span> <span class="n">DBContext</span><span class="p">(</span><span class="n">data_source</span><span class="p">)</span>
-<span class="n">context</span><span class="o">.</span><span class="n">target_table</span> <span class="o">=</span> <span class="s">&#39;trains&#39;</span>
-<span class="n">context</span><span class="o">.</span><span class="n">target_att</span> <span class="o">=</span> <span class="s">&#39;direction&#39;</span>
+<span class="n">context</span><span class="o">.</span><span class="n">target_table</span> <span class="o">=</span> <span class="s1">&#39;trains&#39;</span>
+<span class="n">context</span><span class="o">.</span><span class="n">target_att</span> <span class="o">=</span> <span class="s1">&#39;direction&#39;</span>
 
-<span class="c"># Convert the data and induce features using Aleph</span>
-<span class="n">conv</span> <span class="o">=</span> <span class="n">AlephConverter</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">target_att_val</span> <span class="o">=</span> <span class="s">&#39;east&#39;</span><span class="p">)</span>
+<span class="c1"># Convert the data and induce features using Aleph</span>
+<span class="n">conv</span> <span class="o">=</span> <span class="n">AlephConverter</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">target_att_val</span> <span class="o">=</span> <span class="s1">&#39;east&#39;</span><span class="p">)</span>
 <span class="n">aleph</span> <span class="o">=</span> <span class="n">Aleph</span><span class="p">()</span>
-<span class="n">theory</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="n">aleph</span><span class="o">.</span><span class="n">induce</span><span class="p">(</span><span class="s">&#39;induce_features&#39;</span><span class="p">,</span> <span class="n">conv</span><span class="o">.</span><span class="n">positive_examples</span><span class="p">(),</span>
+<span class="n">theory</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="n">aleph</span><span class="o">.</span><span class="n">induce</span><span class="p">(</span><span class="s1">&#39;induce_features&#39;</span><span class="p">,</span> <span class="n">conv</span><span class="o">.</span><span class="n">positive_examples</span><span class="p">(),</span>
                                 <span class="n">conv</span><span class="o">.</span><span class="n">negative_examples</span><span class="p">(),</span>
                                 <span class="n">conv</span><span class="o">.</span><span class="n">background_knowledge</span><span class="p">())</span>
-<span class="k">print</span> <span class="n">theory</span>
+<span class="nb">print</span> <span class="n">theory</span>
 </pre></div>
 </div>
 </div>

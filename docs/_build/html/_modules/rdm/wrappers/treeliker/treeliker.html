@@ -132,7 +132,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for rdm.wrappers.treeliker.treeliker</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">shutil</span>
+<span></span><span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
 <span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">Popen</span><span class="p">,</span> <span class="n">PIPE</span>
@@ -140,7 +140,7 @@
 
 <div class="viewcode-block" id="TreeLiker"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.TreeLiker">[docs]</a><span class="k">class</span> <span class="nc">TreeLiker</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">test_dataset</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="p">{}):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">basename</span> <span class="o">=</span> <span class="s">&#39;default&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">basename</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_dataset</span> <span class="o">=</span> <span class="n">test_dataset</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="n">template</span>
@@ -149,16 +149,16 @@
     <span class="k">def</span> <span class="nf">_copy_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
 
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">.txt&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.txt&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_dataset</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">_test.txt&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">_test.txt&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_dataset</span><span class="p">)</span>
 
-        <span class="c"># Copy binaries to tmp folder</span>
+        <span class="c1"># Copy binaries to tmp folder</span>
         <span class="n">cdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span>
-        <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/bin/&#39;</span> <span class="o">%</span> <span class="n">cdir</span><span class="p">,</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/bin/&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/bin/&#39;</span> <span class="o">%</span> <span class="n">cdir</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/bin/&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
 
 <div class="viewcode-block" id="TreeLiker.run"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.TreeLiker.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cleanup</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">printOutput</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -171,55 +171,55 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">printOutput</span><span class="p">:</span>
             <span class="n">dumpFile</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryFile</span><span class="p">()</span>
 
-        <span class="n">p</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">([</span><span class="s">&#39;java&#39;</span><span class="p">,</span> <span class="s">&#39;-Xmx3G&#39;</span><span class="p">,</span> <span class="s">&#39;-cp&#39;</span><span class="p">,</span> <span class="s">&#39;bin/TreeLiker.jar&#39;</span><span class="p">,</span> 
-                   <span class="s">&#39;ida.ilp.treeLiker.TreeLikerMain&#39;</span><span class="p">,</span> <span class="s">&#39;-batch&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch</span><span class="p">],</span> 
+        <span class="n">p</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">([</span><span class="s1">&#39;java&#39;</span><span class="p">,</span> <span class="s1">&#39;-Xmx3G&#39;</span><span class="p">,</span> <span class="s1">&#39;-cp&#39;</span><span class="p">,</span> <span class="s1">&#39;bin/TreeLiker.jar&#39;</span><span class="p">,</span> 
+                   <span class="s1">&#39;ida.ilp.treeLiker.TreeLikerMain&#39;</span><span class="p">,</span> <span class="s1">&#39;-batch&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch</span><span class="p">],</span> 
                    <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span>
                    <span class="n">stdout</span><span class="o">=</span><span class="n">dumpFile</span><span class="p">,</span>
                    <span class="n">stderr</span><span class="o">=</span><span class="n">dumpFile</span><span class="p">)</span>
         <span class="n">stdout_str</span><span class="p">,</span> <span class="n">stderr_str</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_dataset</span><span class="p">:</span>
-            <span class="n">arff</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">.arff&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">arff</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.arff&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
             <span class="n">arff_test</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">arff</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/conversion/train.arff&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-            <span class="n">arff_test</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/conversion/test.arff&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">arff</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/conversion/train.arff&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">arff_test</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/conversion/test.arff&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">cleanup</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">()</span>
         
-        <span class="k">return</span> <span class="p">(</span><span class="n">arff</span><span class="p">,</span> <span class="n">arff_test</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="p">(</span><span class="n">arff</span><span class="p">,</span> <span class="n">arff_test</span><span class="p">)</span></div>
+
     <span class="k">def</span> <span class="nf">_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Creates the batch file to run the experiment.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">batch</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">.treeliker&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.treeliker&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">)</span>
 
         <span class="n">commands</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_dataset</span><span class="p">:</span>
-            <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;set(output_type, single)&#39;</span><span class="p">)</span>
-            <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;set(examples, &#39;</span><span class="si">%s</span><span class="s">.txt&#39;)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">)</span>
+            <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;set(output_type, single)&#39;</span><span class="p">)</span>
+            <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;set(examples, &#39;</span><span class="si">%s</span><span class="s2">.txt&#39;)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;set(output_type, train_test)&#39;</span><span class="p">)</span>
-            <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;set(train_set, &#39;</span><span class="si">%s</span><span class="s">.txt&#39;)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">)</span>
-            <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;set(test_set, &#39;</span><span class="si">%s</span><span class="s">_test.txt&#39;)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">)</span>
-        <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;set(template, </span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">template</span><span class="p">)</span>
+            <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;set(output_type, train_test)&#39;</span><span class="p">)</span>
+            <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;set(train_set, &#39;</span><span class="si">%s</span><span class="s2">.txt&#39;)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">)</span>
+            <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;set(test_set, &#39;</span><span class="si">%s</span><span class="s2">_test.txt&#39;)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">)</span>
+        <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;set(template, </span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">template</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_dataset</span><span class="p">:</span>
-            <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;set(output, </span><span class="si">%s</span><span class="s">.arff)&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">)</span>
+            <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;set(output, </span><span class="si">%s</span><span class="s1">.arff)&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;set(output, conversion)&#39;</span><span class="p">)</span>
+            <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;set(output, conversion)&#39;</span><span class="p">)</span>
 
-        <span class="c"># Optional settings</span>
+        <span class="c1"># Optional settings</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">]:</span>
-                <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;set(</span><span class="si">%s</span><span class="s">, </span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)))</span>
+            <span class="k">if</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">]:</span>
+                <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;set(</span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)))</span>
 
-        <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;work(yes)&#39;</span><span class="p">)</span>
+        <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;work(yes)&#39;</span><span class="p">)</span>
 
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">commands</span><span class="p">))</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">commands</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -228,8 +228,8 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Problem removing temporary files. </span><span class="se">\</span>
-<span class="s">                         The files are probably in use.&#39;</span><span class="p">)</span></div>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Problem removing temporary files. </span><span class="se">\</span>
+<span class="s1">                         The files are probably in use.&#39;</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
