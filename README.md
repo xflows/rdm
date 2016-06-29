@@ -1,5 +1,7 @@
 # Python Relational Data Mining #
 
+[![Documentation Status](https://readthedocs.org/projects/rdm/badge/?version=latest)](http://rdm.readthedocs.io/en/latest/?badge=latest)
+
 This python project was created to enable easier use of several inductive logic programming (ILP) and relational data mining (RDM)
 algorithm implementations. One important aim of the project is to offer a common bridge between a RDBMS and the ILP&RDM implementations, since many of approaches accept databases in their own format.
 
