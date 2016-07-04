@@ -16,8 +16,6 @@ Contents:
    example
    clowdflows
    api_reference
-   wishlist
-
 
 Indices and tables
 ==================

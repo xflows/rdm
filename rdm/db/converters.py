@@ -26,6 +26,7 @@ class ILPConverter(Converter):
         self.settings = kwargs.pop('settings', {}) if kwargs else {}
         self.discr_intervals = kwargs.pop('discr_intervals', {}) if kwargs else {}
         self.dump = kwargs.pop('dump', True) if kwargs else True
+        self.tabling = kwargs.pop('tabling', False) if kwargs else False
         Converter.__init__(self, *args, **kwargs)
 
     def user_settings(self):
@@ -111,7 +112,8 @@ class ILPConverter(Converter):
         fmt_cols = lambda cols: ','.join([ILPConverter.fmt_col(col) for col in cols])
         for table in self.db.tables:
             attributes = self.db.cols[table]
-            dump.append(':- table %s/%d.' % (table, len(attributes)))
+            if self.tabling:
+                dump.append(':- table %s/%d.' % (table, len(attributes)))
             dump.append('\n'.join(["%s(%s)." % (table, fmt_cols(cols)) for cols in self.db.rows(table, attributes)]))
         return dump
 

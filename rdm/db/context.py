@@ -23,11 +23,12 @@ class DBConnection:
         '''
         Context Manager.
         '''
+
         def __init__(self, user, password, host, database, dal_connect_fun):
             self.con = dal_connect_fun(
                 user=user,
                 password=password,
-                host=host, 
+                host=host,
                 database=database
             )
 
@@ -36,7 +37,6 @@ class DBConnection:
 
         def __exit__(self, exc_type, exc_value, traceback):
             self.con.close()
-
 
     def __init__(self, user, password, host, database, vendor=DBVendor.MySQL):
         self.user = user
@@ -53,18 +53,15 @@ class DBConnection:
         else:
             raise Exception("Unknown DB vendor: {}".format(vendor))
 
-
     def check_connection(self):
         try:
             with self.connect() as _:
                 pass
-        except Exception,e:
+        except Exception, e:
             raise Exception('Problem connecting to the database. Please re-check your credentials.')
-
 
     def connection(self):
         return self.connect().con
-
 
     def connect(self):
         if self.vendor == DBVendor.MySQL:
@@ -76,7 +73,8 @@ class DBConnection:
 
 
 class DBContext:
-    def __init__(self, connection, find_connections=False, in_memory=True):
+    def __init__(self, connection, target_table=None, target_att=None,
+                 find_connections=False, in_memory=True):
         '''
         @connection: a DBConnection instance.
 
@@ -108,12 +106,14 @@ class DBContext:
         )
         self.connected, self.pkeys, self.fkeys, self.reverse_fkeys = conn_data
 
-        self.target_table = self.tables[0]
-        self.target_att = None
+        self.target_table = self.tables[0] if not target_table else target_table
+        self.target_att = None if not target_att else target_att
 
         self.orng_tables = None
         self.in_memory = in_memory
 
+        if in_memory:
+            self.orng_tables = self.read_into_orange()
 
     def read_into_orange(self):
         conv = converters.OrangeConverter(self)
@@ -125,13 +125,11 @@ class DBContext:
         tables.update(other_tables)
         return tables
 
-
     def fetch(self, table, cols):
         '''
         Fetches rows from the db.
         '''
         return self.src.fetch(table, cols)
-
 
     def rows(self, table, cols):
         '''
@@ -144,7 +142,6 @@ class DBContext:
             return data
         else:
             return self.fetch(table, cols)
-
 
     def select_where(self, table, cols, pk_att, pk):
         '''
@@ -159,13 +156,11 @@ class DBContext:
         else:
             return self.src.select_where(table, cols, pk_att, pk)
 
-
     def fetch_types(self, table, cols):
         '''
         Returns a dictionary of field types for the given table and columns.
         '''
         return self.src.fetch_types(table, cols)
-
 
     def compute_col_vals(self):
         for table, cols in self.cols.items():
@@ -173,19 +168,18 @@ class DBContext:
             for col in cols:
                 self.col_vals[table][col] = self.src.column_values(table, col)
 
-
     def copy(self):
         return copy.deepcopy(self)
 
-
     def __repr__(self):
         return pprint.pformat({
-            'target_table' : self.target_table, 
-            'target attribute' : self.target_att, 
-            'tables' : self.tables, 
-            'cols' : self.cols, 
-            'connected' : self.connected, 
-            'pkeys' : self.pkeys, 
-            'fkeys' : self.fkeys,
-            'orng_tables': [(name, len(table)) for name, table in self.orng_tables.items()] if self.orng_tables else 'not in memory'
+            'target_table': self.target_table,
+            'target attribute': self.target_att,
+            'tables': self.tables,
+            'cols': self.cols,
+            'connected': self.connected,
+            'pkeys': self.pkeys,
+            'fkeys': self.fkeys,
+            'orng_tables': [(name, len(table)) for name, table in
+                            self.orng_tables.items()] if self.orng_tables else 'not in memory'
         })

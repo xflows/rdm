@@ -189,7 +189,7 @@ class Aleph(object):
         cat("read_all('%s')," % filestem)
         # Cat all the non-default settings
         for setting, value in self.settings.items():
-            cat("set(%s, %s)," % (setting, value))
+            cat("set(%s, %s)," % (setting, str(value)))
         cat("%s," % mode)
 
         eof = ',' if self.postScript else '.'

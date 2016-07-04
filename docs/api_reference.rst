@@ -23,6 +23,14 @@ MySQLDataSource
 .. autoclass:: rdm.db.datasource.MySQLDataSource
     :members:
 
+.. py:module:: rdm.db.datasource
+
+PgSQLDataSource
+^^^^^^^^^^^^^^^
+
+.. autoclass:: rdm.db.datasource.PgSQLDataSource
+    :members:
+
 .. py:module:: rdm.db.context
 
 Database Context
@@ -89,3 +97,44 @@ Wordification
 
 .. autoclass:: rdm.wrappers.Wordification
     :members:
+
+Proper
+^^^^^^
+
+.. autoclass:: rdm.wrappers.Proper
+    :members:
+    :undoc-members:
+
+Tertius
+^^^^^^^
+
+.. autoclass:: rdm.wrappers.Tertius
+    :members:
+    :undoc-members:
+
+OneBC
+^^^^^
+
+.. autoclass:: rdm.wrappers.OneBC
+    :members:
+    :undoc-members:
+
+Caraf
+^^^^^
+
+.. autoclass:: rdm.wrappers.Caraf
+    :members:
+    :undoc-members:
+
+
+.. py:module:: rdm.validation
+
+
+Utilities
+---------
+
+Validation
+^^^^^^^^^^
+
+.. automodule:: rdm.validation
+.. automodule:: rdm.db.mapper

@@ -1,18 +1,16 @@
 import unittest
 import os
 import sys
+
 sys.path.append('..')
 
-
-from rdm.db import DBConnection, DBContext, OrangeConverter, RSDConverter, AlephConverter, TreeLikerConverter, MySQLDataSource
+from rdm.db import DBConnection, DBContext, OrangeConverter, RSDConverter, AlephConverter, TreeLikerConverter
 from rdm.wrappers import Wordification, RSD, Aleph, TreeLiker
 from conf import TEST_DB, TEST_DB_POSTGRES, RESULTS_FOLDER
 
 
 class TestWrappers(unittest.TestCase):
-
     def setUp(self):
-
         # MySQL test db
         self.connection = DBConnection(
             TEST_DB['user'],
@@ -21,10 +19,9 @@ class TestWrappers(unittest.TestCase):
             TEST_DB['database'],
             vendor=TEST_DB['vendor']
         )
-        self.context = DBContext(self.connection)
-        self.context.target_table = 'trains'
-        self.context.target_att = 'direction'
-
+        self.context = DBContext(self.connection,
+                                 target_table='trains',
+                                 target_att='direction')
         # Postgres test db
         self.connection_pg = DBConnection(
             TEST_DB_POSTGRES['user'],
@@ -63,9 +60,9 @@ class TestWrappers(unittest.TestCase):
             self.assertMultiLineEqual(features, f.read())
 
     def test_aleph_pgsql(self):
-        conv = AlephConverter(self.context_pg, target_att_val = 'h_indiv')
+        conv = AlephConverter(self.context_pg, target_att_val='h_indiv')
         aleph = Aleph()
-        theory, features = aleph.induce('induce_features', conv.positive_examples(), 
+        theory, features = aleph.induce('induce_features', conv.positive_examples(),
                                         conv.negative_examples(),
                                         conv.background_knowledge())
 
@@ -73,21 +70,20 @@ class TestWrappers(unittest.TestCase):
             self.assertMultiLineEqual(theory, f.read())
 
     def test_aleph_mysql(self):
-        conv = AlephConverter(self.context, target_att_val = 'east')
+        conv = AlephConverter(self.context, target_att_val='east')
         aleph = Aleph()
-        theory, features = aleph.induce('induce_features', conv.positive_examples(), 
+        theory, features = aleph.induce('induce_features', conv.positive_examples(),
                                         conv.negative_examples(),
                                         conv.background_knowledge())
 
         with open(os.path.join(RESULTS_FOLDER, 'wrappers', 'aleph', 'trains.arff')) as f:
             self.assertMultiLineEqual(theory, f.read())
 
-
     def test_treeliker_mysql(self):
         conv = TreeLikerConverter(self.context)
         treeliker = TreeLiker(conv.dataset(), conv.default_template())
         arff, _ = treeliker.run()
-        
+
         # This just tests execution for the moment
         # TreeLiker seems to use some random factors
         self.assertTrue(True)
