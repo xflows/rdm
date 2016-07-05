@@ -1,0 +1,6 @@
+Sphinx==1.4.4
+sphinx-rtd-theme==0.1.9
+liac-arff==2.1.0
+https://cdn.mysql.com/Downloads/Connector-Python/mysql-connector-python-2.0.3.zip
+psycopg2==2.6.1
+

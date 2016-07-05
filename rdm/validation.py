@@ -1,8 +1,7 @@
 import random
-import orange
-
 
 def train_test_split(context, test_size=0.3, random_seed=random.randint(0, 10**6)):
+    import orange
     input_list = context.orng_tables.get(context.target_table, None)
     indices = orange.MakeRandomIndicesCV(input_list, randseed=random_seed, folds=input_fold,
                                          stratified=orange.MakeRandomIndices.Stratified)
@@ -14,6 +13,7 @@ def cv_split(context, folds=10, random_seed=random.randint(0, 10**6)):
 
     The split is stratified.
     '''
+    import orange
     input_list = context.orng_tables.get(context.target_table, None)
     indices = orange.MakeRandomIndicesCV(input_list, randseed=random_seed, folds=folds,
                                          stratified=orange.MakeRandomIndices.Stratified)
