@@ -64,10 +64,14 @@ class DBConnection:
         return self.connect().con
 
     def connect(self):
+        dal_connect_fun = None
         if self.vendor == DBVendor.MySQL:
             dal_connect_fun = mysql.connect
         elif self.vendor == DBVendor.PostgreSQL:
             dal_connect_fun = postgresql.connect
+
+        if not dal_connect_fun:
+            raise Exception('Unsupported or unset database vendor: {}'.format(dal_connect_fun))
 
         return DBConnection.Manager(self.user, self.password, self.host, self.database, dal_connect_fun)
 

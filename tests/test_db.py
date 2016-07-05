@@ -1,14 +1,13 @@
 import unittest
 import sys
+
 sys.path.append('..')
 
-
-from rdm.db import DBVendor, DBConnection, DBContext, MySQLDataSource
+from rdm.db import DBConnection, DBContext
 from conf import TEST_DB, TEST_DB_POSTGRES
 
 
 class TestConnection(unittest.TestCase):
-
     def test_mysql(self):
         self.connection = DBConnection(
             TEST_DB['user'],
@@ -23,7 +22,6 @@ class TestConnection(unittest.TestCase):
         except:
             connection_success = False
         self.assertTrue(connection_success)
-
 
     def test_pgsql(self):
         self.connection = DBConnection(
@@ -42,7 +40,6 @@ class TestConnection(unittest.TestCase):
 
 
 class TestContext(unittest.TestCase):
-
     def setUp(self):
         self.connection = DBConnection(
             TEST_DB['user'],

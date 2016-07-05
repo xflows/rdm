@@ -1,4 +1,5 @@
 import os
+from rdm.db.context import DBVendor
 
 
 TEST_DB = {
@@ -6,7 +7,7 @@ TEST_DB = {
     'pass': 'ilp123',
     'host': 'workflow.ijs.si',
     'database': 'ilp',
-    'vendor': 'mysql'
+    'vendor': DBVendor.MySQL
 }
 
 TEST_DB_POSTGRES = {
@@ -14,7 +15,7 @@ TEST_DB_POSTGRES = {
     'pass': 'ilp123',
     'host': '10.0.2.2',
     'database': 'ilp',
-    'vendor': 'postgresql'
+    'vendor': DBVendor.PostgreSQL
 }
 
 RESULTS_FOLDER = os.path.join(os.path.dirname(__file__), 'results')
