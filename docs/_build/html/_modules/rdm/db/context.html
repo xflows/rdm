@@ -81,6 +81,7 @@
             
             
                 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../example.html">Example use case</a></li>
@@ -210,22 +211,17 @@
 
 
 <div class="viewcode-block" id="DBContext"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.DBContext">[docs]</a><span class="k">class</span> <span class="nc">DBContext</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">target_table</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">target_att</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+<div class="viewcode-block" id="DBContext.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.DBContext.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">target_table</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">target_att</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">find_connections</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">in_memory</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        @connection: a DBConnection instance.</span>
+<span class="sd">            Initializes a new DBContext object from the given DBConnection.</span>
 
-<span class="sd">        Initializes the fields:</span>
-<span class="sd">            tables:           list of selected tables</span>
-<span class="sd">            cols:             dict of columns for each table</span>
-<span class="sd">            all_cols:         dict of columns for each table (even unselected)</span>
-<span class="sd">            col_vals:         available values for each table/column </span>
-<span class="sd">            connected:        dict of table pairs and the connected columns</span>
-<span class="sd">            fkeys:            foreign keys in a given table</span>
-<span class="sd">            reverse_fkeys:    fkey to table map</span>
-<span class="sd">            pkeys:            private key for a given table</span>
-<span class="sd">            target_table:     selected table for learning</span>
-<span class="sd">            target_att:       selected column for learning</span>
+<span class="sd">            :param connection: a DBConnection instance</span>
+<span class="sd">            :param target_table: set a target table for learning</span>
+<span class="sd">            :param target_att: set a target table attribute for learning</span>
+<span class="sd">            :param find_connections: set to True if you want to detect relationships based on attribute and table names, \</span>
+<span class="sd">             e.g., ``train_id`` is the foreign key refering to ``id`` in table ``train``.</span>
+<span class="sd">            :param in_memory:</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">src</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">src</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tables</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">tables</span><span class="p">()</span>
@@ -250,7 +246,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">in_memory</span> <span class="o">=</span> <span class="n">in_memory</span>
 
         <span class="k">if</span> <span class="n">in_memory</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">orng_tables</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_into_orange</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">orng_tables</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_into_orange</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">read_into_orange</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">conv</span> <span class="o">=</span> <span class="n">converters</span><span class="o">.</span><span class="n">OrangeConverter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>

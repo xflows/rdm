@@ -24,7 +24,25 @@ def domain_map(features, feature_format, train_context, test_context,
                intervals={},
                format='arff',
                positive_class=None):
+    '''
+    Use the features returned by a propositionalization method to map
+    unseen test examples into the new feature space.
 
+      :param features: string of features as returned by rsd, aleph or treeliker
+      :param feature_format: 'rsd', 'aleph', 'treeliker'
+      :param train_context: DBContext with training examples
+      :param test_context: DBContext with test examples
+      :param intervals: discretization intervals (optional)
+      :param format: output format (only arff is used atm)
+      :param positive_class: required for aleph
+
+      :return: returns the test examples in propositional form
+      :rtype: str
+
+      :Example:
+
+      >>> test_arff = mapper.domain_map(features, 'rsd', train_context, test_context)
+    '''
     dataset = None
     if feature_format in ['rsd', 'aleph']:
         train_rsd = RSDConverter(train_context)

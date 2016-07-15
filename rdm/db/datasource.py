@@ -1,47 +1,61 @@
 from collections import defaultdict
 from exceptions import NotImplementedError
 import mysql.connector as mysql
-import psycopg2 as postgresql
 
 
 class DataSource:
     '''
     A data abstraction layer for accessing datasets.
+
+    This layer is typically hidden from end-users, as they only access
+    the database through DBConnection and DBContext objects.
     '''
 
     def connect(self):
         '''
-        Returns a connection object.
+            :return: a connection object.
+            :rtype: DBConnection
         '''
         raise NotImplementedError()
 
     def tables(self):
         '''
-        Returns a list of table names.
+            :return: a list of table names.
+            :rtype: list
         '''
         raise NotImplementedError()
 
     def table_columns(self, table_name):
         '''
-        Returns a list of columns for the given table.
+            :param table_name: table name for which to retrieve column names
+            :return: a list of columns for the given table.
+            :rtype: list
         '''
         raise NotImplementedError()
 
     def foreign_keys(self):
         '''
-        Returns a list of foreign key relations.
+            :return: a list of foreign key relations in the form (table_name, column_name, referenced_table_name, referenced_column_name).
+            :rtype: list
         '''
         raise NotImplementedError()
 
     def table_column_names(self):
         '''
-        Returns a list of table / column names.
+            :return: a list of table / column names in the form (table, col_name).
+            :rtype: list
         '''
         raise NotImplementedError()
 
     def connected(self, tables, cols, find_connections=False):
         '''
         Returns a list of tuples of connected table pairs.
+
+            :param tables: a list of table names
+            :param cols: a list of column names
+            :param find_connections: set this to True to detect relationships from column names.
+
+            :return: a tuple (connected, pkeys, fkeys, reverse_fkeys)
         '''
         connected = defaultdict(list)
         fkeys = defaultdict(set)
@@ -76,30 +90,52 @@ class DataSource:
     def table_primary_key(self, table_name):
         '''
         Returns the primary key attribute name for the given table.
+
+            :param table_name: table name string
         '''
         raise NotImplementedError()
 
     def fetch(self, table, cols):
         '''
         Fetches rows for the given table and columns.
+
+            :param table: target table
+            :param cols: list of columns to select
+            :return: rows from the given table and columns
+            :rtype: list
         '''
         raise NotImplementedError()
 
     def select_where(self, table, cols, pk_att, pk):
         '''
         Select with where clause.
+
+            :param table: target table
+            :param cols: list of columns to select
+            :param pk_att: attribute for the where clause
+            :param pk: the id that the pk_att should match
+            :return: rows from the given table and cols, with the condition pk_att==pk
+            :rtype: list
         '''
         raise NotImplementedError()
 
     def fetch_types(self, table, cols):
         '''
         Returns a dictionary of field types for the given table and columns.
+
+            :param table: target table
+            :param cols: list of columns to select
+            :return: a dictionary of types for each attribute
+            :rtype: dict
         '''
         raise NotImplementedError()
 
     def column_values(self, table, col):
         '''
         Returns a list of distinct values for the given table and column.
+
+            :param table: target table
+            :param cols: list of columns to select
         '''
         raise NotImplementedError()
 
@@ -117,7 +153,7 @@ class MySQLDataSource(DataSource):
 
     def __init__(self, connection):
         '''
-        @connection: a DBConnection instance.
+            :param connection: a DBConnection instance.
         '''
         self.connection = connection
 
@@ -206,7 +242,7 @@ class PgSQLDataSource(DataSource):
     '''
     def __init__(self, connection):
         '''
-        @connection: a DBConnection instance.
+            :param connection: a DBConnection instance.
         '''
         self.connection = connection
 

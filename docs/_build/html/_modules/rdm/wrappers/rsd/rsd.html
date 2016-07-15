@@ -81,6 +81,7 @@
             
             
                 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../example.html">Example use case</a></li>
@@ -180,7 +181,7 @@
         <span class="s1">&#39;filtering&#39;</span> <span class="p">:</span> <span class="s1">&#39;true&#39;</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">NOTSET</span><span class="p">):</span>
+<div class="viewcode-block" id="RSD.__init__"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.RSD.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">NOTSET</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates an RSD object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -190,7 +191,7 @@
 
         <span class="c1"># Copy needed files to tmp dir</span>
         <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">RSD</span><span class="o">.</span><span class="n">RSD_FILES</span><span class="p">:</span>
-            <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">RSD</span><span class="o">.</span><span class="n">THIS_DIR</span><span class="p">,</span> <span class="n">fn</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">RSD</span><span class="o">.</span><span class="n">THIS_DIR</span><span class="p">,</span> <span class="n">fn</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="RSD.set"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.RSD.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

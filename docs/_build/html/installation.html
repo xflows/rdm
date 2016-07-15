@@ -32,7 +32,7 @@
   
     <link rel="top" title="Python-RDM 0.1 documentation" href="index.html"/>
         <link rel="next" title="Getting started" href="getting_started.html"/>
-        <link rel="prev" title="Welcome to Python-RDM’s documentation!" href="index.html"/> 
+        <link rel="prev" title="Introduction" href="introduction.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -82,13 +82,12 @@
             
             
                 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installing-the-python-rdm-package">Installing the Python-RDM package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#prerequisites-of-specific-ilp-rdm-algorithms">Prerequisites of specific ILP/RDM algorithms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#aleph-and-rsd">Aleph and RSD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#treeliker">TreeLiker</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#wordification">Wordification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#treeliker-caraf-cardinalization-quantiles-relaggs">TreeLiker, Caraf, Cardinalization, Quantiles, Relaggs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bc-1bc2-tertius">1BC, 1BC2, Tertius</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
@@ -144,52 +143,44 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>python &gt;= 2.6</li>
-<li>mysql-connector-python (optionally, you can call the algorithms with their native input format)</li>
-</ul>
-</div>
-<div class="section" id="installing-the-python-rdm-package">
-<h2>Installing the Python-RDM package<a class="headerlink" href="#installing-the-python-rdm-package" title="Permalink to this headline">¶</a></h2>
+<p>The package was successfully installed on Linux, Windows and OS X systems.</p>
 <p>Latest release from PyPI:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">rdm</span>
 </pre></div>
 </div>
-<p>Latest from GitHub:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">anzev</span><span class="o">/</span><span class="n">rdm</span><span class="o">/</span><span class="n">archive</span><span class="o">/</span><span class="n">master</span><span class="o">.</span><span class="n">zip</span>
+<p>Latest from <a class="reference external" href="https://github.com/xflows/rdm/">GitHub</a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">xflows</span><span class="o">/</span><span class="n">rdm</span><span class="o">/</span><span class="n">archive</span><span class="o">/</span><span class="n">master</span><span class="o">.</span><span class="n">zip</span>
 </pre></div>
 </div>
-</div>
+<p>The prerequisites are listed in <code class="docutils literal"><span class="pre">requirements.txt</span></code>.</p>
 <div class="section" id="prerequisites-of-specific-ilp-rdm-algorithms">
 <h2>Prerequisites of specific ILP/RDM algorithms<a class="headerlink" href="#prerequisites-of-specific-ilp-rdm-algorithms" title="Permalink to this headline">¶</a></h2>
 <p>Depending on what algorithms you wish to use, these are their dependencies.</p>
 <div class="section" id="aleph-and-rsd">
 <h3>Aleph and RSD<a class="headerlink" href="#aleph-and-rsd" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>yap prolog (preferably with <code class="docutils literal"><span class="pre">--tabling</span></code> enabled)</li>
+<li>Yap prolog (preferably compiled with <code class="docutils literal"><span class="pre">--tabling</span></code> enabled for speedups)</li>
+</ul>
+<p>There are sources as well as binaries for Windows and OS X available <a class="reference external" href="https://www.dcc.fc.up.pt/~vsc/Yap/downloads.html">here</a>.</p>
+<p>On Debian-based systems you can simply install it as:</p>
+<blockquote>
+<div>apt install yap</div></blockquote>
+</div>
+<div class="section" id="treeliker-caraf-cardinalization-quantiles-relaggs">
+<h3>TreeLiker, Caraf, Cardinalization, Quantiles, Relaggs<a class="headerlink" href="#treeliker-caraf-cardinalization-quantiles-relaggs" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Java</li>
 </ul>
 </div>
-<div class="section" id="treeliker">
-<h3>TreeLiker<a class="headerlink" href="#treeliker" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Java VM</li>
-</ul>
-</div>
-<div class="section" id="wordification">
-<h3>Wordification<a class="headerlink" href="#wordification" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>orange 2.5 (this is planned to be dropped in favor of scikit-learn)</li>
-</ul>
+<div class="section" id="bc-1bc2-tertius">
+<h3>1BC, 1BC2, Tertius<a class="headerlink" href="#bc-1bc2-tertius" title="Permalink to this headline">¶</a></h3>
+<p>These approaches depend on one original C program which must be compiled.
+The sources are included with python-rdm in <code class="docutils literal"><span class="pre">rdm/wrappers/tertius/src/</span></code>.</p>
 </div>
 </div>
 <div class="section" id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
-<p>You&#8217;ll need Sphinx to build the documentation:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">Sphinx</span>
-</pre></div>
-</div>
+<p>Find the latest documentation is on <a class="reference external" href="http://rdm.readthedocs.io/en/latest/">ReadTheDocs</a>.</p>
 </div>
 </div>
 
@@ -203,7 +194,7 @@
         <a href="getting_started.html" class="btn btn-neutral float-right" title="Getting started" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Welcome to Python-RDM’s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="introduction.html" class="btn btn-neutral" title="Introduction" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

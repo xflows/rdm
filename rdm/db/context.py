@@ -80,19 +80,14 @@ class DBContext:
     def __init__(self, connection, target_table=None, target_att=None,
                  find_connections=False, in_memory=True):
         '''
-        @connection: a DBConnection instance.
+            Initializes a new DBContext object from the given DBConnection.
 
-        Initializes the fields:
-            tables:           list of selected tables
-            cols:             dict of columns for each table
-            all_cols:         dict of columns for each table (even unselected)
-            col_vals:         available values for each table/column 
-            connected:        dict of table pairs and the connected columns
-            fkeys:            foreign keys in a given table
-            reverse_fkeys:    fkey to table map
-            pkeys:            private key for a given table
-            target_table:     selected table for learning
-            target_att:       selected column for learning
+            :param connection: a DBConnection instance
+            :param target_table: set a target table for learning
+            :param target_att: set a target table attribute for learning
+            :param find_connections: set to True if you want to detect relationships based on attribute and table names, \
+             e.g., ``train_id`` is the foreign key refering to ``id`` in table ``train``.
+            :param in_memory:
         '''
         self.src = connection.src
         self.tables = self.src.tables()

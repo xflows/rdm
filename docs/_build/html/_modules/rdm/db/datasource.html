@@ -81,6 +81,7 @@
             
             
                 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../example.html">Example use case</a></li>
@@ -134,47 +135,61 @@
 <span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">exceptions</span> <span class="kn">import</span> <span class="ne">NotImplementedError</span>
 <span class="kn">import</span> <span class="nn">mysql.connector</span> <span class="kn">as</span> <span class="nn">mysql</span>
-<span class="kn">import</span> <span class="nn">psycopg2</span> <span class="kn">as</span> <span class="nn">postgresql</span>
 
 
 <div class="viewcode-block" id="DataSource"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource">[docs]</a><span class="k">class</span> <span class="nc">DataSource</span><span class="p">:</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    A data abstraction layer for accessing datasets.</span>
+
+<span class="sd">    This layer is typically hidden from end-users, as they only access</span>
+<span class="sd">    the database through DBConnection and DBContext objects.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
 <div class="viewcode-block" id="DataSource.connect"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Returns a connection object.</span>
+<span class="sd">            :return: a connection object.</span>
+<span class="sd">            :rtype: DBConnection</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="DataSource.tables"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.tables">[docs]</a>    <span class="k">def</span> <span class="nf">tables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Returns a list of table names.</span>
+<span class="sd">            :return: a list of table names.</span>
+<span class="sd">            :rtype: list</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="DataSource.table_columns"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.table_columns">[docs]</a>    <span class="k">def</span> <span class="nf">table_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Returns a list of columns for the given table.</span>
+<span class="sd">            :param table_name: table name for which to retrieve column names</span>
+<span class="sd">            :return: a list of columns for the given table.</span>
+<span class="sd">            :rtype: list</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="DataSource.foreign_keys"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.foreign_keys">[docs]</a>    <span class="k">def</span> <span class="nf">foreign_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Returns a list of foreign key relations.</span>
+<span class="sd">            :return: a list of foreign key relations in the form (table_name, column_name, referenced_table_name, referenced_column_name).</span>
+<span class="sd">            :rtype: list</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="DataSource.table_column_names"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.table_column_names">[docs]</a>    <span class="k">def</span> <span class="nf">table_column_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Returns a list of table / column names.</span>
+<span class="sd">            :return: a list of table / column names in the form (table, col_name).</span>
+<span class="sd">            :rtype: list</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="DataSource.connected"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.connected">[docs]</a>    <span class="k">def</span> <span class="nf">connected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tables</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">find_connections</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Returns a list of tuples of connected table pairs.</span>
+
+<span class="sd">            :param tables: a list of table names</span>
+<span class="sd">            :param cols: a list of column names</span>
+<span class="sd">            :param find_connections: set this to True to detect relationships from column names.</span>
+
+<span class="sd">            :return: a tuple (connected, pkeys, fkeys, reverse_fkeys)</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">connected</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
         <span class="n">fkeys</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
@@ -209,30 +224,52 @@
 <div class="viewcode-block" id="DataSource.table_primary_key"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.table_primary_key">[docs]</a>    <span class="k">def</span> <span class="nf">table_primary_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Returns the primary key attribute name for the given table.</span>
+
+<span class="sd">            :param table_name: table name string</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="DataSource.fetch"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Fetches rows for the given table and columns.</span>
+
+<span class="sd">            :param table: target table</span>
+<span class="sd">            :param cols: list of columns to select</span>
+<span class="sd">            :return: rows from the given table and columns</span>
+<span class="sd">            :rtype: list</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="DataSource.select_where"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.select_where">[docs]</a>    <span class="k">def</span> <span class="nf">select_where</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Select with where clause.</span>
+
+<span class="sd">            :param table: target table</span>
+<span class="sd">            :param cols: list of columns to select</span>
+<span class="sd">            :param pk_att: attribute for the where clause</span>
+<span class="sd">            :param pk: the id that the pk_att should match</span>
+<span class="sd">            :return: rows from the given table and cols, with the condition pk_att==pk</span>
+<span class="sd">            :rtype: list</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="DataSource.fetch_types"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.fetch_types">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Returns a dictionary of field types for the given table and columns.</span>
+
+<span class="sd">            :param table: target table</span>
+<span class="sd">            :param cols: list of columns to select</span>
+<span class="sd">            :return: a dictionary of types for each attribute</span>
+<span class="sd">            :rtype: dict</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="DataSource.column_values"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.column_values">[docs]</a>    <span class="k">def</span> <span class="nf">column_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Returns a list of distinct values for the given table and column.</span>
+
+<span class="sd">            :param table: target table</span>
+<span class="sd">            :param cols: list of columns to select</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
@@ -248,11 +285,11 @@
 <span class="sd">    A DataSource implementation for accessing datasets from a MySQL DBMS.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
+<div class="viewcode-block" id="MySQLDataSource.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.MySQLDataSource.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        @connection: a DBConnection instance.</span>
+<span class="sd">            :param connection: a DBConnection instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">connection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">connection</span></div>
 
     <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
@@ -337,11 +374,11 @@
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    A DataSource implementation for accessing datasets from a PosgreSQL DBMS.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
+<div class="viewcode-block" id="PgSQLDataSource.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.PgSQLDataSource.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        @connection: a DBConnection instance.</span>
+<span class="sd">            :param connection: a DBConnection instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">connection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">connection</span></div>
 
     <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>

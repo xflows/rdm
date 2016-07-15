@@ -81,6 +81,7 @@
             
             
                 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example use case</a></li>
@@ -106,6 +107,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#utilities">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-rdm.db.mapper">Mapping unseen examples into propositional feature space</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-rdm.validation">Validation</a></li>
 </ul>
 </li>
@@ -167,70 +169,211 @@
 <dt id="rdm.db.datasource.DataSource">
 <em class="property">class </em><code class="descclassname">rdm.db.datasource.</code><code class="descname">DataSource</code><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>A data abstraction layer for accessing datasets.</p>
+<p>This layer is typically hidden from end-users, as they only access
+the database through DBConnection and DBContext objects.</p>
 <dl class="method">
 <dt id="rdm.db.datasource.DataSource.column_values">
 <code class="descname">column_values</code><span class="sig-paren">(</span><em>table</em>, <em>col</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.column_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.column_values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of distinct values for the given table and column.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param table:</th><td class="field-body">target table</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param cols:</th><td class="field-body">list of columns to select</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.db.datasource.DataSource.connect">
 <code class="descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.connect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a connection object.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a connection object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">DBConnection</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.db.datasource.DataSource.connected">
 <code class="descname">connected</code><span class="sig-paren">(</span><em>tables</em>, <em>cols</em>, <em>find_connections=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.connected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.connected" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of tuples of connected table pairs.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param tables:</th><td class="field-body">a list of table names</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param cols:</th><td class="field-body">a list of column names</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param find_connections:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">set this to True to detect relationships from column names.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">return:</th><td class="field-body">a tuple (connected, pkeys, fkeys, reverse_fkeys)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.db.datasource.DataSource.fetch">
 <code class="descname">fetch</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.fetch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetches rows for the given table and columns.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param table:</th><td class="field-body">target table</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param cols:</th><td class="field-body">list of columns to select</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">rows from the given table and columns</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.db.datasource.DataSource.fetch_types">
 <code class="descname">fetch_types</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.fetch_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.fetch_types" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a dictionary of field types for the given table and columns.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param table:</th><td class="field-body">target table</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param cols:</th><td class="field-body">list of columns to select</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">a dictionary of types for each attribute</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.db.datasource.DataSource.foreign_keys">
 <code class="descname">foreign_keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.foreign_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.foreign_keys" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of foreign key relations.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a list of foreign key relations in the form (table_name, column_name, referenced_table_name, referenced_column_name).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.db.datasource.DataSource.select_where">
 <code class="descname">select_where</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em>, <em>pk_att</em>, <em>pk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.select_where"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.select_where" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select with where clause.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param table:</th><td class="field-body">target table</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param cols:</th><td class="field-body">list of columns to select</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param pk_att:</th><td class="field-body">attribute for the where clause</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param pk:</th><td class="field-body">the id that the pk_att should match</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">rows from the given table and cols, with the condition pk_att==pk</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.db.datasource.DataSource.table_column_names">
 <code class="descname">table_column_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.table_column_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.table_column_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of table / column names.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a list of table / column names in the form (table, col_name).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.db.datasource.DataSource.table_columns">
 <code class="descname">table_columns</code><span class="sig-paren">(</span><em>table_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.table_columns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.table_columns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of columns for the given table.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table_name</strong> &#8211; table name for which to retrieve column names</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a list of columns for the given table.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.db.datasource.DataSource.table_primary_key">
 <code class="descname">table_primary_key</code><span class="sig-paren">(</span><em>table_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.table_primary_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.table_primary_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the primary key attribute name for the given table.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param table_name:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">table name string</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.db.datasource.DataSource.tables">
 <code class="descname">tables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.tables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.tables" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of table names.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a list of table names.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -242,6 +385,19 @@
 <dt id="rdm.db.datasource.MySQLDataSource">
 <em class="property">class </em><code class="descclassname">rdm.db.datasource.</code><code class="descname">MySQLDataSource</code><span class="sig-paren">(</span><em>connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#MySQLDataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.MySQLDataSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>A DataSource implementation for accessing datasets from a MySQL DBMS.</p>
+<dl class="method">
+<dt id="rdm.db.datasource.MySQLDataSource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#MySQLDataSource.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.MySQLDataSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>connection</strong> &#8211; a DBConnection instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-rdm.db.datasource"></span></div>
@@ -251,6 +407,19 @@
 <dt id="rdm.db.datasource.PgSQLDataSource">
 <em class="property">class </em><code class="descclassname">rdm.db.datasource.</code><code class="descname">PgSQLDataSource</code><span class="sig-paren">(</span><em>connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#PgSQLDataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.PgSQLDataSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>A DataSource implementation for accessing datasets from a PosgreSQL DBMS.</p>
+<dl class="method">
+<dt id="rdm.db.datasource.PgSQLDataSource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#PgSQLDataSource.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.PgSQLDataSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>connection</strong> &#8211; a DBConnection instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-rdm.db.context"></span></div>
@@ -261,6 +430,27 @@
 <dt id="rdm.db.context.DBContext">
 <em class="property">class </em><code class="descclassname">rdm.db.context.</code><code class="descname">DBContext</code><span class="sig-paren">(</span><em>connection</em>, <em>target_table=None</em>, <em>target_att=None</em>, <em>find_connections=False</em>, <em>in_memory=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
+<dt id="rdm.db.context.DBContext.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>connection</em>, <em>target_table=None</em>, <em>target_att=None</em>, <em>find_connections=False</em>, <em>in_memory=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes a new DBContext object from the given DBConnection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>connection</strong> &#8211; a DBConnection instance</li>
+<li><strong>target_table</strong> &#8211; set a target table for learning</li>
+<li><strong>target_att</strong> &#8211; set a target table attribute for learning</li>
+<li><strong>find_connections</strong> &#8211; set to True if you want to detect relationships based on attribute and table names,              e.g., <code class="docutils literal"><span class="pre">train_id</span></code> is the foreign key refering to <code class="docutils literal"><span class="pre">id</span></code> in table <code class="docutils literal"><span class="pre">train</span></code>.</li>
+<li><strong>in_memory</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="rdm.db.context.DBContext.fetch">
 <code class="descname">fetch</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext.fetch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetches rows from the db.</p>
@@ -358,6 +548,22 @@ facts true for each example.</p>
 <dt id="rdm.wrappers.Aleph">
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">Aleph</code><span class="sig-paren">(</span><em>verbosity=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/aleph/aleph.html#Aleph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Aleph" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
+<dt id="rdm.wrappers.Aleph.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>verbosity=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/aleph/aleph.html#Aleph.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Aleph.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an Aleph object.</p>
+<dl class="docutils">
+<dt>&#64;param logging Can be DEBUG, INFO or NOTSET (default).</dt>
+<dd>This controls the verbosity of the output.</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rdm.wrappers.Aleph.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#rdm.wrappers.Aleph.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="rdm.wrappers.Aleph.induce">
 <code class="descname">induce</code><span class="sig-paren">(</span><em>mode</em>, <em>pos</em>, <em>neg</em>, <em>b</em>, <em>filestem='default'</em>, <em>printOutput=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/aleph/aleph.html#Aleph.induce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Aleph.induce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Induce a theory or features in &#8216;mode&#8217;.</p>
@@ -399,6 +605,18 @@ facts true for each example.</p>
 <dt id="rdm.wrappers.RSD">
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">RSD</code><span class="sig-paren">(</span><em>verbosity=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/rsd/rsd.html#RSD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.RSD" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
+<dt id="rdm.wrappers.RSD.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>verbosity=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/rsd/rsd.html#RSD.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.RSD.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an RSD object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rdm.wrappers.RSD.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#rdm.wrappers.RSD.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="rdm.wrappers.RSD.induce">
 <code class="descname">induce</code><span class="sig-paren">(</span><em>b</em>, <em>filestem='default'</em>, <em>examples=None</em>, <em>pos=None</em>, <em>neg=None</em>, <em>cn2sd=True</em>, <em>printOutput=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/rsd/rsd.html#RSD.induce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.RSD.induce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate features and find subgroups.</p>
@@ -455,6 +673,20 @@ this will be an empty string if cn2sd is set to False.</li>
 <dt id="rdm.wrappers.Wordification">
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">Wordification</code><span class="sig-paren">(</span><em>target_table</em>, <em>other_tables</em>, <em>context</em>, <em>word_att_length=1</em>, <em>idf=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
+<dt id="rdm.wrappers.Wordification.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>target_table</em>, <em>other_tables</em>, <em>context</em>, <em>word_att_length=1</em>, <em>idf=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wordification object constructor.</p>
+<p>&#64;param target_table Orange ExampleTable, representing the primary table
+&#64;param other_tables secondary tables, Orange ExampleTables</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rdm.wrappers.Wordification.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#rdm.wrappers.Wordification.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="rdm.wrappers.Wordification.att_to_s">
 <code class="descname">att_to_s</code><span class="sig-paren">(</span><em>att</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.att_to_s"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.att_to_s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs a &#8220;wordification&#8221; word for the given attribute</p>
@@ -493,7 +725,28 @@ this will be an empty string if cn2sd is set to False.</li>
 <dl class="class">
 <dt id="rdm.wrappers.Proper">
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">Proper</code><span class="sig-paren">(</span><em>input_dict</em>, <em>is_relaggs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/proper/proper.html#Proper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Proper" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><dl class="attribute">
+<dt id="rdm.wrappers.Proper.__dict__">
+<code class="descname">__dict__</code><em class="property"> = dict_proxy({'__module__': 'rdm.wrappers.proper.proper', 'run': &lt;function run&gt;, 'init_args_list': &lt;function init_args_list&gt;, 'parse_excluded_fields': &lt;function parse_excluded_fields&gt;, '__dict__': &lt;attribute '__dict__' of 'Proper' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'Proper' objects&gt;, '__doc__': None, '__init__': &lt;function __init__&gt;})</em><a class="headerlink" href="#rdm.wrappers.Proper.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rdm.wrappers.Proper.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>input_dict</em>, <em>is_relaggs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/proper/proper.html#Proper.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Proper.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rdm.wrappers.Proper.__module__">
+<code class="descname">__module__</code><em class="property"> = 'rdm.wrappers.proper.proper'</em><a class="headerlink" href="#rdm.wrappers.Proper.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rdm.wrappers.Proper.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#rdm.wrappers.Proper.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="rdm.wrappers.Proper.init_args_list">
 <code class="descname">init_args_list</code><span class="sig-paren">(</span><em>input_dict</em>, <em>is_relaggs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/proper/proper.html#Proper.init_args_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Proper.init_args_list" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -516,7 +769,28 @@ this will be an empty string if cn2sd is set to False.</li>
 <dl class="class">
 <dt id="rdm.wrappers.Tertius">
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">Tertius</code><span class="sig-paren">(</span><em>input_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/tertius/tertius.html#Tertius"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Tertius" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><dl class="attribute">
+<dt id="rdm.wrappers.Tertius.__dict__">
+<code class="descname">__dict__</code><em class="property"> = dict_proxy({'__module__': 'rdm.wrappers.tertius.tertius', 'run': &lt;function run&gt;, 'init_args_list': &lt;function init_args_list&gt;, '__dict__': &lt;attribute '__dict__' of 'Tertius' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'Tertius' objects&gt;, '__doc__': None, '__init__': &lt;function __init__&gt;})</em><a class="headerlink" href="#rdm.wrappers.Tertius.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rdm.wrappers.Tertius.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>input_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/tertius/tertius.html#Tertius.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Tertius.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rdm.wrappers.Tertius.__module__">
+<code class="descname">__module__</code><em class="property"> = 'rdm.wrappers.tertius.tertius'</em><a class="headerlink" href="#rdm.wrappers.Tertius.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rdm.wrappers.Tertius.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#rdm.wrappers.Tertius.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="rdm.wrappers.Tertius.init_args_list">
 <code class="descname">init_args_list</code><span class="sig-paren">(</span><em>input_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/tertius/tertius.html#Tertius.init_args_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Tertius.init_args_list" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -534,7 +808,28 @@ this will be an empty string if cn2sd is set to False.</li>
 <dl class="class">
 <dt id="rdm.wrappers.OneBC">
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">OneBC</code><span class="sig-paren">(</span><em>input_dict</em>, <em>is1BC2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/tertius/onebc.html#OneBC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.OneBC" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><dl class="attribute">
+<dt id="rdm.wrappers.OneBC.__dict__">
+<code class="descname">__dict__</code><em class="property"> = dict_proxy({'__module__': 'rdm.wrappers.tertius.onebc', 'run': &lt;function run&gt;, 'init_args_list': &lt;function init_args_list&gt;, '__dict__': &lt;attribute '__dict__' of 'OneBC' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'OneBC' objects&gt;, '__doc__': None, '__init__': &lt;function __init__&gt;})</em><a class="headerlink" href="#rdm.wrappers.OneBC.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rdm.wrappers.OneBC.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>input_dict</em>, <em>is1BC2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/tertius/onebc.html#OneBC.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.OneBC.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rdm.wrappers.OneBC.__module__">
+<code class="descname">__module__</code><em class="property"> = 'rdm.wrappers.tertius.onebc'</em><a class="headerlink" href="#rdm.wrappers.OneBC.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rdm.wrappers.OneBC.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#rdm.wrappers.OneBC.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="rdm.wrappers.OneBC.init_args_list">
 <code class="descname">init_args_list</code><span class="sig-paren">(</span><em>input_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/tertius/onebc.html#OneBC.init_args_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.OneBC.init_args_list" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -552,7 +847,28 @@ this will be an empty string if cn2sd is set to False.</li>
 <dl class="class">
 <dt id="rdm.wrappers.Caraf">
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">Caraf</code><span class="sig-paren">(</span><em>input_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/caraf/caraf.html#Caraf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Caraf" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><dl class="attribute">
+<dt id="rdm.wrappers.Caraf.__dict__">
+<code class="descname">__dict__</code><em class="property"> = dict_proxy({'__module__': 'rdm.wrappers.caraf.caraf', 'run': &lt;function run&gt;, '__dict__': &lt;attribute '__dict__' of 'Caraf' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'Caraf' objects&gt;, '__doc__': None, '__init__': &lt;function __init__&gt;})</em><a class="headerlink" href="#rdm.wrappers.Caraf.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rdm.wrappers.Caraf.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>input_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/caraf/caraf.html#Caraf.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Caraf.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rdm.wrappers.Caraf.__module__">
+<code class="descname">__module__</code><em class="property"> = 'rdm.wrappers.caraf.caraf'</em><a class="headerlink" href="#rdm.wrappers.Caraf.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rdm.wrappers.Caraf.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#rdm.wrappers.Caraf.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="rdm.wrappers.Caraf.run">
 <code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/caraf/caraf.html#Caraf.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Caraf.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -563,9 +879,87 @@ this will be an empty string if cn2sd is set to False.</li>
 </div>
 <div class="section" id="utilities">
 <h2>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-rdm.db.mapper">
+<span id="mapping-unseen-examples-into-propositional-feature-space"></span><h3>Mapping unseen examples into propositional feature space<a class="headerlink" href="#module-rdm.db.mapper" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="rdm.db.mapper.domain_map">
+<code class="descclassname">rdm.db.mapper.</code><code class="descname">domain_map</code><span class="sig-paren">(</span><em>features</em>, <em>feature_format</em>, <em>train_context</em>, <em>test_context</em>, <em>intervals={}</em>, <em>format='arff'</em>, <em>positive_class=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/mapper.html#domain_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.mapper.domain_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use the features returned by a propositionalization method to map
+unseen test examples into the new feature space.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param features:</th><td class="field-body">string of features as returned by rsd, aleph or treeliker</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param feature_format:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">&#8216;rsd&#8217;, &#8216;aleph&#8217;, &#8216;treeliker&#8217;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param train_context:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">DBContext with training examples</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param test_context:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">DBContext with test examples</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param intervals:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">discretization intervals (optional)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param format:</th><td class="field-body">output format (only arff is used atm)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param positive_class:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">required for aleph</td>
+</tr>
+<tr class="field-even field"><th class="field-name">return:</th><td class="field-body">returns the test examples in propositional form</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">str</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_arff</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="n">domain_map</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="s1">&#39;rsd&#39;</span><span class="p">,</span> <span class="n">train_context</span><span class="p">,</span> <span class="n">test_context</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</dd></dl>
+
+</div>
 <div class="section" id="module-rdm.validation">
 <span id="validation"></span><h3>Validation<a class="headerlink" href="#module-rdm.validation" title="Permalink to this headline">¶</a></h3>
-<span class="target" id="module-rdm.db.mapper"></span></div>
+<dl class="function">
+<dt id="rdm.validation.cv_split">
+<code class="descclassname">rdm.validation.</code><code class="descname">cv_split</code><span class="sig-paren">(</span><em>context</em>, <em>folds=10</em>, <em>random_seed=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/validation.html#cv_split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.validation.cv_split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of pairs (train_context, test_context), one for each cross-validation fold.</p>
+<p>The split is stratified.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param context:</th><td class="field-body">DBContext to be split</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param folds:</th><td class="field-body">number of folds</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param random_seed:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">random seed to be used</td>
+</tr>
+<tr class="field-even field"><th class="field-name">return:</th><td class="field-body">returns a list of (train_context, test_context) pairs</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">list</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train_context</span><span class="p">,</span> <span class="n">test_context</span> <span class="ow">in</span> <span class="n">cv_split</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">folds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">pass</span>  <span class="c1"># Your CV loop</span>
+</pre></div>
+</div>
+</div></blockquote>
+</dd></dl>
+
+</div>
 </div>
 </div>
 

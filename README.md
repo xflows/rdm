@@ -10,36 +10,9 @@ This project also includes the UI components (widgets) for the [ClowdFlows](http
 <!-- TODO: add citations, licenses --> 
 Currently, the project offers support for MySQL and PostgreSQL databases and the following algorithms: Aleph, RSD, Wordification, TreeLiker, Relaggs, Quantiles, Cardinalization, 1BC, 1BC2, and Tertius.
 
-## Work in progress ##
+## Installation, documentation ##
 
-* This project was previously part of the ClowdFlows codebase and is now in the process of becoming a standalone project. 
-* Droping orange to use scikit-learn instead.
-* Adding support for other RDBMSs.
-
-## Docs ##
-
-The documentation is available on [Read the Docs](http://rdm.readthedocs.org/en/latest/) (work in progress).
-
-## Prerequisites ##
-
-* python >= 2.6
-* mysql-connector-python
-* orange 2.5
-
-Depending on what algorithms you plan to use, these are the specific requirements for each.
-
-### Aleph, RSD: ###
-* yap prolog (preferably with --tabling enabled)
-
-### TreeLiker, Relaggs, Quantiles, Cardinalization ###
-* Java VM
-
-### Wordification ###
-* Only the basic package prerequisites
-
-### 1BC, 1BC2, Tertius ###
-
-1BC, 1BC2 and Tertius need to be compiled with the makefile found in workflows/ilp/tertius/src. The goals are "1BC" and "tertius". 1BC and 1BC2 are compiled with the same goal. The executable files need to be moved to workflows/ilp/tertius/bin.
+Please find installation instructions, examples and API reference on [Read the Docs](http://rdm.readthedocs.org/en/latest/).
 
 ## Note ##
 
