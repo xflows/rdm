@@ -103,10 +103,10 @@ See :doc:`getting_started` for an example of using Aleph in your python code.
 RSD
 ^^^
 
-RSD is a relational subgroup discovery algorithm (Zelezny et al, 2001) composed of two main steps: the propositionalization step
-    and the (optional) subgroup discovery step. RSD effectively produces an exhaustive list of first-order
-    features that comply with the user-defined mode constraints, similar to those of
-    Progol (Muggleton, 1995) and Aleph.
+*RSD* is a relational subgroup discovery algorithm (Zelezny et al, 2001) composed of two main steps:
+the propositionalization step and the (optional) subgroup discovery step. RSD effectively produces an exhaustive list of first-order
+features that comply with the user-defined mode constraints, similar to those of
+Progol (Muggleton, 1995) and Aleph.
 
 See :doc:`example` for an example of using RSD in your code.
 
@@ -117,7 +117,7 @@ See :doc:`example` for an example of using RSD in your code.
 TreeLiker
 ^^^^^^^^^
 
-TreeLiker (by Ondrej Kuzelka et al) is suite of multiple algorithms (controlled by the ``algorithm`` setting), RelF, Poly and HiFi:
+*TreeLiker* (by Ondrej Kuzelka et al) is suite of multiple algorithms (controlled by the ``algorithm`` setting), RelF, Poly and HiFi:
 
 *RelF* constructs a set of tree-like relational features by combining smaller conjunctive blocks.
 The novelty is that RelF preserves the monotonicity of feature reducibility and redundancy
@@ -134,7 +134,7 @@ Example usage:
 
 >>> context = DBContext(...)
 >>> conv = TreeLikerConverter(context)
->>> treeliker = TreeLiker(conv.dataset(), conv.default_template())
+>>> treeliker = TreeLiker(conv.dataset(), conv.default_template())   # Runs RelF by default
 >>> arff, _ = treeliker.run()
 
 .. autoclass:: rdm.wrappers.TreeLiker
@@ -144,7 +144,7 @@ Example usage:
 Wordification
 ^^^^^^^^^^^^^
 
-Wordification (Perovsek et al, 2015) is a propositionalization method inspired by text mining that can be
+*Wordification* (Perovsek et al, 2015) is a propositionalization method inspired by text mining that can be
 viewed as a transformation of a relational database into a corpus of text documents. Wordification
 constructs simple, easily interpretable features, acting as words in the transformed Bag-Of-Words
 representation.

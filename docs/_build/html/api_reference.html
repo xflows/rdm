@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                0.1.0
+                0.1.2
               </div>
             
           
@@ -980,12 +980,10 @@ or intensionally.</p>
 </div>
 <div class="section" id="rsd">
 <h3>RSD<a class="headerlink" href="#rsd" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>RSD is a relational subgroup discovery algorithm (Zelezny et al, 2001) composed of two main steps: the propositionalization step</dt>
-<dd>and the (optional) subgroup discovery step. RSD effectively produces an exhaustive list of first-order
+<p><em>RSD</em> is a relational subgroup discovery algorithm (Zelezny et al, 2001) composed of two main steps:
+the propositionalization step and the (optional) subgroup discovery step. RSD effectively produces an exhaustive list of first-order
 features that comply with the user-defined mode constraints, similar to those of
-Progol (Muggleton, 1995) and Aleph.</dd>
-</dl>
+Progol (Muggleton, 1995) and Aleph.</p>
 <p>See <a class="reference internal" href="example.html"><span class="doc">Example use case</span></a> for an example of using RSD in your code.</p>
 <dl class="class">
 <dt id="rdm.wrappers.RSD">
@@ -1096,7 +1094,7 @@ this will be an empty string if cn2sd is set to False.</li>
 </div>
 <div class="section" id="treeliker">
 <h3>TreeLiker<a class="headerlink" href="#treeliker" title="Permalink to this headline">¶</a></h3>
-<p>TreeLiker (by Ondrej Kuzelka et al) is suite of multiple algorithms (controlled by the <code class="docutils literal"><span class="pre">algorithm</span></code> setting), RelF, Poly and HiFi:</p>
+<p><em>TreeLiker</em> (by Ondrej Kuzelka et al) is suite of multiple algorithms (controlled by the <code class="docutils literal"><span class="pre">algorithm</span></code> setting), RelF, Poly and HiFi:</p>
 <p><em>RelF</em> constructs a set of tree-like relational features by combining smaller conjunctive blocks.
 The novelty is that RelF preserves the monotonicity of feature reducibility and redundancy
 (instead of the typical monotonicity of frequency), which allows the algorithm to scale far
@@ -1108,7 +1106,7 @@ feature length. Furthermore, the resulting features are the smallest in their se
 <p>Example usage:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span> <span class="o">=</span> <span class="n">DBContext</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">conv</span> <span class="o">=</span> <span class="n">TreeLikerConverter</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">treeliker</span> <span class="o">=</span> <span class="n">TreeLiker</span><span class="p">(</span><span class="n">conv</span><span class="o">.</span><span class="n">dataset</span><span class="p">(),</span> <span class="n">conv</span><span class="o">.</span><span class="n">default_template</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treeliker</span> <span class="o">=</span> <span class="n">TreeLiker</span><span class="p">(</span><span class="n">conv</span><span class="o">.</span><span class="n">dataset</span><span class="p">(),</span> <span class="n">conv</span><span class="o">.</span><span class="n">default_template</span><span class="p">())</span>   <span class="c1"># Runs RelF by default</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">arff</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">treeliker</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1159,7 +1157,7 @@ feature length. Furthermore, the resulting features are the smallest in their se
 </div>
 <div class="section" id="wordification">
 <h3>Wordification<a class="headerlink" href="#wordification" title="Permalink to this headline">¶</a></h3>
-<p>Wordification (Perovsek et al, 2015) is a propositionalization method inspired by text mining that can be
+<p><em>Wordification</em> (Perovsek et al, 2015) is a propositionalization method inspired by text mining that can be
 viewed as a transformation of a relational database into a corpus of text documents. Wordification
 constructs simple, easily interpretable features, acting as words in the transformed Bag-Of-Words
 representation.</p>
@@ -1571,7 +1569,7 @@ unseen test examples into the new feature space.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015, Anze Vavpetic, Matic Perovsek.
+        &copy; Copyright 2016, Anze Vavpetic, Matic Perovsek.
 
     </p>
   </div>
