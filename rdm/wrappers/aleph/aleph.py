@@ -33,6 +33,9 @@ logger.addHandler(ch)
 
 
 class Aleph(object):
+    '''
+    Aleph python wrapper.
+    '''
     # The aleph source file is presumed to be in the same dir as this file.
     THIS_DIR = os.path.dirname(__file__) if os.path.dirname(__file__) else '.'
     ALEPH_FN = 'aleph.pl'
@@ -57,8 +60,9 @@ class Aleph(object):
         """
         Creates an Aleph object.
 
-        @param logging Can be DEBUG, INFO or NOTSET (default).
-                       This controls the verbosity of the output.
+            :param logging: Can be DEBUG, INFO or NOTSET (default).
+            This controls the verbosity of the output.
+
         """
         self.tmpdir = tempfile.mkdtemp()
         self.aleph_script = '%s/%s' % (self.tmpdir, Aleph.ALEPH_FN)
@@ -74,13 +78,20 @@ class Aleph(object):
     def set(self, name, value):
         """
         Sets the value of setting 'name' to 'value'.
+
+            :param name: Name of the setting
+            :param value: Value of the setting
+
         """
         self.settings[name] = value
 
     def settingsAsFacts(self, settings):
         """
-        Parses a string of settings in the form:
-            set(name1, val1), set(name2, val2)...
+        Parses a string of settings.
+
+            :param setting: String of settings in the form:
+            ``set(name1, val1), set(name2, val2)...``
+
         """
         pattern = re.compile('set\(([a-zA-Z0-9_]+),(\[a-zA-Z0-9_]+)\)')
         pairs = pattern.findall(settings)
@@ -90,6 +101,10 @@ class Aleph(object):
     def setPostScript(self, goal, script):
         """
         After learning call the given script using 'goal'.
+
+            :param goal: goal name
+            :param script: prolog script to call
+
         """
         self.postGoal = goal
         self.postScript = script
@@ -98,13 +113,15 @@ class Aleph(object):
         """
         Induce a theory or features in 'mode'.
 
-        @param filestem The base name of this experiment.
-        @param mode In which mode to induce rules/features.
-        @param pos String of positive examples.
-        @param neg String of negative examples.
-        @param b String with background knowledge.
+            :param filestem: The base name of this experiment.
+            :param mode: In which mode to induce rules/features.
+            :param pos: String of positive examples.
+            :param neg: String of negative examples.
+            :param b: String of background knowledge.
 
-        @return The theory as a string or an arff dataset in induce_features mode.
+            :return: The theory as a string or an arff dataset in induce_features mode.
+            :rtype: str
+
         """
         # Write the inputs to appropriate files.
         self.__prepare(filestem, pos, neg, b)

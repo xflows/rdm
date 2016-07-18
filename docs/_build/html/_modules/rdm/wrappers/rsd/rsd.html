@@ -163,6 +163,9 @@
 <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
 
 <div class="viewcode-block" id="RSD"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.RSD">[docs]</a><span class="k">class</span> <span class="nc">RSD</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    RSD python wrapper.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">THIS_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;.&#39;</span>
     <span class="n">RSD_FILES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;featurize.pl&#39;</span><span class="p">,</span> <span class="s1">&#39;process.pl&#39;</span><span class="p">,</span> <span class="s1">&#39;rules.pl&#39;</span><span class="p">]</span>
 
@@ -184,6 +187,9 @@
 <div class="viewcode-block" id="RSD.__init__"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.RSD.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">NOTSET</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates an RSD object.</span>
+
+<span class="sd">            :param logging: Can be DEBUG, INFO or NOTSET (default).</span>
+<span class="sd">            This controls the verbosity of the output.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
@@ -196,12 +202,20 @@
 <div class="viewcode-block" id="RSD.set"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.RSD.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the value of setting &#39;name&#39; to &#39;value&#39;.</span>
+
+<span class="sd">            :param name: Name of the setting</span>
+<span class="sd">            :param value: Value of the setting</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
 
 <div class="viewcode-block" id="RSD.settingsAsFacts"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.RSD.settingsAsFacts">[docs]</a>    <span class="k">def</span> <span class="nf">settingsAsFacts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Parses a string of settings in the form set(name1, val1), set(name2, val2)...</span>
+<span class="sd">        Parses a string of settings.</span>
+
+<span class="sd">            :param setting: String of settings in the form:</span>
+<span class="sd">            ``set(name1, val1), set(name2, val2)...``</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;set\(([a-zA-Z0-9_]+),(\[a-zA-Z0-9_]+)\)&#39;</span><span class="p">)</span>
         <span class="n">pairs</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
@@ -217,18 +231,19 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate features and find subgroups.</span>
 <span class="sd">        </span>
-<span class="sd">        @param filestem The base name of this experiment.</span>
-<span class="sd">        @param examples Classified examples; can be used instead of separate pos / neg files below.</span>
-<span class="sd">        @param pos String of positive examples.</span>
-<span class="sd">        @param neg String of negative examples.</span>
-<span class="sd">        @param b String with background knowledge.</span>
-<span class="sd">        @param cn2sd Find subgroups after feature construction?</span>
+<span class="sd">            :param filestem: The base name of this experiment.</span>
+<span class="sd">            :param examples: Classified examples; can be used instead of separate pos / neg files below.</span>
+<span class="sd">            :param pos: String of positive examples.</span>
+<span class="sd">            :param neg: String of negative examples.</span>
+<span class="sd">            :param b: String with background knowledge.</span>
+<span class="sd">            :param cn2sd: Find subgroups after feature construction?</span>
 
-<span class="sd">        Returns a tuple (features, weka, rules), where:</span>
+<span class="sd">            :return: a tuple ``(features, weka, rules)``, where:</span>
 <span class="sd">            - features is a set of prolog clauses of generated features,</span>
 <span class="sd">            - weka is the propositional form of the input data,</span>
 <span class="sd">            - rules is a set of generated cn2sd subgroup descriptions; </span>
 <span class="sd">              this will be an empty string if cn2sd is set to False.</span>
+<span class="sd">            :rtype: tuple</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Write the inputs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__prepare</span><span class="p">(</span><span class="n">filestem</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">examples</span><span class="o">=</span><span class="n">examples</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">neg</span><span class="o">=</span><span class="n">neg</span><span class="p">)</span>

@@ -12,6 +12,11 @@ class Converter:
     Base class for converters.
     '''
     def __init__(self, dbcontext):
+        '''
+        Base class for handling converting DBContexts to various relational learning systems.
+
+            :param dbcontext: DBContext object for a learning problem
+        '''
         self.db = dbcontext
 
 
@@ -20,7 +25,14 @@ class ILPConverter(Converter):
     Base class for converting between a given database context (selected tables, columns, etc)
     to inputs acceptable by a specific ILP system.
 
-    If possible, all subclasses should use lazy selects by forwarding the DB connection.
+        :param discr_intervals: (optional) discretization intervals in the form:
+
+        >>> {'table1': {'att1': [0.4, 1.0], 'att2': [0.1, 2.0, 4.5]}, 'table2': {'att2': [0.02]}}
+
+        given these intervals, e.g., ``att1`` would be discretized into three intervals:
+        ``att1 =< 0.4, 0.4 < att1 =< 1.0, att1 >= 1.0``
+
+        :param settings: dictionary of ``setting: value`` pairs
     '''
     def __init__(self, *args, **kwargs):
         self.settings = kwargs.pop('settings', {}) if kwargs else {}
@@ -30,9 +42,23 @@ class ILPConverter(Converter):
         Converter.__init__(self, *args, **kwargs)
 
     def user_settings(self):
+        '''
+        Emits prolog code for algorithm settings, such as ``:- set(minpos, 5).``.
+        '''
         return [':- set(%s,%s).' % (key,val) for key, val in self.settings.items()]
 
     def mode(self, predicate, args, recall=1, head=False):
+        '''
+        Emits mode declarations in Aleph-like format.
+
+            :param predicate: predicate name
+            :param args: predicate arguments with input/output specification, e.g.:
+
+            >>> [('+', 'train'), ('-', 'car')]
+
+            :param recall: recall setting (see `Aleph manual <http://www.cs.ox.ac.uk/activities/machinelearning/Aleph/aleph>`_)
+            :param head: set to True for head clauses
+        '''
         return ':- mode%s(%s, %s(%s)).' % ('h' if head else 'b', str(recall), predicate, ','.join([t+arg for t,arg in args]))
 
     def connecting_clause(self, table, ref_table):
@@ -120,14 +146,24 @@ class ILPConverter(Converter):
 class RSDConverter(ILPConverter):
     '''
     Converts the database context to RSD inputs.
+
+    Inherits from ILPConverter.
     '''
     def all_examples(self, pred_name=None):
+        '''
+        Emits all examples in prolog form for RSD.
+
+            :param pred_name: override for the emitted predicate name
+        '''
         target = self.db.target_table
         pred_name = pred_name if pred_name else target
         examples = self.db.rows(target, [self.db.target_att, self.db.pkeys[target]])
         return '\n'.join(["%s(%s, %s)." % (pred_name, ILPConverter.fmt_col(cls), pk) for cls, pk in examples])
 
     def background_knowledge(self):
+        '''
+        Emits the background knowledge in prolog form for RSD.
+        '''
         modeslist, getters = [self.mode(self.db.target_table, [('+', self.db.target_table)], head=True)], []
         for (table, ref_table) in self.db.connected.keys():
             if ref_table == self.db.target_table:
@@ -148,8 +184,21 @@ class RSDConverter(ILPConverter):
 class AlephConverter(ILPConverter):
     '''
     Converts the database context to Aleph inputs.
+
+    Inherits from ILPConverter.
     '''
     def __init__(self, *args, **kwargs):
+        '''
+            :param discr_intervals: (optional) discretization intervals in the form:
+
+            >>> {'table1': {'att1': [0.4, 1.0], 'att2': [0.1, 2.0, 4.5]}, 'table2': {'att2': [0.02]}}
+
+            given these intervals, e.g., ``att1`` would be discretized into three intervals:
+            ``att1 =< 0.4, 0.4 < att1 =< 1.0, att1 >= 1.0``
+
+            :param settings: dictionary of ``setting: value`` pairs
+            :param target_att_val: target attribute *value* for learning.
+        '''
         self.target_att_val = kwargs.pop('target_att_val')
         ILPConverter.__init__(self, *args, **kwargs)
         self.__pos_examples, self.__neg_examples = None, None
@@ -177,12 +226,21 @@ class AlephConverter(ILPConverter):
         return self.__pos_examples, self.__neg_examples
 
     def positive_examples(self):
+        '''
+        Emits the positive examples in prolog form for Aleph.
+        '''
         return self.__examples()[0]
 
     def negative_examples(self):
+        '''
+        Emits the negative examples in prolog form for Aleph.
+        '''
         return self.__examples()[1]
 
     def background_knowledge(self):
+        '''
+        Emits the background knowledge in prolog form for Aleph.
+        '''
         modeslist, getters = [self.mode(self.__target_predicate(), [('+', self.db.target_table)], head=True)], []
         determinations, types = [], []
         for (table, ref_table) in self.db.connected.keys():
@@ -219,7 +277,7 @@ class AlephConverter(ILPConverter):
 
 class OrangeConverter(Converter):
     '''
-    Converts the selected tables in the given context to orange example tables.
+    Converts the selected tables in the given context to Orange example tables.
     '''
     continuous_types = ('FLOAT','DOUBLE','DECIMAL','NEWDECIMAL','double precision','numeric')
     integer_types = ('TINY','SHORT','LONG','LONGLONG','INT24','integer')
@@ -234,6 +292,11 @@ class OrangeConverter(Converter):
         self.db.compute_col_vals()
 
     def target_Orange_table(self):
+        '''
+        Returns the target table as an Orange example table.
+
+            :rtype: orange.ExampleTable
+        '''
         table, cls_att = self.db.target_table, self.db.target_att
         if not self.db.orng_tables:
             return self.convert_table(table, cls_att=cls_att)
@@ -241,6 +304,11 @@ class OrangeConverter(Converter):
             return self.db.orng_tables[table]
 
     def other_Orange_tables(self):
+        '''
+            Returns the related tables as Orange example tables.
+
+            :rtype: list
+        '''
         target_table = self.db.target_table
         if not self.db.orng_tables:
             return [self.convert_table(table,None) for table in self.db.tables if table!=target_table]
@@ -249,7 +317,11 @@ class OrangeConverter(Converter):
 
     def convert_table(self, table_name, cls_att=None):
         '''
-        Returns the target table as an orange example table.
+        Returns the specified table as an orange example table.
+
+            :param table_name: table name to convert
+            :cls_att: class attribute name
+            :rtype: orange.ExampleTable
         '''
         import orange
 
@@ -287,7 +359,10 @@ class OrangeConverter(Converter):
 
     def orng_type(self, table_name, col):
         '''
-        Assigns a given mysql column an orange type.
+        Returns an Orange datatype for a given mysql column.
+
+            :param table_name: target table name
+            :param col: column to determine the Orange datatype
         '''
         mysql_type = self.types[table_name][col]
         n_vals = len(self.db.col_vals[table_name][col])
@@ -302,6 +377,13 @@ class OrangeConverter(Converter):
 class TreeLikerConverter(Converter):
     '''
     Converts a db context to the TreeLiker dataset format.
+
+        :param discr_intervals: (optional) discretization intervals in the form:
+
+        >>> {'table1': {'att1': [0.4, 1.0], 'att2': [0.1, 2.0, 4.5]}, 'table2': {'att2': [0.02]}}
+
+        given these intervals, e.g., ``att1`` would be discretized into three intervals:
+        ``att1 =< 0.4, 0.4 < att1 =< 1.0, att1 >= 1.0``
     '''
     def __init__(self, *args, **kwargs):
         self.discr_intervals = kwargs.pop('discr_intervals', {}) if kwargs else {}
@@ -455,8 +537,8 @@ class TreeLikerConverter(Converter):
 
     def dataset(self):
         '''
-        Returns the db context as a list of interpretations, i.e., a list of 
-        facts true for each example.
+        Returns the DBContext as a list of interpretations, i.e., a list of
+        facts true for each example in the format for TreeLiker.
         '''
         target = self.db.target_table
         db_examples = self.db.rows(target, [self.db.target_att, self.db.pkeys[target]])
@@ -470,14 +552,18 @@ class TreeLikerConverter(Converter):
 
 
     def default_template(self):
+        '''
+        Default learning template for TreeLiker.
+        '''
         return '[%s]' % (', '.join(self._template))
 
 
 class PrdFctConverter(Converter):
     '''
     Converts the selected tables in the given context to prd and fct files.
+
+    Used for Cardinalization, Quantiles, Relaggs, 1BC, 1BC2, Tertius.
     '''
-    
     def __init__(self, *args, **kwargs):
         Converter.__init__(self, *args, **kwargs)
         self.types={}
@@ -486,6 +572,9 @@ class PrdFctConverter(Converter):
         self.db.compute_col_vals()
         
     def create_prd_file(self):
+        '''
+        Emits the background knowledge in prd format.
+        '''
         prd_str=''
         prd_str+='--INDIVIDUAL\n'
         prd_str+='%s 1 %s cwa\n' % (self.db.target_table,self.db.target_table)
@@ -501,6 +590,9 @@ class PrdFctConverter(Converter):
         return prd_str
 
     def create_fct_file(self):
+        '''
+        Emits examples in fct format.
+        '''
         fct_str=''
         fct_str+=self.fct_rec(self.db.target_table)
         return fct_str
@@ -540,11 +632,3 @@ class PrdFctConverter(Converter):
                     if curr_table == table:
                         fct_str+=self.fct_rec(str(next_table[0]),table,str(next_table[1]),val_id)                            
         return fct_str
-
-
-if __name__ == '__main__':
-    from context import DBConnection, DBContext
-    context = DBContext(DBConnection('ilp','ilp123','ged.ijs.si','muta_42'))
-    context.target_table = 'drugs'
-    context.target_att = 'active'
-    conv = AlephConverter(context)

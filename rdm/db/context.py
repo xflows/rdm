@@ -87,7 +87,7 @@ class DBContext:
             :param target_att: set a target table attribute for learning
             :param find_connections: set to True if you want to detect relationships based on attribute and table names, \
              e.g., ``train_id`` is the foreign key refering to ``id`` in table ``train``.
-            :param in_memory:
+            :param in_memory: Load the database into main memory (currently required for most approaches and pre-processing)
         '''
         self.src = connection.src
         self.tables = self.src.tables()
@@ -127,12 +127,22 @@ class DBContext:
     def fetch(self, table, cols):
         '''
         Fetches rows from the db.
+
+            :param table: table name to select
+            :cols: list of columns to select
+            :return: list of rows
+            :rtype: list
         '''
         return self.src.fetch(table, cols)
 
     def rows(self, table, cols):
         '''
         Fetches rows from the local cache or from the db if there's no cache.
+
+            :param table: table name to select
+            :cols: list of columns to select
+            :return: list of rows
+            :rtype: list
         '''
         if self.orng_tables:
             data = []
@@ -145,6 +155,13 @@ class DBContext:
     def select_where(self, table, cols, pk_att, pk):
         '''
         SELECT with WHERE clause.
+
+            :param table: target table
+            :param cols: list of columns to select
+            :param pk_att: attribute for the where clause
+            :param pk: the id that the pk_att should match
+            :return: rows from the given table and cols, with the condition pk_att==pk
+            :rtype: list
         '''
         if self.orng_tables:
             data = []
@@ -158,6 +175,11 @@ class DBContext:
     def fetch_types(self, table, cols):
         '''
         Returns a dictionary of field types for the given table and columns.
+
+            :param table: target table
+            :param cols: list of columns to select
+            :return: a dictionary of types for each attribute
+            :rtype: dict
         '''
         return self.src.fetch_types(table, cols)
 
@@ -168,6 +190,12 @@ class DBContext:
                 self.col_vals[table][col] = self.src.column_values(table, col)
 
     def copy(self):
+        '''
+        Makes a deepcopy of the DBContext object (e.g., for making folds)
+
+            :returns: a deep copy of ``self``.
+            :rtype: DBContext
+        '''
         return copy.deepcopy(self)
 
     def __repr__(self):

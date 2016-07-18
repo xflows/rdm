@@ -26,7 +26,7 @@ Aleph and RSD
 
 There are sources as well as binaries for Windows and OS X available `here <https://www.dcc.fc.up.pt/~vsc/Yap/downloads.html>`_.
 
-On Debian-based systems you can simply install it as:
+On Debian-based systems you can simply install it as::
 
     apt install yap
 

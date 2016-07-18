@@ -29,6 +29,9 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 class RSD(object):
+    '''
+    RSD python wrapper.
+    '''
     THIS_DIR = os.path.dirname(__file__) if os.path.dirname(__file__) else '.'
     RSD_FILES = ['featurize.pl', 'process.pl', 'rules.pl']
 
@@ -50,6 +53,9 @@ class RSD(object):
     def __init__(self, verbosity=logging.NOTSET):
         """
         Creates an RSD object.
+
+            :param logging: Can be DEBUG, INFO or NOTSET (default).
+            This controls the verbosity of the output.
         """
         self.tmpdir = tempfile.mkdtemp()
         self.settings = dict()
@@ -62,12 +68,20 @@ class RSD(object):
     def set(self, name, value):
         """
         Sets the value of setting 'name' to 'value'.
+
+            :param name: Name of the setting
+            :param value: Value of the setting
+
         """
         self.settings[name] = value
 
     def settingsAsFacts(self, settings):
         """
-        Parses a string of settings in the form set(name1, val1), set(name2, val2)...
+        Parses a string of settings.
+
+            :param setting: String of settings in the form:
+            ``set(name1, val1), set(name2, val2)...``
+
         """
         pattern = re.compile('set\(([a-zA-Z0-9_]+),(\[a-zA-Z0-9_]+)\)')
         pairs = pattern.findall(settings)
@@ -83,18 +97,19 @@ class RSD(object):
         """
         Generate features and find subgroups.
         
-        @param filestem The base name of this experiment.
-        @param examples Classified examples; can be used instead of separate pos / neg files below.
-        @param pos String of positive examples.
-        @param neg String of negative examples.
-        @param b String with background knowledge.
-        @param cn2sd Find subgroups after feature construction?
+            :param filestem: The base name of this experiment.
+            :param examples: Classified examples; can be used instead of separate pos / neg files below.
+            :param pos: String of positive examples.
+            :param neg: String of negative examples.
+            :param b: String with background knowledge.
+            :param cn2sd: Find subgroups after feature construction?
 
-        Returns a tuple (features, weka, rules), where:
+            :return: a tuple ``(features, weka, rules)``, where:
             - features is a set of prolog clauses of generated features,
             - weka is the propositional form of the input data,
             - rules is a set of generated cn2sd subgroup descriptions; 
               this will be an empty string if cn2sd is set to False.
+            :rtype: tuple
         """
         # Write the inputs
         self.__prepare(filestem, b, examples=examples, pos=pos, neg=neg)

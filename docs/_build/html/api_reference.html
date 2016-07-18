@@ -107,8 +107,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#utilities">Utilities</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-rdm.db.mapper">Mapping unseen examples into propositional feature space</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-rdm.validation">Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mapping-unseen-examples-into-propositional-feature-space">Mapping unseen examples into propositional feature space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#validation">Validation</a></li>
 </ul>
 </li>
 </ul>
@@ -442,7 +442,7 @@ the database through DBConnection and DBContext objects.</p>
 <li><strong>target_table</strong> &#8211; set a target table for learning</li>
 <li><strong>target_att</strong> &#8211; set a target table attribute for learning</li>
 <li><strong>find_connections</strong> &#8211; set to True if you want to detect relationships based on attribute and table names,              e.g., <code class="docutils literal"><span class="pre">train_id</span></code> is the foreign key refering to <code class="docutils literal"><span class="pre">id</span></code> in table <code class="docutils literal"><span class="pre">train</span></code>.</li>
-<li><strong>in_memory</strong> &#8211; </li>
+<li><strong>in_memory</strong> &#8211; Load the database into main memory (currently required for most approaches and pre-processing)</li>
 </ul>
 </td>
 </tr>
@@ -451,27 +451,113 @@ the database through DBConnection and DBContext objects.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="rdm.db.context.DBContext.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a deepcopy of the DBContext object (e.g., for making folds)</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">a deep copy of <code class="docutils literal"><span class="pre">self</span></code>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">DBContext</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
 <dt id="rdm.db.context.DBContext.fetch">
 <code class="descname">fetch</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext.fetch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetches rows from the db.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param table:</th><td class="field-body">table name to select</td>
+</tr>
+<tr class="field-even field"><th class="field-name">cols:</th><td class="field-body">list of columns to select</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">list of rows</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.db.context.DBContext.fetch_types">
 <code class="descname">fetch_types</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext.fetch_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext.fetch_types" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a dictionary of field types for the given table and columns.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param table:</th><td class="field-body">target table</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param cols:</th><td class="field-body">list of columns to select</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">a dictionary of types for each attribute</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.db.context.DBContext.rows">
 <code class="descname">rows</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext.rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext.rows" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetches rows from the local cache or from the db if there&#8217;s no cache.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param table:</th><td class="field-body">table name to select</td>
+</tr>
+<tr class="field-even field"><th class="field-name">cols:</th><td class="field-body">list of columns to select</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">list of rows</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.db.context.DBContext.select_where">
 <code class="descname">select_where</code><span class="sig-paren">(</span><em>table</em>, <em>cols</em>, <em>pk_att</em>, <em>pk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBContext.select_where"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBContext.select_where" title="Permalink to this definition">¶</a></dt>
 <dd><p>SELECT with WHERE clause.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param table:</th><td class="field-body">target table</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param cols:</th><td class="field-body">list of columns to select</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param pk_att:</th><td class="field-body">attribute for the where clause</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param pk:</th><td class="field-body">the id that the pk_att should match</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">rows from the given table and cols, with the condition pk_att==pk</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 </dd></dl>
@@ -485,6 +571,23 @@ the database through DBConnection and DBContext objects.</p>
 <dt id="rdm.db.converters.Converter">
 <em class="property">class </em><code class="descclassname">rdm.db.converters.</code><code class="descname">Converter</code><span class="sig-paren">(</span><em>dbcontext</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#Converter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.Converter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for converters.</p>
+<dl class="method">
+<dt id="rdm.db.converters.Converter.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>dbcontext</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#Converter.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.Converter.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for handling converting DBContexts to various relational learning systems.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param dbcontext:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">DBContext object for a learning problem</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -492,35 +595,227 @@ the database through DBConnection and DBContext objects.</p>
 <em class="property">class </em><code class="descclassname">rdm.db.converters.</code><code class="descname">ILPConverter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#ILPConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.ILPConverter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for converting between a given database context (selected tables, columns, etc)
 to inputs acceptable by a specific ILP system.</p>
-<p>If possible, all subclasses should use lazy selects by forwarding the DB connection.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param discr_intervals:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) discretization intervals in the form:</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">{</span><span class="s1">&#39;table1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;att1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="s1">&#39;att2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">]},</span> <span class="s1">&#39;table2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;att2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.02</span><span class="p">]}}</span>
+</pre></div>
+</div>
+<p>given these intervals, e.g., <code class="docutils literal"><span class="pre">att1</span></code> would be discretized into three intervals:
+<code class="docutils literal"><span class="pre">att1</span> <span class="pre">=&lt;</span> <span class="pre">0.4,</span> <span class="pre">0.4</span> <span class="pre">&lt;</span> <span class="pre">att1</span> <span class="pre">=&lt;</span> <span class="pre">1.0,</span> <span class="pre">att1</span> <span class="pre">&gt;=</span> <span class="pre">1.0</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param settings:</th><td class="field-body">dictionary of <code class="docutils literal"><span class="pre">setting:</span> <span class="pre">value</span></code> pairs</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="method">
+<dt id="rdm.db.converters.ILPConverter.mode">
+<code class="descname">mode</code><span class="sig-paren">(</span><em>predicate</em>, <em>args</em>, <em>recall=1</em>, <em>head=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#ILPConverter.mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.ILPConverter.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emits mode declarations in Aleph-like format.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param predicate:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">predicate name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param args:</th><td class="field-body">predicate arguments with input/output specification, e.g.:</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;car&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param recall:</th><td class="field-body">recall setting (see <a class="reference external" href="http://www.cs.ox.ac.uk/activities/machinelearning/Aleph/aleph">Aleph manual</a>)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param head:</th><td class="field-body">set to True for head clauses</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.converters.ILPConverter.user_settings">
+<code class="descname">user_settings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#ILPConverter.user_settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.ILPConverter.user_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emits prolog code for algorithm settings, such as <code class="docutils literal"><span class="pre">:-</span> <span class="pre">set(minpos,</span> <span class="pre">5).</span></code>.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="rdm.db.converters.RSDConverter">
 <em class="property">class </em><code class="descclassname">rdm.db.converters.</code><code class="descname">RSDConverter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#RSDConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.RSDConverter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts the database context to RSD inputs.</p>
+<p>Inherits from ILPConverter.</p>
+<dl class="method">
+<dt id="rdm.db.converters.RSDConverter.all_examples">
+<code class="descname">all_examples</code><span class="sig-paren">(</span><em>pred_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#RSDConverter.all_examples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.RSDConverter.all_examples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emits all examples in prolog form for RSD.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param pred_name:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">override for the emitted predicate name</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.converters.RSDConverter.background_knowledge">
+<code class="descname">background_knowledge</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#RSDConverter.background_knowledge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.RSDConverter.background_knowledge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emits the background knowledge in prolog form for RSD.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="rdm.db.converters.AlephConverter">
 <em class="property">class </em><code class="descclassname">rdm.db.converters.</code><code class="descname">AlephConverter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#AlephConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.AlephConverter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts the database context to Aleph inputs.</p>
+<p>Inherits from ILPConverter.</p>
+<dl class="method">
+<dt id="rdm.db.converters.AlephConverter.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#AlephConverter.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.AlephConverter.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>discr_intervals</strong> &#8211; (optional) discretization intervals in the form:</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">{</span><span class="s1">&#39;table1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;att1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="s1">&#39;att2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">]},</span> <span class="s1">&#39;table2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;att2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.02</span><span class="p">]}}</span>
+</pre></div>
+</div>
+<p>given these intervals, e.g., <code class="docutils literal"><span class="pre">att1</span></code> would be discretized into three intervals:
+<code class="docutils literal"><span class="pre">att1</span> <span class="pre">=&lt;</span> <span class="pre">0.4,</span> <span class="pre">0.4</span> <span class="pre">&lt;</span> <span class="pre">att1</span> <span class="pre">=&lt;</span> <span class="pre">1.0,</span> <span class="pre">att1</span> <span class="pre">&gt;=</span> <span class="pre">1.0</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>settings</strong> &#8211; dictionary of <code class="docutils literal"><span class="pre">setting:</span> <span class="pre">value</span></code> pairs</li>
+<li><strong>target_att_val</strong> &#8211; target attribute <em>value</em> for learning.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.converters.AlephConverter.background_knowledge">
+<code class="descname">background_knowledge</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#AlephConverter.background_knowledge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.AlephConverter.background_knowledge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emits the background knowledge in prolog form for Aleph.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.converters.AlephConverter.negative_examples">
+<code class="descname">negative_examples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#AlephConverter.negative_examples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.AlephConverter.negative_examples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emits the negative examples in prolog form for Aleph.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.converters.AlephConverter.positive_examples">
+<code class="descname">positive_examples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#AlephConverter.positive_examples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.AlephConverter.positive_examples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emits the positive examples in prolog form for Aleph.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="rdm.db.converters.OrangeConverter">
 <em class="property">class </em><code class="descclassname">rdm.db.converters.</code><code class="descname">OrangeConverter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#OrangeConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.OrangeConverter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts the selected tables in the given context to orange example tables.</p>
+<dd><p>Converts the selected tables in the given context to Orange example tables.</p>
 <dl class="method">
 <dt id="rdm.db.converters.OrangeConverter.convert_table">
 <code class="descname">convert_table</code><span class="sig-paren">(</span><em>table_name</em>, <em>cls_att=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#OrangeConverter.convert_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.OrangeConverter.convert_table" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the target table as an orange example table.</p>
+<dd><p>Returns the specified table as an orange example table.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param table_name:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">table name to convert</td>
+</tr>
+<tr class="field-even field"><th class="field-name">cls_att:</th><td class="field-body">class attribute name</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">orange.ExampleTable</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.db.converters.OrangeConverter.orng_type">
 <code class="descname">orng_type</code><span class="sig-paren">(</span><em>table_name</em>, <em>col</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#OrangeConverter.orng_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.OrangeConverter.orng_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Assigns a given mysql column an orange type.</p>
+<dd><p>Returns an Orange datatype for a given mysql column.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param table_name:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">target table name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param col:</th><td class="field-body">column to determine the Orange datatype</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.converters.OrangeConverter.other_Orange_tables">
+<code class="descname">other_Orange_tables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#OrangeConverter.other_Orange_tables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.OrangeConverter.other_Orange_tables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the related tables as Orange example tables.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.converters.OrangeConverter.target_Orange_table">
+<code class="descname">target_Orange_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#OrangeConverter.target_Orange_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.OrangeConverter.target_Orange_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the target table as an Orange example table.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">orange.ExampleTable</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 </dd></dl>
@@ -529,11 +824,33 @@ to inputs acceptable by a specific ILP system.</p>
 <dt id="rdm.db.converters.TreeLikerConverter">
 <em class="property">class </em><code class="descclassname">rdm.db.converters.</code><code class="descname">TreeLikerConverter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#TreeLikerConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.TreeLikerConverter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts a db context to the TreeLiker dataset format.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param discr_intervals:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(optional) discretization intervals in the form:</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">{</span><span class="s1">&#39;table1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;att1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="s1">&#39;att2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">]},</span> <span class="s1">&#39;table2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;att2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.02</span><span class="p">]}}</span>
+</pre></div>
+</div>
+<p>given these intervals, e.g., <code class="docutils literal"><span class="pre">att1</span></code> would be discretized into three intervals:
+<code class="docutils literal"><span class="pre">att1</span> <span class="pre">=&lt;</span> <span class="pre">0.4,</span> <span class="pre">0.4</span> <span class="pre">&lt;</span> <span class="pre">att1</span> <span class="pre">=&lt;</span> <span class="pre">1.0,</span> <span class="pre">att1</span> <span class="pre">&gt;=</span> <span class="pre">1.0</span></code></p>
+</div></blockquote>
 <dl class="method">
 <dt id="rdm.db.converters.TreeLikerConverter.dataset">
 <code class="descname">dataset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#TreeLikerConverter.dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.TreeLikerConverter.dataset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the db context as a list of interpretations, i.e., a list of 
-facts true for each example.</p>
+<dd><p>Returns the DBContext as a list of interpretations, i.e., a list of
+facts true for each example in the format for TreeLiker.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.converters.TreeLikerConverter.default_template">
+<code class="descname">default_template</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/converters.html#TreeLikerConverter.default_template"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.converters.TreeLikerConverter.default_template" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default learning template for TreeLiker.</p>
 </dd></dl>
 
 </dd></dl>
@@ -544,17 +861,31 @@ facts true for each example.</p>
 <p>The <code class="docutils literal"><span class="pre">rdm.wrappers</span></code> module provides classes for working with the various algorithm wrappers.</p>
 <div class="section" id="aleph">
 <h3>Aleph<a class="headerlink" href="#aleph" title="Permalink to this headline">¶</a></h3>
+<p>This is a wrapper for the very popular ILP algorithm Aleph. Aleph is an ILP toolkit with many modes of
+functionality: learning theories, feature construction, incremental learning, etc. Aleph uses mode
+declarations to define the syntactic bias. Input relations are Prolog clauses, defined either extensionally
+or intensionally.</p>
+<p><a class="reference external" href="http://www.cs.ox.ac.uk/activities/machinelearning/Aleph/aleph">Official documentation</a>.</p>
+<p>See <a class="reference internal" href="getting_started.html"><span class="doc">Getting started</span></a> for an example of using Aleph in your python code.</p>
 <dl class="class">
 <dt id="rdm.wrappers.Aleph">
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">Aleph</code><span class="sig-paren">(</span><em>verbosity=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/aleph/aleph.html#Aleph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Aleph" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>Aleph python wrapper.</p>
+<dl class="method">
 <dt id="rdm.wrappers.Aleph.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>verbosity=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/aleph/aleph.html#Aleph.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Aleph.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an Aleph object.</p>
-<dl class="docutils">
-<dt>&#64;param logging Can be DEBUG, INFO or NOTSET (default).</dt>
-<dd>This controls the verbosity of the output.</dd>
-</dl>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param logging:</th><td class="field-body">Can be DEBUG, INFO or NOTSET (default).</td>
+</tr>
+</tbody>
+</table>
+<p>This controls the verbosity of the output.</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="attribute">
@@ -567,33 +898,81 @@ facts true for each example.</p>
 <dt id="rdm.wrappers.Aleph.induce">
 <code class="descname">induce</code><span class="sig-paren">(</span><em>mode</em>, <em>pos</em>, <em>neg</em>, <em>b</em>, <em>filestem='default'</em>, <em>printOutput=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/aleph/aleph.html#Aleph.induce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Aleph.induce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Induce a theory or features in &#8216;mode&#8217;.</p>
-<p>&#64;param filestem The base name of this experiment.
-&#64;param mode In which mode to induce rules/features.
-&#64;param pos String of positive examples.
-&#64;param neg String of negative examples.
-&#64;param b String with background knowledge.</p>
-<p>&#64;return The theory as a string or an arff dataset in induce_features mode.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param filestem:</th><td class="field-body">The base name of this experiment.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param mode:</th><td class="field-body">In which mode to induce rules/features.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param pos:</th><td class="field-body">String of positive examples.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param neg:</th><td class="field-body">String of negative examples.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param b:</th><td class="field-body">String of background knowledge.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">return:</th><td class="field-body">The theory as a string or an arff dataset in induce_features mode.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.wrappers.Aleph.set">
 <code class="descname">set</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/aleph/aleph.html#Aleph.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Aleph.set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the value of setting &#8216;name&#8217; to &#8216;value&#8217;.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">Name of the setting</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param value:</th><td class="field-body">Value of the setting</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.wrappers.Aleph.setPostScript">
 <code class="descname">setPostScript</code><span class="sig-paren">(</span><em>goal</em>, <em>script</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/aleph/aleph.html#Aleph.setPostScript"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Aleph.setPostScript" title="Permalink to this definition">¶</a></dt>
 <dd><p>After learning call the given script using &#8216;goal&#8217;.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param goal:</th><td class="field-body">goal name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param script:</th><td class="field-body">prolog script to call</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.wrappers.Aleph.settingsAsFacts">
 <code class="descname">settingsAsFacts</code><span class="sig-paren">(</span><em>settings</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/aleph/aleph.html#Aleph.settingsAsFacts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Aleph.settingsAsFacts" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Parses a string of settings in the form:</dt>
-<dd>set(name1, val1), set(name2, val2)...</dd>
-</dl>
+<dd><p>Parses a string of settings.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param setting:</th><td class="field-body">String of settings in the form:</td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">set(name1,</span> <span class="pre">val1),</span> <span class="pre">set(name2,</span> <span class="pre">val2)...</span></code></p>
+</div></blockquote>
 </dd></dl>
 
 </dd></dl>
@@ -601,13 +980,32 @@ facts true for each example.</p>
 </div>
 <div class="section" id="rsd">
 <h3>RSD<a class="headerlink" href="#rsd" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>RSD is a relational subgroup discovery algorithm (Zelezny et al, 2001) composed of two main steps: the propositionalization step</dt>
+<dd>and the (optional) subgroup discovery step. RSD effectively produces an exhaustive list of first-order
+features that comply with the user-defined mode constraints, similar to those of
+Progol (Muggleton, 1995) and Aleph.</dd>
+</dl>
+<p>See <a class="reference internal" href="example.html"><span class="doc">Example use case</span></a> for an example of using RSD in your code.</p>
 <dl class="class">
 <dt id="rdm.wrappers.RSD">
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">RSD</code><span class="sig-paren">(</span><em>verbosity=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/rsd/rsd.html#RSD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.RSD" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>RSD python wrapper.</p>
+<dl class="method">
 <dt id="rdm.wrappers.RSD.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>verbosity=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/rsd/rsd.html#RSD.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.RSD.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an RSD object.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param logging:</th><td class="field-body">Can be DEBUG, INFO or NOTSET (default).</td>
+</tr>
+</tbody>
+</table>
+<p>This controls the verbosity of the output.</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="attribute">
@@ -620,34 +1018,77 @@ facts true for each example.</p>
 <dt id="rdm.wrappers.RSD.induce">
 <code class="descname">induce</code><span class="sig-paren">(</span><em>b</em>, <em>filestem='default'</em>, <em>examples=None</em>, <em>pos=None</em>, <em>neg=None</em>, <em>cn2sd=True</em>, <em>printOutput=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/rsd/rsd.html#RSD.induce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.RSD.induce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate features and find subgroups.</p>
-<p>&#64;param filestem The base name of this experiment.
-&#64;param examples Classified examples; can be used instead of separate pos / neg files below.
-&#64;param pos String of positive examples.
-&#64;param neg String of negative examples.
-&#64;param b String with background knowledge.
-&#64;param cn2sd Find subgroups after feature construction?</p>
-<dl class="docutils">
-<dt>Returns a tuple (features, weka, rules), where:</dt>
-<dd><ul class="first last simple">
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param filestem:</th><td class="field-body">The base name of this experiment.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param examples:</th><td class="field-body">Classified examples; can be used instead of separate pos / neg files below.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param pos:</th><td class="field-body">String of positive examples.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param neg:</th><td class="field-body">String of negative examples.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param b:</th><td class="field-body">String with background knowledge.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param cn2sd:</th><td class="field-body">Find subgroups after feature construction?</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">a tuple <code class="docutils literal"><span class="pre">(features,</span> <span class="pre">weka,</span> <span class="pre">rules)</span></code>, where:</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
 <li>features is a set of prolog clauses of generated features,</li>
 <li>weka is the propositional form of the input data,</li>
 <li>rules is a set of generated cn2sd subgroup descriptions; 
 this will be an empty string if cn2sd is set to False.</li>
 </ul>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.wrappers.RSD.set">
 <code class="descname">set</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/rsd/rsd.html#RSD.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.RSD.set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the value of setting &#8216;name&#8217; to &#8216;value&#8217;.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">Name of the setting</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param value:</th><td class="field-body">Value of the setting</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.wrappers.RSD.settingsAsFacts">
 <code class="descname">settingsAsFacts</code><span class="sig-paren">(</span><em>settings</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/rsd/rsd.html#RSD.settingsAsFacts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.RSD.settingsAsFacts" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parses a string of settings in the form set(name1, val1), set(name2, val2)...</p>
+<dd><p>Parses a string of settings.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param setting:</th><td class="field-body">String of settings in the form:</td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">set(name1,</span> <span class="pre">val1),</span> <span class="pre">set(name2,</span> <span class="pre">val2)...</span></code></p>
+</div></blockquote>
 </dd></dl>
 
 </dd></dl>
@@ -655,13 +1096,62 @@ this will be an empty string if cn2sd is set to False.</li>
 </div>
 <div class="section" id="treeliker">
 <h3>TreeLiker<a class="headerlink" href="#treeliker" title="Permalink to this headline">¶</a></h3>
+<p>TreeLiker (by Ondrej Kuzelka et al) is suite of multiple algorithms (controlled by the <code class="docutils literal"><span class="pre">algorithm</span></code> setting), RelF, Poly and HiFi:</p>
+<p><em>RelF</em> constructs a set of tree-like relational features by combining smaller conjunctive blocks.
+The novelty is that RelF preserves the monotonicity of feature reducibility and redundancy
+(instead of the typical monotonicity of frequency), which allows the algorithm to scale far
+better than other state-of-the-art propositionalization algorithms.</p>
+<p><em>HiFi</em> is a propositionalization approach that constructs first-order features with hierarchical structure.
+Due to this feature property, the algorithm performs the transformation in polynomial time of the maximum
+feature length. Furthermore, the resulting features are the smallest in their semantic equivalence class.</p>
+<p><a class="reference external" href="http://ida.felk.cvut.cz/treeliker/TreeLiker.html">Official website</a></p>
+<p>Example usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span> <span class="o">=</span> <span class="n">DBContext</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conv</span> <span class="o">=</span> <span class="n">TreeLikerConverter</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treeliker</span> <span class="o">=</span> <span class="n">TreeLiker</span><span class="p">(</span><span class="n">conv</span><span class="o">.</span><span class="n">dataset</span><span class="p">(),</span> <span class="n">conv</span><span class="o">.</span><span class="n">default_template</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arff</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">treeliker</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
 <dl class="class">
 <dt id="rdm.wrappers.TreeLiker">
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">TreeLiker</code><span class="sig-paren">(</span><em>dataset</em>, <em>template</em>, <em>test_dataset=None</em>, <em>settings={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/treeliker/treeliker.html#TreeLiker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.TreeLiker" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>TreeLiker python wrapper.</p>
+<dl class="method">
+<dt id="rdm.wrappers.TreeLiker.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>dataset</em>, <em>template</em>, <em>test_dataset=None</em>, <em>settings={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/treeliker/treeliker.html#TreeLiker.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.TreeLiker.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataset</strong> &#8211; dataset in TreeLiker format</li>
+<li><strong>template</strong> &#8211; feature template</li>
+<li><strong>test_dataset</strong> &#8211; (optional) test dataset to transform with the features from the training set</li>
+<li><strong>settings</strong> &#8211; dictionary of settings (see <a class="reference external" href="http://ida.felk.cvut.cz/treeliker/download/treeliker.pdf">TreeLiker documentation</a>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="rdm.wrappers.TreeLiker.run">
 <code class="descname">run</code><span class="sig-paren">(</span><em>cleanup=True</em>, <em>printOutput=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/treeliker/treeliker.html#TreeLiker.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.TreeLiker.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs TreeLiker with the given settings.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param cleanup:</th><td class="field-body">deletes temporary files after completion</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param printOutput:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">print algorithm output to the terminal</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 </dd></dl>
@@ -669,6 +1159,19 @@ this will be an empty string if cn2sd is set to False.</li>
 </div>
 <div class="section" id="wordification">
 <h3>Wordification<a class="headerlink" href="#wordification" title="Permalink to this headline">¶</a></h3>
+<p>Wordification (Perovsek et al, 2015) is a propositionalization method inspired by text mining that can be
+viewed as a transformation of a relational database into a corpus of text documents. Wordification
+constructs simple, easily interpretable features, acting as words in the transformed Bag-Of-Words
+representation.</p>
+<p>Example usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span> <span class="o">=</span> <span class="n">DBContext</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">orange</span> <span class="o">=</span> <span class="n">OrangeConverter</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wordification</span> <span class="o">=</span> <span class="n">Wordification</span><span class="p">(</span><span class="n">orange</span><span class="o">.</span><span class="n">target_Orange_table</span><span class="p">(),</span> <span class="n">orange</span><span class="o">.</span><span class="n">other_Orange_tables</span><span class="p">(),</span> <span class="n">context</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wordification</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wordification</span><span class="o">.</span><span class="n">calculate_weights</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arff</span> <span class="o">=</span> <span class="n">wordification</span><span class="o">.</span><span class="n">to_arff</span><span class="p">()</span>
+</pre></div>
+</div>
 <dl class="class">
 <dt id="rdm.wrappers.Wordification">
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">Wordification</code><span class="sig-paren">(</span><em>target_table</em>, <em>other_tables</em>, <em>context</em>, <em>word_att_length=1</em>, <em>idf=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification" title="Permalink to this definition">¶</a></dt>
@@ -676,8 +1179,20 @@ this will be an empty string if cn2sd is set to False.</li>
 <dt id="rdm.wrappers.Wordification.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>target_table</em>, <em>other_tables</em>, <em>context</em>, <em>word_att_length=1</em>, <em>idf=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wordification object constructor.</p>
-<p>&#64;param target_table Orange ExampleTable, representing the primary table
-&#64;param other_tables secondary tables, Orange ExampleTables</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param target_table:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Orange ExampleTable, representing the primary table</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param other_tables:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">secondary tables, Orange ExampleTables</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="attribute">
@@ -690,31 +1205,100 @@ this will be an empty string if cn2sd is set to False.</li>
 <dt id="rdm.wrappers.Wordification.att_to_s">
 <code class="descname">att_to_s</code><span class="sig-paren">(</span><em>att</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.att_to_s"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.att_to_s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs a &#8220;wordification&#8221; word for the given attribute</p>
-<p>&#64;param att Orange attribute</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param att:</th><td class="field-body">Orange attribute</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.wrappers.Wordification.calculate_weights">
 <code class="descname">calculate_weights</code><span class="sig-paren">(</span><em>measure='tfidf'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.calculate_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.calculate_weights" title="Permalink to this definition">¶</a></dt>
 <dd><p>Counts word frequency and calculates tf-idf values for words in every document.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param measure:</th><td class="field-body">example weights approach (can be one of <code class="docutils literal"><span class="pre">tfidf,</span> <span class="pre">binary,</span> <span class="pre">tf</span></code>).</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.wrappers.Wordification.prune">
 <code class="descname">prune</code><span class="sig-paren">(</span><em>minimum_word_frequency_percentage=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.prune"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.prune" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filter out words that occur less than minimum_word_frequency times.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param minimum_word_frequency_percentage:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">minimum frequency of words to keep</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.wrappers.Wordification.run">
 <code class="descname">run</code><span class="sig-paren">(</span><em>num_of_processes=8</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the wordification methodology on the target table</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param num_of_processes:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">number of processes</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.wrappers.Wordification.to_arff">
+<code class="descname">to_arff</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.to_arff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.to_arff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the &#8220;wordified&#8221; representation in ARFF.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
 <dt id="rdm.wrappers.Wordification.wordify">
 <code class="descname">wordify</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/wordification/wordification.html#Wordification.wordify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Wordification.wordify" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs string of all documents.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">document representation of the dataset, one line per document</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </dd></dl>
 
 </dd></dl>
@@ -879,9 +1463,14 @@ this will be an empty string if cn2sd is set to False.</li>
 </div>
 <div class="section" id="utilities">
 <h2>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="module-rdm.db.mapper">
-<span id="mapping-unseen-examples-into-propositional-feature-space"></span><h3>Mapping unseen examples into propositional feature space<a class="headerlink" href="#module-rdm.db.mapper" title="Permalink to this headline">¶</a></h3>
-<dl class="function">
+<p>This section documents helper utilities provided by the python-rdm package that are useful in
+various scenarios.</p>
+<div class="section" id="mapping-unseen-examples-into-propositional-feature-space">
+<h3>Mapping unseen examples into propositional feature space<a class="headerlink" href="#mapping-unseen-examples-into-propositional-feature-space" title="Permalink to this headline">¶</a></h3>
+<p>When testing classifiers (or in a real-world scenario) you&#8217;ll need to map unseen (or new) examples into
+the feature space used by the classifier. In order to do this, use the <code class="docutils literal"><span class="pre">rdm.db.mapper</span></code> function.</p>
+<p>See <a class="reference internal" href="example.html"><span class="doc">Example use case</span></a> for usage in a cross-validation setting.</p>
+<span class="target" id="module-rdm.db.mapper"></span><dl class="function">
 <dt id="rdm.db.mapper.domain_map">
 <code class="descclassname">rdm.db.mapper.</code><code class="descname">domain_map</code><span class="sig-paren">(</span><em>features</em>, <em>feature_format</em>, <em>train_context</em>, <em>test_context</em>, <em>intervals={}</em>, <em>format='arff'</em>, <em>positive_class=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/mapper.html#domain_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.mapper.domain_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use the features returned by a propositionalization method to map
@@ -925,9 +1514,11 @@ unseen test examples into the new feature space.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-rdm.validation">
-<span id="validation"></span><h3>Validation<a class="headerlink" href="#module-rdm.validation" title="Permalink to this headline">¶</a></h3>
-<dl class="function">
+<div class="section" id="validation">
+<h3>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h3>
+<p>Python-rdm provides a helper function for splitting a dataset into folds for cross-validation.</p>
+<p>See <a class="reference internal" href="example.html"><span class="doc">Example use case</span></a> for a cross-validation example using RSD.</p>
+<span class="target" id="module-rdm.validation"></span><dl class="function">
 <dt id="rdm.validation.cv_split">
 <code class="descclassname">rdm.validation.</code><code class="descname">cv_split</code><span class="sig-paren">(</span><em>context</em>, <em>folds=10</em>, <em>random_seed=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/validation.html#cv_split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.validation.cv_split" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of pairs (train_context, test_context), one for each cross-validation fold.</p>

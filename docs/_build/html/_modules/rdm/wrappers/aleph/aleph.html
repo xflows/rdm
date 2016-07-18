@@ -167,6 +167,9 @@
 
 
 <div class="viewcode-block" id="Aleph"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.Aleph">[docs]</a><span class="k">class</span> <span class="nc">Aleph</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Aleph python wrapper.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="c1"># The aleph source file is presumed to be in the same dir as this file.</span>
     <span class="n">THIS_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;.&#39;</span>
     <span class="n">ALEPH_FN</span> <span class="o">=</span> <span class="s1">&#39;aleph.pl&#39;</span>
@@ -191,8 +194,9 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates an Aleph object.</span>
 
-<span class="sd">        @param logging Can be DEBUG, INFO or NOTSET (default).</span>
-<span class="sd">                       This controls the verbosity of the output.</span>
+<span class="sd">            :param logging: Can be DEBUG, INFO or NOTSET (default).</span>
+<span class="sd">            This controls the verbosity of the output.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">aleph_script</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">ALEPH_FN</span><span class="p">)</span>
@@ -208,13 +212,20 @@
 <div class="viewcode-block" id="Aleph.set"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.Aleph.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the value of setting &#39;name&#39; to &#39;value&#39;.</span>
+
+<span class="sd">            :param name: Name of the setting</span>
+<span class="sd">            :param value: Value of the setting</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
 
 <div class="viewcode-block" id="Aleph.settingsAsFacts"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.Aleph.settingsAsFacts">[docs]</a>    <span class="k">def</span> <span class="nf">settingsAsFacts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Parses a string of settings in the form:</span>
-<span class="sd">            set(name1, val1), set(name2, val2)...</span>
+<span class="sd">        Parses a string of settings.</span>
+
+<span class="sd">            :param setting: String of settings in the form:</span>
+<span class="sd">            ``set(name1, val1), set(name2, val2)...``</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;set\(([a-zA-Z0-9_]+),(\[a-zA-Z0-9_]+)\)&#39;</span><span class="p">)</span>
         <span class="n">pairs</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
@@ -224,6 +235,10 @@
 <div class="viewcode-block" id="Aleph.setPostScript"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.Aleph.setPostScript">[docs]</a>    <span class="k">def</span> <span class="nf">setPostScript</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">goal</span><span class="p">,</span> <span class="n">script</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        After learning call the given script using &#39;goal&#39;.</span>
+
+<span class="sd">            :param goal: goal name</span>
+<span class="sd">            :param script: prolog script to call</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">postGoal</span> <span class="o">=</span> <span class="n">goal</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">postScript</span> <span class="o">=</span> <span class="n">script</span></div>
@@ -232,13 +247,15 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Induce a theory or features in &#39;mode&#39;.</span>
 
-<span class="sd">        @param filestem The base name of this experiment.</span>
-<span class="sd">        @param mode In which mode to induce rules/features.</span>
-<span class="sd">        @param pos String of positive examples.</span>
-<span class="sd">        @param neg String of negative examples.</span>
-<span class="sd">        @param b String with background knowledge.</span>
+<span class="sd">            :param filestem: The base name of this experiment.</span>
+<span class="sd">            :param mode: In which mode to induce rules/features.</span>
+<span class="sd">            :param pos: String of positive examples.</span>
+<span class="sd">            :param neg: String of negative examples.</span>
+<span class="sd">            :param b: String of background knowledge.</span>
 
-<span class="sd">        @return The theory as a string or an arff dataset in induce_features mode.</span>
+<span class="sd">            :return: The theory as a string or an arff dataset in induce_features mode.</span>
+<span class="sd">            :rtype: str</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Write the inputs to appropriate files.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__prepare</span><span class="p">(</span><span class="n">filestem</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">neg</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>

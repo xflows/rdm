@@ -5,7 +5,16 @@ from subprocess import Popen, PIPE
 
 
 class TreeLiker:
+    '''
+    TreeLiker python wrapper.
+    '''
     def __init__(self, dataset, template, test_dataset=None, settings={}):
+        '''
+            :param dataset: dataset in TreeLiker format
+            :param template: feature template
+            :param test_dataset: (optional) test dataset to transform with the features from the training set
+            :param settings: dictionary of settings (see `TreeLiker documentation <http://ida.felk.cvut.cz/treeliker/download/treeliker.pdf>`_)
+        '''
         self.basename = 'default'
         self.dataset = dataset
         self.test_dataset = test_dataset
@@ -29,6 +38,9 @@ class TreeLiker:
     def run(self, cleanup=True, printOutput=False):
         '''
         Runs TreeLiker with the given settings.
+
+            :param cleanup: deletes temporary files after completion
+            :param printOutput: print algorithm output to the terminal
         '''
         self._copy_data()
         self._batch()

@@ -145,8 +145,13 @@
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Base class for converters.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dbcontext</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">dbcontext</span></div>
+<div class="viewcode-block" id="Converter.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.Converter.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dbcontext</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Base class for handling converting DBContexts to various relational learning systems.</span>
+
+<span class="sd">            :param dbcontext: DBContext object for a learning problem</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">dbcontext</span></div></div>
 
 
 <div class="viewcode-block" id="ILPConverter"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.ILPConverter">[docs]</a><span class="k">class</span> <span class="nc">ILPConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
@@ -154,7 +159,14 @@
 <span class="sd">    Base class for converting between a given database context (selected tables, columns, etc)</span>
 <span class="sd">    to inputs acceptable by a specific ILP system.</span>
 
-<span class="sd">    If possible, all subclasses should use lazy selects by forwarding the DB connection.</span>
+<span class="sd">        :param discr_intervals: (optional) discretization intervals in the form:</span>
+
+<span class="sd">        &gt;&gt;&gt; {&#39;table1&#39;: {&#39;att1&#39;: [0.4, 1.0], &#39;att2&#39;: [0.1, 2.0, 4.5]}, &#39;table2&#39;: {&#39;att2&#39;: [0.02]}}</span>
+
+<span class="sd">        given these intervals, e.g., ``att1`` would be discretized into three intervals:</span>
+<span class="sd">        ``att1 =&lt; 0.4, 0.4 &lt; att1 =&lt; 1.0, att1 &gt;= 1.0``</span>
+
+<span class="sd">        :param settings: dictionary of ``setting: value`` pairs</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;settings&#39;</span><span class="p">,</span> <span class="p">{})</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="p">{}</span>
@@ -163,11 +175,25 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tabling</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;tabling&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="bp">False</span>
         <span class="n">Converter</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">user_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;:- set(</span><span class="si">%s</span><span class="s1">,</span><span class="si">%s</span><span class="s1">).&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="n">val</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+<div class="viewcode-block" id="ILPConverter.user_settings"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.ILPConverter.user_settings">[docs]</a>    <span class="k">def</span> <span class="nf">user_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Emits prolog code for algorithm settings, such as ``:- set(minpos, 5).``.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;:- set(</span><span class="si">%s</span><span class="s1">,</span><span class="si">%s</span><span class="s1">).&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="n">val</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span></div>
 
-    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">predicate</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">recall</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;:- mode</span><span class="si">%s</span><span class="s1">(</span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">(</span><span class="si">%s</span><span class="s1">)).&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;h&#39;</span> <span class="k">if</span> <span class="n">head</span> <span class="k">else</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">recall</span><span class="p">),</span> <span class="n">predicate</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">t</span><span class="o">+</span><span class="n">arg</span> <span class="k">for</span> <span class="n">t</span><span class="p">,</span><span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]))</span>
+<div class="viewcode-block" id="ILPConverter.mode"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.ILPConverter.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">predicate</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">recall</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Emits mode declarations in Aleph-like format.</span>
+
+<span class="sd">            :param predicate: predicate name</span>
+<span class="sd">            :param args: predicate arguments with input/output specification, e.g.:</span>
+
+<span class="sd">            &gt;&gt;&gt; [(&#39;+&#39;, &#39;train&#39;), (&#39;-&#39;, &#39;car&#39;)]</span>
+
+<span class="sd">            :param recall: recall setting (see `Aleph manual &lt;http://www.cs.ox.ac.uk/activities/machinelearning/Aleph/aleph&gt;`_)</span>
+<span class="sd">            :param head: set to True for head clauses</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="s1">&#39;:- mode</span><span class="si">%s</span><span class="s1">(</span><span class="si">%s</span><span class="s1">, </span><span class="si">%s</span><span class="s1">(</span><span class="si">%s</span><span class="s1">)).&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;h&#39;</span> <span class="k">if</span> <span class="n">head</span> <span class="k">else</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">recall</span><span class="p">),</span> <span class="n">predicate</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">t</span><span class="o">+</span><span class="n">arg</span> <span class="k">for</span> <span class="n">t</span><span class="p">,</span><span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]))</span></div>
 
     <span class="k">def</span> <span class="nf">connecting_clause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">ref_table</span><span class="p">):</span>
         <span class="n">var_table</span><span class="p">,</span> <span class="n">var_ref_table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">capitalize</span><span class="p">(),</span> <span class="n">ref_table</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
@@ -254,14 +280,24 @@
 <div class="viewcode-block" id="RSDConverter"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.RSDConverter">[docs]</a><span class="k">class</span> <span class="nc">RSDConverter</span><span class="p">(</span><span class="n">ILPConverter</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Converts the database context to RSD inputs.</span>
+
+<span class="sd">    Inherits from ILPConverter.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="nf">all_examples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred_name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="RSDConverter.all_examples"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.RSDConverter.all_examples">[docs]</a>    <span class="k">def</span> <span class="nf">all_examples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred_name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Emits all examples in prolog form for RSD.</span>
+
+<span class="sd">            :param pred_name: override for the emitted predicate name</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span>
         <span class="n">pred_name</span> <span class="o">=</span> <span class="n">pred_name</span> <span class="k">if</span> <span class="n">pred_name</span> <span class="k">else</span> <span class="n">target</span>
         <span class="n">examples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">rows</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_att</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">pkeys</span><span class="p">[</span><span class="n">target</span><span class="p">]])</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">).&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">pred_name</span><span class="p">,</span> <span class="n">ILPConverter</span><span class="o">.</span><span class="n">fmt_col</span><span class="p">(</span><span class="n">cls</span><span class="p">),</span> <span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="n">cls</span><span class="p">,</span> <span class="n">pk</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">])</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">).&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">pred_name</span><span class="p">,</span> <span class="n">ILPConverter</span><span class="o">.</span><span class="n">fmt_col</span><span class="p">(</span><span class="n">cls</span><span class="p">),</span> <span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="n">cls</span><span class="p">,</span> <span class="n">pk</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">])</span></div>
 
-    <span class="k">def</span> <span class="nf">background_knowledge</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RSDConverter.background_knowledge"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.RSDConverter.background_knowledge">[docs]</a>    <span class="k">def</span> <span class="nf">background_knowledge</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Emits the background knowledge in prolog form for RSD.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">modeslist</span><span class="p">,</span> <span class="n">getters</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">)],</span> <span class="n">head</span><span class="o">=</span><span class="bp">True</span><span class="p">)],</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">ref_table</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">connected</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">ref_table</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">:</span>
@@ -277,17 +313,30 @@
                 <span class="n">modeslist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="s1">&#39;instantiate&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">att</span><span class="p">)]))</span>
                 <span class="n">getters</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attribute_clause</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">att</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">modeslist</span> <span class="o">+</span> <span class="n">getters</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_settings</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">())</span></div>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">modeslist</span> <span class="o">+</span> <span class="n">getters</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_settings</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">())</span></div></div>
 
 <div class="viewcode-block" id="AlephConverter"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.AlephConverter">[docs]</a><span class="k">class</span> <span class="nc">AlephConverter</span><span class="p">(</span><span class="n">ILPConverter</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Converts the database context to Aleph inputs.</span>
+
+<span class="sd">    Inherits from ILPConverter.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="AlephConverter.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.AlephConverter.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            :param discr_intervals: (optional) discretization intervals in the form:</span>
+
+<span class="sd">            &gt;&gt;&gt; {&#39;table1&#39;: {&#39;att1&#39;: [0.4, 1.0], &#39;att2&#39;: [0.1, 2.0, 4.5]}, &#39;table2&#39;: {&#39;att2&#39;: [0.02]}}</span>
+
+<span class="sd">            given these intervals, e.g., ``att1`` would be discretized into three intervals:</span>
+<span class="sd">            ``att1 =&lt; 0.4, 0.4 &lt; att1 =&lt; 1.0, att1 &gt;= 1.0``</span>
+
+<span class="sd">            :param settings: dictionary of ``setting: value`` pairs</span>
+<span class="sd">            :param target_att_val: target attribute *value* for learning.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">target_att_val</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;target_att_val&#39;</span><span class="p">)</span>
         <span class="n">ILPConverter</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__pos_examples</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__neg_examples</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">target_predicate</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_att_val</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_predicate</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_att_val</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">__target_predicate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;target_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_predicate</span>
@@ -310,13 +359,22 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">__neg_examples</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">(</span><span class="si">%s</span><span class="s1">).&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__target_predicate</span><span class="p">(),</span> <span class="n">ILPConverter</span><span class="o">.</span><span class="n">fmt_col</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">neg_rows</span><span class="p">])</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pos_examples</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__neg_examples</span>
 
-    <span class="k">def</span> <span class="nf">positive_examples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__examples</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<div class="viewcode-block" id="AlephConverter.positive_examples"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.AlephConverter.positive_examples">[docs]</a>    <span class="k">def</span> <span class="nf">positive_examples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Emits the positive examples in prolog form for Aleph.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__examples</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span></div>
 
-    <span class="k">def</span> <span class="nf">negative_examples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__examples</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<div class="viewcode-block" id="AlephConverter.negative_examples"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.AlephConverter.negative_examples">[docs]</a>    <span class="k">def</span> <span class="nf">negative_examples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Emits the negative examples in prolog form for Aleph.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__examples</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span></div>
 
-    <span class="k">def</span> <span class="nf">background_knowledge</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="AlephConverter.background_knowledge"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.AlephConverter.background_knowledge">[docs]</a>    <span class="k">def</span> <span class="nf">background_knowledge</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Emits the background knowledge in prolog form for Aleph.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">modeslist</span><span class="p">,</span> <span class="n">getters</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__target_predicate</span><span class="p">(),</span> <span class="p">[(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">)],</span> <span class="n">head</span><span class="o">=</span><span class="bp">True</span><span class="p">)],</span> <span class="p">[]</span>
         <span class="n">determinations</span><span class="p">,</span> <span class="n">types</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">ref_table</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">connected</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -336,7 +394,7 @@
                 <span class="n">determinations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;:- determination(</span><span class="si">%s</span><span class="s1">/1, </span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">/2).&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__target_predicate</span><span class="p">(),</span> <span class="n">table</span><span class="p">,</span> <span class="n">att</span><span class="p">))</span>
                 <span class="n">types</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">constant_type_def</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">att</span><span class="p">))</span>
                 <span class="n">getters</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attribute_clause</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">att</span><span class="p">))</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user_settings</span><span class="p">()</span> <span class="o">+</span> <span class="n">modeslist</span> <span class="o">+</span> <span class="n">determinations</span> <span class="o">+</span> <span class="n">types</span> <span class="o">+</span> <span class="n">getters</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">())</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user_settings</span><span class="p">()</span> <span class="o">+</span> <span class="n">modeslist</span> <span class="o">+</span> <span class="n">determinations</span> <span class="o">+</span> <span class="n">types</span> <span class="o">+</span> <span class="n">getters</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">())</span></div>
 
     <span class="k">def</span> <span class="nf">concept_type_def</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
         <span class="n">var_pk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">pkeys</span><span class="p">[</span><span class="n">table</span><span class="p">]</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
@@ -353,7 +411,7 @@
 
 <div class="viewcode-block" id="OrangeConverter"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.OrangeConverter">[docs]</a><span class="k">class</span> <span class="nc">OrangeConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Converts the selected tables in the given context to orange example tables.</span>
+<span class="sd">    Converts the selected tables in the given context to Orange example tables.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">continuous_types</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;FLOAT&#39;</span><span class="p">,</span><span class="s1">&#39;DOUBLE&#39;</span><span class="p">,</span><span class="s1">&#39;DECIMAL&#39;</span><span class="p">,</span><span class="s1">&#39;NEWDECIMAL&#39;</span><span class="p">,</span><span class="s1">&#39;double precision&#39;</span><span class="p">,</span><span class="s1">&#39;numeric&#39;</span><span class="p">)</span>
     <span class="n">integer_types</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;TINY&#39;</span><span class="p">,</span><span class="s1">&#39;SHORT&#39;</span><span class="p">,</span><span class="s1">&#39;LONG&#39;</span><span class="p">,</span><span class="s1">&#39;LONGLONG&#39;</span><span class="p">,</span><span class="s1">&#39;INT24&#39;</span><span class="p">,</span><span class="s1">&#39;integer&#39;</span><span class="p">)</span>
@@ -367,23 +425,37 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">[</span><span class="n">table</span><span class="p">]</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">fetch_types</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">cols</span><span class="p">[</span><span class="n">table</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">compute_col_vals</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">target_Orange_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OrangeConverter.target_Orange_table"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.OrangeConverter.target_Orange_table">[docs]</a>    <span class="k">def</span> <span class="nf">target_Orange_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns the target table as an Orange example table.</span>
+
+<span class="sd">            :rtype: orange.ExampleTable</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">table</span><span class="p">,</span> <span class="n">cls_att</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_att</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">orng_tables</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_table</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">cls_att</span><span class="o">=</span><span class="n">cls_att</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">orng_tables</span><span class="p">[</span><span class="n">table</span><span class="p">]</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">orng_tables</span><span class="p">[</span><span class="n">table</span><span class="p">]</span></div>
 
-    <span class="k">def</span> <span class="nf">other_Orange_tables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OrangeConverter.other_Orange_tables"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.OrangeConverter.other_Orange_tables">[docs]</a>    <span class="k">def</span> <span class="nf">other_Orange_tables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the related tables as Orange example tables.</span>
+
+<span class="sd">            :rtype: list</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">target_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">orng_tables</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">convert_table</span><span class="p">(</span><span class="n">table</span><span class="p">,</span><span class="bp">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">tables</span> <span class="k">if</span> <span class="n">table</span><span class="o">!=</span><span class="n">target_table</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">table</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">orng_tables</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="n">target_table</span><span class="p">]</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">table</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">orng_tables</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="n">target_table</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="OrangeConverter.convert_table"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.OrangeConverter.convert_table">[docs]</a>    <span class="k">def</span> <span class="nf">convert_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">cls_att</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Returns the target table as an orange example table.</span>
+<span class="sd">        Returns the specified table as an orange example table.</span>
+
+<span class="sd">            :param table_name: table name to convert</span>
+<span class="sd">            :cls_att: class attribute name</span>
+<span class="sd">            :rtype: orange.ExampleTable</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="kn">import</span> <span class="nn">orange</span>
 
@@ -421,7 +493,10 @@
 
 <div class="viewcode-block" id="OrangeConverter.orng_type"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.OrangeConverter.orng_type">[docs]</a>    <span class="k">def</span> <span class="nf">orng_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Assigns a given mysql column an orange type.</span>
+<span class="sd">        Returns an Orange datatype for a given mysql column.</span>
+
+<span class="sd">            :param table_name: target table name</span>
+<span class="sd">            :param col: column to determine the Orange datatype</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">mysql_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">[</span><span class="n">table_name</span><span class="p">][</span><span class="n">col</span><span class="p">]</span>
         <span class="n">n_vals</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">col_vals</span><span class="p">[</span><span class="n">table_name</span><span class="p">][</span><span class="n">col</span><span class="p">])</span>
@@ -436,6 +511,13 @@
 <div class="viewcode-block" id="TreeLikerConverter"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.TreeLikerConverter">[docs]</a><span class="k">class</span> <span class="nc">TreeLikerConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Converts a db context to the TreeLiker dataset format.</span>
+
+<span class="sd">        :param discr_intervals: (optional) discretization intervals in the form:</span>
+
+<span class="sd">        &gt;&gt;&gt; {&#39;table1&#39;: {&#39;att1&#39;: [0.4, 1.0], &#39;att2&#39;: [0.1, 2.0, 4.5]}, &#39;table2&#39;: {&#39;att2&#39;: [0.02]}}</span>
+
+<span class="sd">        given these intervals, e.g., ``att1`` would be discretized into three intervals:</span>
+<span class="sd">        ``att1 =&lt; 0.4, 0.4 &lt; att1 =&lt; 1.0, att1 &gt;= 1.0``</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">discr_intervals</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;discr_intervals&#39;</span><span class="p">,</span> <span class="p">{})</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="p">{}</span>
@@ -589,8 +671,8 @@
 
 <div class="viewcode-block" id="TreeLikerConverter.dataset"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.TreeLikerConverter.dataset">[docs]</a>    <span class="k">def</span> <span class="nf">dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Returns the db context as a list of interpretations, i.e., a list of </span>
-<span class="sd">        facts true for each example.</span>
+<span class="sd">        Returns the DBContext as a list of interpretations, i.e., a list of</span>
+<span class="sd">        facts true for each example in the format for TreeLiker.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span>
         <span class="n">db_examples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">rows</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_att</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">pkeys</span><span class="p">[</span><span class="n">target</span><span class="p">]])</span>
@@ -603,15 +685,19 @@
         <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">examples</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">default_template</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;[</span><span class="si">%s</span><span class="s1">]&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_template</span><span class="p">))</span></div>
+<div class="viewcode-block" id="TreeLikerConverter.default_template"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.TreeLikerConverter.default_template">[docs]</a>    <span class="k">def</span> <span class="nf">default_template</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Default learning template for TreeLiker.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="s1">&#39;[</span><span class="si">%s</span><span class="s1">]&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_template</span><span class="p">))</span></div></div>
 
 
 <span class="k">class</span> <span class="nc">PrdFctConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Converts the selected tables in the given context to prd and fct files.</span>
+
+<span class="sd">    Used for Cardinalization, Quantiles, Relaggs, 1BC, 1BC2, Tertius.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">Converter</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="o">=</span><span class="p">{}</span>
@@ -620,6 +706,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">compute_col_vals</span><span class="p">()</span>
         
     <span class="k">def</span> <span class="nf">create_prd_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Emits the background knowledge in prd format.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">prd_str</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
         <span class="n">prd_str</span><span class="o">+=</span><span class="s1">&#39;--INDIVIDUAL</span><span class="se">\n</span><span class="s1">&#39;</span>
         <span class="n">prd_str</span><span class="o">+=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> 1 </span><span class="si">%s</span><span class="s1"> cwa</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">)</span>
@@ -635,6 +724,9 @@
         <span class="k">return</span> <span class="n">prd_str</span>
 
     <span class="k">def</span> <span class="nf">create_fct_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Emits examples in fct format.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">fct_str</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
         <span class="n">fct_str</span><span class="o">+=</span><span class="bp">self</span><span class="o">.</span><span class="n">fct_rec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">fct_str</span>
@@ -674,14 +766,6 @@
                     <span class="k">if</span> <span class="n">curr_table</span> <span class="o">==</span> <span class="n">table</span><span class="p">:</span>
                         <span class="n">fct_str</span><span class="o">+=</span><span class="bp">self</span><span class="o">.</span><span class="n">fct_rec</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">next_table</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="n">table</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">next_table</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="n">val_id</span><span class="p">)</span>                            
         <span class="k">return</span> <span class="n">fct_str</span>
-
-
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">context</span> <span class="kn">import</span> <span class="n">DBConnection</span><span class="p">,</span> <span class="n">DBContext</span>
-    <span class="n">context</span> <span class="o">=</span> <span class="n">DBContext</span><span class="p">(</span><span class="n">DBConnection</span><span class="p">(</span><span class="s1">&#39;ilp&#39;</span><span class="p">,</span><span class="s1">&#39;ilp123&#39;</span><span class="p">,</span><span class="s1">&#39;ged.ijs.si&#39;</span><span class="p">,</span><span class="s1">&#39;muta_42&#39;</span><span class="p">))</span>
-    <span class="n">context</span><span class="o">.</span><span class="n">target_table</span> <span class="o">=</span> <span class="s1">&#39;drugs&#39;</span>
-    <span class="n">context</span><span class="o">.</span><span class="n">target_att</span> <span class="o">=</span> <span class="s1">&#39;active&#39;</span>
-    <span class="n">conv</span> <span class="o">=</span> <span class="n">AlephConverter</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
 </pre></div>
 
            </div>

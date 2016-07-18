@@ -221,7 +221,7 @@
 <span class="sd">            :param target_att: set a target table attribute for learning</span>
 <span class="sd">            :param find_connections: set to True if you want to detect relationships based on attribute and table names, \</span>
 <span class="sd">             e.g., ``train_id`` is the foreign key refering to ``id`` in table ``train``.</span>
-<span class="sd">            :param in_memory:</span>
+<span class="sd">            :param in_memory: Load the database into main memory (currently required for most approaches and pre-processing)</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">src</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">src</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tables</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">tables</span><span class="p">()</span>
@@ -261,12 +261,22 @@
 <div class="viewcode-block" id="DBContext.fetch"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.DBContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Fetches rows from the db.</span>
+
+<span class="sd">            :param table: table name to select</span>
+<span class="sd">            :cols: list of columns to select</span>
+<span class="sd">            :return: list of rows</span>
+<span class="sd">            :rtype: list</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DBContext.rows"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.DBContext.rows">[docs]</a>    <span class="k">def</span> <span class="nf">rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Fetches rows from the local cache or from the db if there&#39;s no cache.</span>
+
+<span class="sd">            :param table: table name to select</span>
+<span class="sd">            :cols: list of columns to select</span>
+<span class="sd">            :return: list of rows</span>
+<span class="sd">            :rtype: list</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">orng_tables</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
@@ -279,6 +289,13 @@
 <div class="viewcode-block" id="DBContext.select_where"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.DBContext.select_where">[docs]</a>    <span class="k">def</span> <span class="nf">select_where</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        SELECT with WHERE clause.</span>
+
+<span class="sd">            :param table: target table</span>
+<span class="sd">            :param cols: list of columns to select</span>
+<span class="sd">            :param pk_att: attribute for the where clause</span>
+<span class="sd">            :param pk: the id that the pk_att should match</span>
+<span class="sd">            :return: rows from the given table and cols, with the condition pk_att==pk</span>
+<span class="sd">            :rtype: list</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">orng_tables</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
@@ -292,6 +309,11 @@
 <div class="viewcode-block" id="DBContext.fetch_types"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.DBContext.fetch_types">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Returns a dictionary of field types for the given table and columns.</span>
+
+<span class="sd">            :param table: target table</span>
+<span class="sd">            :param cols: list of columns to select</span>
+<span class="sd">            :return: a dictionary of types for each attribute</span>
+<span class="sd">            :rtype: dict</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">fetch_types</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">)</span></div>
 
@@ -301,8 +323,14 @@
             <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">col_vals</span><span class="p">[</span><span class="n">table</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">column_values</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<div class="viewcode-block" id="DBContext.copy"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.DBContext.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Makes a deepcopy of the DBContext object (e.g., for making folds)</span>
+
+<span class="sd">            :returns: a deep copy of ``self``.</span>
+<span class="sd">            :rtype: DBContext</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">({</span>
