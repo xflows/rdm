@@ -52,7 +52,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Python-RDM'
-copyright = u'2015, Anze Vavpetic, Matic Perovsek'
+copyright = u'2016, Anze Vavpetic, Matic Perovsek'
 author = u'Anze Vavpetic, Matic Perovsek'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -60,7 +60,7 @@ author = u'Anze Vavpetic, Matic Perovsek'
 # built documents.
 #
 # The short X.Y version.
-version = '0.1.0'
+version = '0.1.2'
 # The full version, including alpha/beta/rc tags.
 release = '0.1'
 
