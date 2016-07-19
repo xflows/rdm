@@ -17,6 +17,7 @@ Contents:
    example
    clowdflows
    api_reference
+   licences
 
 Indices and tables
 ==================

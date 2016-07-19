@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Introduction &mdash; Python-RDM 0.1 documentation</title>
+  <title>Licences of included approaches &mdash; Python-RDM 0.1 documentation</title>
   
 
   
@@ -31,8 +31,7 @@
 
   
     <link rel="top" title="Python-RDM 0.1 documentation" href="index.html"/>
-        <link rel="next" title="Installation" href="installation.html"/>
-        <link rel="prev" title="Welcome to Python-RDM’s documentation!" href="index.html"/> 
+        <link rel="prev" title="API Reference" href="api_reference.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -82,16 +81,13 @@
             
             
                 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#help">Help</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example use case</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clowdflows.html">ClowdFlows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="licences.html">Licences of included approaches</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Licences of included approaches</a></li>
 </ul>
 
             
@@ -122,11 +118,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Introduction</li>
+    <li>Licences of included approaches</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/introduction.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/licences.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -136,17 +132,78 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>This is the documentation for the Python-RDM package for relational data mining.
-The aim of this tool is to make relational learning and inductive logic programming approaches publicly accessible.
-The tool offers a common and easy-to-use interface to several relational learning algorithms and provides data
-access to several relational database management systems. To this end we have developed a stand-alone Python
-library and a corresponding package for the open source ClowdFlows online data mining platform.</p>
-<div class="section" id="help">
-<h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
-<p>If you need help please open an <a class="reference external" href="https://github.com/xflows/rdm/issues">issue on GitHub</a>.</p>
-</div>
+  <div class="section" id="licences-of-included-approaches">
+<h1>Licences of included approaches<a class="headerlink" href="#licences-of-included-approaches" title="Permalink to this headline">¶</a></h1>
+<p>Although python-rdm itself is MIT licensed, we include approaches that
+have their own licenses (all of the sources are unmodified). To be sure,
+please contact the respective authors if you want to use their approach
+for any commercial purposes.</p>
+<ul class="simple">
+<li><strong>Aleph</strong><ul>
+<li><a class="reference external" href="http://www.cs.ox.ac.uk/activities/machinelearning/Aleph/aleph">Official
+page</a></li>
+<li>Freely available for academic purposes, contact the author <a class="reference external" href="http://www.cse.iitd.ernet.in/~ashwin/work/index.html">Ashwin
+Srinivasan</a>
+for commercial use</li>
+<li>The source code is included
+<a class="reference external" href="https://github.com/xflows/rdm/blob/master/rdm/wrappers/aleph/">here</a>
+(aleph.pl)</li>
+</ul>
+</li>
+<li><strong>RSD</strong><ul>
+<li>by <a class="reference external" href="ida.felk.cvut.cz/zelezny/">Filip Železný</a> et al</li>
+<li>The source code is included
+<a class="reference external" href="https://github.com/xflows/rdm/tree/master/rdm/wrappers/rsd">here</a>
+(.pl files)</li>
+</ul>
+</li>
+<li><strong>TreeLiker</strong> (includes HiFi, RelF and Poly)<ul>
+<li><a class="reference external" href="http://ida.felk.cvut.cz/treeliker/TreeLiker.html">Official
+page</a></li>
+<li>The binaries are included
+<a class="reference external" href="https://github.com/xflows/rdm/tree/master/rdm/wrappers/treeliker/bin/">here</a></li>
+<li>GPL license</li>
+</ul>
+</li>
+<li><strong>Wordification</strong><ul>
+<li>by <a class="reference external" href="mailto:matic&#46;perovsek&#37;&#52;&#48;ijs&#46;si">Matic Perovšek</a> et al</li>
+<li>python-rdm is currently the main repository for this approach.</li>
+<li>The source code is included
+<a class="reference external" href="https://github.com/xflows/rdm/blob/master/rdm/wrappers/wordification/">here</a></li>
+<li>MIT license</li>
+</ul>
+</li>
+</ul>
+<p><a class="reference external" href="http://icube-bfo.unistra.fr/index.php/Nicolas_Lachiche">Nicolas
+Lachiche</a>&#8216;s
+team at the University of Strassbourg contributions:</p>
+<ul class="simple">
+<li><strong>1BC, 1BC2, Tertius</strong><ul>
+<li>By <a class="reference external" href="https://www.cs.bris.ac.uk/~flach/">Peter Flach</a> and
+<a class="reference external" href="http://icube-bfo.unistra.fr/index.php/Nicolas_Lachiche">Nicolas
+Lachiche</a></li>
+<li>Sources included here
+<a class="reference external" href="https://github.com/xflows/rdm/tree/master/rdm/wrappers/tertius/src">here</a></li>
+</ul>
+</li>
+<li><strong>Caraf</strong><ul>
+<li>By <a class="reference external" href="http://icube-bfo.unistra.fr/index.php/Nicolas_Lachiche">Nicolas
+Lachiche</a>
+et al</li>
+<li>All implemented in the Caraf java binaries included
+<a class="reference external" href="https://github.com/xflows/rdm/tree/master/rdm/wrappers/caraf/bin">here</a></li>
+</ul>
+</li>
+<li><strong>Relaggs</strong> (Krogel and Wrobel, 2001), <strong>Quantiles</strong>,
+<strong>Cardinalization</strong><ul>
+<li>By <a class="reference external" href="http://icube-bfo.unistra.fr/index.php/Nicolas_Lachiche">Nicolas
+Lachiche</a>
+et al</li>
+<li>All implemented in the Proper java binaries included
+<a class="reference external" href="https://github.com/xflows/rdm/tree/master/rdm/wrappers/proper/bin">here</a></li>
+</ul>
+</li>
+</ul>
 </div>
 
 
@@ -156,10 +213,8 @@ library and a corresponding package for the open source ClowdFlows online data m
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="index.html" class="btn btn-neutral" title="Welcome to Python-RDM’s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="api_reference.html" class="btn btn-neutral" title="API Reference" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
