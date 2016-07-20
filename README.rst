@@ -39,9 +39,11 @@ for any commercial purposes.
 -  **RSD**
 
    -  by `Filip Železný <ida.felk.cvut.cz/zelezny/>`__ et al
+   -  `Official page <http://ida.felk.cvut.cz/zelezny/rsd/index.htm>`__
    -  The source code is included
       `here <https://github.com/xflows/rdm/tree/master/rdm/wrappers/rsd>`__
       (.pl files)
+   -  Included with permission by the author
 
 -  **TreeLiker** (includes HiFi, RelF and Poly)
 

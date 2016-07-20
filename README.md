@@ -20,7 +20,9 @@ if you want to use their approach for any commercial purposes.
     * The source code is included [here](https://github.com/xflows/rdm/blob/master/rdm/wrappers/aleph/) (aleph.pl)
 * **RSD**
     * by [Filip Železný](ida.felk.cvut.cz/zelezny/) et al
+    * [Official page](http://ida.felk.cvut.cz/zelezny/rsd/index.htm)
     * The source code is included [here](https://github.com/xflows/rdm/tree/master/rdm/wrappers/rsd) (.pl files)
+    * Included with permission by the author
 * **TreeLiker** (includes HiFi, RelF and Poly)
     * [Official page](http://ida.felk.cvut.cz/treeliker/TreeLiker.html)
     * The binaries are included [here](https://github.com/xflows/rdm/tree/master/rdm/wrappers/treeliker/bin/)
