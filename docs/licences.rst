@@ -43,30 +43,43 @@ for any commercial purposes.
    -  MIT license
 
 `Nicolas
-Lachiche <http://icube-bfo.unistra.fr/index.php/Nicolas_Lachiche>`__'s
-team at the University of Strassbourg contributions:
+Lachiche <http://icube-sdc.unistra.fr/en/index.php/Nicolas_Lachiche>`__'s
+team at the University of Strasbourg contributions:
 
 -  **1BC, 1BC2, Tertius**
 
    -  By `Peter Flach <https://www.cs.bris.ac.uk/~flach/>`__ and
       `Nicolas
-      Lachiche <http://icube-bfo.unistra.fr/index.php/Nicolas_Lachiche>`__
+      Lachiche <http://icube-sdc.unistra.fr/en/index.php/Nicolas_Lachiche>`__
    -  Sources included here
       `here <https://github.com/xflows/rdm/tree/master/rdm/wrappers/tertius/src>`__
+   -  Official sites:
+      `Tertius <http://www.cs.bris.ac.uk/Research/MachineLearning/Tertius/index.html>`__,
+      `1BC <http://www.cs.bris.ac.uk/Research/MachineLearning/1BC/index.html>`__
+   -  Included with permission by the authors; please contact the
+      authors for commercial use
 
 -  **Caraf**
 
-   -  By `Nicolas
-      Lachiche <http://icube-bfo.unistra.fr/index.php/Nicolas_Lachiche>`__
+   -  By `Clement
+      Charnay <http://icube-sdc.unistra.fr/en/index.php/Cl%C3%A9ment_Charnay>`__,
+      `Agnès
+      Braud <http://icube-sdc.unistra.fr/en/index.php/Agn%C3%A8s_Braud>`__
+      and `Nicolas
+      Lachiche <http://icube-sdc.unistra.fr/en/index.php/Nicolas_Lachiche>`__
       et al
    -  All implemented in the Caraf java binaries included
       `here <https://github.com/xflows/rdm/tree/master/rdm/wrappers/caraf/bin>`__
+   -  Included with permission by the authors; please contact the
+      authors for commercial use
 
 -  **Relaggs** (Krogel and Wrobel, 2001), **Quantiles**,
    **Cardinalization**
 
-   -  By `Nicolas
-      Lachiche <http://icube-bfo.unistra.fr/index.php/Nicolas_Lachiche>`__
+   -  `Original Proper <http://www.cs.waikato.ac.nz/ml/proper/>`__
+      adapted by `Nicolas
+      Lachiche <http://icube-sdc.unistra.fr/en/index.php/Nicolas_Lachiche>`__
       et al
+   -  GPLv2 license
    -  All implemented in the Proper java binaries included
       `here <https://github.com/xflows/rdm/tree/master/rdm/wrappers/proper/bin>`__

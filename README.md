@@ -33,16 +33,20 @@ if you want to use their approach for any commercial purposes.
     * The source code is included [here](https://github.com/xflows/rdm/blob/master/rdm/wrappers/wordification/)
     * MIT license
 
-[Nicolas Lachiche](http://icube-bfo.unistra.fr/index.php/Nicolas_Lachiche)'s team at the University of Strassbourg contributions:
+[Nicolas Lachiche](http://icube-sdc.unistra.fr/en/index.php/Nicolas_Lachiche)'s team at the University of Strasbourg contributions:
 
 * **1BC, 1BC2, Tertius**
-    * By [Peter Flach](https://www.cs.bris.ac.uk/~flach/) and [Nicolas Lachiche](http://icube-bfo.unistra.fr/index.php/Nicolas_Lachiche)
+    * By [Peter Flach](https://www.cs.bris.ac.uk/~flach/) and [Nicolas Lachiche](http://icube-sdc.unistra.fr/en/index.php/Nicolas_Lachiche)
     * Sources included here [here](https://github.com/xflows/rdm/tree/master/rdm/wrappers/tertius/src)
+    * Official sites: [Tertius](http://www.cs.bris.ac.uk/Research/MachineLearning/Tertius/index.html), [1BC](http://www.cs.bris.ac.uk/Research/MachineLearning/1BC/index.html)
+    * Included with permission by the authors; please contact the authors for commercial use
 * **Caraf**
-    * By [Nicolas Lachiche](http://icube-bfo.unistra.fr/index.php/Nicolas_Lachiche) et al
+    * By [Clement Charnay](http://icube-sdc.unistra.fr/en/index.php/Cl%C3%A9ment_Charnay), [Agnès Braud](http://icube-sdc.unistra.fr/en/index.php/Agn%C3%A8s_Braud) and [Nicolas Lachiche](http://icube-sdc.unistra.fr/en/index.php/Nicolas_Lachiche) et al
     * All implemented in the Caraf java binaries included [here](https://github.com/xflows/rdm/tree/master/rdm/wrappers/caraf/bin)
+    * Included with permission by the authors; please contact the authors for commercial use
 * **Relaggs** (Krogel and Wrobel, 2001), **Quantiles**, **Cardinalization**
-    * By [Nicolas Lachiche](http://icube-bfo.unistra.fr/index.php/Nicolas_Lachiche) et al
+    * [Original Proper](http://www.cs.waikato.ac.nz/ml/proper/) adapted by [Nicolas Lachiche](http://icube-sdc.unistra.fr/en/index.php/Nicolas_Lachiche) et al
+    * GPLv2 license
     * All implemented in the Proper java binaries included [here](https://github.com/xflows/rdm/tree/master/rdm/wrappers/proper/bin)
 
 ## Installation, documentation ##
@@ -55,7 +59,7 @@ Please note that this is a research project and that drastic changes can be (and
 
 Pull requests and issues are welcome.
 
-## Contributors ##
+## Contributors to the RDM package code ##
 
 Anže Vavpetič (@anzev), Nicolas Lachiche, Alain Shakour (@alshak), Matic Perovšek (@mperice)
 
