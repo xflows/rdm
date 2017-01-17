@@ -10,7 +10,7 @@ docutils==0.12
 imagesize==0.7.1
 liac-arff==2.1.0
 #mysql-connector-python==2.0.3
-https://cdn.mysql.com/Downloads/Connector-Python/mysql-connector-python-2.0.3.zip
+#https://cdn.mysql.com/Downloads/Connector-Python/mysql-connector-python-2.0.3.zip
 numpy==1.11.1
 psycopg2==2.6.1
 pytz==2016.4

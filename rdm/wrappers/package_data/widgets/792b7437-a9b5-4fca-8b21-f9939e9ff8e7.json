@@ -2,7 +2,7 @@
   {
     "model": "workflows.abstractwidget", 
     "fields": {
-      "category": "ed859be5-cc13-46b9-b249-c8f026732c1c", 
+      "category": "52dedd63-2d1b-42ee-a216-dc55e8df2413",
       "treeview_image": "", 
       "uid": "792b7437-a9b5-4fca-8b21-f9939e9ff8e7", 
       "is_streaming": false, 
