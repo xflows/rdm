@@ -2,6 +2,7 @@ import re
 import json
 from string import ascii_lowercase as chars
 from random import choice
+import tempfile
 
 from aleph import Aleph
 from rsd import RSD
@@ -131,45 +132,50 @@ def ilp_hedwig(input_dict):
     import hedwig
 
     format = input_dict['format']
-    ont_format = '.tsv' if format == 'csv' else '.' + format
+    suffix = '.' + format
+    bk_suffix = suffix
+    if format == 'csv':
+        bk_suffix = '.tsv'
+    # Writes examples file
+    data_file = tempfile.NamedTemporaryFile(delete=False, suffix=format)
+    data_file.write(input_dict['examples'])
+    data_file.close()
 
-    examples_file = tempfile.NamedTemporaryFile(suffix='.' + format, delete=False)
-    examples_file.write(input_dict['examples'])
-    examples_file.close()
-
+    # Write BK files to BK dir
     bk_dir = tempfile.mkdtemp()
-    for bk in input_dict['bk']:
-        f = tempfile.NamedTemporaryFile(suffix=ont_format, delete=False, dir=bk_dir)
-        f.write(bk)
-        f.close()
+    if format == 'csv':
+        suffix = 'tsv'
+    for bk_file in input_dict['bk_file']:
+        tmp_bk_file = tempfile.NamedTemporaryFile(delete=False, dir=bk_dir, suffix=bk_suffix)
+        tmp_bk_file.write(bk_file)
+        tmp_bk_file.close()
 
-    result = hedwig.run({
-        'data': examples_file.name,
+    output_file = tempfile.NamedTemporaryFile(delete=False)
+    hedwig.run({
         'bk_dir': bk_dir,
+        'data': data_file.name,
+        'format': format,
+        'output': output_file.name,
+        'mode': 'subgroups',
+        'target': input_dict['target'] if 'target' in input_dict else None,
+        'score': input_dict['score'],
+        'negations': input_dict['negations'] == 'true',
+        'alpha': float(input_dict['alpha']),
         'adjust': input_dict['adjust'],
         'FDR': float(input_dict['fdr']),
-        'format': format,
-        'support': float(input_dict['sup']),
-        'learner': input_dict['learner'],
-        'depth': int(input_dict['depth']),
-        'optimalsubclass': input_dict['optimal'] == "true",
+        'leaves': input_dict['leaves'] == 'true',
+        'learner': 'heuristic',
+        'optimalsubclass': input_dict['optimalsubclass'] == 'true',
+        'uris': input_dict['uris'] == 'true',
         'beam': int(input_dict['beam']),
-        'alpha': float(input_dict['alpha']),
-        'score': input_dict['score_fun'],
-        'uris': input_dict['uris'],
-        'negations': input_dict['negations'] == "true",
-        
-        # Presets
-        'leaves': True,
-        'covered': None,
-        'target': None,
-        'mode': 'subgroups',
-        'output': 'foo.txt',
-        'verbose': False,
-        'nocache': True
+        'support': float(input_dict['support']),
+        'depth': int(input_dict['depth']),
+        'nocache': True,
+        'covered': None
     })
+    rules = open(output_file.name).read()
+    return {'rules': rules}
 
-    return {'rules': result}
 
 
 def ilp_cardinalization(input_dict):
