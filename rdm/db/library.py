@@ -61,6 +61,7 @@ def _update_context(context, postdata):
                 'The selected target attribute ("%s") is not among the columns selected for the target table ("%s").' % (
                 context.target_att, context.target_table))
     if context.in_memory:
+        context.orng_tables = None  # Reset to make sure up-to-date tables are created
         context.orng_tables = context.read_into_orange()
 
 
