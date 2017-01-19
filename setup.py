@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='python-rdm',
-    version='0.1.6',
+    version='0.1.7',
     packages=['rdm'],
     include_package_data=True,
     license='MIT License',
