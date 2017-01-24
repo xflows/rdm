@@ -11,7 +11,7 @@
       "has_progress_bar": false,
       "image": "images/ilp.png",
       "description": "Widget which performs transformation of a relational database into a corpus of documents, where each document can be characterized by a set of properties describing the entries of a relational database.",
-      "static_image": "wordification.jpg",
+      "static_image": "ilp.png",
       "action": "ilp_wordification",
       "visualization_view": "",
       "streaming_visualization_view": "",
