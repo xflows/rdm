@@ -1,0 +1,170 @@
+[
+  {
+    "model": "workflows.abstractwidget", 
+    "fields": {
+      "category": "ed859be5-cc13-46b9-b249-c8f026732c1c", 
+      "treeview_image": "", 
+      "uid": "331943d5-2569-4eb5-95c9-3c07e65d87e7", 
+      "windows_queue": false, 
+      "package": "rdm.wrappers", 
+      "interaction_view": "", 
+      "has_progress_bar": false, 
+      "image": "", 
+      "description": "", 
+      "static_image": "ilp.png", 
+      "action": "ilp_relf", 
+      "visualization_view": "", 
+      "streaming_visualization_view": "", 
+      "post_interact_action": "", 
+      "wsdl_method": "", 
+      "wsdl": "", 
+      "interactive": false, 
+      "is_streaming": false, 
+      "order": 1, 
+      "name": "RelF"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "331943d5-2569-4eb5-95c9-3c07e65d87e7", 
+      "name": "Grounding counting", 
+      "short_name": "gdc", 
+      "default": "false", 
+      "description": "Grounding counting", 
+      "required": false, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "grounding_counting", 
+      "parameter": true, 
+      "order": 1, 
+      "uid": "166c6ab4-a99e-4ece-a7b4-64f4fa812d7a"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "331943d5-2569-4eb5-95c9-3c07e65d87e7", 
+      "name": "Covered class", 
+      "short_name": "ccl", 
+      "default": "", 
+      "description": "Covered class", 
+      "required": false, 
+      "multi": false, 
+      "parameter_type": "text", 
+      "variable": "covered_class", 
+      "parameter": true, 
+      "order": 4, 
+      "uid": "28feeee6-108e-40e1-a7f9-bfced4e27016"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "331943d5-2569-4eb5-95c9-3c07e65d87e7", 
+      "name": "Template", 
+      "short_name": "tpl", 
+      "default": "", 
+      "description": "Feature template", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": null, 
+      "variable": "template", 
+      "parameter": false, 
+      "order": 1, 
+      "uid": "88d8bb46-32ed-4a48-9a33-42846269aae7"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "331943d5-2569-4eb5-95c9-3c07e65d87e7", 
+      "name": "Use sampling ", 
+      "short_name": "smp", 
+      "default": "false", 
+      "description": "Use sampling mode", 
+      "required": false, 
+      "multi": false, 
+      "parameter_type": "checkbox", 
+      "variable": "use_sampling", 
+      "parameter": true, 
+      "order": 5, 
+      "uid": "9001b2a4-97ee-49d1-833d-4d69f5b0f171"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "331943d5-2569-4eb5-95c9-3c07e65d87e7", 
+      "name": "Minimum frequency", 
+      "short_name": "mfr", 
+      "default": "", 
+      "description": "Minimum frequency", 
+      "required": false, 
+      "multi": false, 
+      "parameter_type": "text", 
+      "variable": "minimum_frequency", 
+      "parameter": true, 
+      "order": 3, 
+      "uid": "c37c6ce4-cae5-4ba4-a737-1ef17d4a6a82"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "331943d5-2569-4eb5-95c9-3c07e65d87e7", 
+      "name": "Dataset", 
+      "short_name": "dat", 
+      "default": "", 
+      "description": "Dataset in TreeLiker format", 
+      "required": true, 
+      "multi": false, 
+      "parameter_type": null, 
+      "variable": "dataset", 
+      "parameter": false, 
+      "order": 2, 
+      "uid": "f828b690-62bc-4372-9187-7ad6cfca6188"
+    }
+  }, 
+  {
+    "model": "workflows.abstractinput", 
+    "fields": {
+      "widget": "331943d5-2569-4eb5-95c9-3c07e65d87e7", 
+      "name": "Sample size", 
+      "short_name": "ssz", 
+      "default": "", 
+      "description": "Sample size", 
+      "required": false, 
+      "multi": false, 
+      "parameter_type": "text", 
+      "variable": "sample_size", 
+      "parameter": true, 
+      "order": 6, 
+      "uid": "fd4d0bcc-bbd5-43d5-8b24-1d92f784d9ce"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoutput", 
+    "fields": {
+      "widget": "331943d5-2569-4eb5-95c9-3c07e65d87e7", 
+      "name": "TreeLiker", 
+      "short_name": "tli", 
+      "description": "TreeLiker instance", 
+      "variable": "treeliker", 
+      "order": 2, 
+      "uid": "4e49c5e0-0f8f-4d01-8f5f-c49ab7c4fdef"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoutput", 
+    "fields": {
+      "widget": "331943d5-2569-4eb5-95c9-3c07e65d87e7", 
+      "name": "Dataset", 
+      "short_name": "dat", 
+      "description": "Arff dataset", 
+      "variable": "arff", 
+      "order": 1, 
+      "uid": "d24fbd3c-d0d9-49e1-8910-0b1033d9dfe8"
+    }
+  }
+]

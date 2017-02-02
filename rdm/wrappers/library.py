@@ -112,6 +112,9 @@ def ilp_wordification(input_dict):
 
 
 def ilp_treeliker(input_dict):
+    '''
+    @deprecated replaced by separate widgets for relf and hifi
+    '''
     template = input_dict['template']
     dataset = input_dict['dataset']
     settings = {
@@ -122,6 +125,40 @@ def ilp_treeliker(input_dict):
         'use_sampling': input_dict.get('use_sampling'),
         'sample_size': input_dict.get('sample_size'),
         'max_degree': input_dict.get('max_degree')
+    }
+    treeliker = TreeLiker(dataset, template, settings=settings)
+    arff_train, arff_test = treeliker.run()
+    return {'arff': arff_train, 'treeliker': treeliker}
+
+
+def ilp_relf(input_dict):
+    template = input_dict['template']
+    dataset = input_dict['dataset']
+    grounding = input_dict.get('grounding_counting') == 'true'
+    algorithm = 'relf' if not grounding else 'relf_grounding_counting'
+    settings = {
+        'algorithm': algorithm,
+        'minimum_frequency': input_dict.get('minimum_frequency'),
+        'covered_class': input_dict.get('covered_class'),
+        'use_sampling': input_dict.get('use_sampling'),
+        'sample_size': input_dict.get('sample_size'),
+    }
+    treeliker = TreeLiker(dataset, template, settings=settings)
+    arff_train, arff_test = treeliker.run()
+    return {'arff': arff_train, 'treeliker': treeliker}
+
+
+def ilp_hifi(input_dict):
+    template = input_dict['template']
+    dataset = input_dict['dataset']
+    grounding = input_dict.get('grounding_counting') == 'true'
+    algorithm = 'hifi' if not grounding else 'hifi_grounding_counting'
+    settings = {
+        'algorithm': algorithm,
+        'minimum_frequency': input_dict.get('minimum_frequency'),
+        'maximum_size': input_dict.get('maximum_size'),
+        'use_sampling': input_dict.get('use_sampling'),
+        'sample_size': input_dict.get('sample_size'),
     }
     treeliker = TreeLiker(dataset, template, settings=settings)
     arff_train, arff_test = treeliker.run()
