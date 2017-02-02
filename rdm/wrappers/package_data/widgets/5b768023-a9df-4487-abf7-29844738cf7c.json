@@ -5,7 +5,7 @@
       "category": "ed859be5-cc13-46b9-b249-c8f026732c1c", 
       "treeview_image": "", 
       "uid": "5b768023-a9df-4487-abf7-29844738cf7c", 
-      "is_streaming": false, 
+      "windows_queue": false, 
       "package": "rdm.wrappers", 
       "interaction_view": "", 
       "has_progress_bar": false, 
@@ -19,9 +19,9 @@
       "wsdl_method": "", 
       "wsdl": "", 
       "interactive": false, 
-      "windows_queue": false, 
+      "is_streaming": false, 
       "order": 1, 
-      "name": "TreeLiker"
+      "name": "TreeLiker (deprecated)"
     }
   }, 
   {
@@ -187,6 +187,18 @@
       "variable": "arff", 
       "order": 1, 
       "uid": "3cebb30a-d3d9-423f-9306-6ac1cfc667af"
+    }
+  }, 
+  {
+    "model": "workflows.abstractoutput", 
+    "fields": {
+      "widget": "5b768023-a9df-4487-abf7-29844738cf7c", 
+      "name": "TreeLiker", 
+      "short_name": "tli", 
+      "description": "TreeLiker instance", 
+      "variable": "treeliker", 
+      "order": 1, 
+      "uid": "73b31655-2aa8-4bd8-819c-b30b1efacc46"
     }
   }, 
   {
