@@ -2,7 +2,7 @@
   "model": "workflows.category", 
   "fields": {
     "name": "Database utilities",
-    "parent": null, 
+    "parent": "ed859be5-cc13-46b9-b249-c8f026732c1c",
     "order": 1, 
     "uid": "b66b71b1-99d6-4efc-b264-a914a3e42911"
   }

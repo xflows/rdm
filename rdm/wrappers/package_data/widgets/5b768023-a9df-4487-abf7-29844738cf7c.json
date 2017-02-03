@@ -2,7 +2,7 @@
   {
     "model": "workflows.abstractwidget", 
     "fields": {
-      "category": "ed859be5-cc13-46b9-b249-c8f026732c1c", 
+      "category": "905c60e7-912e-4b8a-9bd8-b57449e29b01", 
       "treeview_image": "", 
       "uid": "5b768023-a9df-4487-abf7-29844738cf7c", 
       "windows_queue": false, 
@@ -197,7 +197,7 @@
       "short_name": "tli", 
       "description": "TreeLiker instance", 
       "variable": "treeliker", 
-      "order": 1, 
+      "order": 2, 
       "uid": "73b31655-2aa8-4bd8-819c-b30b1efacc46"
     }
   }, 

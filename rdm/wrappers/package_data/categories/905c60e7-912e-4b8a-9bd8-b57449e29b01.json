@@ -1,0 +1,9 @@
+{
+  "model": "workflows.category", 
+  "fields": {
+    "name": "Propositionalization", 
+    "parent": "ed859be5-cc13-46b9-b249-c8f026732c1c", 
+    "order": 1, 
+    "uid": "905c60e7-912e-4b8a-9bd8-b57449e29b01"
+  }
+}

@@ -2,10 +2,10 @@
   {
     "model": "workflows.abstractwidget", 
     "fields": {
-      "category": "ed859be5-cc13-46b9-b249-c8f026732c1c", 
+      "category": "905c60e7-912e-4b8a-9bd8-b57449e29b01", 
       "treeview_image": "", 
       "uid": "dabcb4ed-ae86-4f3e-8d3e-bb0306ff11f8", 
-      "is_streaming": false, 
+      "windows_queue": false, 
       "package": "rdm.wrappers", 
       "interaction_view": "", 
       "has_progress_bar": false, 
@@ -19,7 +19,7 @@
       "wsdl_method": "", 
       "wsdl": "", 
       "interactive": false, 
-      "windows_queue": false, 
+      "is_streaming": false, 
       "order": 1, 
       "name": "RSD"
     }
@@ -37,7 +37,7 @@
       "parameter_type": "text", 
       "variable": "min_coverage", 
       "parameter": true, 
-      "order": 5, 
+      "order": 8, 
       "uid": "0864df0d-3e46-4af2-9ea3-2ccbfe33034a"
     }
   }, 
@@ -54,7 +54,7 @@
       "parameter_type": null, 
       "variable": "neg", 
       "parameter": false, 
-      "order": 4, 
+      "order": 6, 
       "uid": "0b46921d-50fe-46b1-a1e4-67c918160a7f"
     }
   }, 
@@ -88,7 +88,7 @@
       "parameter_type": null, 
       "variable": "pos", 
       "parameter": false, 
-      "order": 3, 
+      "order": 4, 
       "uid": "676ef826-7dd9-415a-8a8a-d82146dcc95a"
     }
   }, 
@@ -139,7 +139,7 @@
       "parameter_type": null, 
       "variable": "settings", 
       "parameter": false, 
-      "order": 5, 
+      "order": 9, 
       "uid": "a1660c9f-952d-4f29-9f23-9b0be5fe8cea"
     }
   }, 
@@ -156,7 +156,7 @@
       "parameter_type": "text", 
       "variable": "depth", 
       "parameter": true, 
-      "order": 3, 
+      "order": 5, 
       "uid": "bed46927-aa71-46a4-9022-8219cd2f59ca"
     }
   }, 
@@ -173,7 +173,7 @@
       "parameter_type": "select", 
       "variable": "negation", 
       "parameter": true, 
-      "order": 4, 
+      "order": 7, 
       "uid": "bfff50a5-ed9b-4e3f-bfb0-e6d135a60f38"
     }
   }, 
@@ -190,7 +190,7 @@
       "parameter_type": "text", 
       "variable": "clauselength", 
       "parameter": true, 
-      "order": 2, 
+      "order": 3, 
       "uid": "d840e1d9-5bd1-4004-94ec-6acd5b3c9910"
     }
   }, 
@@ -207,7 +207,7 @@
       "parameter_type": "select", 
       "variable": "flt", 
       "parameter": true, 
-      "order": 6, 
+      "order": 10, 
       "uid": "f510c2a1-454f-4ef8-b346-aba39a41ce24"
     }
   }, 
