@@ -5,12 +5,12 @@ import os
 import re
 import arff
 
-from converters import RSDConverter, TreeLikerConverter
+from .converters import RSDConverter, TreeLikerConverter
 
 
 def _feature_numbers(features):
     n = len(features.splitlines())
-    featureIDs = map(lambda id: str(id), range(1, n+1))
+    featureIDs = [str(id) for id in range(1, n+1)]
     return 'featureIDs([%s]).' % (','.join(featureIDs))
 
 

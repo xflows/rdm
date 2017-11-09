@@ -1,1 +1,1 @@
-from aleph import Aleph
+from .aleph import Aleph

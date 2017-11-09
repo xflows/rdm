@@ -18,4 +18,4 @@ aleph = Aleph()
 theory, features = aleph.induce('induce_features', conv.positive_examples(),
                                 conv.negative_examples(),
                                 conv.background_knowledge())
-print theory
+print(theory)

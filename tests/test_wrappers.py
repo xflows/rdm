@@ -6,7 +6,7 @@ sys.path.append('..')
 
 from rdm.db import DBConnection, DBContext, OrangeConverter, RSDConverter, AlephConverter, TreeLikerConverter
 from rdm.wrappers import Wordification, RSD, Aleph, TreeLiker
-from conf import TEST_DB, TEST_DB_POSTGRES, RESULTS_FOLDER
+from tests.conf import TEST_DB, TEST_DB_POSTGRES, RESULTS_FOLDER
 
 
 class TestWrappers(unittest.TestCase):
@@ -43,9 +43,13 @@ class TestWrappers(unittest.TestCase):
         )
         wordification.run(1)
         wordification.calculate_weights()
+        arff = wordification.to_arff()
+
+        with open('wordification_mysql.txt', 'w') as f:
+            f.write(arff)
 
         with open(os.path.join(RESULTS_FOLDER, 'wrappers', 'wordification', 'trains.arff')) as f:
-            self.assertMultiLineEqual(wordification.to_arff(), f.read())
+            self.assertMultiLineEqual(arff, f.read())
 
     def test_rsd_mysql(self):
         conv = RSDConverter(self.context)
@@ -68,6 +72,7 @@ class TestWrappers(unittest.TestCase):
 
         with open(os.path.join(RESULTS_FOLDER, 'wrappers', 'aleph', 'geographical.arff')) as f:
             self.assertMultiLineEqual(theory, f.read())
+
 
     def test_aleph_mysql(self):
         conv = AlephConverter(self.context, target_att_val='east')

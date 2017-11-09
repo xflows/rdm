@@ -4,14 +4,14 @@ from string import ascii_lowercase as chars
 from random import choice
 import tempfile
 
-from aleph import Aleph
-from rsd import RSD
-from wordification import Wordification
-from treeliker import TreeLiker
-from security import check_input
-from proper import Proper
-from tertius import Tertius, OneBC
-from caraf import Caraf
+from .aleph import Aleph
+from .rsd import RSD
+from .wordification import Wordification
+from .treeliker import TreeLiker
+from .security import check_input
+from .proper import Proper
+from .tertius import Tertius, OneBC
+from .caraf import Caraf
 
 from services.webservice import WebService
 
@@ -48,7 +48,7 @@ def ilp_rsd(input_dict):
     if settings:
         rsd.settingsAsFacts(settings)
     # Parse settings provided as parameters (these have higher priority)
-    for setting, def_val in RSD.ESSENTIAL_PARAMS.items():
+    for setting, def_val in list(RSD.ESSENTIAL_PARAMS.items()):
         rsd.set(setting, input_dict.get(setting, def_val))
     # Check for illegal predicates
     for pl_script in [b, pos, neg, examples]:

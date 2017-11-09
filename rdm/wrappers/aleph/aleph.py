@@ -9,7 +9,7 @@ import logging
 import re
 import tempfile
 import json
-from StringIO import StringIO
+from io import StringIO
 from stat import S_IREAD, S_IEXEC
 from subprocess import PIPE
 
@@ -17,6 +17,7 @@ if __name__ != '__main__':
     from ..security import SafePopen
 else:
     import os
+
     parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     os.sys.path.append(parent_dir)
     from security import SafePopen
@@ -140,7 +141,7 @@ class Aleph(object):
                       cwd=self.tmpdir,
                       stdout=dumpFile,
                       stderr=dumpFile
-        ).safe_run()
+                      ).safe_run()
         stdout_str, stderr_str = p.communicate()
 
         logger.info("Done.")
@@ -157,7 +158,6 @@ class Aleph(object):
             dataset_fn = filestem + Aleph.PROP_DATASET_SUFFIX
             pl_dataset = open('%s/%s' % (self.tmpdir, dataset_fn)).read()
             result = self.__to_arff(features, pl_dataset, filestem)
-
 
         # Cleanup.
         self.__cleanup()
@@ -244,6 +244,6 @@ class Aleph(object):
             vals = []
             for i in range(0, class_id):
                 vals.append('+' if i in json.loads(features) else '-')
-	    vals.append(cls)
+            vals.append(cls)
             cat('%s' % ','.join(vals))
         return arff.getvalue()

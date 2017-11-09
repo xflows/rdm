@@ -1,2 +1,2 @@
-from onebc import OneBC
-from tertius import Tertius
+from .onebc import OneBC
+from .tertius import Tertius

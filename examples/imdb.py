@@ -52,4 +52,4 @@ for fold_predictions in predictions:
     acc += sum([1.0 for actual, predicted in fold_predictions if actual == predicted])/len(fold_predictions)
 acc = 100 * acc/folds
 
-print 'Estimated predictive accuracy: {0:.2f}%'.format(acc)
+print('Estimated predictive accuracy: {0:.2f}%'.format(acc))
