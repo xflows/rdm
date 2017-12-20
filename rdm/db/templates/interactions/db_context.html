@@ -1,3 +1,5 @@
+{% load fullpath %}
+
 <div id="widgetinteract-{{widget.pk}}" rel="{{widget.pk}}" class="widgetinteractdialog" title="{{widget.name}} interaction" width="700" height="600">
 	<div>
 		<form>
@@ -42,6 +44,7 @@
 			</table>
 			<input type="hidden" name="widget_id" value="{{widget.pk}}"/>
 		</form>
+        <script src="{% static_fullpath request 'rdm.db/js/jquery-1.7.1.min.js' %}" type="text/javascript"></script>
 		<script type="text/javascript">
 		    // Columns data.
 			var cols = {{cols|safe}};

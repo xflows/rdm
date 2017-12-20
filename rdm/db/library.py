@@ -40,9 +40,10 @@ def _update_context(context, postdata):
     '''
     Updates the default selections with user's selections.
     '''
-    widget_id = postdata.get('widget_id')[0]
-    context.target_table = postdata.get('target_table%s' % widget_id)[0]
-    context.target_att = postdata.get('target_att%s' % widget_id)[0]
+    listCheck = lambda el: el[0] if type(el) == list else el  # For handling lists of size 1
+    widget_id = listCheck(postdata.get('widget_id'))
+    context.target_table = listCheck(postdata.get('target_table%s' % widget_id))
+    context.target_att = listCheck(postdata.get('target_att%s' % widget_id))
     context.tables = postdata.get('tables%s' % widget_id, [])
     if context.target_table not in context.tables:
         raise Exception('The selected target table "%s" is not among the selected tables.' % context.target_table)

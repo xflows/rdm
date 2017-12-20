@@ -13,7 +13,6 @@ from .proper import Proper
 from .tertius import Tertius, OneBC
 from .caraf import Caraf
 
-from services.webservice import WebService
 
 def ilp_aleph(input_dict):
     aleph = Aleph()
@@ -64,10 +63,11 @@ def ilp_sdmsegs_rule_viewer(input_dict):
 
 
 def ilp_sdmaleph(input_dict):
-    import orange
+    from services.webservice import WebService
+    import Orange
     ws = WebService('http://vihar.ijs.si:8097', 3600)
     data = input_dict.get('examples')
-    if isinstance(data, orange.ExampleTable):
+    if isinstance(data, Orange.data.Table):
         with tempfile.NamedTemporaryFile(suffix='.tab', delete=True) as f:
             data.save(f.name)
             examples = f.read()
@@ -78,6 +78,7 @@ def ilp_sdmaleph(input_dict):
     else:
         raise Exception('Illegal examples format. \
                          Supported formats: str, list or Orange')
+
     response = ws.client.sdmaleph(
         examples=examples,
         mapping=input_dict.get('mapping'),

@@ -228,6 +228,7 @@ class Wordification(object):
         for document in self.resulting_documents:
             for word in document:
                 words.add(word)
+        words = sorted(words)
 
         for i, word in enumerate(words):
             arff_string += "@ATTRIBUTE\t'" + word.replace("'", "") + "'\tREAL\n"
