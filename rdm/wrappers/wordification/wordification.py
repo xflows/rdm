@@ -231,9 +231,9 @@ class Wordification(object):
         words = sorted(words)
 
         for i, word in enumerate(words):
-            arff_string += "@ATTRIBUTE\t'" + word.replace("'", "") + "'\tREAL\n"
+            arff_string += "@ATTRIBUTE '" + word.replace("'", "") + "' REAL\n"
 
-        arff_string += "@ATTRIBUTE\tclass\t{" + ','.join(set([str(a) for a in self.resulting_classes])) + "}\n\n@DATA\n"
+        arff_string += "@ATTRIBUTE class {" + ','.join(set([str(a) for a in self.resulting_classes])) + "}\n\n@DATA\n"
 
         for doc_idx in range(len(self.resulting_documents)):
             features = []
