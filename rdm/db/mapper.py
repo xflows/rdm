@@ -69,11 +69,11 @@ def domain_map(features, feature_format, train_context, test_context,
             features,
         ])
         THIS_DIR = os.path.dirname(__file__) if os.path.dirname(__file__) else '.'
-        f = tempfile.NamedTemporaryFile(delete=False)
+        f = tempfile.NamedTemporaryFile(delete=False, mode='w')
         f.write(prolog_bk)
         f.close()
         cmd_args = ['yap', '-L', '--', '%s/mapper.pl' % THIS_DIR, f.name, mapper_target_name]
-        evaluations = subprocess.check_output(cmd_args)
+        evaluations = subprocess.check_output(cmd_args).decode()
         dataset = dump_dataset(features, feature_format, evaluations,
                                train_context,
                                format=format,
@@ -121,7 +121,7 @@ def dump_dataset(features, feature_format, evaluations, train_context,
             target_vals = ('negative', 'positive')
         else:
             orng_target = train_context.orng_tables[target]
-            target_vals = tuple(sorted(orng_target.domain.classVar.values))
+            target_vals = tuple(sorted(orng_target.domain.class_var.values))
         class_attr = ('class', target_vals)
         data['attributes'].append(class_attr)
         for line in evaluations.splitlines():
