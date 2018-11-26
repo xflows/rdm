@@ -235,9 +235,12 @@ class Wordification(object):
         arff_string += "@ATTRIBUTE\tclass\t{" + string.join(set([str(a) for a in self.resulting_classes]),
                                                             ",") + "}\n\n@DATA\n"
 
+        self.word_features = []
         for doc_idx in range(len(self.resulting_documents)):
             features = []
             for word in words:
+                if word not in self.word_features:
+                    self.word_features.append(word)
                 if word in self.tf_idfs[doc_idx]:
                     features.append(str(self.tf_idfs[doc_idx][word]))
                 else:
