@@ -23,7 +23,6 @@ from scipy.io import arff as sarf
 from sklearn import tree
 import pandas as pd
 
-
 if __name__ == "__main__":
     
     parser = argparse.ArgumentParser(description='Benchmark setup')
@@ -31,14 +30,12 @@ if __name__ == "__main__":
     parser.add_argument('--dataset',type=str,default="trains")
     parser.add_argument('--target_table',type=str,default="trains")
     parser.add_argument('--target_label',type=str,default="direction")
-    parser.add_argument('--target_attribute',type=str,default="east")
 
     args = parser.parse_args()    
     learner = args.learner
     dataset = args.dataset
     target_label = args.target_label
     target_table = args.target_table
-    target_attr_value = args.target_attribute
     
     # Provide connection information
     connection = DBConnection(
@@ -57,7 +54,7 @@ if __name__ == "__main__":
     predictions_f1 = []
     times = []
     folds = 10
-    print(context)
+
     for train_context, test_context in cv_split(context, folds=folds, random_seed=0):
         # Find features on the train set
 
@@ -73,14 +70,14 @@ if __name__ == "__main__":
             )
 
         if learner == "aleph":
-            conv = AlephConverter(context, target_att_val=target_attr_value)
+
+            target_attr_value = "east"
+            conv = AlephConverter(train_context, target_att_val=target_attr_value)
             aleph = Aleph()
             train_arff, features = aleph.induce('induce_features',conv.positive_examples(),
                                                 conv.negative_examples(),
                                                 conv.background_knowledge(),printOutput=False)
-
-
-
+            
         if learner == "treeliker":
             conv = TreeLikerConverter(train_context)
             conv2 = TreeLikerConverter(test_context)
