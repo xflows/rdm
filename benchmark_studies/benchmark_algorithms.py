@@ -29,6 +29,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Benchmark setup')
     parser.add_argument('--learner',type=str,default="aleph")
     parser.add_argument('--dataset',type=str,default="trains")
+    parser.add_argument('--target_table',type=str,default="trains")
     parser.add_argument('--target_label',type=str,default="direction")
     parser.add_argument('--target_attribute',type=str,default="east")
 
@@ -36,6 +37,7 @@ if __name__ == "__main__":
     learner = args.learner
     dataset = args.dataset
     target_label = args.target_label
+    target_table = args.target_table
     target_attr_value = args.target_attribute
     
     # Provide connection information
@@ -48,7 +50,7 @@ if __name__ == "__main__":
     )
 
     # Define learning context
-    context = DBContext(connection, target_table=dataset, target_att=target_label)
+    context = DBContext(connection, target_table=target_table, target_att=target_label)
     print ("Got context..")
     # Cross-validation loop
     predictions = []

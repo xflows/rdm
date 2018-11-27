@@ -1,7 +1,9 @@
 ## A simple python job generator
 
 learners = ['aleph','RSD','treeliker','wordification']
-dbtuples = [('trains','direction','east')]
+dbtuples = [('trains','trains','direction','east'), ## trains data set
+            ('Carcinogenesis','canc','class','TODO'), ## cancer data set
+]
 result_file = "./tmp_results.txt"
 
 for dtuple in dbtuples:
