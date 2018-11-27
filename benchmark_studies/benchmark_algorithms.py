@@ -70,7 +70,9 @@ if __name__ == "__main__":
             )
 
         if learner == "aleph":
-
+            
+            tbl = train_context.orng_tables[target_table]
+            target_attr_value = tbl[1][target_label]
             target_attr_value = "east"
             conv = AlephConverter(train_context, target_att_val=target_attr_value)
             aleph = Aleph()
