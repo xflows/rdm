@@ -1,0 +1,47 @@
+name: RDM2
+channels:
+  - defaults
+dependencies:
+  - certifi=2018.10.15=py27_0
+  - cloog=0.18.0=0
+  - gcc=4.8.5=7
+  - gmp=6.1.2=h6c8ec71_1
+  - isl=0.12.2=0
+  - libedit=3.1.20170329=h6b74fdf_2
+  - libgcc-ng=8.2.0=hdf63c60_1
+  - libstdcxx-ng=8.2.0=hdf63c60_1
+  - mpc=1.0.3=hec55b23_5
+  - mpfr=3.1.5=h11a74b3_2
+  - ncurses=6.1=hf484d3e_0
+  - openssl=1.0.1k=1
+  - pip=18.1=py27_0
+  - python=2.7.8=1
+  - readline=6.2=2
+  - setuptools=40.6.2=py27_0
+  - sqlite=3.25.3=h7b6447c_0
+  - system=5.8=2
+  - tk=8.5.18=0
+  - wheel=0.32.3=py27_0
+  - zlib=1.2.11=h7b6447c_3
+  - pip:
+    - arff==0.9
+    - babel==2.6.0
+    - cython==0.29.1
+    - multiprocessing==2.6.2.1
+    - mysql==0.0.2
+    - mysql-connector==2.1.6
+    - mysql-python==1.2.5
+    - numpy==1.15.4
+    - orange==2.7.8
+    - pandas==0.23.4
+    - psycopg2==2.7.6.1
+    - psycopg2-binary==2.7.6.1
+    - python-dateutil==2.7.5
+    - python-rdm==0.1.8a0
+    - pytz==2018.7
+    - scikit-learn==0.20.1
+    - scipy==1.1.0
+    - six==1.11.0
+    - sklearn==0.0
+prefix: /home/blaz/miniconda3/envs/RDM2
+
