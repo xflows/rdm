@@ -200,8 +200,8 @@ if __name__ == "__main__":
                 test_arff = mapper.domain_map(features, tmp_learner, train_context, test_context,format="csv")
                 test_ins = test_arff.split("\n")
 
-            elif learner == "rds":
-                tmp_learner == 'rds'
+            elif learner == "RSD":
+                tmp_learner = 'RSD'
                 test_arff = mapper.domain_map(features, tmp_learner, train_context, test_context,format="csv)")
                 test_ins = test_arff.split("\n")
 

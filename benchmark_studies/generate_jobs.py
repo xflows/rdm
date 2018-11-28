@@ -14,4 +14,4 @@ dbtuples = [('trains','trains','direction'), ## trains data set
 result_file = "./tmp_results.txt"
 for dtuple in dbtuples:
     for learner in learners:
-        print ('python','benchmark_algorithms.py','--dataset',dtuple[0],'--target_table',dtuple[1],'--target_label',dtuple[2],'>',result_file)
+        print 'python','benchmark_algorithms.py','--dataset',dtuple[0],'--target_table',dtuple[1],'--target_label',dtuple[2],'--learner',learner,'>>',result_file
