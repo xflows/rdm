@@ -49,6 +49,7 @@ if __name__ == "__main__":
     # Define learning context
     context = DBContext(connection, target_table=target_table, target_att=target_label)
     print ("Got context..")
+
     # Cross-validation loop
     predictions = []
     predictions_f1 = []
@@ -176,10 +177,7 @@ if __name__ == "__main__":
             output = pins.run()
 
         elif learner == "tertius":
-
             pins = Tertius()
-
-
 
         else: 
             data = arff.loads(unicode(train_arff))
