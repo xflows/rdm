@@ -26,7 +26,7 @@ import pandas as pd
 if __name__ == "__main__":
     
     parser = argparse.ArgumentParser(description='Benchmark setup')
-    parser.add_argument('--learner',type=str,default="RSD")
+    parser.add_argument('--learner',type=str,default="aleph")
     parser.add_argument('--dataset',type=str,default="trains")
     parser.add_argument('--target_table',type=str,default="trains")
     parser.add_argument('--target_label',type=str,default="direction")
@@ -62,11 +62,12 @@ if __name__ == "__main__":
     predictions = []
     predictions_f1 = []
     times = []
-    folds = 10
+    folds = 5
     target_attr_value = None
+    
     for train_context, test_context in cv_split(context, folds=folds, random_seed=0):
-        # Find features on the train set
 
+        # Find features on the train set
         start = timer()
         if learner == "RSD":
             conv = RSDConverter(train_context)
@@ -81,7 +82,7 @@ if __name__ == "__main__":
         if learner == "aleph":
             
             tbl = train_context.orng_tables[target_table]
-            target_attr_value = tbl[1][target_label]
+            target_attr_value = tbl[1][target_label].value
             conv = AlephConverter(train_context, target_att_val=target_attr_value)
             aleph = Aleph()
             train_arff, features = aleph.induce('induce_features',conv.positive_examples(),
@@ -123,7 +124,7 @@ if __name__ == "__main__":
                 if "@data" in entry:
                     wtag=True
 
-        elif learner == "wordification":
+        if learner == "wordification":
             corange = OrangeConverter(train_context)
             torange = OrangeConverter(test_context)
             wordification = Wordification(corange.target_Orange_table(), corange.other_Orange_tables(), train_context)
@@ -178,15 +179,7 @@ if __name__ == "__main__":
             entries_test = feature_vectors
 
 
-        elif learner == "proper":
-
-            pins = Proper({'context':train_context},False)
-            output = pins.run()
-
-        elif learner == "tertius":
-            pins = Tertius()
-
-        else: 
+        else:
             data = arff.loads(unicode(train_arff))
             entries = []
             targets = []
@@ -207,12 +200,12 @@ if __name__ == "__main__":
 
             elif learner == "RSD":
                 tmp_learner = 'rsd'
-                test_arff = mapper.domain_map(features, tmp_learner, train_context, test_context,format="csv)")
+                test_arff = mapper.domain_map(features, tmp_learner, train_context, test_context,format="csv")
                 test_ins = test_arff.split("\n")
 
             entries_test = []
             targets_test = []
-
+            
             for entry in test_ins:
                 en = entry.strip().split(",")
                 if en[-1] != '':
@@ -234,6 +227,7 @@ if __name__ == "__main__":
         le.fit(train_targets)
 
         targets_train_encoded = le.transform(train_targets)
+
         targets_test_encoded = le.transform(test_targets)
 
         clf = tree.DecisionTreeClassifier()
@@ -248,4 +242,4 @@ if __name__ == "__main__":
         times.append(end-start)
         print(acc,f1)
 
-    print ("RESULT_LINE",learner, dataset, target_label, np.mean(predictions), np.mean(predictions_f1),np.mean(times),target_attr_value)
+    print ("RESULT_LINE",learner, dataset, target_label, np.mean(predictions), np.mean(predictions_f1),np.mean(times),target_label)

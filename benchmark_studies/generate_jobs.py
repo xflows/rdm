@@ -7,7 +7,6 @@ dbtuples = [('trains','trains','direction'), ## trains data set
             ('genes','Classification','Localization'),
             ('Facebook','feat','gender1'),
             ('NCAA','target','team_id1_wins'),            
-            ('Pyrimidine','molecule','activity'),
             ('CORA','paper','class_label'),
             ('imdb_ijs','actors','gender')
 ]
