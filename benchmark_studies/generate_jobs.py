@@ -8,7 +8,8 @@ dbtuples = [('trains','trains','direction'), ## trains data set
             ('Facebook','feat','gender1'),
             ('NCAA','target','team_id1_wins'),            
             ('Pyrimidine','molecule','activity'),
-            ('CORA','paper','class_label')
+            ('CORA','paper','class_label'),
+            ('imdb_ijs','actors','gender')
 ]
 
 result_file = "./tmp_results.txt"

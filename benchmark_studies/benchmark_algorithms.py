@@ -199,7 +199,7 @@ if __name__ == "__main__":
                 test_ins = test_arff.split("\n")
 
             elif learner == "RSD":
-                tmp_learner = 'RSD'
+                tmp_learner = 'rsd'
                 test_arff = mapper.domain_map(features, tmp_learner, train_context, test_context,format="csv)")
                 test_ins = test_arff.split("\n")
 
@@ -241,4 +241,4 @@ if __name__ == "__main__":
         times.append(end-start)
         print(acc,f1)
 
-    print("RESULT_LINE",learner, dataset, target_label, np.mean(predictions), np.mean(predictions_f1),np.mean(times))
+    print "RESULT_LINE",learner, dataset, target_label, np.mean(predictions), np.mean(predictions_f1),np.mean(times)
