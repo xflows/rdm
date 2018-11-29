@@ -26,7 +26,7 @@ import pandas as pd
 if __name__ == "__main__":
     
     parser = argparse.ArgumentParser(description='Benchmark setup')
-    parser.add_argument('--learner',type=str,default="aleph")
+    parser.add_argument('--learner',type=str,default="RSD")
     parser.add_argument('--dataset',type=str,default="trains")
     parser.add_argument('--target_table',type=str,default="trains")
     parser.add_argument('--target_label',type=str,default="direction")
