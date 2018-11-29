@@ -37,22 +37,22 @@ if __name__ == "__main__":
     target_label = args.target_label
     target_table = args.target_table
 
-    connection = DBConnection(
-        'ilp',  # User
-        'ilp123',  # Password
-        'workflow.ijs.si',  # Host
-        dataset,  # Database
-        vendor=DBVendor.MySQL
-    )    
-    
-    # Provide connection information
     # connection = DBConnection(
-    #     'guest',  # User
-    #     'relational',  # Password
-    #     'relational.fit.cvut.cz',  # Host
+    #     'ilp',  # User
+    #     'ilp123',  # Password
+    #     'workflow.ijs.si',  # Host
     #     dataset,  # Database
     #     vendor=DBVendor.MySQL
-    # )
+    # )    
+    
+    # Provide connection information
+    connection = DBConnection(
+        'guest',  # User
+        'relational',  # Password
+        'relational.fit.cvut.cz',  # Host
+        dataset,  # Database
+        vendor=DBVendor.MySQL
+    )
 
     # Define learning context
     context = DBContext(connection, target_table=target_table, target_att=target_label)
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     predictions_f1 = []
     times = []
     folds = 10
-
+    target_attr_value = None
     for train_context, test_context in cv_split(context, folds=folds, random_seed=0):
         # Find features on the train set
 
@@ -82,7 +82,6 @@ if __name__ == "__main__":
             
             tbl = train_context.orng_tables[target_table]
             target_attr_value = tbl[1][target_label]
-            target_attr_value = "east"
             conv = AlephConverter(train_context, target_att_val=target_attr_value)
             aleph = Aleph()
             train_arff, features = aleph.induce('induce_features',conv.positive_examples(),
@@ -249,4 +248,4 @@ if __name__ == "__main__":
         times.append(end-start)
         print(acc,f1)
 
-    print ("RESULT_LINE",learner, dataset, target_label, np.mean(predictions), np.mean(predictions_f1),np.mean(times))
+    print ("RESULT_LINE",learner, dataset, target_label, np.mean(predictions), np.mean(predictions_f1),np.mean(times),target_attr_value)
