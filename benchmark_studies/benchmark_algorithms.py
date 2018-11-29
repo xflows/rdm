@@ -36,15 +36,23 @@ if __name__ == "__main__":
     dataset = args.dataset
     target_label = args.target_label
     target_table = args.target_table
-    
-    # Provide connection information
+
     connection = DBConnection(
-        'guest',  # User
-        'relational',  # Password
-        'relational.fit.cvut.cz',  # Host
+        'ilp',  # User
+        'ilp123',  # Password
+        'workflow.ijs.si',  # Host
         dataset,  # Database
         vendor=DBVendor.MySQL
-    )
+    )    
+    
+    # Provide connection information
+    # connection = DBConnection(
+    #     'guest',  # User
+    #     'relational',  # Password
+    #     'relational.fit.cvut.cz',  # Host
+    #     dataset,  # Database
+    #     vendor=DBVendor.MySQL
+    # )
 
     # Define learning context
     context = DBContext(connection, target_table=target_table, target_att=target_label)
@@ -241,4 +249,4 @@ if __name__ == "__main__":
         times.append(end-start)
         print(acc,f1)
 
-    print "RESULT_LINE",learner, dataset, target_label, np.mean(predictions), np.mean(predictions_f1),np.mean(times)
+    print ("RESULT_LINE",learner, dataset, target_label, np.mean(predictions), np.mean(predictions_f1),np.mean(times))
