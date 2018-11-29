@@ -26,7 +26,7 @@ import pandas as pd
 if __name__ == "__main__":
     
     parser = argparse.ArgumentParser(description='Benchmark setup')
-    parser.add_argument('--learner',type=str,default="aleph")
+    parser.add_argument('--learner',type=str,default="RSD")
     parser.add_argument('--dataset',type=str,default="trains")
     parser.add_argument('--target_table',type=str,default="trains")
     parser.add_argument('--target_label',type=str,default="direction")
@@ -199,7 +199,7 @@ if __name__ == "__main__":
                 test_ins = test_arff.split("\n")
 
             elif learner == "RSD":
-                tmp_learner = 'RSD'
+                tmp_learner = 'rsd'
                 test_arff = mapper.domain_map(features, tmp_learner, train_context, test_context,format="csv)")
                 test_ins = test_arff.split("\n")
 
