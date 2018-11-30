@@ -1,0 +1,25 @@
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: linux-64
+@EXPLICIT
+https://repo.anaconda.com/pkgs/main/linux-64/libgcc-ng-8.2.0-hdf63c60_1.tar.bz2
+https://repo.anaconda.com/pkgs/main/linux-64/libstdcxx-ng-8.2.0-hdf63c60_1.tar.bz2
+https://repo.anaconda.com/pkgs/free/linux-64/openssl-1.0.1k-1.tar.bz2
+https://repo.anaconda.com/pkgs/free/linux-64/readline-6.2-2.tar.bz2
+https://repo.anaconda.com/pkgs/free/linux-64/system-5.8-2.tar.bz2
+https://repo.anaconda.com/pkgs/free/linux-64/tk-8.5.18-0.tar.bz2
+https://repo.anaconda.com/pkgs/main/linux-64/gmp-6.1.2-h6c8ec71_1.tar.bz2
+https://repo.anaconda.com/pkgs/main/linux-64/ncurses-6.1-hf484d3e_0.tar.bz2
+https://repo.anaconda.com/pkgs/main/linux-64/zlib-1.2.11-h7b6447c_3.tar.bz2
+https://repo.anaconda.com/pkgs/main/linux-64/isl-0.12.2-0.tar.bz2
+https://repo.anaconda.com/pkgs/main/linux-64/libedit-3.1.20170329-h6b74fdf_2.tar.bz2
+https://repo.anaconda.com/pkgs/main/linux-64/mpfr-3.1.5-h11a74b3_2.tar.bz2
+https://repo.anaconda.com/pkgs/main/linux-64/cloog-0.18.0-0.tar.bz2
+https://repo.anaconda.com/pkgs/main/linux-64/mpc-1.0.3-hec55b23_5.tar.bz2
+https://repo.anaconda.com/pkgs/main/linux-64/sqlite-3.25.3-h7b6447c_0.tar.bz2
+https://repo.anaconda.com/pkgs/free/linux-64/gcc-4.8.5-7.tar.bz2
+https://repo.anaconda.com/pkgs/free/linux-64/python-2.7.8-1.tar.bz2
+https://repo.anaconda.com/pkgs/main/linux-64/certifi-2018.10.15-py27_0.tar.bz2
+https://repo.anaconda.com/pkgs/main/linux-64/setuptools-40.6.2-py27_0.tar.bz2
+https://repo.anaconda.com/pkgs/main/linux-64/wheel-0.32.3-py27_0.tar.bz2
+https://repo.anaconda.com/pkgs/main/linux-64/pip-18.1-py27_0.tar.bz2

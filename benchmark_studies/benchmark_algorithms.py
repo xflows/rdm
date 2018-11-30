@@ -94,6 +94,7 @@ if __name__ == "__main__":
             conv2 = TreeLikerConverter(test_context)
             treeliker = TreeLiker(conv.dataset(), conv.default_template(),conv2.dataset())   # Runs RelF by default
             train_arff, test_arff = treeliker.run()
+
             wtag=False
             entries = []
             targets = []
@@ -124,7 +125,9 @@ if __name__ == "__main__":
                 if "@data" in entry:
                     wtag=True
 
-        if learner == "wordification":
+            print (entries_test,targets_test)
+                    
+        elif learner == "wordification":
             corange = OrangeConverter(train_context)
             torange = OrangeConverter(test_context)
             wordification = Wordification(corange.target_Orange_table(), corange.other_Orange_tables(), train_context)
@@ -180,6 +183,7 @@ if __name__ == "__main__":
 
 
         else:
+            ## aleph and RSD parsing
             data = arff.loads(unicode(train_arff))
             entries = []
             targets = []
