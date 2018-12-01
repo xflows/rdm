@@ -17,3 +17,27 @@ six==1.10.0
 snowballstemmer==1.2.1
 sphinx-rtd-theme==0.1.9
 wsgiref==0.1.2
+
+arff            0.9       
+Babel           2.6.0     
+certifi         2018.10.15
+Cython          0.29.1    
+multiprocessing 2.6.2.1   
+mysql           0.0.2     
+mysql-connector 2.1.6     
+MySQL-python    1.2.5     
+numpy           1.15.4    
+Orange          2.7.8     
+pandas          0.23.4    
+pip             18.1      
+psycopg2        2.7.6.1   
+psycopg2-binary 2.7.6.1   
+python-dateutil 2.7.5     
+python-rdm      0.1.8a0   
+pytz            2018.7    
+scikit-learn    0.20.1    
+scipy           1.1.0     
+setuptools      40.6.2    
+six             1.11.0    
+sklearn         0.0       
+wheel           0.32.3   
