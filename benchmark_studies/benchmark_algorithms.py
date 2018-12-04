@@ -184,7 +184,7 @@ if __name__ == "__main__":
 
         else:
             ## aleph and RSD parsing
-            data = arff.loads(unicode(train_arff))
+            data = arff.loads(str(train_arff))
             entries = []
             targets = []
 
