@@ -4,7 +4,6 @@
 
 from collections import defaultdict
 from math import log
-import time
 import string, itertools
 import multiprocessing
 
@@ -18,17 +17,18 @@ def chunks(l, n):
     yield l[n * newn - newn:]
 
 
-def wordify_examples(name_to_table, connecting_tables, context, index_by_value, target_table_name, word_att_length, ex_idxs):
+def wordify_examples(name_to_table, connecting_tables, context, index_by_value, target_table_name, word_att_length,
+                     ex_idxs):
     cached_sentences = defaultdict(dict)
+    wordified_examples = []
+    for ex in name_to_table[target_table_name][ex_idxs]:
+        wordified_ex = wordify_example(name_to_table, connecting_tables, context, cached_sentences, index_by_value,
+                                       target_table_name, word_att_length, target_table_name, ex, set([]))
+        wordified_examples.append(wordified_ex)
+    return wordified_examples
 
-    return [
-        wordify_example(name_to_table, connecting_tables, context, cached_sentences, index_by_value, target_table_name,
-                        word_att_length, target_table_name, ex, set([])) for ex in
-        name_to_table[target_table_name].getitemsref(ex_idxs)]
 
-
-def wordify_example(name_to_table, connecting_tables, context, cached_sentences, index_by_value, target_table_name,
-                    word_att_length, data_name, ex, searched_connections):
+def wordify_example(name_to_table, connecting_tables, context, cached_sentences, index_by_value, target_table_name,word_att_length, data_name, ex, searched_connections):
     """
     Recursively constructs the 'wordification' document for the given example.
 
@@ -74,9 +74,9 @@ def wordify_example(name_to_table, connecting_tables, context, cached_sentences,
                 print("search this table:", not prim_fkey or not (data_name,
                                                                   sec_fkey) in searched_connections)  # and sec_t!=self.target_table
             if not (sec_t_name, sec_fkey) in searched_connections and sec_t_name != target_table_name and (
-                not prim_fkey or not (data_name, sec_fkey) in searched_connections):
+                        not prim_fkey or not (data_name, sec_fkey) in searched_connections):
                 example_indexes = index_by_value[sec_t_name][str(sec_fkey)][str(ex_pkey_value)] if not prim_fkey else \
-                index_by_value[sec_t_name][str(prim_fkey)][str(ex[str(sec_fkey)])]
+                    index_by_value[sec_t_name][str(prim_fkey)][str(ex[str(sec_fkey)])]
 
                 for sec_ex_idx in example_indexes:
                     words += wordify_example(name_to_table, connecting_tables, context, cached_sentences,
@@ -157,15 +157,16 @@ class Wordification(object):
 
         # class + wordification on every example of the main table
 
-#        p = multiprocessing.Pool(num_of_processes)
+        p = multiprocessing.Pool(num_of_processes)
 
-        indices = chunks(range(len(self.target_table)), num_of_processes)
-        
+        indices = chunks(list(range(len(self.target_table))), num_of_processes)  # )
+
         for ex_idxs in indices:
-            wdx = wordify_examples(self.name_to_table, self.connecting_tables, self.context,self.index_by_value, self.target_table.name,self.word_att_length, ex_idxs)
-            self.resulting_documents.extend(wdx)
-#        p.close()
-#        p.join()
+            self.resulting_documents.extend(wordify_examples(self.name_to_table, self.connecting_tables, self.context,
+                                                             self.index_by_value, self.target_table.name,
+                                                             self.word_att_length, ex_idxs))
+        p.close()
+        p.join()
 
         for i, ex in enumerate(self.target_table):
             self.resulting_classes.append(ex.get_class())
@@ -226,25 +227,23 @@ class Wordification(object):
         for document in self.resulting_documents:
             for word in document:
                 words.add(word)
+        words = sorted(words)
 
         for i, word in enumerate(words):
-            arff_string += "@ATTRIBUTE\t'" + word.replace("'", "") + "'\tREAL\n"
+            arff_string += "@ATTRIBUTE '" + word.replace("'", "") + "' REAL\n"
 
-        arff_string += "@ATTRIBUTE\tclass\t{" + "".join(set([str(a) for a in self.resulting_classes]),",") + "}\n\n@DATA\n"
+        arff_string += "@ATTRIBUTE class {" + ','.join(set([str(a) for a in self.resulting_classes])) + "}\n\n@DATA\n"
 
-        self.word_features = []
         for doc_idx in range(len(self.resulting_documents)):
             features = []
             for word in words:
-                if word not in self.word_features:
-                    self.word_features.append(word)
                 if word in self.tf_idfs[doc_idx]:
                     features.append(str(self.tf_idfs[doc_idx][word]))
                 else:
                     features.append("0")
             features.append(str(self.resulting_classes[doc_idx]))
 
-            arff_string += string.join(features, ',')
+            arff_string += ','.join(features)
             arff_string += "\n"
 
         return arff_string
@@ -275,8 +274,8 @@ class Wordification(object):
         """
         string_documents = []
         for klass, document in zip(self.resulting_classes, self.resulting_documents):
-            string_documents.append("!" + str(klass) + " " + string.join(document, " "))
-        return string.join(string_documents, "\n")
+            string_documents.append("!" + str(klass) + " " + '' .join(document))
+        return '\n'.join(string_documents)
 
     def att_to_s(self, att):
         """

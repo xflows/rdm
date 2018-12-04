@@ -136,12 +136,10 @@ if __name__ == "__main__":
             train_arff = wordification.to_arff()
 
             wordification_test = Wordification(torange.target_Orange_table(), torange.other_Orange_tables(), test_context)
-            wordification_test.run(1)
-
+            
             idfs = wordification.idf
             docs  = wordification_test.resulting_documents
             classes = [str(a) for a in wordification_test.resulting_classes]
-            # print(docs,idfs,classes)
 
             feature_names = wordification.word_features
             feature_vectors = []
@@ -155,10 +153,9 @@ if __name__ == "__main__":
                     idf = cnt * idfs[feature]
                     doc_vec.append(idf)
                 feature_vectors.append(doc_vec)
-            print(feature_vectors,classes)                                
 
             test_arff = wordification_test.to_arff()            
-
+            
             entries = []
             targets = []
             entries_test = []
