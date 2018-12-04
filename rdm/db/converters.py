@@ -91,7 +91,7 @@ class ILPConverter(Converter):
     def attribute_clause(self, table, att):
         var_table, var_att, pk = table.capitalize(), att.capitalize(), self.db.pkeys[table]
         intervals = []
-        if self.discr_intervals.has_key(table):
+        if table in self.discr_intervals:
             intervals = self.discr_intervals[table].get(att, [])
             if intervals:
                 var_att = 'Discrete_%s' % var_att
@@ -121,7 +121,7 @@ class ILPConverter(Converter):
 
     @staticmethod
     def numeric(val):
-        for num_type in [int, float, long, complex]:
+        for num_type in [int, float, complex]:
             try:
                 num_type(str(val))
                 return True
@@ -323,7 +323,7 @@ class OrangeConverter(Converter):
             :cls_att: class attribute name
             :rtype: orange.ExampleTable
         '''
-        import orange
+        import Orange as orange
 
         cols = self.db.cols[table_name]
         attributes, metas, class_var = [], [], None
@@ -331,11 +331,11 @@ class OrangeConverter(Converter):
             att_type = self.orng_type(table_name,col)
             if att_type == 'd':
                 att_vals = self.db.col_vals[table_name][col]
-                att_var = orange.EnumVariable(str(col), values=[str(val) for val in att_vals])
+                att_var = orange.data.DiscreteVariable(str(col), values=[str(val) for val in att_vals])
             elif att_type == 'c':
-                att_var = orange.FloatVariable(str(col))
+                att_var = orange.data.ContinuousVariable(str(col))
             else:
-                att_var = orange.StringVariable(str(col))
+                att_var = orange.data.StringVariable(str(col))
             if col == cls_att:
                 if att_type == 'string':
                     raise Exception('Unsuitable data type for a target variable: %s' % att_type)
@@ -345,13 +345,13 @@ class OrangeConverter(Converter):
                 metas.append(att_var)
             else:
                 attributes.append(att_var)
-        domain = orange.Domain(attributes, class_var)
-        for meta in metas:
-            domain.addmeta(orange.newmetaid(), meta)
-        dataset = orange.ExampleTable(domain)
+
+        domain = orange.data.Domain(attributes, class_vars=class_var, metas=metas)
+
+        dataset = orange.data.Table(domain)
         dataset.name=table_name
         for row in self.db.rows(table_name, cols):
-            example = orange.Example(domain)
+            example = orange.data.Instance(domain)
             for col, val in zip(cols, row):
                 example[str(col)] = str(val) if val!=None else '?'
             dataset.append(example)

@@ -28,7 +28,7 @@ def create_attribute_list(attribute_str):
     return ''
 
 def check_attributes(attribute_str):
-    print attribute_str
+    print(attribute_str)
     if re.search('^(-d \w+ \d+ (eqb|sdm))( -d \w+ \d+ (eqb|sdm))*$',attribute_str):
         return attribute_str
     else :

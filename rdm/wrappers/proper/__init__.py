@@ -1,1 +1,1 @@
-from proper import Proper
+from .proper import Proper

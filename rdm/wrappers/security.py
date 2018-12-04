@@ -50,12 +50,12 @@ class SafePopen(threading.Thread):
     '''
     def __init__(self, args, **kwargs):
         threading.Thread.__init__(self)
-        self.timeout = kwargs.pop('timeout') if kwargs.has_key('timeout') else default_timeout
+        self.timeout = kwargs.pop('timeout') if "timeout" in kwargs else default_timeout
         self.args = args
         self.kwargs = kwargs
+        self.p = Popen(self.args, **self.kwargs)
     
     def run(self):
-        self.p = Popen(self.args, **self.kwargs)
         self.p.wait()
 
     def safe_run(self):
@@ -98,8 +98,8 @@ if __name__ == '__main__':
         except:
             errors += 1
     assert errors == len(nasty_scripts)
-    print 'All illegal predicates found.'
+    print('All illegal predicates found.')
     try:
         p = SafePopen(['find', '/', '-name', '"a"'], stdout=PIPE, timeout=0.5).safe_run()
     except:
-        print 'Timeout exceeded.'
+        print('Timeout exceeded.')

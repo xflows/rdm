@@ -1,1 +1,1 @@
-from rsd import RSD
+from .rsd import RSD

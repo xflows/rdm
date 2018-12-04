@@ -18,8 +18,7 @@ def chunks(l, n):
     yield l[n * newn - newn:]
 
 
-def wordify_examples(
-        (name_to_table, connecting_tables, context, index_by_value, target_table_name, word_att_length, ex_idxs)):
+def wordify_examples(name_to_table, connecting_tables, context, index_by_value, target_table_name, word_att_length, ex_idxs):
     cached_sentences = defaultdict(dict)
 
     return [
@@ -40,11 +39,11 @@ def wordify_example(name_to_table, connecting_tables, context, cached_sentences,
     data_name = str(data_name)
 
     if debug:
-        print "======================================"
-        print "example:", ex
-        print "table name:", data_name
-        print "searched_connections:", len(searched_connections), searched_connections
-        print "connecting_tables:", len(connecting_tables[data_name]), connecting_tables[data_name]
+        print("======================================")
+        print("example:", ex)
+        print("table name:", data_name)
+        print("searched_connections:", len(searched_connections), searched_connections)
+        print("connecting_tables:", len(connecting_tables[data_name]), connecting_tables[data_name])
 
     ex_pkey_value = data_name in context.pkeys and ex[str(context.pkeys[data_name])]
 
@@ -52,7 +51,7 @@ def wordify_example(name_to_table, connecting_tables, context, cached_sentences,
 
         words = []  # word list for every example
         if debug:
-            print "words:", len(words)
+            print("words:", len(words))
         # Construct words (tableName_attributeName_attributeValue) from the given table
         for att in name_to_table[data_name].domain.attributes:
             if not str(att.name) in context.pkeys[data_name] and not str(att.name) in context.fkeys[data_name]:
@@ -68,12 +67,12 @@ def wordify_example(name_to_table, connecting_tables, context, cached_sentences,
         for sec_t_name, sec_fkey, prim_fkey in connecting_tables[data_name]:
             sec_t = name_to_table[sec_t_name]
             if debug:
-                print "------------------"
-                print "(sec_t,sec_fkey,prim):", (sec_t_name, sec_fkey, prim_fkey)
-                print "search this table:", not (sec_t_name,
-                                                 sec_fkey) in searched_connections and sec_t_name != target_table_name
-                print "search this table:", not prim_fkey or not (data_name,
-                                                                  sec_fkey) in searched_connections  # and sec_t!=self.target_table
+                print("------------------")
+                print("(sec_t,sec_fkey,prim):", (sec_t_name, sec_fkey, prim_fkey))
+                print("search this table:", not (sec_t_name,
+                                                 sec_fkey) in searched_connections and sec_t_name != target_table_name)
+                print("search this table:", not prim_fkey or not (data_name,
+                                                                  sec_fkey) in searched_connections)  # and sec_t!=self.target_table
             if not (sec_t_name, sec_fkey) in searched_connections and sec_t_name != target_table_name and (
                 not prim_fkey or not (data_name, sec_fkey) in searched_connections):
                 example_indexes = index_by_value[sec_t_name][str(sec_fkey)][str(ex_pkey_value)] if not prim_fkey else \

@@ -9,7 +9,7 @@ import logging
 import re
 import tempfile
 import json
-from StringIO import StringIO
+from io import StringIO
 from stat import S_IREAD, S_IEXEC
 from subprocess import PIPE
 
@@ -244,6 +244,6 @@ class Aleph(object):
             vals = []
             for i in range(0, class_id):
                 vals.append('+' if i in json.loads(features) else '-')
-	    vals.append(cls)
+            vals.append(cls)
             cat('%s' % ','.join(vals))
         return arff.getvalue()

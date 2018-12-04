@@ -1,1 +1,1 @@
-from wordification import Wordification
+from .wordification import Wordification

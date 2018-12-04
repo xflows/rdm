@@ -5,7 +5,7 @@ import os
 import re
 import arff
 
-from converters import RSDConverter, TreeLikerConverter
+from .converters import RSDConverter, TreeLikerConverter
 
 
 def _feature_numbers(features):
@@ -69,7 +69,7 @@ def domain_map(features, feature_format, train_context, test_context,
             features,
         ])
         THIS_DIR = os.path.dirname(__file__) if os.path.dirname(__file__) else '.'
-        f = tempfile.NamedTemporaryFile(delete=False)
+        f = tempfile.NamedTemporaryFile(mode='w',delete=False)
         f.write(prolog_bk)
         f.close()
         cmd_args = ['yap', '-L', '--', '%s/mapper.pl' % THIS_DIR, f.name, mapper_target_name]
@@ -138,7 +138,7 @@ def dump_dataset(features, feature_format, evaluations, train_context,
     elif format == 'csv':
         data = ''
         for line in evaluations.splitlines():
-            values = line.strip().split()
+            values = line.decode("utf8").strip().split()
             data = data + ','.join(values) + '\n'
         return data
 

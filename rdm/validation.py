@@ -1,5 +1,5 @@
 import random
-
+import sklearn.model_selection as skl
 
 def cv_split(context, folds=10, random_seed=None):
     '''
@@ -19,20 +19,21 @@ def cv_split(context, folds=10, random_seed=None):
         >>> for train_context, test_context in cv_split(context, folds=10, random_seed=0):
         >>>     pass  # Your CV loop
     '''
-    import orange
+    import Orange as orange
     random_seed = random.randint(0, 10**6) if not random_seed else random_seed
     input_list = context.orng_tables.get(context.target_table, None)
-    indices = orange.MakeRandomIndicesCV(input_list, randseed=random_seed, folds=folds,
-                                         stratified=orange.MakeRandomIndices.Stratified)
+    splitter = skl.StratifiedKFold(folds, random_state=random_seed)
+    input_listX = [pair[0] for pair in input_list]
+    input_listY = range(len(input_list))
+    #indices = orange.data.MakeRandomIndicesCV(input_list, randseed=random_seed, folds=folds,
+    #                                     stratified=orange.MakeRandomIndices.Stratified)
 
     fold_contexts = []
-    for i in range(folds):
-        train = input_list.select(indices, i, negate=1)
-        test = input_list.select(indices, i)
-        train.name = input_list.name
-        test.name = input_list.name
+    for train_index, test_index in splitter.split(input_listY, input_listX):
+        train = orange.data.Table.from_table_rows(input_list,train_index)
         train_context = context.copy()
         train_context.orng_tables[context.target_table] = train
+        test = orange.data.Table.from_table_rows(input_list,test_index)
         test_context = context.copy()
         test_context.orng_tables[context.target_table] = test
         fold_contexts.append((train_context, test_context))

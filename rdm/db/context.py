@@ -4,9 +4,9 @@ import copy
 
 import mysql.connector as mysql
 import psycopg2 as postgresql
-import converters
+from . import converters
 
-from datasource import MySQLDataSource, PgSQLDataSource
+from .datasource import MySQLDataSource, PgSQLDataSource
 
 
 class DBVendor:
@@ -57,7 +57,7 @@ class DBConnection:
         try:
             with self.connect() as _:
                 pass
-        except Exception, e:
+        except Exception as e:
             raise Exception('Problem connecting to the database. Please re-check your credentials.')
 
     def connection(self):
