@@ -13,7 +13,7 @@ def chunks(l, n):
     """ Yield n successive chunks from l.
     """
     newn = int(1.0 * len(l) / n + 0.5)
-    for i in xrange(0, n - 1):
+    for i in range(0, n - 1):
         yield l[i * newn:i * newn + newn]
     yield l[n * newn - newn:]
 
@@ -157,16 +157,15 @@ class Wordification(object):
 
         # class + wordification on every example of the main table
 
-        p = multiprocessing.Pool(num_of_processes)
+#        p = multiprocessing.Pool(num_of_processes)
 
-        indices = chunks(range(len(self.target_table)), num_of_processes)  # )
-
+        indices = chunks(range(len(self.target_table)), num_of_processes)
+        
         for ex_idxs in indices:
-            self.resulting_documents.extend(wordify_examples((self.name_to_table, self.connecting_tables, self.context,
-                                                              self.index_by_value, self.target_table.name,
-                                                              self.word_att_length, ex_idxs)))
-        p.close()
-        p.join()
+            wdx = wordify_examples(self.name_to_table, self.connecting_tables, self.context,self.index_by_value, self.target_table.name,self.word_att_length, ex_idxs)
+            self.resulting_documents.extend(wdx)
+#        p.close()
+#        p.join()
 
         for i, ex in enumerate(self.target_table):
             self.resulting_classes.append(ex.get_class())
@@ -231,8 +230,7 @@ class Wordification(object):
         for i, word in enumerate(words):
             arff_string += "@ATTRIBUTE\t'" + word.replace("'", "") + "'\tREAL\n"
 
-        arff_string += "@ATTRIBUTE\tclass\t{" + string.join(set([str(a) for a in self.resulting_classes]),
-                                                            ",") + "}\n\n@DATA\n"
+        arff_string += "@ATTRIBUTE\tclass\t{" + "".join(set([str(a) for a in self.resulting_classes]),",") + "}\n\n@DATA\n"
 
         self.word_features = []
         for doc_idx in range(len(self.resulting_documents)):
