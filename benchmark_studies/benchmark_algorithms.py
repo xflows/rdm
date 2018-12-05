@@ -23,6 +23,29 @@ from scipy.io import arff as sarf
 from sklearn import tree
 import pandas as pd
 
+def arff_parser(arff):
+
+    """
+    Extract instances and test cases.
+    """
+    
+    entries = []
+    targets = []    
+    
+    wtag = False
+
+    for entry in train_arff.split("\n"):
+        if wtag:
+            en = entry.split(",")
+            if len(en)>1:
+                en = [x.replace(" ","") for x in en]
+                targets.append(en[-1])
+                entries.append([float(x) for x  in en[0:len(en)-1]])
+        if "@DATA" in entry:
+            wtag=True
+            
+    return (entries,targets)
+
 if __name__ == "__main__":
     
     parser = argparse.ArgumentParser(description='Benchmark setup')
@@ -136,11 +159,10 @@ if __name__ == "__main__":
             train_arff = wordification.to_arff()
 
             wordification_test = Wordification(torange.target_Orange_table(), torange.other_Orange_tables(), test_context)
-            
+            wordification_test.run(1)
             idfs = wordification.idf
             docs  = wordification_test.resulting_documents
             classes = [str(a) for a in wordification_test.resulting_classes]
-
             feature_names = wordification.word_features
             feature_vectors = []
             for doc in docs:
@@ -153,9 +175,9 @@ if __name__ == "__main__":
                     idf = cnt * idfs[feature]
                     doc_vec.append(idf)
                 feature_vectors.append(doc_vec)
+            print(feature_vectors)
+            test_arff = wordification_test.to_arff()
 
-            test_arff = wordification_test.to_arff()            
-            
             entries = []
             targets = []
             entries_test = []
@@ -228,7 +250,6 @@ if __name__ == "__main__":
         le.fit(train_targets)
 
         targets_train_encoded = le.transform(train_targets)
-
         targets_test_encoded = le.transform(test_targets)
 
         clf = tree.DecisionTreeClassifier()
