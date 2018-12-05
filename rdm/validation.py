@@ -1,6 +1,7 @@
 import random
 import sklearn.model_selection as skl
 
+
 def cv_split(context, folds=10, random_seed=None):
     '''
     Returns a list of pairs (train_context, test_context), one for each cross-validation fold.
@@ -25,8 +26,6 @@ def cv_split(context, folds=10, random_seed=None):
     splitter = skl.StratifiedKFold(folds, random_state=random_seed)
     input_listX = [pair[0] for pair in input_list]
     input_listY = range(len(input_list))
-    #indices = orange.data.MakeRandomIndicesCV(input_list, randseed=random_seed, folds=folds,
-    #                                     stratified=orange.MakeRandomIndices.Stratified)
 
     fold_contexts = []
     for train_index, test_index in splitter.split(input_listY, input_listX):

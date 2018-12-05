@@ -347,7 +347,7 @@ class OrangeConverter(Converter):
                 attributes.append(att_var)
 
         domain = orange.data.Domain(attributes, class_vars=class_var, metas=metas)
-
+        
         dataset = orange.data.Table(domain)
         dataset.name=table_name
         for row in self.db.rows(table_name, cols):
