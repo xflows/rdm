@@ -1,14 +1,14 @@
 ## A simple python job generator
 
 learners = ['aleph','RSD','treeliker','wordification']
-dbtuples = [('trains','trains','direction'), ## trains data set
-            ('Carcinogenesis','canc','class'), ## cancer data set
-            ('Facebook','feat','gender1'),
-            ('NCAA','target','team_id1_wins'),            
+dbtuples = [('NCAA','target','team_id1_wins'),            
             ('CORA','paper','class_label'),
             ('imdb_ijs','actors','gender'),
             ('Atherosclerosis','Death','PRICUMR'),
-            ('Hepatitis_std','dispat','Type')
+            ('Hepatitis_std','dispat','Type'),
+            ('trains','trains','direction'), ## trains data set
+            ('Carcinogenesis','canc','class'), ## cancer data set
+            ('Facebook','feat','gender1')
 ]
 
 result_file = "./tmp_results.txt"

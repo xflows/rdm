@@ -156,6 +156,7 @@ if __name__ == "__main__":
             wordification = Wordification(corange.target_Orange_table(), corange.other_Orange_tables(), train_context)
             wordification.run(1)
             wordification.calculate_weights()
+            wordification.prune(minimum_word_frequency_percentage=10)
             train_arff = wordification.to_arff()
 
             wordification_test = Wordification(torange.target_Orange_table(), torange.other_Orange_tables(), test_context)
@@ -175,7 +176,6 @@ if __name__ == "__main__":
                     idf = cnt * idfs[feature]
                     doc_vec.append(idf)
                 feature_vectors.append(doc_vec)
-            print(feature_vectors)
             test_arff = wordification_test.to_arff()
 
             entries = []
