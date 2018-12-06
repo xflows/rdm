@@ -156,7 +156,7 @@ if __name__ == "__main__":
             wordification = Wordification(corange.target_Orange_table(), corange.other_Orange_tables(), train_context)
             wordification.run(1)
             wordification.calculate_weights()
-            wordification.prune(minimum_word_frequency_percentage=10)
+            wordification.prune(minimum_word_frequency_percentage=1)
             train_arff = wordification.to_arff()
 
             wordification_test = Wordification(torange.target_Orange_table(), torange.other_Orange_tables(), test_context)
