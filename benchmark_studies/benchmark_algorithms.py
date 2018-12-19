@@ -21,6 +21,7 @@ from rdm.validation import cv_split
 from io import StringIO
 from scipy.io import arff as sarf
 from sklearn import tree
+from sklearn.metrics import precision_recall_fscore_support
 import pickle
 import pandas as pd
 
@@ -61,15 +62,7 @@ if __name__ == "__main__":
     dataset = args.dataset
     target_label = args.target_label
     target_table = args.target_table
-
-    # connection = DBConnection(
-    #     'ilp',  # User
-    #     'ilp123',  # Password
-    #     'workflow.ijs.si',  # Host
-    #     dataset,  # Database
-    #     vendor=DBVendor.MySQL
-    # )
-    
+    classifier = args.classifier
     path = "../datasets/"+args.dataset+".pickle"
     print(path)
     with open(path, 'rb') as handle:
@@ -78,12 +71,14 @@ if __name__ == "__main__":
     # Cross-validation loop
     predictions = []
     predictions_f1 = []
+    predictions_recall = []
+    predictions_precision = []
     times = []
     folds = 5
     target_attr_value = None
-    
+    cnts = 0
     for train_context, test_context in cv_split(context, folds=folds, random_seed=0):
-
+        cnts+=1
         # Find features on the train set
         start = timer()
         if learner == "RSD":
@@ -145,6 +140,7 @@ if __name__ == "__main__":
             print (entries_test,targets_test)
                     
         elif learner == "wordification":
+
             corange = OrangeConverter(train_context)
             torange = OrangeConverter(test_context)
             wordification = Wordification(corange.target_Orange_table(), corange.other_Orange_tables(), train_context)
@@ -152,7 +148,6 @@ if __name__ == "__main__":
             wordification.calculate_weights()
             wordification.prune(minimum_word_frequency_percentage=1)
             train_arff = wordification.to_arff()
-
             wordification_test = Wordification(torange.target_Orange_table(), torange.other_Orange_tables(), test_context)
             wordification_test.run(1)
             idfs = wordification.idf
@@ -241,8 +236,11 @@ if __name__ == "__main__":
         test_targets = pd.DataFrame(targets_test)
 
         features = pd.concat([train_features,test_features])
-        targets = pd.concat([train_targets,test_targetss])
-                
+        targets = pd.concat([train_targets,test_targets])
+        
+        features.to_csv("../folds/features_"+args.learner+"_"+args.dataset+"_"+str(cnts)+".tsv",sep="\t")
+        targets.to_csv("../folds/targets_"+args.learner+"_"+args.dataset+"_"+str(cnts)+".tsv",sep="\t")
+        
         le = preprocessing.LabelEncoder()
         le.fit(train_targets)
 
@@ -253,13 +251,36 @@ if __name__ == "__main__":
             clf = tree.DecisionTreeClassifier()
             clf.fit(train_features,targets_train_encoded)
             
+        if args.classifier == "SVM":
+            from sklearn import svm
+            clf = svm.SVC(gamma='scale')
+            clf.fit(train_features,targets_train_encoded)
+            
+        if args.classifier == "GBM":
+            from sklearn.ensemble import GradientBoostingClassifier
+            clf = GradientBoostingClassifier()
+            clf.fit(train_features,targets_train_encoded)
+            
+        if args.classifier == "MLP":            
+            from sklearn.linear_model import Perceptron
+            clf = Perceptron(tol=1e-3, random_state=0)
+            clf.fit(train_features,targets_train_encoded)
+            
+        if args.classifier == "CEN":
+            from sklearn.neighbors.nearest_centroid import NearestCentroid
+            clf = NearestCentroid()
+            clf.fit(train_features,targets_train_encoded)
+            
         preds = clf.predict(test_features)
         acc = accuracy_score(preds,targets_test_encoded)
         f1 = f1_score(preds,targets_test_encoded)
+        p,r,f1,sup = precision_recall_fscore_support(preds,targets_test_encoded)
         predictions.append(acc)
         predictions_f1.append(f1)
+        predictions_recall.append(r)
+        predictions_precision.append(p)
         end = timer()
         times.append(end-start)
         print(acc,f1)
 
-    print ("RESULT_LINE",learner, dataset, target_label, np.mean(predictions), np.mean(predictions_f1),np.mean(times),target_label)
+    print ("RESULT_LINE",learner, classifier, dataset, target_label, np.mean(predictions), np.mean(predictions_f1),np.mean(times),target_label,np.mean(predictions_recall),np.mean(predictions_precision))

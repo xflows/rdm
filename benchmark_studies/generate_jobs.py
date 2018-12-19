@@ -1,6 +1,6 @@
 ## A simple python job generator
 
-learners = ['aleph','RSD','treeliker','wordification']
+learners = ['aleph','RSD','treeliker']#,'wordification']
 dbtuples = [('trains','trains','direction'),
             ('cs','target_churn','target_churn'),
             ('imdb_ijs','actors','gender'),
@@ -13,7 +13,10 @@ dbtuples = [('trains','trains','direction'),
             
 ]
 
-result_file = "./tmp_results_new.txt"
+classifiers = ["DT","SVM","GBM","MLP","CEN"]
+
+result_file = "./tmp_results_new_v2.txt"
 for dtuple in dbtuples:
     for learner in learners:
-        print ('python3','benchmark_algorithms.py','--dataset',dtuple[0],'--target_table',dtuple[1],'--target_label',dtuple[2],'--learner',learner,'>>',result_file)
+        for classifier in classifiers:
+            print ('python3','benchmark_algorithms.py','--dataset',dtuple[0],'--target_table',dtuple[1],'--target_label',dtuple[2],'--learner',learner,"--classifier",classifier,'>>',result_file)
