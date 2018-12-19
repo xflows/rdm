@@ -78,7 +78,7 @@ class DBConnection:
 
 class DBContext:
     def __init__(self, connection, target_table=None, target_att=None,
-                 find_connections=False, in_memory=True):
+                 find_connections=False, in_memory=True,to_exclude=['gender2']):
         '''
             Initializes a new DBContext object from the given DBConnection.
 
@@ -93,11 +93,11 @@ class DBContext:
         self.tables = self.src.tables()
         self.cols = {}
         for table in self.tables:
-            self.cols[table] = self.src.table_columns(table)
-
+            self.cols[table] = [x for x in self.src.table_columns(table) if x not in to_exclude]
+        
         self.all_cols = dict(self.cols)
         self.col_vals = {}
-
+        
         conn_data = self.src.connected(
             self.tables,
             self.cols,

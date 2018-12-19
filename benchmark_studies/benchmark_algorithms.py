@@ -21,6 +21,7 @@ from rdm.validation import cv_split
 from io import StringIO
 from scipy.io import arff as sarf
 from sklearn import tree
+import pickle
 import pandas as pd
 
 def arff_parser(arff):
@@ -53,8 +54,9 @@ if __name__ == "__main__":
     parser.add_argument('--dataset',type=str,default="trains")
     parser.add_argument('--target_table',type=str,default="trains")
     parser.add_argument('--target_label',type=str,default="direction")
+    parser.add_argument('--classifier',type=str,default="DT")
 
-    args = parser.parse_args()    
+    args = parser.parse_args()
     learner = args.learner
     dataset = args.dataset
     target_label = args.target_label
@@ -66,21 +68,13 @@ if __name__ == "__main__":
     #     'workflow.ijs.si',  # Host
     #     dataset,  # Database
     #     vendor=DBVendor.MySQL
-    # )    
+    # )
     
-    # Provide connection information
-    connection = DBConnection(
-        'guest',  # User
-        'relational',  # Password
-        'relational.fit.cvut.cz',  # Host
-        dataset,  # Database
-        vendor=DBVendor.MySQL
-    )
-
-    # Define learning context
-    context = DBContext(connection, target_table=target_table, target_att=target_label)
-    print ("Got context..")
-
+    path = "../datasets/"+args.dataset+".pickle"
+    print(path)
+    with open(path, 'rb') as handle:
+        context = pickle.load(handle)
+    
     # Cross-validation loop
     predictions = []
     predictions_f1 = []
@@ -246,16 +240,20 @@ if __name__ == "__main__":
         test_features = pd.DataFrame(entries_test)
         test_targets = pd.DataFrame(targets_test)
 
+        features = pd.concat([train_features,test_features])
+        targets = pd.concat([train_targets,test_targetss])
+                
         le = preprocessing.LabelEncoder()
         le.fit(train_targets)
 
         targets_train_encoded = le.transform(train_targets)
         targets_test_encoded = le.transform(test_targets)
 
-        clf = tree.DecisionTreeClassifier()
-        clf.fit(train_features,targets_train_encoded)
+        if args.classifier == "DT":
+            clf = tree.DecisionTreeClassifier()
+            clf.fit(train_features,targets_train_encoded)
+            
         preds = clf.predict(test_features)
-
         acc = accuracy_score(preds,targets_test_encoded)
         f1 = f1_score(preds,targets_test_encoded)
         predictions.append(acc)

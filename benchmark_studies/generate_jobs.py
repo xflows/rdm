@@ -1,17 +1,19 @@
 ## A simple python job generator
 
 learners = ['aleph','RSD','treeliker','wordification']
-dbtuples = [('NCAA','target','team_id1_wins'),            
-            ('CORA','paper','class_label'),
+dbtuples = [('trains','trains','direction'),
+            ('cs','target_churn','target_churn'),
             ('imdb_ijs','actors','gender'),
-            ('Atherosclerosis','Death','PRICUMR'),
-            ('Hepatitis_std','dispat','Type'),
-            ('trains','trains','direction'), ## trains data set
-            ('Carcinogenesis','canc','class'), ## cancer data set
-            ('Facebook','feat','gender1')
+            ('financial','load','status'),
+            ('Carcinogenesis','canc','class'),
+            ('mutagenesis','molecule','mutagenic'),
+            ('Dunur','target','is_dunur'),
+            ('Facebook','feat','gender1'),
+            ('NBA','game','ResultOfTeam1')
+            
 ]
 
-result_file = "./tmp_results.txt"
+result_file = "./tmp_results_new.txt"
 for dtuple in dbtuples:
     for learner in learners:
         print ('python3','benchmark_algorithms.py','--dataset',dtuple[0],'--target_table',dtuple[1],'--target_label',dtuple[2],'--learner',learner,'>>',result_file)

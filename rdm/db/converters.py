@@ -337,7 +337,7 @@ class OrangeConverter(Converter):
             else:
                 att_var = orange.data.StringVariable(str(col))
             if col == cls_att:
-                if att_type == 'string':
+                if att_type == 'string':                    
                     raise Exception('Unsuitable data type for a target variable: %s' % att_type)
                 class_var=att_var
                 continue
@@ -347,7 +347,6 @@ class OrangeConverter(Converter):
                 attributes.append(att_var)
 
         domain = orange.data.Domain(attributes, class_vars=class_var, metas=metas)
-        
         dataset = orange.data.Table(domain)
         dataset.name=table_name
         for row in self.db.rows(table_name, cols):
