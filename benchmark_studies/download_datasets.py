@@ -1,5 +1,7 @@
 learners = ['aleph','RSD','treeliker','wordification']
-dbtuples = [('financial','load','status'),('Carcinogenesis','canc','class'),('mutagenesis','molecule','mutagenic')]
+dbtuples = [#('financial','load','status')],
+            ('Carcinogenesis','canc','class'),
+            ('mutagenesis','molecule','mutagenic')]
 
 result_file = "./tmp_results_new.txt"
 for dtuple in dbtuples:
