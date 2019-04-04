@@ -6,7 +6,7 @@ sys.path.append('..')
 
 from rdm.db import DBConnection, DBContext, OrangeConverter, RSDConverter, AlephConverter, TreeLikerConverter
 from rdm.wrappers import Wordification, RSD, Aleph, TreeLiker
-from conf import TEST_DB, TEST_DB_POSTGRES, RESULTS_FOLDER
+from tests.conf import TEST_DB, TEST_DB_POSTGRES, RESULTS_FOLDER
 
 
 class TestWrappers(unittest.TestCase):
@@ -43,9 +43,10 @@ class TestWrappers(unittest.TestCase):
         )
         wordification.run(1)
         wordification.calculate_weights()
+        arff = wordification.to_arff()
 
-        with open(os.path.join(RESULTS_FOLDER, 'wrappers', 'wordification', 'trains.arff')) as f:
-            self.assertMultiLineEqual(wordification.to_arff(), f.read())
+        with open(os.path.join(RESULTS_FOLDER, 'wrappers', 'wordification', 'wordification_mysql.txt')) as f:
+            self.assertMultiLineEqual(arff, f.read())
 
     def test_rsd_mysql(self):
         conv = RSDConverter(self.context)
@@ -53,10 +54,10 @@ class TestWrappers(unittest.TestCase):
         features, arff, _ = rsd.induce(conv.background_knowledge(),
                                        examples=conv.all_examples())
 
-        with open(os.path.join(RESULTS_FOLDER, 'wrappers', 'rsd', 'trains.arff')) as f:
+        with open(os.path.join(RESULTS_FOLDER, 'wrappers', 'rsd', 'rsd_mysql.txt')) as f:
             self.assertMultiLineEqual(arff, f.read())
 
-        with open(os.path.join(RESULTS_FOLDER, 'wrappers', 'rsd', 'trains.frs')) as f:
+        with open(os.path.join(RESULTS_FOLDER, 'wrappers', 'rsd', 'rsd_frs_mysql.txt')) as f:
             self.assertMultiLineEqual(features, f.read())
 
     def test_aleph_pgsql(self):
@@ -66,8 +67,9 @@ class TestWrappers(unittest.TestCase):
                                         conv.negative_examples(),
                                         conv.background_knowledge())
 
-        with open(os.path.join(RESULTS_FOLDER, 'wrappers', 'aleph', 'geographical.arff')) as f:
+        with open(os.path.join(RESULTS_FOLDER, 'wrappers', 'aleph', 'aleph_pgsql.txt')) as f:
             self.assertMultiLineEqual(theory, f.read())
+
 
     def test_aleph_mysql(self):
         conv = AlephConverter(self.context, target_att_val='east')

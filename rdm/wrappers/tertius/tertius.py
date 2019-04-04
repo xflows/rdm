@@ -1,7 +1,7 @@
 from subprocess import Popen, PIPE
 import os
 import re
-import helper
+from . import helper
 
 class Tertius(object):
     def __init__(self,input_dict):

@@ -1,1 +1,1 @@
-from treeliker import TreeLiker
+from .treeliker import TreeLiker

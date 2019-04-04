@@ -19,7 +19,8 @@
       "wsdl_method": "", 
       "wsdl": "", 
       "interactive": true, 
-      "is_streaming": false, 
+      "is_streaming": false,
+      "always_save_results": true,
       "order": 2, 
       "name": "Database Context"
     }

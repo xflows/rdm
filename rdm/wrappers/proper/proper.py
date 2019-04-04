@@ -2,6 +2,7 @@ import time
 from subprocess import Popen, PIPE
 import os
 
+
 def _set_target_table(context, new_table, target_att):
         context.__init__(context.src.connection, find_connections='yes')
         context.target_table = new_table
@@ -23,7 +24,8 @@ def _set_target_table(context, new_table, target_att):
             context.orng_tables = context.read_into_orange()
             
         return context
-            
+
+
 class Proper(object):
     def __init__(self,input_dict,is_relaggs):
         self.context = input_dict['context'];
@@ -96,5 +98,5 @@ class Proper(object):
         for table in context.tables:
             excluded_set = set(context.all_cols[table]).difference(set(context.col_vals[table].keys()))
             if excluded_set:
-                excluded_fields.add(','.join(map(lambda field: table + '.' + str(field), excluded_set)))
+                excluded_fields.add(','.join([table + '.' + str(field) for field in excluded_set]))
         return ','.join(excluded_fields)

@@ -4,9 +4,9 @@ import copy
 
 import mysql.connector as mysql
 import psycopg2 as postgresql
-import converters
+from .converters import OrangeConverter
 
-from datasource import MySQLDataSource, PgSQLDataSource
+from .datasource import MySQLDataSource, PgSQLDataSource
 
 
 class DBVendor:
@@ -57,7 +57,7 @@ class DBConnection:
         try:
             with self.connect() as _:
                 pass
-        except Exception, e:
+        except Exception as e:
             raise Exception('Problem connecting to the database. Please re-check your credentials.')
 
     def connection(self):
@@ -115,12 +115,12 @@ class DBContext:
             self.orng_tables = self.read_into_orange()
 
     def read_into_orange(self):
-        conv = converters.OrangeConverter(self)
+        conv = OrangeConverter(self)
         tables = {
             self.target_table: conv.target_Orange_table()
         }
         other_tbl_names = [table for table in self.tables if table != self.target_table]
-        other_tables = dict(zip(other_tbl_names, conv.other_Orange_tables()))
+        other_tables = dict(list(zip(other_tbl_names, conv.other_Orange_tables())))
         tables.update(other_tables)
         return tables
 
@@ -184,7 +184,7 @@ class DBContext:
         return self.src.fetch_types(table, cols)
 
     def compute_col_vals(self):
-        for table, cols in self.cols.items():
+        for table, cols in list(self.cols.items()):
             self.col_vals[table] = {}
             for col in cols:
                 self.col_vals[table][col] = self.src.column_values(table, col)
@@ -208,5 +208,5 @@ class DBContext:
             'pkeys': self.pkeys,
             'fkeys': self.fkeys,
             'orng_tables': [(name, len(table)) for name, table in
-                            self.orng_tables.items()] if self.orng_tables else 'not in memory'
+                            list(self.orng_tables.items())] if self.orng_tables else 'not in memory'
         })
