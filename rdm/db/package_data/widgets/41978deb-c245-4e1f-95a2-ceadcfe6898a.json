@@ -19,8 +19,7 @@
       "wsdl_method": "", 
       "wsdl": "", 
       "interactive": false, 
-      "is_streaming": false,
-      "always_save_results": true,
+      "is_streaming": false, 
       "order": 1, 
       "name": "Database Connect"
     }

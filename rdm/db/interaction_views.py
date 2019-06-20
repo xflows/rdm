@@ -5,7 +5,7 @@ MySQL interaction views.
 '''
 import json
 from django.shortcuts import render
-from .context import DBContext
+from context import DBContext
 
 def database_db_context(request, input_dict, output_dict, widget):
     con = input_dict['connection']

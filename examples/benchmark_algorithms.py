@@ -121,7 +121,6 @@ if __name__ == "__main__":
             wordification.run(1)
             wordification.calculate_weights()
             train_arff = wordification.to_arff()
-
             wordification_test = Wordification(torange.target_Orange_table(), torange.other_Orange_tables(), test_context)
             wordification_test.run(1)
 

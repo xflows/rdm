@@ -4,15 +4,16 @@ from string import ascii_lowercase as chars
 from random import choice
 import tempfile
 
-from .aleph import Aleph
-from .rsd import RSD
-from .wordification import Wordification
-from .treeliker import TreeLiker
-from .security import check_input
-from .proper import Proper
-from .tertius import Tertius, OneBC
-from .caraf import Caraf
+from aleph import Aleph
+from rsd import RSD
+from wordification import Wordification
+from treeliker import TreeLiker
+from security import check_input
+from proper import Proper
+from tertius import Tertius, OneBC
+from caraf import Caraf
 
+from services.webservice import WebService
 
 def ilp_aleph(input_dict):
     aleph = Aleph()
@@ -47,7 +48,7 @@ def ilp_rsd(input_dict):
     if settings:
         rsd.settingsAsFacts(settings)
     # Parse settings provided as parameters (these have higher priority)
-    for setting, def_val in list(RSD.ESSENTIAL_PARAMS.items()):
+    for setting, def_val in RSD.ESSENTIAL_PARAMS.items():
         rsd.set(setting, input_dict.get(setting, def_val))
     # Check for illegal predicates
     for pl_script in [b, pos, neg, examples]:
@@ -63,11 +64,10 @@ def ilp_sdmsegs_rule_viewer(input_dict):
 
 
 def ilp_sdmaleph(input_dict):
-    from services.webservice import WebService
-    import Orange
+    import orange
     ws = WebService('http://vihar.ijs.si:8097', 3600)
     data = input_dict.get('examples')
-    if isinstance(data, Orange.data.Table):
+    if isinstance(data, orange.ExampleTable):
         with tempfile.NamedTemporaryFile(suffix='.tab', delete=True) as f:
             data.save(f.name)
             examples = f.read()
@@ -78,7 +78,6 @@ def ilp_sdmaleph(input_dict):
     else:
         raise Exception('Illegal examples format. \
                          Supported formats: str, list or Orange')
-
     response = ws.client.sdmaleph(
         examples=examples,
         mapping=input_dict.get('mapping'),

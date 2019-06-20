@@ -13,7 +13,7 @@ TEST_DB = {
 TEST_DB_POSTGRES = {
     'user': 'ilp',
     'pass': 'ilp123',
-    'host': 'localhost',
+    'host': '10.0.2.2',
     'database': 'ilp',
     'vendor': DBVendor.PostgreSQL
 }

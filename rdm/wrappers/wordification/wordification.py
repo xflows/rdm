@@ -108,6 +108,7 @@ class Wordification(object):
             :param target_table: Orange ExampleTable, representing the primary table
             :param other_tables: secondary tables, Orange ExampleTables
         """
+        
         self.target_table = target_table
         self.other_tables = other_tables
         self.context = context
@@ -122,9 +123,9 @@ class Wordification(object):
         self.word_in_how_many_documents = defaultdict(int)
         self.tf_idfs = defaultdict(dict)
         self.name_to_table = {}
-
+        
         # Finds table connections
-        for primary_table in [target_table] + other_tables:
+        for primary_table in [target_table] + other_tables:            
             self.name_to_table[primary_table.name] = primary_table
             for secondary_table in [target_table] + other_tables:
                 if (primary_table.name, secondary_table.name) in self.context.connected:
@@ -247,7 +248,7 @@ class Wordification(object):
                     features.append("0")
             features.append(str(self.resulting_classes[doc_idx]))
 
-            arff_string += ','.join(features)
+            arff_string += ",".join(features)
             arff_string += "\n"
 
         return arff_string

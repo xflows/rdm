@@ -50,12 +50,12 @@ class SafePopen(threading.Thread):
     '''
     def __init__(self, args, **kwargs):
         threading.Thread.__init__(self)
-        self.timeout = kwargs.pop('timeout') if 'timeout' in kwargs else default_timeout
+        self.timeout = kwargs.pop('timeout') if "timeout" in kwargs else default_timeout
         self.args = args
         self.kwargs = kwargs
+        self.p = Popen(self.args, **self.kwargs)
     
     def run(self):
-        self.p = Popen(self.args, **self.kwargs)
         self.p.wait()
 
     def safe_run(self):

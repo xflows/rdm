@@ -1,0 +1,26 @@
+### plot result data
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+
+def plot_basic(dfx):
+
+    sns.barplot(x=dfx.algorithm,y=dfx.recall,hue=dfx.learner)
+    plt.show()
+    
+    pass
+
+def load_data(dfx_file):
+
+    pdf = pd.read_csv(dfx_file,sep=" ")
+    return pdf
+
+if __name__ == "__main__":
+
+    rname = "../results/all_results_run1.txt"
+    cnames = ['PH','algorithm','learner','dataset','table','accuracy','F1','time','target','precision','recall']    
+    dfx = load_data(rname)
+    dfx.columns = cnames
+    plot_basic(dfx)
+

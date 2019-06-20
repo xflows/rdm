@@ -4,14 +4,20 @@ import copy
 
 import mysql.connector as mysql
 import psycopg2 as postgresql
-from .converters import OrangeConverter
+from . import converters
 
-from .datasource import MySQLDataSource, PgSQLDataSource
+from .datasource import MySQLDataSource, PgSQLDataSource, SQLDataSource
 
 
 class DBVendor:
     MySQL = 'mysql'
     PostgreSQL = 'postgresql'
+
+
+class SQLparser:
+    def __init__(self,database):
+        self.database = database
+        self.src = SQLDataSource(self)
 
 
 class DBConnection:
@@ -78,7 +84,7 @@ class DBConnection:
 
 class DBContext:
     def __init__(self, connection, target_table=None, target_att=None,
-                 find_connections=False, in_memory=True):
+                 find_connections=False, in_memory=True,to_exclude=[]):
         '''
             Initializes a new DBContext object from the given DBConnection.
 
@@ -93,7 +99,7 @@ class DBContext:
         self.tables = self.src.tables()
         self.cols = {}
         for table in self.tables:
-            self.cols[table] = self.src.table_columns(table)
+            self.cols[table] = [x for x in self.src.table_columns(table) if x not in to_exclude]
 
         self.all_cols = dict(self.cols)
         self.col_vals = {}
@@ -115,12 +121,12 @@ class DBContext:
             self.orng_tables = self.read_into_orange()
 
     def read_into_orange(self):
-        conv = OrangeConverter(self)
+        conv = converters.OrangeConverter(self)
         tables = {
             self.target_table: conv.target_Orange_table()
         }
         other_tbl_names = [table for table in self.tables if table != self.target_table]
-        other_tables = dict(list(zip(other_tbl_names, conv.other_Orange_tables())))
+        other_tables = dict(zip(other_tbl_names, conv.other_Orange_tables()))
         tables.update(other_tables)
         return tables
 
@@ -184,7 +190,7 @@ class DBContext:
         return self.src.fetch_types(table, cols)
 
     def compute_col_vals(self):
-        for table, cols in list(self.cols.items()):
+        for table, cols in self.cols.items():
             self.col_vals[table] = {}
             for col in cols:
                 self.col_vals[table][col] = self.src.column_values(table, col)
@@ -208,5 +214,5 @@ class DBContext:
             'pkeys': self.pkeys,
             'fkeys': self.fkeys,
             'orng_tables': [(name, len(table)) for name, table in
-                            list(self.orng_tables.items())] if self.orng_tables else 'not in memory'
+                            self.orng_tables.items()] if self.orng_tables else 'not in memory'
         })

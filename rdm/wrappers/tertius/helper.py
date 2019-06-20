@@ -19,7 +19,7 @@ def create_attribute_list(attribute_str):
         if attribute_list:
             #map & strip e.g. : ['-d col1 5 eqb','-d col2 6 eqb']
             #join e.g. : '-d col1 5 eqb -d col2 6 eqb'
-            res = check_attributes(' '.join(['-d ' + str(field).strip() for field in attribute_list]))
+            res = check_attributes(' '.join(map(lambda field: '-d ' + str(field).strip(), attribute_list)))
             if res is None:
                 return ''
             else:

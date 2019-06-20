@@ -1,0 +1,102 @@
+Starting CV
+Found array with 0 feature(s) (shape=(79, 0)) while a minimum of 1 is required.
+Starting Aleph
+[Errno 2] No such file or directory: '/tmp/tmpsw27dd0y/defaultFeatures'
+[[0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 0, 0]] ["'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'1'"]
+Classification commenced.
+RESULT_LINE 1 treeliker DT cs target_churn 1.0 18.05317432200013 target_churn 1.0 1.0 18.00334848300008 1.0
+RESULT_LINE 1 treeliker SVM cs target_churn 0.9523809523809523 18.05317432200013 target_churn 0.9523809523809523 1.0 18.00334848300008 1.0
+RESULT_LINE 1 treeliker GBM cs target_churn 1.0 18.05317432200013 target_churn 1.0 1.0 18.00334848300008 1.0
+RESULT_LINE 1 treeliker LR cs target_churn 0.9523809523809523 18.05317432200013 target_churn 0.9523809523809523 1.0 18.00334848300008 1.0
+'NearestCentroid' object has no attribute 'predict_proba'
+Starting CV
+Found array with 0 feature(s) (shape=(80, 0)) while a minimum of 1 is required.
+Starting Aleph
+[Errno 2] No such file or directory: '/tmp/tmp01for7dk/defaultFeatures'
+[[1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 1, 0, 0, 0, 0, 0]] ["'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'1'"]
+Classification commenced.
+RESULT_LINE 2 treeliker DT cs target_churn 1.0 19.43867507899995 target_churn 1.0 1.0 19.421450605000018 1.0
+RESULT_LINE 2 treeliker SVM cs target_churn 0.95 19.43867507899995 target_churn 0.95 1.0 19.421450605000018 1.0
+RESULT_LINE 2 treeliker GBM cs target_churn 1.0 19.43867507899995 target_churn 1.0 1.0 19.421450605000018 1.0
+RESULT_LINE 2 treeliker LR cs target_churn 0.95 19.43867507899995 target_churn 0.95 1.0 19.421450605000018 1.0
+'NearestCentroid' object has no attribute 'predict_proba'
+Starting CV
+Found array with 0 feature(s) (shape=(80, 0)) while a minimum of 1 is required.
+Starting Aleph
+[Errno 2] No such file or directory: '/tmp/tmp1s3mw246/defaultFeatures'
+[[1, 0, 1, 0, 0, 1], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 1, 0, 0, 0, 0]] ["'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'1'"]
+Classification commenced.
+RESULT_LINE 3 treeliker DT cs target_churn 1.0 19.52274006000016 target_churn 1.0 1.0 19.50440441900014 1.0
+RESULT_LINE 3 treeliker SVM cs target_churn 0.95 19.52274006000016 target_churn 0.95 1.0 19.50440441900014 1.0
+RESULT_LINE 3 treeliker GBM cs target_churn 1.0 19.52274006000016 target_churn 1.0 1.0 19.50440441900014 1.0
+RESULT_LINE 3 treeliker LR cs target_churn 0.95 19.52274006000016 target_churn 0.95 1.0 19.50440441900014 1.0
+'NearestCentroid' object has no attribute 'predict_proba'
+Starting CV
+Found array with 0 feature(s) (shape=(80, 0)) while a minimum of 1 is required.
+Starting Aleph
+[Errno 2] No such file or directory: '/tmp/tmp47w7o8ik/defaultFeatures'
+[[1, 0, 0, 1, 0, 0, 0], [1, 0, 1, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 1, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 1, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 1, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0]] ["'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'1'"]
+Classification commenced.
+RESULT_LINE 4 treeliker DT cs target_churn 1.0 19.404608999999937 target_churn 1.0 1.0 19.387673356999812 1.0
+RESULT_LINE 4 treeliker SVM cs target_churn 0.95 19.404608999999937 target_churn 0.95 1.0 19.387673356999812 1.0
+RESULT_LINE 4 treeliker GBM cs target_churn 1.0 19.404608999999937 target_churn 1.0 1.0 19.387673356999812 1.0
+RESULT_LINE 4 treeliker LR cs target_churn 0.95 19.404608999999937 target_churn 0.95 1.0 19.387673356999812 1.0
+'NearestCentroid' object has no attribute 'predict_proba'
+Starting CV
+Found array with 0 feature(s) (shape=(81, 0)) while a minimum of 1 is required.
+Starting Aleph
+[Errno 2] No such file or directory: '/tmp/tmpi2b601nq/defaultFeatures'
+[[1, 0, 1, 1, 0], [1, 0, 1, 1, 0], [1, 0, 0, 1, 0], [1, 0, 1, 1, 0], [1, 1, 0, 1, 0], [1, 0, 1, 1, 0], [1, 1, 1, 1, 0], [1, 1, 0, 1, 0], [1, 0, 0, 1, 0], [1, 1, 0, 1, 0], [1, 0, 1, 1, 0], [1, 0, 1, 1, 0], [1, 0, 1, 1, 0], [1, 1, 0, 1, 0], [1, 1, 1, 1, 0], [1, 0, 0, 1, 0], [1, 1, 0, 1, 0], [1, 1, 0, 1, 0], [1, 0, 0, 1, 0]] ["'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'"]
+Classification commenced.
+Only one class present in y_true. ROC AUC score is not defined in that case.
+Starting CV
+Found array with 0 feature(s) (shape=(79, 0)) while a minimum of 1 is required.
+Starting Aleph
+[Errno 2] No such file or directory: '/tmp/tmpltdzlhij/defaultFeatures'
+[[0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 0, 0]] ["'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'1'"]
+Classification commenced.
+RESULT_LINE 6 treeliker DT cs target_churn 1.0 17.977039933000015 target_churn 1.0 1.0 17.95135239199999 1.0
+RESULT_LINE 6 treeliker SVM cs target_churn 0.9523809523809523 17.977039933000015 target_churn 0.9523809523809523 1.0 17.95135239199999 1.0
+RESULT_LINE 6 treeliker GBM cs target_churn 1.0 17.977039933000015 target_churn 1.0 1.0 17.95135239199999 1.0
+RESULT_LINE 6 treeliker LR cs target_churn 0.9523809523809523 17.977039933000015 target_churn 0.9523809523809523 1.0 17.95135239199999 1.0
+'NearestCentroid' object has no attribute 'predict_proba'
+Starting CV
+Found array with 0 feature(s) (shape=(80, 0)) while a minimum of 1 is required.
+Starting Aleph
+[Errno 2] No such file or directory: '/tmp/tmp67wg20ue/defaultFeatures'
+[[1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 1, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0], [1, 1, 0, 0, 0, 0, 0]] ["'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'1'"]
+Classification commenced.
+RESULT_LINE 7 treeliker DT cs target_churn 1.0 19.486745172000155 target_churn 1.0 1.0 19.46309732099985 1.0
+RESULT_LINE 7 treeliker SVM cs target_churn 0.95 19.486745172000155 target_churn 0.95 1.0 19.46309732099985 1.0
+RESULT_LINE 7 treeliker GBM cs target_churn 1.0 19.486745172000155 target_churn 1.0 1.0 19.46309732099985 1.0
+RESULT_LINE 7 treeliker LR cs target_churn 0.95 19.486745172000155 target_churn 0.95 1.0 19.46309732099985 1.0
+'NearestCentroid' object has no attribute 'predict_proba'
+Starting CV
+Found array with 0 feature(s) (shape=(80, 0)) while a minimum of 1 is required.
+Starting Aleph
+[Errno 2] No such file or directory: '/tmp/tmptuw4iufy/defaultFeatures'
+[[1, 0, 1, 0, 0, 1], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 1, 0, 0, 0, 0]] ["'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'1'"]
+Classification commenced.
+RESULT_LINE 8 treeliker DT cs target_churn 1.0 19.60624434300007 target_churn 1.0 1.0 19.58246291399996 1.0
+RESULT_LINE 8 treeliker SVM cs target_churn 0.95 19.60624434300007 target_churn 0.95 1.0 19.58246291399996 1.0
+RESULT_LINE 8 treeliker GBM cs target_churn 1.0 19.60624434300007 target_churn 1.0 1.0 19.58246291399996 1.0
+RESULT_LINE 8 treeliker LR cs target_churn 0.95 19.60624434300007 target_churn 0.95 1.0 19.58246291399996 1.0
+'NearestCentroid' object has no attribute 'predict_proba'
+Starting CV
+Found array with 0 feature(s) (shape=(80, 0)) while a minimum of 1 is required.
+Starting Aleph
+[Errno 2] No such file or directory: '/tmp/tmpvrrb6y48/defaultFeatures'
+[[1, 0, 0, 1, 0, 0, 0], [1, 0, 1, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 1, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 1, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 0, 1, 1, 0, 0, 0], [1, 0, 0, 1, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0]] ["'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'1'"]
+Classification commenced.
+RESULT_LINE 9 treeliker DT cs target_churn 1.0 19.63002076099997 target_churn 1.0 1.0 19.605968776000054 1.0
+RESULT_LINE 9 treeliker SVM cs target_churn 0.95 19.63002076099997 target_churn 0.95 1.0 19.605968776000054 1.0
+RESULT_LINE 9 treeliker GBM cs target_churn 1.0 19.63002076099997 target_churn 1.0 1.0 19.605968776000054 1.0
+RESULT_LINE 9 treeliker LR cs target_churn 0.95 19.63002076099997 target_churn 0.95 1.0 19.605968776000054 1.0
+'NearestCentroid' object has no attribute 'predict_proba'
+Starting CV
+Found array with 0 feature(s) (shape=(81, 0)) while a minimum of 1 is required.
+Starting Aleph
+[Errno 2] No such file or directory: '/tmp/tmpv8uoro26/defaultFeatures'
+[[1, 0, 1, 1, 0], [1, 0, 1, 1, 0], [1, 0, 0, 1, 0], [1, 0, 1, 1, 0], [1, 1, 0, 1, 0], [1, 0, 1, 1, 0], [1, 1, 1, 1, 0], [1, 1, 0, 1, 0], [1, 0, 0, 1, 0], [1, 1, 0, 1, 0], [1, 0, 1, 1, 0], [1, 0, 1, 1, 0], [1, 0, 1, 1, 0], [1, 1, 0, 1, 0], [1, 1, 1, 1, 0], [1, 0, 0, 1, 0], [1, 1, 0, 1, 0], [1, 1, 0, 1, 0], [1, 0, 0, 1, 0]] ["'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'", "'0'"]
+Classification commenced.
+Only one class present in y_true. ROC AUC score is not defined in that case.

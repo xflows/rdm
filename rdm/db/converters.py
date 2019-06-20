@@ -4,13 +4,13 @@ Classes for handling DBContexts for ILP systems.
 @author: Anze Vavpetic <anze.vavpetic@ijs.si>
 '''
 import re
+import itertools
 
 
 class Converter:
     '''
     Base class for converters.
     '''
-
     def __init__(self, dbcontext):
         '''
         Base class for handling converting DBContexts to various relational learning systems.
@@ -34,7 +34,6 @@ class ILPConverter(Converter):
 
         :param settings: dictionary of ``setting: value`` pairs
     '''
-
     def __init__(self, *args, **kwargs):
         self.settings = kwargs.pop('settings', {}) if kwargs else {}
         self.discr_intervals = kwargs.pop('discr_intervals', {}) if kwargs else {}
@@ -46,7 +45,7 @@ class ILPConverter(Converter):
         '''
         Emits prolog code for algorithm settings, such as ``:- set(minpos, 5).``.
         '''
-        return [':- set(%s,%s).' % (key, val) for key, val in self.settings.items()]
+        return [':- set(%s,%s).' % (key,val) for key, val in self.settings.items()]
 
     def mode(self, predicate, args, recall=1, head=False):
         '''
@@ -60,13 +59,12 @@ class ILPConverter(Converter):
             :param recall: recall setting (see `Aleph manual <http://www.cs.ox.ac.uk/activities/machinelearning/Aleph/aleph>`_)
             :param head: set to True for head clauses
         '''
-        return ':- mode%s(%s, %s(%s)).' % (
-            'h' if head else 'b', str(recall), predicate, ','.join([t + arg for t, arg in args]))
+        return ':- mode%s(%s, %s(%s)).' % ('h' if head else 'b', str(recall), predicate, ','.join([t+arg for t,arg in args]))
 
     def connecting_clause(self, table, ref_table):
         var_table, var_ref_table = table.capitalize(), ref_table.capitalize()
-        result = []
-        for pk, fk in self.db.connected[(table, ref_table)]:
+        result=[]
+        for pk,fk in self.db.connected[(table, ref_table)]:
             ref_pk = self.db.pkeys[ref_table]
             table_args, ref_table_args = [], []
             for col in self.db.cols[table]:
@@ -85,9 +83,10 @@ class ILPConverter(Converter):
                                                      ref_table,
                                                      var_table.capitalize(),
                                                      var_ref_table.capitalize()),
-                           '\t%s(%s),' % (table, ','.join(table_args)),
-                           '\t%s(%s).' % (ref_table, ','.join(ref_table_args))])
+                            '\t%s(%s),' % (table, ','.join(table_args)),
+                            '\t%s(%s).' % (ref_table, ','.join(ref_table_args))])
         return result
+
 
     def attribute_clause(self, table, att):
         var_table, var_att, pk = table.capitalize(), att.capitalize(), self.db.pkeys[table]
@@ -96,21 +95,19 @@ class ILPConverter(Converter):
             intervals = self.discr_intervals[table].get(att, [])
             if intervals:
                 var_att = 'Discrete_%s' % var_att
-        values_goal = '\t%s(%s)%s' % (
-            table, ','.join([arg.capitalize() if arg != pk else var_table for arg in self.db.cols[table]]),
-            ',' if intervals else '.')
+        values_goal = '\t%s(%s)%s' % (table, ','.join([arg.capitalize() if arg!=pk else var_table for arg in self.db.cols[table]]), ',' if intervals else '.')
         discretize_goals = []
         n_intervals = len(intervals)
         for i, value in enumerate(intervals):
-            punct = '.' if i == n_intervals - 1 else ';'
+            punct = '.' if i == n_intervals-1 else ';'
             if i == 0:
                 # Condition: att =< value_i
                 label = '=< %.2f' % value
                 condition = '%s =< %.2f' % (att.capitalize(), value)
                 discretize_goals.append('\t((%s = \'%s\', %s)%s' % (var_att, label, condition, punct))
-            if i < n_intervals - 1:
+            if i < n_intervals-1:
                 # Condition: att in (value_i, value_i+1]
-                value_next = intervals[i + 1]
+                value_next = intervals[i+1]
                 label = '(%.2f, %.2f]' % (value, value_next)
                 condition = '%s > %.2f, %s =< %.2f' % (att.capitalize(), value, att.capitalize(), value_next)
                 discretize_goals.append('\t(%s = \'%s\', %s)%s' % (var_att, label, condition, punct))
@@ -146,14 +143,12 @@ class ILPConverter(Converter):
             dump.append('\n'.join(["%s(%s)." % (table, fmt_cols(cols)) for cols in self.db.rows(table, attributes)]))
         return dump
 
-
 class RSDConverter(ILPConverter):
     '''
     Converts the database context to RSD inputs.
 
     Inherits from ILPConverter.
     '''
-
     def all_examples(self, pred_name=None):
         '''
         Emits all examples in prolog form for RSD.
@@ -172,13 +167,13 @@ class RSDConverter(ILPConverter):
         modeslist, getters = [self.mode(self.db.target_table, [('+', self.db.target_table)], head=True)], []
         for (table, ref_table) in self.db.connected.keys():
             if ref_table == self.db.target_table:
-                continue  # Skip backward connections
+                continue # Skip backward connections
             modeslist.append(self.mode('%s_has_%s' % (table.lower(), ref_table), [('+', table), ('-', ref_table)]))
             getters.extend(self.connecting_clause(table, ref_table))
         for table, atts in self.db.cols.items():
             for att in atts:
                 if att == self.db.target_att and table == self.db.target_table or \
-                                att in self.db.fkeys[table] or att == self.db.pkeys[table]:
+                   att in self.db.fkeys[table] or att == self.db.pkeys[table]:
                     continue
                 modeslist.append(self.mode('%s_%s' % (table, att), [('+', table), ('-', att)]))
                 modeslist.append(self.mode('instantiate', [('+', att)]))
@@ -186,14 +181,12 @@ class RSDConverter(ILPConverter):
 
         return '\n'.join(modeslist + getters + self.user_settings() + self.dump_tables())
 
-
 class AlephConverter(ILPConverter):
     '''
     Converts the database context to Aleph inputs.
 
     Inherits from ILPConverter.
     '''
-
     def __init__(self, *args, **kwargs):
         '''
             :param discr_intervals: (optional) discretization intervals in the form:
@@ -228,10 +221,8 @@ class AlephConverter(ILPConverter):
             if not pos_rows:
                 raise Exception('No positive examples with the given target attribute value, please re-check.')
 
-            self.__pos_examples = '\n'.join(
-                ['%s(%s).' % (self.__target_predicate(), ILPConverter.fmt_col(id)) for _, id in pos_rows])
-            self.__neg_examples = '\n'.join(
-                ['%s(%s).' % (self.__target_predicate(), ILPConverter.fmt_col(id)) for _, id in neg_rows])
+            self.__pos_examples = '\n'.join(['%s(%s).' % (self.__target_predicate(), ILPConverter.fmt_col(id)) for _, id in pos_rows])
+            self.__neg_examples = '\n'.join(['%s(%s).' % (self.__target_predicate(), ILPConverter.fmt_col(id)) for _, id in neg_rows])
         return self.__pos_examples, self.__neg_examples
 
     def positive_examples(self):
@@ -254,18 +245,16 @@ class AlephConverter(ILPConverter):
         determinations, types = [], []
         for (table, ref_table) in self.db.connected.keys():
             if ref_table == self.db.target_table:
-                continue  # Skip backward connections
-            modeslist.append(
-                self.mode('%s_has_%s' % (table.lower(), ref_table), [('+', table), ('-', ref_table)], recall='*'))
-            determinations.append(
-                ':- determination(%s/1, %s_has_%s/2).' % (self.__target_predicate(), table.lower(), ref_table))
+                continue # Skip backward connections
+            modeslist.append(self.mode('%s_has_%s' % (table.lower(), ref_table), [('+', table), ('-', ref_table)], recall='*'))
+            determinations.append(':- determination(%s/1, %s_has_%s/2).' % (self.__target_predicate(), table.lower(), ref_table))
             types.extend(self.concept_type_def(table))
             types.extend(self.concept_type_def(ref_table))
             getters.extend(self.connecting_clause(table, ref_table))
         for table, atts in self.db.cols.items():
             for att in atts:
                 if att == self.db.target_att and table == self.db.target_table or \
-                                att in self.db.fkeys[table] or att == self.db.pkeys[table]:
+                   att in self.db.fkeys[table] or att == self.db.pkeys[table]:
                     continue
                 modeslist.append(self.mode('%s_%s' % (table, att), [('+', table), ('#', att.lower())], recall='*'))
                 determinations.append(':- determination(%s/1, %s_%s/2).' % (self.__target_predicate(), table, att))
@@ -289,14 +278,16 @@ class AlephConverter(ILPConverter):
 class OrangeConverter(Converter):
     '''
     Converts the selected tables in the given context to Orange example tables.
+
     '''
-    continuous_types = ('FLOAT', 'DOUBLE', 'DECIMAL', 'NEWDECIMAL', 'double precision', 'numeric')
-    integer_types = ('TINY', 'SHORT', 'LONG', 'LONGLONG', 'INT24', 'integer')
-    ordinal_types = ('YEAR', 'VARCHAR', 'SET', 'VAR_STRING', 'STRING', 'BIT', 'text', 'character varying', 'character')
+    continuous_types = tuple([x.lower() for x in ('FLOAT','DOUBLE','DECIMAL','NEWDECIMAL','double precision','numeric','TIME','DATETIME','TIMESTAMP')])
+    integer_types = tuple([x.lower() for x in ('TINY','SHORT','LONG','LONGLONG','INT24','integer','bigint','int','smallint','tinyint','enum','real','BINARY','VARBINARY','IMAGE','CLOB')])
+    ordinal_types = tuple([x.lower() for x in ('YEAR','VARCHAR','SET','VAR_STRING','STRING','BIT','text','character varying', 'character','char','NCHAR','NVARCHAR','NTEXT','DATE')])
+
 
     def __init__(self, *args, **kwargs):
         Converter.__init__(self, *args, **kwargs)
-        self.types = {}
+        self.types={}
         for table in self.db.tables:
             self.types[table] = self.db.fetch_types(table, self.db.cols[table])
         self.db.compute_col_vals()
@@ -321,9 +312,9 @@ class OrangeConverter(Converter):
         '''
         target_table = self.db.target_table
         if not self.db.orng_tables:
-            return [self.convert_table(table, None) for table in self.db.tables if table != target_table]
+            return [self.convert_table(table,None) for table in self.db.tables if table!=target_table]
         else:
-            return [table for name, table in list(self.db.orng_tables.items()) if name != target_table]
+            return [table for name, table in self.db.orng_tables.items() if name != target_table]
 
     def convert_table(self, table_name, cls_att=None):
         '''
@@ -333,38 +324,38 @@ class OrangeConverter(Converter):
             :cls_att: class attribute name
             :rtype: orange.ExampleTable
         '''
-        import Orange
+        import Orange as orange
 
         cols = self.db.cols[table_name]
         attributes, metas, class_var = [], [], None
         for col in cols:
-            att_type = self.orng_type(table_name, col)
+            att_type = self.orng_type(table_name,col)
             if att_type == 'd':
                 att_vals = self.db.col_vals[table_name][col]
-                att_var = Orange.data.DiscreteVariable(str(col), values=[str(val) for val in att_vals])
+                att_var = orange.data.DiscreteVariable(str(col), values=[str(val) for val in att_vals])
             elif att_type == 'c':
-                att_var = Orange.data.ContinuousVariable(str(col))
+                att_var = orange.data.ContinuousVariable(str(col))
             else:
-                att_var = Orange.data.StringVariable(str(col))
+                att_var = orange.data.StringVariable(str(col))
+
             if col == cls_att:
                 if att_type == 'string':
                     raise Exception('Unsuitable data type for a target variable: %s' % att_type)
-                class_var = att_var
+                class_var=att_var
                 continue
-            elif att_type == 'string' or table_name in self.db.pkeys and col in self.db.pkeys[
-                table_name] or table_name in self.db.fkeys and col in self.db.fkeys[table_name]:
+            elif att_type == 'string' or table_name in self.db.pkeys and col in self.db.pkeys[table_name] or table_name in self.db.fkeys and col in self.db.fkeys[table_name]:
                 metas.append(att_var)
             else:
                 attributes.append(att_var)
-        domain = Orange.data.Domain(attributes, class_vars=class_var, metas=metas)
-        # for meta in metas:
-        #    domain.addmeta(Orange.newmetaid(), meta)
-        dataset = Orange.data.Table(domain)
-        dataset.name = table_name
+
+        domain = orange.data.Domain(attributes, class_vars=class_var, metas=metas)
+        dataset = orange.data.Table(domain)
+        dataset.name=table_name
+
         for row in self.db.rows(table_name, cols):
-            example = Orange.data.Instance(domain)
+            example = orange.data.Instance(domain)
             for col, val in zip(cols, row):
-                example[str(col)] = str(val) if val != None else '?'
+                example[str(col)] = str(val) if val!=None else '?'
             dataset.append(example)
         return dataset
 
@@ -377,10 +368,9 @@ class OrangeConverter(Converter):
         '''
         mysql_type = self.types[table_name][col]
         n_vals = len(self.db.col_vals[table_name][col])
-        if mysql_type in OrangeConverter.continuous_types or (
-                        n_vals >= 50 and mysql_type in OrangeConverter.integer_types):
+        if mysql_type.lower() in OrangeConverter.continuous_types or (n_vals >= 50 and mysql_type.lower() in OrangeConverter.integer_types):
             return 'c'
-        elif mysql_type in OrangeConverter.ordinal_types + OrangeConverter.integer_types:
+        elif mysql_type.lower() in OrangeConverter.ordinal_types+OrangeConverter.integer_types:
             return 'd'
         else:
             return 'string'
@@ -397,13 +387,13 @@ class TreeLikerConverter(Converter):
         given these intervals, e.g., ``att1`` would be discretized into three intervals:
         ``att1 =< 0.4, 0.4 < att1 =< 1.0, att1 >= 1.0``
     '''
-
     def __init__(self, *args, **kwargs):
         self.discr_intervals = kwargs.pop('discr_intervals', {}) if kwargs else {}
         self._template = []
         self._predicates = set()
         self._output_types = set()
         Converter.__init__(self, *args, **kwargs)
+
 
     def _row_pk(self, target, cols, row):
         row_pk = None
@@ -459,7 +449,7 @@ class TreeLikerConverter(Converter):
 
                         output_type = '-%s' % target
                         if predicate_template not in self._predicates and \
-                                        output_type not in self._output_types:
+                           output_type not in self._output_types:
                             self._output_types.add('-%s' % target)
                             self._predicates.add(predicate_template)
                             self._template.append(predicate_template)
@@ -501,7 +491,7 @@ class TreeLikerConverter(Converter):
                     # Link case 2: this_att is a fk of another table
                     else:
                         fk_list = []
-                        for row in self.db.select_where(target, [this_att] + cols, pk_att, pk):
+                        for row in self.db.select_where(target, [this_att]+cols, pk_att, pk):
                             row_pk = self._row_pk(target, cols, row[1:])
                             fk_list.append((row[0], row_pk))
                         for fk, row_pk in fk_list:
@@ -512,6 +502,7 @@ class TreeLikerConverter(Converter):
                                                      parent_table=target,
                                                      parent_pk=row_pk))
         return facts
+
 
     def _discretize_check(self, table, att, col):
         '''
@@ -526,7 +517,7 @@ class TreeLikerConverter(Converter):
             for i, value in enumerate(intervals):
 
                 if i > 0:
-                    prev_value = intervals[i - 1]
+                    prev_value = intervals[i-1]
 
                 if not prev_value and col <= value:
                     label = "'=<%.2f'" % value
@@ -544,6 +535,7 @@ class TreeLikerConverter(Converter):
 
         return label
 
+
     def dataset(self):
         '''
         Returns the DBContext as a list of interpretations, i.e., a list of
@@ -559,6 +551,7 @@ class TreeLikerConverter(Converter):
 
         return '\n'.join(examples)
 
+
     def default_template(self):
         '''
         Default learning template for TreeLiker.
@@ -572,42 +565,40 @@ class PrdFctConverter(Converter):
 
     Used for Cardinalization, Quantiles, Relaggs, 1BC, 1BC2, Tertius.
     '''
-
     def __init__(self, *args, **kwargs):
         Converter.__init__(self, *args, **kwargs)
-        self.types = {}
+        self.types={}
         for table in self.db.tables:
-            self.types[table] = self.db.fetch_types(table, self.db.cols[table])
+            self.types[table]= self.db.fetch_types(table, self.db.cols[table])
         self.db.compute_col_vals()
 
     def create_prd_file(self):
         '''
         Emits the background knowledge in prd format.
         '''
-        prd_str = ''
-        prd_str += '--INDIVIDUAL\n'
-        prd_str += '%s 1 %s cwa\n' % (self.db.target_table, self.db.target_table)
-        prd_str += '--STRUCTURAL\n'
-        for ftable, ptable in self.db.reverse_fkeys.items():
-            prd_str += '%s2%s 2 1:%s *:%s 1 cwa li\n' % (ptable, ftable[0], ptable, ftable[0])
-        prd_str += '--PROPERTIES\n'
-        prd_str += 'class 2 %s #class cwa\n' % self.db.target_table
-        for table, cols in self.db.cols.items():
+        prd_str=''
+        prd_str+='--INDIVIDUAL\n'
+        prd_str+='%s 1 %s cwa\n' % (self.db.target_table,self.db.target_table)
+        prd_str+='--STRUCTURAL\n'
+        for ftable,ptable in self.db.reverse_fkeys.iteritems():
+            prd_str+='%s2%s 2 1:%s *:%s 1 cwa li\n' % (ptable,ftable[0],ptable,ftable[0])
+        prd_str+='--PROPERTIES\n'
+        prd_str+='class 2 %s #class cwa\n' % self.db.target_table
+        for table, cols in self.db.cols.iteritems():
             for col in cols:
-                if col != self.db.pkeys[table] and col not in self.db.fkeys[table] and (
-                                table != self.db.target_table or col != self.db.target_att):
-                    prd_str += '%s_%s 2 %s #%s_%s 1 cwa\n' % (table, col, table, table, col)
+                if col != self.db.pkeys[table] and col not in self.db.fkeys[table] and (table != self.db.target_table or col != self.db.target_att):
+                    prd_str+='%s_%s 2 %s #%s_%s 1 cwa\n' % (table,col,table,table,col)
         return prd_str
 
     def create_fct_file(self):
         '''
         Emits examples in fct format.
         '''
-        fct_str = ''
-        fct_str += self.fct_rec(self.db.target_table)
+        fct_str=''
+        fct_str+=self.fct_rec(self.db.target_table)
         return fct_str
 
-    def fct_rec(self, table, prev_table=None, prev_fcol=None, prev_val=None):
+    def fct_rec(self,table,prev_table=None,prev_fcol=None,prev_val=None):
         fct_str = ''
 
         data = self.db.orng_tables[table]
@@ -615,31 +606,30 @@ class PrdFctConverter(Converter):
         pkey_name = str(self.db.pkeys[table]);
 
         # for all pkey value
-        for inst in range(len(data)):
+        for inst in xrange(len(data)):
             i = inst
             val_id = data[inst][pkey_name]
             # if it is the main table or is the child of the previous table
             if not prev_table or (prev_table and prev_fcol and data[inst][prev_fcol].value == prev_val):
-                # if main table:        
+                # if main table:
                 if not prev_table:
                     # add an '!'
-                    fct_str += '!\n'
+                    fct_str+='!\n'
                     # add class(current id, target class)
-                    fct_str += 'class(%s,%s).\n' % (val_id, data[i][str(self.db.target_att)])
+                    fct_str+='class(%s,%s).\n'%(val_id,data[i][str(self.db.target_att)])
                 # if child table
                 else:
                     # add main table + '2' + current table(main id, current id)
-                    fct_str += '%s2%s(%s,%s).\n' % (prev_table, table, prev_val, val_id)
+                    fct_str+='%s2%s(%s,%s).\n'%(prev_table,table,prev_val,val_id)
                 # for all values
                 for col_orng in data.domain.variables:
                     col = col_orng.name
                     val_col = data[i][col]
                     # if (child table or not target attribute) and col not a pkey and not a foreign key
-                    if (prev_table or col != str(self.db.target_att)) and col != self.db.pkeys[table] and (
-                                not prev_fcol or col != prev_fcol):
+                    if (prev_table or col != str(self.db.target_att)) and col != self.db.pkeys[table] and (not prev_fcol or col != prev_fcol):
                         # add table_colName(id, colValue)
-                        fct_str += '%s_%s(%s,%s).\n' % (table, col, val_id, val_col)
-                for next_table, curr_table in self.db.reverse_fkeys.items():
+                        fct_str+='%s_%s(%s,%s).\n'%(table,col,val_id,val_col)
+                for next_table,curr_table in self.db.reverse_fkeys.iteritems():
                     if curr_table == table:
-                        fct_str += self.fct_rec(str(next_table[0]), table, str(next_table[1]), val_id)
+                        fct_str+=self.fct_rec(str(next_table[0]),table,str(next_table[1]),val_id)
         return fct_str

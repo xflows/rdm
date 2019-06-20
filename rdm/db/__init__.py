@@ -1,3 +1,3 @@
-from .context import DBVendor, DBConnection, DBContext
+from .context import DBVendor, DBConnection, DBContext, SQLparser
 from .converters import *
 from .datasource import *

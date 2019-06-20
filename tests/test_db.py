@@ -4,7 +4,7 @@ import sys
 sys.path.append('..')
 
 from rdm.db import DBConnection, DBContext
-from tests.conf import TEST_DB, TEST_DB_POSTGRES
+from conf import TEST_DB, TEST_DB_POSTGRES
 
 
 class TestConnection(unittest.TestCase):
@@ -71,9 +71,9 @@ class TestContext(unittest.TestCase):
             target_att:       selected column for learning
         '''
         self.context = DBContext(self.connection)
-        self.assertCountEqual(self.context.tables, ['cars', 'trains'])
+        self.assertItemsEqual(self.context.tables, ['cars', 'trains'])
         self.assertTrue(('cars', 'trains') in self.context.connected)
 
         self.context = DBContext(self.connection_pg)
-        self.assertCountEqual(self.context.tables, ['building', 'urbanblock'])
+        self.assertItemsEqual(self.context.tables, ['building', 'urbanblock'])
         self.assertTrue(('building', 'urbanblock') in self.context.connected)
