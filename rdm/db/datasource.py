@@ -1,5 +1,35 @@
 from collections import defaultdict
-import mysql.connector as mysql
+import pymysql as mysql
+
+MYSQL_FIELD_TYPES = {
+    0: 'DECIMAL',
+    1: 'TINY',
+    2: 'SHORT',
+    3: 'LONG',
+    4: 'FLOAT',
+    5: 'DOUBLE',
+    6: 'NULL',
+    7: 'TIMESTAMP',
+    8: 'LONGLONG',
+    9: 'INT24',
+    10: 'DATE',
+    11: 'TIME',
+    12: 'DATETIME',
+    13: 'YEAR',
+    14: 'NEWDATE',
+    15: 'VARCHAR',
+    16: 'BIT',
+    246: 'NEWDECIMAL',
+    247: 'INTERVAL',
+    248: 'SET',
+    249: 'TINY_BLOB',
+    250: 'MEDIUM_BLOB',
+    251: 'LONG_BLOB',
+    252: 'BLOB',
+    253: 'VAR_STRING',
+    254: 'STRING',
+    255: 'GEOMETRY'
+}
 
 
 class DataSource:
@@ -198,24 +228,25 @@ class MySQLDataSource(DataSource):
 
     def fetch_types(self, table, cols):
         with self.connect() as con:
-            cursor = con.cursor() 
+            cursor = con.cursor()
             cursor.execute("SELECT %s FROM `%s` LIMIT 1" % (self.fmt_cols(cols), table))
             cursor.fetchall()
             types = {}
             for desc in cursor.description:
-                types[desc[0]] = mysql.FieldType.get_info(desc[1])
+                # types[desc[0]] = mysql.FieldType.get_info(desc[1])
+                types[desc[0]] = MYSQL_FIELD_TYPES[desc[1]]
         return types
 
     def fetch(self, table, cols):
         with self.connect() as con:
-            cursor = con.cursor() 
+            cursor = con.cursor()
             cursor.execute("SELECT %s FROM %s" % (self.fmt_cols(cols), table))
             result = [cols for cols in cursor]
         return result
 
     def select_where(self, table, cols, pk_att, pk):
         with self.connect() as con:
-            cursor = con.cursor() 
+            cursor = con.cursor()
             attributes = self.fmt_cols(cols)
             cursor.execute("SELECT %s FROM %s WHERE `%s`='%s'" % (attributes, table, pk_att, pk))
             result = [cols for cols in cursor]
@@ -265,7 +296,7 @@ class PgSQLDataSource(DataSource):
                       WHERE constraint_type = 'FOREIGN KEY' AND tc.table_catalog='%s'" % database)
             fk_result = [row for row in cursor]
         return fk_result
-        
+
     def table_column_names(self):
         with self.connect() as con:
             cursor = con.cursor()
@@ -277,7 +308,7 @@ class PgSQLDataSource(DataSource):
                 information_schema.table_constraints AS tc\
                 JOIN information_schema.key_column_usage AS kcu \
                 ON tc.constraint_name = kcu.constraint_name \
-                WHERE constraint_type = 'PRIMARY KEY' AND tc.table_catalog='%s'" % database) 
+                WHERE constraint_type = 'PRIMARY KEY' AND tc.table_catalog='%s'" % database)
             tbl_col_names = [row for row in cursor]
         return tbl_col_names
 
@@ -301,7 +332,7 @@ class PgSQLDataSource(DataSource):
 
     def fmt_cols(self, cols):
         return ','.join(["%s" % col for col in cols])
-    
+
     def fetch_types(self, table, cols):
         with self.connect() as con:
             cursor = con.cursor()
@@ -315,14 +346,14 @@ class PgSQLDataSource(DataSource):
 
     def fetch(self, table, cols):
         with self.connect() as con:
-            cursor = con.cursor() 
+            cursor = con.cursor()
             cursor.execute("SELECT %s FROM %s" % (self.fmt_cols(cols), table))
             result = [cols for cols in cursor]
         return result
 
     def select_where(self, table, cols, pk_att, pk):
         with self.connect() as con:
-            cursor = con.cursor() 
+            cursor = con.cursor()
             attributes = self.fmt_cols(cols)
             cursor.execute("SELECT %s FROM %s WHERE %s='%s'" % (attributes, table, att, val_att))
             result = [cols for cols in cursor]
@@ -334,7 +365,7 @@ class PgSQLDataSource(DataSource):
             cursor.execute("SELECT DISTINCT %s, %s FROM %s" % (col, col, table))
             values = [val for (_,val) in cursor]
         return values
-    
+
     def get_driver_name(self):
         return 'org.postgresql.Driver'
 
