@@ -2,7 +2,7 @@ from collections import defaultdict
 import pprint
 import copy
 
-import mysql.connector as mysql
+import pymysql as mysql
 import psycopg2 as postgresql
 from .converters import OrangeConverter
 
