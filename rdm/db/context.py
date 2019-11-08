@@ -1,12 +1,27 @@
 from collections import defaultdict
 import pprint
 import copy
+import socket
 
 import pymysql as mysql
 import psycopg2 as postgresql
 from .converters import OrangeConverter
 
 from .datasource import MySQLDataSource, PgSQLDataSource
+
+
+def is_open(host, port, timeout=5):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.settimeout(timeout)
+    status = True
+    try:
+        s.connect((host, int(port)))
+        s.shutdown(socket.SHUT_RDWR)
+    except:
+        status = False
+    finally:
+        s.close()
+        return status
 
 
 class DBVendor:
@@ -44,14 +59,23 @@ class DBConnection:
         self.host = host
         self.database = database
         self.vendor = vendor
-        self.check_connection()
+        self.port = None
 
         if self.vendor == DBVendor.MySQL:
             self.src = MySQLDataSource(self)
+            self.port = 3306
         elif self.vendor == DBVendor.PostgreSQL:
             self.src = PgSQLDataSource(self)
+            self.port = 5432
         else:
             raise Exception("Unknown DB vendor: {}".format(vendor))
+
+        self.check_port()
+        self.check_connection()
+
+    def check_port(self):
+        if not is_open(self.host, self.port):
+            raise Exception('Port {} is not open on host {}'.format(self.port, self.host))
 
     def check_connection(self):
         try:
