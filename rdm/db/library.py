@@ -6,9 +6,9 @@ MySQL connectivity library.
 import os
 import tempfile
 import time
-from django import forms
-import mysql.connector as sql
-from .datasource import MySQLDataSource, PgSQLDataSource
+# from django import forms
+# import mysql.connector as sql
+# from .datasource import MySQLDataSource, PgSQLDataSource
 from .context import DBConnection, DBContext, DBVendor
 from .converters import RSDConverter, AlephConverter, OrangeConverter, TreeLikerConverter, PrdFctConverter
 from .mapper import domain_map
