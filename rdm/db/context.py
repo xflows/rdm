@@ -2,12 +2,18 @@ from collections import defaultdict
 import pprint
 import copy
 import socket
+import sqlite3
+import tempfile
+import os
+import csv
+import re
+import sys
 
 import pymysql as mysql
 import psycopg2 as postgresql
 from .converters import OrangeConverter
 
-from .datasource import MySQLDataSource, PgSQLDataSource
+from .datasource import MySQLDataSource, PgSQLDataSource, SQLiteDataSource
 
 
 def is_open(host, port, timeout=5):
@@ -27,11 +33,13 @@ def is_open(host, port, timeout=5):
 class DBVendor:
     MySQL = 'mysql'
     PostgreSQL = 'postgresql'
+    SQLite = 'sqlite'
+    CSV = 'csv'
 
 
 class DBConnection:
     '''
-    Database credentials.
+    Database connector with credentials and database settings
     '''
 
     class Manager:
@@ -98,6 +106,180 @@ class DBConnection:
             raise Exception('Unsupported or unset database vendor: {}'.format(dal_connect_fun))
 
         return DBConnection.Manager(self.user, self.password, self.host, self.database, dal_connect_fun)
+
+
+class SQLiteDBConnection(DBConnection):
+    '''
+    SQLite database connector
+    '''
+
+    class Manager:
+        '''
+        Context Manager.
+        '''
+
+        def __init__(self, sqlite_database, dal_connect_fun):
+            self.con = dal_connect_fun(sqlite_database)
+
+        def __enter__(self):
+            return self.con
+
+        def __exit__(self, exc_type, exc_value, traceback):
+            self.con.close()
+
+    def __init__(self, sqlite_database, vendor=DBVendor.SQLite):
+        self.sqlite_database = sqlite_database
+        self.src = SQLiteDataSource(self)
+        if not(sqlite3.sqlite_version_info[0] >= 3 and sqlite3.sqlite_version_info[1] >= 16):
+            raise Exception('Your SQLite does not support pragma functions. Please upgrade to at least 3.16.0')
+        self.check_connection()
+
+    def connect(self):
+        return self.Manager(self.sqlite_database, sqlite3.connect)
+
+    def check_port(self):
+        pass
+
+
+class CSVConnection(SQLiteDBConnection):
+    '''
+    CSV data loader. An SQLite database is used internally to store and query the data.
+    Input csv files require two additional header lines besides the title row:
+
+    - the first row specifies column names
+    - the second row specifies column types using SQLite syntax
+    - the third row specifies constraints such as primary and foreign keys using simplified SQLite syntax:
+
+        - **primary key** declares a primary key constraint on the given column
+        - **foreign key [table.column]** declares a foreign key constraint on the current column to the specified table and column. See notes below for additional information.
+
+
+    **Notes**
+
+    Composite primary keys are supported simply by declaring several colums as "primary key".
+    Both primary and foreign key can be declared in a single csv cell. For example, "primary key foreign key [table.column]" is a valid declaration (although not very useful if the primary key is not composite because it implies one-to-one relationship).
+
+    If there are multiple foreign key declarations per cell only the first one is considered and the rest is discarded (such declaration is invalid anyway).
+
+    Finally, composite foreign keys are not (yet) supported because there is no simple way of expressing such constraints in the csv header.
+    '''
+    def __init__(self, file_list):
+        self.sqlite_database = os.path.join(tempfile.mkdtemp(), 'tempdb.sqlite3')
+        self.csv2db(file_list)
+        self.src = SQLiteDataSource(self)
+        if not(sqlite3.sqlite_version_info[0] >= 3 and sqlite3.sqlite_version_info[1] >= 16):
+            raise Exception('Your SQLite does not support pragma functions. Please upgrade to at least 3.16.0')
+        self.check_connection()
+
+    def __del__(self):
+        tmpdir, _ = os.path.split(self.sqlite_database)
+        try:
+            os.remove(self.sqlite_database)
+            os.rmdir(tmpdir)
+        except Exception as e:
+            print('Warning: cannot remove temporary database "{}"'.format(self.sqlite_database))
+
+    def connect(self):
+        return self.Manager(self.sqlite_database, sqlite3.connect)
+
+    def csv2db(self, file_list):
+        '''
+        Loads csv files into an SQLite database and checks foreign keys constraints
+        '''
+        with sqlite3.connect(self.sqlite_database) as conn:
+            for fname in file_list:
+                ddl, insert, data = self.csv2sql(fname)
+                # print(fname)
+                # print(ddl)
+                # print(insert)
+                # print(data[0])
+                # print('\n')
+                conn.execute("PRAGMA foreign_keys = 0")
+                conn.executescript(ddl)
+                conn.commit()
+                conn.executemany(insert, data)
+                conn.commit()
+            conn.execute('PRAGMA foreign_keys = 1')
+            errors = list(conn.execute('PRAGMA foreign_key_check'))
+            if errors:
+                errlines = ['table "{}", row {}'.format(row[0], row[1]) for row in errors]
+                raise ValueError('Foreign key constraint error:\n{}'.format('\n'.join(errlines)))
+
+    def csv2sql(self, fname):
+        '''
+        Parses csv data file and returns SQLite DDL, insert command and data rows.
+        '''
+        tablename = os.path.splitext(os.path.split(fname)[1])[0]
+        data = []
+        with open(fname) as fp:
+            reader = csv.reader(fp)
+            columns, types, keys = next(reader), next(reader), next(reader)
+            columns = [x.strip() for x in columns]
+            types = [x.strip() for x in types]
+            keys = [x.strip() for x in keys]
+
+            if len(set([len(columns), len(types), len(keys)])) != 1:
+                raise SyntaxError('Invalid header lines 1-3 in "{}": not the same length'.format(fname))
+
+            declarations = []
+            constraints = []
+            pkeys = []
+            # this can parse complex declarations such as "primary key foreign key [table.col]"
+            for name, typ, key in zip(columns, types, keys):
+                if not key:
+                    declarations.append('"{}" {}'.format(name, typ))
+                else:
+                    found = re.search('primary[ ]+key[ ]*', key, flags=re.IGNORECASE)
+                    added = False
+                    if found:
+                        pkeys.append(name)
+                        declarations.append('"{}" {}'.format(name, typ))
+                        added = True
+                        key = re.sub('[ ]*primary[ ]+key[ ]*', '', key, flags=re.IGNORECASE)
+
+                    found = re.search('foreign[ ]+key[ ]*\[[^\[]+\]', key, flags=re.IGNORECASE)
+                    if found:
+                        if not added:
+                            declarations.append('"{}" {}'.format(name, typ))
+                        fkref = found.group(0)  # only the first declaration, ignore the rest because it is invalid
+                        fkref = re.sub('[ ]*foreign[ ]+key[ ]*', '', fkref, flags=re.IGNORECASE).strip()
+                        fkref = fkref.replace('[', '').replace(']', '').strip()
+                        try:
+                            ftable, fcol = fkref.split('.')
+                        except:
+                            raise SyntaxError('Invalid FOREIGN KEY declaration: "{}"'.format(found.group(0)))
+                        constraints.append('FOREIGN KEY("{}") REFERENCES "{}"("{}")'.format(name, ftable, fcol))
+            data = list(reader)
+        if len(pkeys) == 0:
+            raise ValueError('No primary key is defined in file "{}"'.format(fname))
+        constraints.append('PRIMARY KEY ({})'.format(','.join(['"{}"'.format(x) for x in pkeys])))
+
+        ddl = 'CREATE TABLE "{}" (\n{}\n)'.format(tablename, ',\n'.join(declarations + constraints))
+        insert = 'INSERT INTO "{}" VALUES ({})'.format(tablename, ','.join('?'*len(declarations)))
+        return ddl, insert, data
+
+    def dump_sql(self, sqlfile):
+        '''
+        Dumps the in-memory database contructed from csv files into an SQLite SQL file
+
+            :param sqlfile: name of the output file
+        '''
+        with open(sqlfile, 'w') as fp:
+            with sqlite3.connect(self.sqlite_database) as con:
+                for line in con.iterdump():
+                    fp.write('{}\n'.format(line))
+
+    def dump_db(self, sqlite_database):
+        '''
+        Dumps the in-memory database contructed from csv files into an SQLite database file.
+
+        Python 3.7 and SQLite 3.6.11 or newer are required to use this function.
+        '''
+        if not(sys.version_info.major >= 3 and sys.version_info.minor >= 7):
+            raise EnvironmentError('Python >= 3.7 and SQLite >= 3.6.11 are required for backuping SQLite databases')
+        with sqlite3.connect(self.sqlite_database) as con:
+            with sqlite3.connect(sqlite_database) as bck:
+                con.backup(bck, pages=0)
 
 
 class DBContext:
