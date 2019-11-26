@@ -1,0 +1,23 @@
+id,direction
+integer,varchar
+primary key,
+1,east
+2,east
+3,east
+4,east
+5,east
+6,east
+7,east
+8,east
+9,east
+10,east
+11,west
+12,west
+13,west
+14,west
+15,west
+16,west
+17,west
+18,west
+19,west
+20,west
