@@ -134,8 +134,40 @@
             
   <h1>Source code for rdm.db.datasource</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
-<span class="kn">from</span> <span class="nn">exceptions</span> <span class="kn">import</span> <span class="ne">NotImplementedError</span>
-<span class="kn">import</span> <span class="nn">mysql.connector</span> <span class="kn">as</span> <span class="nn">mysql</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">pymysql</span> <span class="kn">as</span> <span class="nn">mysql</span>
+
+
+<span class="n">MYSQL_FIELD_TYPES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;DECIMAL&#39;</span><span class="p">,</span>
+    <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;TINY&#39;</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;SHORT&#39;</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;LONG&#39;</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;FLOAT&#39;</span><span class="p">,</span>
+    <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;DOUBLE&#39;</span><span class="p">,</span>
+    <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39;NULL&#39;</span><span class="p">,</span>
+    <span class="mi">7</span><span class="p">:</span> <span class="s1">&#39;TIMESTAMP&#39;</span><span class="p">,</span>
+    <span class="mi">8</span><span class="p">:</span> <span class="s1">&#39;LONGLONG&#39;</span><span class="p">,</span>
+    <span class="mi">9</span><span class="p">:</span> <span class="s1">&#39;INT24&#39;</span><span class="p">,</span>
+    <span class="mi">10</span><span class="p">:</span> <span class="s1">&#39;DATE&#39;</span><span class="p">,</span>
+    <span class="mi">11</span><span class="p">:</span> <span class="s1">&#39;TIME&#39;</span><span class="p">,</span>
+    <span class="mi">12</span><span class="p">:</span> <span class="s1">&#39;DATETIME&#39;</span><span class="p">,</span>
+    <span class="mi">13</span><span class="p">:</span> <span class="s1">&#39;YEAR&#39;</span><span class="p">,</span>
+    <span class="mi">14</span><span class="p">:</span> <span class="s1">&#39;NEWDATE&#39;</span><span class="p">,</span>
+    <span class="mi">15</span><span class="p">:</span> <span class="s1">&#39;VARCHAR&#39;</span><span class="p">,</span>
+    <span class="mi">16</span><span class="p">:</span> <span class="s1">&#39;BIT&#39;</span><span class="p">,</span>
+    <span class="mi">246</span><span class="p">:</span> <span class="s1">&#39;NEWDECIMAL&#39;</span><span class="p">,</span>
+    <span class="mi">247</span><span class="p">:</span> <span class="s1">&#39;INTERVAL&#39;</span><span class="p">,</span>
+    <span class="mi">248</span><span class="p">:</span> <span class="s1">&#39;SET&#39;</span><span class="p">,</span>
+    <span class="mi">249</span><span class="p">:</span> <span class="s1">&#39;TINY_BLOB&#39;</span><span class="p">,</span>
+    <span class="mi">250</span><span class="p">:</span> <span class="s1">&#39;MEDIUM_BLOB&#39;</span><span class="p">,</span>
+    <span class="mi">251</span><span class="p">:</span> <span class="s1">&#39;LONG_BLOB&#39;</span><span class="p">,</span>
+    <span class="mi">252</span><span class="p">:</span> <span class="s1">&#39;BLOB&#39;</span><span class="p">,</span>
+    <span class="mi">253</span><span class="p">:</span> <span class="s1">&#39;VAR_STRING&#39;</span><span class="p">,</span>
+    <span class="mi">254</span><span class="p">:</span> <span class="s1">&#39;STRING&#39;</span><span class="p">,</span>
+    <span class="mi">255</span><span class="p">:</span> <span class="s1">&#39;GEOMETRY&#39;</span>
+<span class="p">}</span>
 
 
 <div class="viewcode-block" id="DataSource"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource">[docs]</a><span class="k">class</span> <span class="nc">DataSource</span><span class="p">:</span>
@@ -334,24 +366,25 @@
 
     <span class="k">def</span> <span class="nf">fetch_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
-            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> 
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT </span><span class="si">%s</span><span class="s2"> FROM `</span><span class="si">%s</span><span class="s2">` LIMIT 1&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">table</span><span class="p">))</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
             <span class="n">types</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
-                <span class="n">types</span><span class="p">[</span><span class="n">desc</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">FieldType</span><span class="o">.</span><span class="n">get_info</span><span class="p">(</span><span class="n">desc</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="c1"># types[desc[0]] = mysql.FieldType.get_info(desc[1])</span>
+                <span class="n">types</span><span class="p">[</span><span class="n">desc</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">MYSQL_FIELD_TYPES</span><span class="p">[</span><span class="n">desc</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
         <span class="k">return</span> <span class="n">types</span>
 
     <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
-            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> 
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT </span><span class="si">%s</span><span class="s2"> FROM </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">table</span><span class="p">))</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span> <span class="k">for</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">result</span>
 
     <span class="k">def</span> <span class="nf">select_where</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
-            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> 
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT </span><span class="si">%s</span><span class="s2"> FROM </span><span class="si">%s</span><span class="s2"> WHERE `</span><span class="si">%s</span><span class="s2">`=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">attributes</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">))</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span> <span class="k">for</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
@@ -401,7 +434,7 @@
 <span class="s2">                      WHERE constraint_type = &#39;FOREIGN KEY&#39; AND tc.table_catalog=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">database</span><span class="p">)</span>
             <span class="n">fk_result</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">fk_result</span>
-        
+
     <span class="k">def</span> <span class="nf">table_column_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
@@ -413,7 +446,7 @@
 <span class="s2">                information_schema.table_constraints AS tc</span><span class="se">\</span>
 <span class="s2">                JOIN information_schema.key_column_usage AS kcu </span><span class="se">\</span>
 <span class="s2">                ON tc.constraint_name = kcu.constraint_name </span><span class="se">\</span>
-<span class="s2">                WHERE constraint_type = &#39;PRIMARY KEY&#39; AND tc.table_catalog=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">database</span><span class="p">)</span> 
+<span class="s2">                WHERE constraint_type = &#39;PRIMARY KEY&#39; AND tc.table_catalog=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">database</span><span class="p">)</span>
             <span class="n">tbl_col_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">tbl_col_names</span>
 
@@ -437,7 +470,7 @@
 
     <span class="k">def</span> <span class="nf">fmt_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">])</span>
-    
+
     <span class="k">def</span> <span class="nf">fetch_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
@@ -451,14 +484,14 @@
 
     <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
-            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> 
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT </span><span class="si">%s</span><span class="s2"> FROM </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">table</span><span class="p">))</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span> <span class="k">for</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">result</span>
 
     <span class="k">def</span> <span class="nf">select_where</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
-            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> 
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT </span><span class="si">%s</span><span class="s2"> FROM </span><span class="si">%s</span><span class="s2"> WHERE </span><span class="si">%s</span><span class="s2">=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">attributes</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">att</span><span class="p">,</span> <span class="n">val_att</span><span class="p">))</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span> <span class="k">for</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
@@ -470,12 +503,106 @@
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT DISTINCT </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2"> FROM </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">table</span><span class="p">))</span>
             <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">val</span> <span class="k">for</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">values</span>
-    
+
     <span class="k">def</span> <span class="nf">get_driver_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;org.postgresql.Driver&#39;</span>
 
     <span class="k">def</span> <span class="nf">get_jdbc_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;jdbc:postgresql://&#39;</span></div>
+
+
+<div class="viewcode-block" id="SQLiteDataSource"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.SQLiteDataSource">[docs]</a><span class="k">class</span> <span class="nc">SQLiteDataSource</span><span class="p">(</span><span class="n">DataSource</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    A DataSource implementation for accessing datasets from SQLite DBMS.</span>
+<span class="sd">    Because SQLite types are dynamic and its CREATE TABLE statement allows for any kind of custom type names, we try to match the most common types with three type categories used in ``rdm``.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">continuous_types</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;real&#39;</span><span class="p">,</span> <span class="s1">&#39;double&#39;</span><span class="p">,</span> <span class="s1">&#39;double precision&#39;</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+    <span class="n">integer_types</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;integer&#39;</span><span class="p">,</span> <span class="s1">&#39;tinyint&#39;</span><span class="p">,</span> <span class="s1">&#39;smallint&#39;</span><span class="p">,</span> <span class="s1">&#39;mediumint&#39;</span><span class="p">,</span> <span class="s1">&#39;bigint&#39;</span><span class="p">,</span> <span class="s1">&#39;unsigned big int&#39;</span><span class="p">,</span> <span class="s1">&#39;int2&#39;</span><span class="p">,</span> <span class="s1">&#39;int8&#39;</span><span class="p">)</span>
+    <span class="n">ordinal_types</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;character&#39;</span><span class="p">,</span> <span class="s1">&#39;varchar&#39;</span><span class="p">,</span> <span class="s1">&#39;varying character&#39;</span><span class="p">,</span> <span class="s1">&#39;nchar&#39;</span><span class="p">,</span> <span class="s1">&#39;native character&#39;</span><span class="p">,</span> <span class="s1">&#39;nvarchar&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;clob&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SQLiteDataSource.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.SQLiteDataSource.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            :param connection: a DBConnection instance.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">connection</span></div>
+
+    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">foreign_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tables</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT &quot;from&quot;,&quot;table&quot;,&quot;to&quot; FROM pragma_foreign_key_list(&quot;{}&quot;);&#39;&#39;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">table</span><span class="p">,)</span> <span class="o">+</span> <span class="n">row</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">table_column_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tables</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT name FROM pragma_table_info(&quot;{}&quot;) WHERE pk=1;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table</span><span class="p">))</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">table</span><span class="p">,</span> <span class="p">[</span><span class="n">row</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">tables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT name FROM sqlite_master </span><span class="se">\</span>
+<span class="s2">                            WHERE type=&#39;table&#39; AND name NOT LIKE &#39;sqlite_%&#39;;&quot;</span><span class="p">)</span>
+            <span class="n">tables</span> <span class="o">=</span> <span class="p">[</span><span class="n">table</span> <span class="k">for</span> <span class="p">(</span><span class="n">table</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">tables</span>
+
+    <span class="k">def</span> <span class="nf">table_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT name FROM pragma_table_info(&quot;{}&quot;);&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table_name</span><span class="p">))</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="p">(</span><span class="n">col</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">columns</span>
+
+    <span class="k">def</span> <span class="nf">fmt_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;&quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">fetch_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+        <span class="n">types</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT &quot;name&quot;, &quot;type&quot; from pragma_table_info(&quot;{}&quot;) WHERE &quot;name&quot; IN ({})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">)))</span>
+            <span class="n">types</span> <span class="o">=</span> <span class="p">{</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;\([0-9a-zA-Z ,]*\)&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">types</span>
+
+    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT </span><span class="si">%s</span><span class="s1"> FROM &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">table</span><span class="p">))</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span> <span class="k">for</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">select_where</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT </span><span class="si">%s</span><span class="s1"> FROM &quot;</span><span class="si">%s</span><span class="s1">&quot; WHERE &quot;</span><span class="si">%s</span><span class="s1">&quot;=&quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">attributes</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">))</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span> <span class="k">for</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">column_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT DISTINCT &quot;</span><span class="si">%s</span><span class="s1">&quot; FROM &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">table</span><span class="p">))</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">values</span>
+
+    <span class="k">def</span> <span class="nf">get_driver_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;java.sql.DriverManager&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get_jdbc_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;jdbc:sqlite:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

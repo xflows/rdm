@@ -135,7 +135,7 @@
             
   <div class="section" id="example-use-case">
 <h1>Example use case<a class="headerlink" href="#example-use-case" title="Permalink to this headline">¶</a></h1>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">orange</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Orange</span>
 
 <span class="kn">from</span> <span class="nn">rdm.db</span> <span class="k">import</span> <span class="n">DBVendor</span><span class="p">,</span> <span class="n">DBConnection</span><span class="p">,</span> <span class="n">DBContext</span><span class="p">,</span> <span class="n">RSDConverter</span><span class="p">,</span> <span class="n">mapper</span>
 <span class="kn">from</span> <span class="nn">rdm.wrappers</span> <span class="k">import</span> <span class="n">RSD</span>
@@ -146,7 +146,7 @@
 <span class="n">connection</span> <span class="o">=</span> <span class="n">DBConnection</span><span class="p">(</span>
     <span class="s1">&#39;ilp&#39;</span><span class="p">,</span>  <span class="c1"># User</span>
     <span class="s1">&#39;ilp123&#39;</span><span class="p">,</span>  <span class="c1"># Password</span>
-    <span class="s1">&#39;ged.ijs.si&#39;</span><span class="p">,</span>  <span class="c1"># Host</span>
+    <span class="s1">&#39;workflow.ijs.si&#39;</span><span class="p">,</span>  <span class="c1"># Host</span>
     <span class="s1">&#39;imdb_top&#39;</span><span class="p">,</span>  <span class="c1"># Database</span>
     <span class="n">vendor</span><span class="o">=</span><span class="n">DBVendor</span><span class="o">.</span><span class="n">MySQL</span>
 <span class="p">)</span>
@@ -157,6 +157,9 @@
 <span class="c1"># Cross-validation loop</span>
 <span class="n">predictions</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">folds</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">cv_split</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">folds</span><span class="o">=</span><span class="n">folds</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
 <span class="k">for</span> <span class="n">train_context</span><span class="p">,</span> <span class="n">test_context</span> <span class="ow">in</span> <span class="n">cv_split</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">folds</span><span class="o">=</span><span class="n">folds</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="c1"># Find features on the train set</span>
     <span class="n">conv</span> <span class="o">=</span> <span class="n">RSDConverter</span><span class="p">(</span><span class="n">train_context</span><span class="p">)</span>
@@ -167,24 +170,28 @@
         <span class="n">cn2sd</span><span class="o">=</span><span class="kc">False</span>                    <span class="c1"># Disable built-in subgroup discovery</span>
     <span class="p">)</span>
 
+    <span class="n">a</span> <span class="o">=</span> <span class="n">conv</span><span class="o">.</span><span class="n">background_knowledge</span><span class="p">()</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">conv</span><span class="o">.</span><span class="n">all_examples</span><span class="p">()</span>
+
     <span class="c1"># Train the classifier on the *train set*</span>
     <span class="n">train_data</span> <span class="o">=</span> <span class="n">arff_to_orange_table</span><span class="p">(</span><span class="n">train_arff</span><span class="p">)</span>
-    <span class="n">tree_classifier</span> <span class="o">=</span> <span class="n">orange</span><span class="o">.</span><span class="n">TreeLearner</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">tree_learner</span> <span class="o">=</span> <span class="n">Orange</span><span class="o">.</span><span class="n">classification</span><span class="o">.</span><span class="n">TreeLearner</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">tree_classifier</span> <span class="o">=</span> <span class="n">tree_learner</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
 
     <span class="c1"># Map the *test set* using the features from the train set</span>
     <span class="n">test_arff</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="n">domain_map</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="s1">&#39;rsd&#39;</span><span class="p">,</span> <span class="n">train_context</span><span class="p">,</span> <span class="n">test_context</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;arff&#39;</span><span class="p">)</span>
 
     <span class="c1"># Classify the test set</span>
     <span class="n">test_data</span> <span class="o">=</span> <span class="n">arff_to_orange_table</span><span class="p">(</span><span class="n">test_arff</span><span class="p">)</span>
-    <span class="n">fold_predictions</span> <span class="o">=</span> <span class="p">[(</span><span class="n">ex</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">tree_classifier</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">test_data</span><span class="p">]</span>
+    <span class="n">fold_predictions</span> <span class="o">=</span> <span class="p">[(</span><span class="n">ex</span><span class="o">.</span><span class="n">get_class</span><span class="p">(),</span> <span class="n">tree_classifier</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">test_data</span><span class="p">]</span>
     <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fold_predictions</span><span class="p">)</span>
 
 <span class="n">acc</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">fold_predictions</span> <span class="ow">in</span> <span class="n">predictions</span><span class="p">:</span>
-    <span class="n">acc</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">([</span><span class="mf">1.0</span> <span class="k">for</span> <span class="n">actual</span><span class="p">,</span> <span class="n">predicted</span> <span class="ow">in</span> <span class="n">fold_predictions</span> <span class="k">if</span> <span class="n">actual</span> <span class="o">==</span> <span class="n">predicted</span><span class="p">])</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">fold_predictions</span><span class="p">)</span>
-<span class="n">acc</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">acc</span><span class="o">/</span><span class="n">folds</span>
+    <span class="n">acc</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">([</span><span class="mf">1.0</span> <span class="k">for</span> <span class="n">actual</span><span class="p">,</span> <span class="n">predicted</span> <span class="ow">in</span> <span class="n">fold_predictions</span> <span class="k">if</span> <span class="n">actual</span> <span class="o">==</span> <span class="n">predicted</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">fold_predictions</span><span class="p">)</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">acc</span> <span class="o">/</span> <span class="n">folds</span>
 
-<span class="nb">print</span> <span class="s1">&#39;Estimated predictive accuracy: </span><span class="si">{0:.2f}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Estimated predictive accuracy: </span><span class="si">{0:.2f}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">acc</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>

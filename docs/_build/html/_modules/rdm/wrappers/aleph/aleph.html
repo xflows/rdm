@@ -144,7 +144,7 @@
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">StringIO</span> <span class="kn">import</span> <span class="n">StringIO</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
 <span class="kn">from</span> <span class="nn">stat</span> <span class="kn">import</span> <span class="n">S_IREAD</span><span class="p">,</span> <span class="n">S_IEXEC</span>
 <span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">PIPE</span>
 
@@ -152,6 +152,7 @@
     <span class="kn">from</span> <span class="nn">..security</span> <span class="kn">import</span> <span class="n">SafePopen</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">os</span>
+
     <span class="n">parent_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">)))</span>
     <span class="n">os</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_dir</span><span class="p">)</span>
     <span class="kn">from</span> <span class="nn">security</span> <span class="kn">import</span> <span class="n">SafePopen</span>
@@ -275,7 +276,7 @@
                       <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span>
                       <span class="n">stdout</span><span class="o">=</span><span class="n">dumpFile</span><span class="p">,</span>
                       <span class="n">stderr</span><span class="o">=</span><span class="n">dumpFile</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">safe_run</span><span class="p">()</span>
+                      <span class="p">)</span><span class="o">.</span><span class="n">safe_run</span><span class="p">()</span>
         <span class="n">stdout_str</span><span class="p">,</span> <span class="n">stderr_str</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Done.&quot;</span><span class="p">)</span>
@@ -292,7 +293,6 @@
             <span class="n">dataset_fn</span> <span class="o">=</span> <span class="n">filestem</span> <span class="o">+</span> <span class="n">Aleph</span><span class="o">.</span><span class="n">PROP_DATASET_SUFFIX</span>
             <span class="n">pl_dataset</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">dataset_fn</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__to_arff</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">pl_dataset</span><span class="p">,</span> <span class="n">filestem</span><span class="p">)</span>
-
 
         <span class="c1"># Cleanup.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__cleanup</span><span class="p">()</span>
@@ -379,7 +379,7 @@
             <span class="n">vals</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">class_id</span><span class="p">):</span>
                 <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;+&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">features</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
-	    <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span>
+            <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span>
             <span class="n">cat</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">vals</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">arff</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span></div>
 </pre></div>

@@ -84,7 +84,12 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#using-csv-files">Using csv files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-sqlite">Using SQLite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-mysql">Using MySQL</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example use case</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clowdflows.html">ClowdFlows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
@@ -135,6 +140,192 @@
             
   <div class="section" id="getting-started">
 <h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="using-csv-files">
+<h2>Using csv files<a class="headerlink" href="#using-csv-files" title="Permalink to this headline">¶</a></h2>
+<p>Here is a simple example which loads the famous <a class="reference external" href="https://relational.fit.cvut.cz/dataset/Trains">East-West challenge dataset (trains)</a> from two .csv files using <a class="reference internal" href="api_reference.html#rdm.db.context.CSVConnection" title="rdm.db.context.CSVConnection"><code class="xref py py-class docutils literal"><span class="pre">CSVConnection</span></code></a>. CSV files must contain two additional header lines beside column names which specify data types using SQLite syntax, and constraints such as primary and foreign key using simplified SQLite syntax. The</p>
+<table border="1" class="docutils" id="id1">
+<caption><span class="caption-text"><a class="reference download internal" href="_downloads/trains.csv" download=""><code class="xref download docutils literal"><span class="pre">trains.csv</span></code></a></span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">id</th>
+<th class="head">direction</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>integer</td>
+<td>varchar</td>
+</tr>
+<tr class="row-odd"><td>primary key</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>east</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>east</td>
+</tr>
+<tr class="row-even"><td>...</td>
+<td>...</td>
+</tr>
+<tr class="row-odd"><td>19</td>
+<td>west</td>
+</tr>
+<tr class="row-even"><td>20</td>
+<td>west</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils" id="id2">
+<caption><span class="caption-text"><a class="reference download internal" href="_downloads/cars.csv" download=""><code class="xref download docutils literal"><span class="pre">cars.csv</span></code></a></span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">id</th>
+<th class="head">tid</th>
+<th class="head">position</th>
+<th class="head">shape</th>
+<th class="head">len</th>
+<th class="head">sides</th>
+<th class="head">roof</th>
+<th class="head">wheels</th>
+<th class="head">load_shape</th>
+<th class="head">load_num</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>integer</td>
+<td>integer</td>
+<td>integer</td>
+<td>varchar</td>
+<td>varchar</td>
+<td>varchar</td>
+<td>varchar</td>
+<td>integer</td>
+<td>varchar</td>
+<td>integer</td>
+</tr>
+<tr class="row-odd"><td>primary key</td>
+<td>foreign key [trains.id]</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>1</td>
+<td>1</td>
+<td>rectangle</td>
+<td>short</td>
+<td>not_double</td>
+<td>none</td>
+<td>2</td>
+<td>circle</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>1</td>
+<td>2</td>
+<td>rectangle</td>
+<td>long</td>
+<td>not_double</td>
+<td>none</td>
+<td>3</td>
+<td>hexagon</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>1</td>
+<td>3</td>
+<td>rectangle</td>
+<td>short</td>
+<td>not_double</td>
+<td>peaked</td>
+<td>2</td>
+<td>triangle</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="row-even"><td>62</td>
+<td>20</td>
+<td>1</td>
+<td>rectangle</td>
+<td>long</td>
+<td>not_double</td>
+<td>flat</td>
+<td>3</td>
+<td>hexagon</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>63</td>
+<td>20</td>
+<td>2</td>
+<td>u_shaped</td>
+<td>short</td>
+<td>not_double</td>
+<td>none</td>
+<td>2</td>
+<td>triangle</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rdm.db</span> <span class="k">import</span> <span class="n">DBVendor</span><span class="p">,</span> <span class="n">DBContext</span><span class="p">,</span> <span class="n">AlephConverter</span><span class="p">,</span> <span class="n">SQLiteDBConnection</span><span class="p">,</span> <span class="n">CSVConnection</span>
+<span class="kn">from</span> <span class="nn">rdm.wrappers</span> <span class="k">import</span> <span class="n">Aleph</span>
+
+<span class="c1"># Provide data</span>
+<span class="n">connection</span> <span class="o">=</span> <span class="n">CSVConnection</span><span class="p">([</span><span class="s1">&#39;examples/data/trains/trains.csv&#39;</span><span class="p">,</span>
+                             <span class="s1">&#39;examples/data/trains/cars.csv&#39;</span><span class="p">])</span>
+
+<span class="c1"># Define learning context</span>
+<span class="n">context</span> <span class="o">=</span> <span class="n">DBContext</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="n">target_table</span><span class="o">=</span><span class="s1">&#39;trains&#39;</span><span class="p">,</span> <span class="n">target_att</span><span class="o">=</span><span class="s1">&#39;direction&#39;</span><span class="p">)</span>
+
+<span class="c1"># Convert the data and induce features using Aleph</span>
+<span class="n">conv</span> <span class="o">=</span> <span class="n">AlephConverter</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">target_att_val</span><span class="o">=</span><span class="s1">&#39;east&#39;</span><span class="p">)</span>
+<span class="n">aleph</span> <span class="o">=</span> <span class="n">Aleph</span><span class="p">()</span>
+<span class="n">theory</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="n">aleph</span><span class="o">.</span><span class="n">induce</span><span class="p">(</span><span class="s1">&#39;induce_features&#39;</span><span class="p">,</span> <span class="n">conv</span><span class="o">.</span><span class="n">positive_examples</span><span class="p">(),</span>
+                                <span class="n">conv</span><span class="o">.</span><span class="n">negative_examples</span><span class="p">(),</span>
+                                <span class="n">conv</span><span class="o">.</span><span class="n">background_knowledge</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">theory</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-sqlite">
+<h2>Using SQLite<a class="headerlink" href="#using-sqlite" title="Permalink to this headline">¶</a></h2>
+<p>If the third line of the code above is changed as shown below the SQLite database containing the same data will be used.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">SQLiteDBConnection</span><span class="p">(</span><span class="s1">&#39;examples/data/trains/trains.sqlite3&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-mysql">
+<h2>Using MySQL<a class="headerlink" href="#using-mysql" title="Permalink to this headline">¶</a></h2>
+<p>The same example but the data is now loaded from a MySQL database using <a class="reference internal" href="api_reference.html#rdm.db.context.DBConnection" title="rdm.db.context.DBConnection"><code class="xref py py-class docutils literal"><span class="pre">DBConnection</span></code></a>.</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rdm.db</span> <span class="k">import</span> <span class="n">DBVendor</span><span class="p">,</span> <span class="n">DBConnection</span><span class="p">,</span> <span class="n">DBContext</span><span class="p">,</span> <span class="n">AlephConverter</span>
 <span class="kn">from</span> <span class="nn">rdm.wrappers</span> <span class="k">import</span> <span class="n">Aleph</span>
 
@@ -155,8 +346,9 @@
 <span class="n">theory</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="n">aleph</span><span class="o">.</span><span class="n">induce</span><span class="p">(</span><span class="s1">&#39;induce_features&#39;</span><span class="p">,</span> <span class="n">conv</span><span class="o">.</span><span class="n">positive_examples</span><span class="p">(),</span>
                                 <span class="n">conv</span><span class="o">.</span><span class="n">negative_examples</span><span class="p">(),</span>
                                 <span class="n">conv</span><span class="o">.</span><span class="n">background_knowledge</span><span class="p">())</span>
-<span class="nb">print</span> <span class="n">theory</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">theory</span><span class="p">)</span>
 </pre></div>
+</div>
 </div>
 </div>
 

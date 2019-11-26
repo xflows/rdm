@@ -92,6 +92,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#base-datasource">Base DataSource</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mysqldatasource">MySQLDataSource</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pgsqldatasource">PgSQLDataSource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sqlitedatasource">SQLiteDataSource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dbconnection">DBConnection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sqlitedbconnection">SQLiteDBConnection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#csvconnection">CSVConnection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#database-context">Database Context</a></li>
 </ul>
 </li>
@@ -164,7 +168,7 @@
 <p>The package is divided into two main independent subpackages: <code class="docutils literal"><span class="pre">rdm.db</span></code> and <code class="docutils literal"><span class="pre">rdm.wrappers</span></code>.</p>
 <div class="section" id="module-rdm.db.datasource">
 <span id="database-interaction"></span><h2>Database interaction<a class="headerlink" href="#module-rdm.db.datasource" title="Permalink to this headline">¶</a></h2>
-<p>Databases can be accessed via different so-called data sources. You can add your own data source by subclassing the base <code class="docutils literal"><span class="pre">rdm.db.datasource.DataSource</span></code> class.</p>
+<p>Databases can be accessed via different so-called data sources. You can add your own data source by subclassing the base <a class="reference internal" href="#rdm.db.datasource.DataSource" title="rdm.db.datasource.DataSource"><code class="xref py py-class docutils literal"><span class="pre">DataSource</span></code></a> class and implementing a custom <a class="reference internal" href="#rdm.db.context.DBConnection" title="rdm.db.context.DBConnection"><code class="xref py py-class docutils literal"><span class="pre">DBConnection</span></code></a>. For example, <a class="reference internal" href="#rdm.db.datasource.SQLiteDataSource" title="rdm.db.datasource.SQLiteDataSource"><code class="xref py py-class docutils literal"><span class="pre">SQLiteDataSource</span></code></a>, <a class="reference internal" href="#rdm.db.context.SQLiteDBConnection" title="rdm.db.context.SQLiteDBConnection"><code class="xref py py-class docutils literal"><span class="pre">SQLiteDBConnection</span></code></a> and <a class="reference internal" href="#rdm.db.context.CSVConnection" title="rdm.db.context.CSVConnection"><code class="xref py py-class docutils literal"><span class="pre">CSVConnection</span></code></a> enable accesing SQLite databases and collections of csv files.</p>
 <div class="section" id="base-datasource">
 <h3>Base DataSource<a class="headerlink" href="#base-datasource" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
@@ -173,6 +177,12 @@
 <dd><p>A data abstraction layer for accessing datasets.</p>
 <p>This layer is typically hidden from end-users, as they only access
 the database through DBConnection and DBContext objects.</p>
+<dl class="attribute">
+<dt id="rdm.db.datasource.DataSource.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#rdm.db.datasource.DataSource.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="rdm.db.datasource.DataSource.column_values">
 <code class="descname">column_values</code><span class="sig-paren">(</span><em>table</em>, <em>col</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#DataSource.column_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.DataSource.column_values" title="Permalink to this definition">¶</a></dt>
@@ -200,7 +210,7 @@ the database through DBConnection and DBContext objects.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a connection object.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">DBConnection</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rdm.db.context.DBConnection" title="rdm.db.context.DBConnection">DBConnection</a></td>
 </tr>
 </tbody>
 </table>
@@ -402,7 +412,7 @@ the database through DBConnection and DBContext objects.</p>
 
 </dd></dl>
 
-<span class="target" id="module-rdm.db.datasource"></span></div>
+</div>
 <div class="section" id="pgsqldatasource">
 <h3>PgSQLDataSource<a class="headerlink" href="#pgsqldatasource" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
@@ -424,7 +434,145 @@ the database through DBConnection and DBContext objects.</p>
 
 </dd></dl>
 
-<span class="target" id="module-rdm.db.context"></span></div>
+</div>
+<div class="section" id="sqlitedatasource">
+<h3>SQLiteDataSource<a class="headerlink" href="#sqlitedatasource" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="rdm.db.datasource.SQLiteDataSource">
+<em class="property">class </em><code class="descclassname">rdm.db.datasource.</code><code class="descname">SQLiteDataSource</code><span class="sig-paren">(</span><em>connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#SQLiteDataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.SQLiteDataSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>A DataSource implementation for accessing datasets from SQLite DBMS.
+Because SQLite types are dynamic and its CREATE TABLE statement allows for any kind of custom type names, we try to match the most common types with three type categories used in <code class="docutils literal"><span class="pre">rdm</span></code>.</p>
+<dl class="method">
+<dt id="rdm.db.datasource.SQLiteDataSource.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>connection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/datasource.html#SQLiteDataSource.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.datasource.SQLiteDataSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>connection</strong> &#8211; a DBConnection instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="dbconnection">
+<h3>DBConnection<a class="headerlink" href="#dbconnection" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="#rdm.db.context.DBConnection" title="rdm.db.context.DBConnection"><code class="xref py py-class docutils literal"><span class="pre">DBConnection</span></code></a> object is used to connect to a database or some other source of data.</p>
+<dl class="class">
+<dt id="rdm.db.context.DBConnection">
+<em class="property">class </em><code class="descclassname">rdm.db.context.</code><code class="descname">DBConnection</code><span class="sig-paren">(</span><em>user</em>, <em>password</em>, <em>host</em>, <em>database</em>, <em>vendor='mysql'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBConnection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBConnection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Database connector with credentials and database settings</p>
+<dl class="class">
+<dt id="rdm.db.context.DBConnection.Manager">
+<em class="property">class </em><code class="descname">Manager</code><span class="sig-paren">(</span><em>user</em>, <em>password</em>, <em>host</em>, <em>database</em>, <em>dal_connect_fun</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#DBConnection.Manager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.DBConnection.Manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Context Manager.</p>
+<dl class="attribute">
+<dt id="rdm.db.context.DBConnection.Manager.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#rdm.db.context.DBConnection.Manager.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rdm.db.context.DBConnection.__weakref__">
+<code class="descclassname">DBConnection.</code><code class="descname">__weakref__</code><a class="headerlink" href="#rdm.db.context.DBConnection.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="sqlitedbconnection">
+<h3>SQLiteDBConnection<a class="headerlink" href="#sqlitedbconnection" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="#rdm.db.context.SQLiteDBConnection" title="rdm.db.context.SQLiteDBConnection"><code class="xref py py-class docutils literal"><span class="pre">SQLiteDBConnection</span></code></a> object is used to connect to an SQLite database.</p>
+<dl class="class">
+<dt id="rdm.db.context.SQLiteDBConnection">
+<em class="property">class </em><code class="descclassname">rdm.db.context.</code><code class="descname">SQLiteDBConnection</code><span class="sig-paren">(</span><em>sqlite_database</em>, <em>vendor='sqlite'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#SQLiteDBConnection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.SQLiteDBConnection" title="Permalink to this definition">¶</a></dt>
+<dd><p>SQLite database connector</p>
+<dl class="class">
+<dt id="rdm.db.context.SQLiteDBConnection.Manager">
+<em class="property">class </em><code class="descname">Manager</code><span class="sig-paren">(</span><em>sqlite_database</em>, <em>dal_connect_fun</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#SQLiteDBConnection.Manager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.SQLiteDBConnection.Manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Context Manager.</p>
+<dl class="attribute">
+<dt id="rdm.db.context.SQLiteDBConnection.Manager.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#rdm.db.context.SQLiteDBConnection.Manager.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="csvconnection">
+<h3>CSVConnection<a class="headerlink" href="#csvconnection" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="#rdm.db.context.CSVConnection" title="rdm.db.context.CSVConnection"><code class="xref py py-class docutils literal"><span class="pre">CSVConnection</span></code></a> object is used to load data from a collection of csv files.</p>
+<dl class="class">
+<dt id="rdm.db.context.CSVConnection">
+<em class="property">class </em><code class="descclassname">rdm.db.context.</code><code class="descname">CSVConnection</code><span class="sig-paren">(</span><em>file_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#CSVConnection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.CSVConnection" title="Permalink to this definition">¶</a></dt>
+<dd><p>CSV data loader. An SQLite database is used internally to store and query the data.
+Input csv files require two additional header lines besides the title row:</p>
+<ul>
+<li><p class="first">the first row specifies column names</p>
+</li>
+<li><p class="first">the second row specifies column types using SQLite syntax</p>
+</li>
+<li><p class="first">the third row specifies constraints such as primary and foreign keys using simplified SQLite syntax:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>primary key</strong> declares a primary key constraint on the given column</li>
+<li><strong>foreign key [table.column]</strong> declares a foreign key constraint on the current column to the specified table and column. See notes below for additional information.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>Notes</strong></p>
+<p>Composite primary keys are supported simply by declaring several colums as &#8220;primary key&#8221;.
+Both primary and foreign key can be declared in a single csv cell. For example, &#8220;primary key foreign key [table.column]&#8221; is a valid declaration (although not very useful if the primary key is not composite because it implies one-to-one relationship).</p>
+<p>If there are multiple foreign key declarations per cell only the first one is considered and the rest is discarded (such declaration is invalid anyway).</p>
+<p>Finally, composite foreign keys are not (yet) supported because there is no simple way of expressing such constraints in the csv header.</p>
+<dl class="method">
+<dt id="rdm.db.context.CSVConnection.csv2db">
+<code class="descname">csv2db</code><span class="sig-paren">(</span><em>file_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#CSVConnection.csv2db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.CSVConnection.csv2db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads csv files into an SQLite database and checks foreign keys constraints</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.context.CSVConnection.csv2sql">
+<code class="descname">csv2sql</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#CSVConnection.csv2sql"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.CSVConnection.csv2sql" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses csv data file and returns SQLite DDL, insert command and data rows.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.context.CSVConnection.dump_db">
+<code class="descname">dump_db</code><span class="sig-paren">(</span><em>sqlite_database</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#CSVConnection.dump_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.CSVConnection.dump_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dumps the in-memory database contructed from csv files into an SQLite database file.</p>
+<p>Python 3.7 and SQLite 3.6.11 or newer are required to use this function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rdm.db.context.CSVConnection.dump_sql">
+<code class="descname">dump_sql</code><span class="sig-paren">(</span><em>sqlfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/db/context.html#CSVConnection.dump_sql"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.db.context.CSVConnection.dump_sql" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dumps the in-memory database contructed from csv files into an SQLite SQL file</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param sqlfile:</th><td class="field-body">name of the output file</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="database-context">
 <h3>Database Context<a class="headerlink" href="#database-context" title="Permalink to this headline">¶</a></h3>
 <p>A <code class="docutils literal"><span class="pre">DBContext</span></code> object represents a <em>view</em> of a particular data source that can be used for learning. Example uses include: selecting only particular tables, table columns, a target attribute, and so on.</p>
@@ -450,6 +598,12 @@ the database through DBConnection and DBContext objects.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rdm.db.context.DBContext.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#rdm.db.context.DBContext.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
 </dd></dl>
 
 <dl class="method">
@@ -588,6 +742,12 @@ the database through DBConnection and DBContext objects.</p>
 </tbody>
 </table>
 </div></blockquote>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rdm.db.converters.Converter.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#rdm.db.converters.Converter.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
 </dd></dl>
 
 </dd></dl>
@@ -1042,7 +1202,7 @@ Progol (Muggleton, 1995) and Aleph.</p>
 <ul class="simple">
 <li>features is a set of prolog clauses of generated features,</li>
 <li>weka is the propositional form of the input data,</li>
-<li>rules is a set of generated cn2sd subgroup descriptions; 
+<li>rules is a set of generated cn2sd subgroup descriptions;
 this will be an empty string if cn2sd is set to False.</li>
 </ul>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1133,6 +1293,12 @@ feature length. Furthermore, the resulting features are the smallest in their se
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rdm.wrappers.TreeLiker.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#rdm.wrappers.TreeLiker.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
 </dd></dl>
 
 <dl class="method">
@@ -1311,7 +1477,7 @@ representation.</p>
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">Proper</code><span class="sig-paren">(</span><em>input_dict</em>, <em>is_relaggs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/proper/proper.html#Proper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Proper" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt id="rdm.wrappers.Proper.__dict__">
-<code class="descname">__dict__</code><em class="property"> = dict_proxy({'__module__': 'rdm.wrappers.proper.proper', 'run': &lt;function run&gt;, 'init_args_list': &lt;function init_args_list&gt;, 'parse_excluded_fields': &lt;function parse_excluded_fields&gt;, '__dict__': &lt;attribute '__dict__' of 'Proper' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'Proper' objects&gt;, '__doc__': None, '__init__': &lt;function __init__&gt;})</em><a class="headerlink" href="#rdm.wrappers.Proper.__dict__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'rdm.wrappers.proper.proper', '__init__': &lt;function Proper.__init__&gt;, 'init_args_list': &lt;function Proper.init_args_list&gt;, 'run': &lt;function Proper.run&gt;, 'parse_excluded_fields': &lt;function Proper.parse_excluded_fields&gt;, '__dict__': &lt;attribute '__dict__' of 'Proper' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'Proper' objects&gt;, '__doc__': None})</em><a class="headerlink" href="#rdm.wrappers.Proper.__dict__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1355,7 +1521,7 @@ representation.</p>
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">Tertius</code><span class="sig-paren">(</span><em>input_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/tertius/tertius.html#Tertius"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Tertius" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt id="rdm.wrappers.Tertius.__dict__">
-<code class="descname">__dict__</code><em class="property"> = dict_proxy({'__module__': 'rdm.wrappers.tertius.tertius', 'run': &lt;function run&gt;, 'init_args_list': &lt;function init_args_list&gt;, '__dict__': &lt;attribute '__dict__' of 'Tertius' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'Tertius' objects&gt;, '__doc__': None, '__init__': &lt;function __init__&gt;})</em><a class="headerlink" href="#rdm.wrappers.Tertius.__dict__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'rdm.wrappers.tertius.tertius', '__init__': &lt;function Tertius.__init__&gt;, 'init_args_list': &lt;function Tertius.init_args_list&gt;, 'run': &lt;function Tertius.run&gt;, '__dict__': &lt;attribute '__dict__' of 'Tertius' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'Tertius' objects&gt;, '__doc__': None})</em><a class="headerlink" href="#rdm.wrappers.Tertius.__dict__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1394,7 +1560,7 @@ representation.</p>
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">OneBC</code><span class="sig-paren">(</span><em>input_dict</em>, <em>is1BC2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/tertius/onebc.html#OneBC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.OneBC" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt id="rdm.wrappers.OneBC.__dict__">
-<code class="descname">__dict__</code><em class="property"> = dict_proxy({'__module__': 'rdm.wrappers.tertius.onebc', 'run': &lt;function run&gt;, 'init_args_list': &lt;function init_args_list&gt;, '__dict__': &lt;attribute '__dict__' of 'OneBC' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'OneBC' objects&gt;, '__doc__': None, '__init__': &lt;function __init__&gt;})</em><a class="headerlink" href="#rdm.wrappers.OneBC.__dict__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'rdm.wrappers.tertius.onebc', '__init__': &lt;function OneBC.__init__&gt;, 'init_args_list': &lt;function OneBC.init_args_list&gt;, 'run': &lt;function OneBC.run&gt;, '__dict__': &lt;attribute '__dict__' of 'OneBC' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'OneBC' objects&gt;, '__doc__': None})</em><a class="headerlink" href="#rdm.wrappers.OneBC.__dict__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1433,7 +1599,7 @@ representation.</p>
 <em class="property">class </em><code class="descclassname">rdm.wrappers.</code><code class="descname">Caraf</code><span class="sig-paren">(</span><em>input_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rdm/wrappers/caraf/caraf.html#Caraf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rdm.wrappers.Caraf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt id="rdm.wrappers.Caraf.__dict__">
-<code class="descname">__dict__</code><em class="property"> = dict_proxy({'__module__': 'rdm.wrappers.caraf.caraf', 'run': &lt;function run&gt;, '__dict__': &lt;attribute '__dict__' of 'Caraf' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'Caraf' objects&gt;, '__doc__': None, '__init__': &lt;function __init__&gt;})</em><a class="headerlink" href="#rdm.wrappers.Caraf.__dict__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'rdm.wrappers.caraf.caraf', '__init__': &lt;function Caraf.__init__&gt;, 'run': &lt;function Caraf.run&gt;, '__dict__': &lt;attribute '__dict__' of 'Caraf' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'Caraf' objects&gt;, '__doc__': None})</em><a class="headerlink" href="#rdm.wrappers.Caraf.__dict__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1459,7 +1625,7 @@ representation.</p>
 
 </dd></dl>
 
-<span class="target" id="module-rdm.validation"></span></div>
+</div>
 </div>
 <div class="section" id="utilities">
 <h2>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
