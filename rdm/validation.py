@@ -19,16 +19,24 @@ def cv_split(context, folds=10, random_seed=None):
         >>> for train_context, test_context in cv_split(context, folds=10, random_seed=0):
         >>>     pass  # Your CV loop
     '''
-    import orange
+    import Orange
     random_seed = random.randint(0, 10**6) if not random_seed else random_seed
     input_list = context.orng_tables.get(context.target_table, None)
-    indices = orange.MakeRandomIndicesCV(input_list, randseed=random_seed, folds=folds,
-                                         stratified=orange.MakeRandomIndices.Stratified)
+
+    # indices = Orange.MakeRandomIndicesCV(input_list, randseed=random_seed, folds=folds,
+    #                                      stratified=orange.MakeRandomIndices.Stratified)
+    # indices = Orange.data.sample.SubsetIndicesCV(input_list, randseed=random_seed, folds=folds,
+    #                                              stratified=Orange.data.sample.SubsetIndices.Stratified)
+    cv = Orange.evaluation.CrossValidation(k=folds, random_state=random_seed, stratified=True)
+    cv_indices = cv.get_indices(input_list)
 
     fold_contexts = []
     for i in range(folds):
-        train = input_list.select(indices, i, negate=1)
-        test = input_list.select(indices, i)
+        train_indices = cv_indices[i][0]
+        test_indices = cv_indices[i][1]
+
+        train = input_list[train_indices]
+        test = input_list[test_indices]
         train.name = input_list.name
         test.name = input_list.name
         train_context = context.copy()
