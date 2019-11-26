@@ -61,7 +61,7 @@ Pull requests and issues are welcome.
 
 ## Contributors to the RDM package code ##
 
-Anže Vavpetič (@anzev), Nicolas Lachiche, Alain Shakour (@alshak), Matic Perovšek (@mperice)
+Anže Vavpetič (@anzev), Nicolas Lachiche, Alain Shakour (@alshak), Matic Perovšek (@mperice), Vid Podpečan (@vpodpecan)
 
 * [Knowldge Technologies Department](http://kt.ijs.si), Jožef Stefan Institute, Ljubljana
 * [Engineering, Computer and Imaging Sciences Laboratory](http://icube-bfo.unistra.fr/en/index.php/Home), University of Strasbourg, France
