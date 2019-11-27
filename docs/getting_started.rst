@@ -98,3 +98,9 @@ The same example but the data is now loaded from a MySQL database using :class:`
                                     conv.negative_examples(),
                                     conv.background_knowledge())
     print(theory)
+
+
+CSV files vs. RDBMS
+-------------------
+
+Please note that not all wrapped ILP systems are able to use CSV files and SQLite databases. For example, Proper expects credentials to access the database directly.
