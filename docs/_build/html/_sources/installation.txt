@@ -22,7 +22,7 @@ Depending on what algorithms you wish to use, these are their dependencies.
 Aleph and RSD
 ^^^^^^^^^^^^^
 
-* Yap prolog (preferably compiled with ``--tabling`` enabled for speedups). Check the Github repository `here <https://github.com/vscosta/yap-6.3>`_. Please use the latest version available. Old versions (older than 6.2) will likely not work.
+* Yap prolog (preferably compiled with ``--tabling`` enabled for speedups). Please use version `6.3.3 <https://github.com/vscosta/yap-6.3/tree/yap-6.3.3>`_ which is know to work. Other versions may or may not work correctly.
 
 On Debian-based systems you can simply install it as::
 
