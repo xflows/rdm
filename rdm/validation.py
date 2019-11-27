@@ -1,7 +1,9 @@
 import random
 
+import Orange
 
-def cv_split(context, folds=10, random_seed=None):
+
+def cv_split(context, folds=10, random_seed=None, stratified=True):
     '''
     Returns a list of pairs (train_context, test_context), one for each cross-validation fold.
 
@@ -19,15 +21,14 @@ def cv_split(context, folds=10, random_seed=None):
         >>> for train_context, test_context in cv_split(context, folds=10, random_seed=0):
         >>>     pass  # Your CV loop
     '''
-    import Orange
-    random_seed = random.randint(0, 10**6) if not random_seed else random_seed
+    random_seed = random.randint(0, 10**6) if random_seed is None else random_seed
     input_list = context.orng_tables.get(context.target_table, None)
 
     # indices = Orange.MakeRandomIndicesCV(input_list, randseed=random_seed, folds=folds,
     #                                      stratified=orange.MakeRandomIndices.Stratified)
     # indices = Orange.data.sample.SubsetIndicesCV(input_list, randseed=random_seed, folds=folds,
     #                                              stratified=Orange.data.sample.SubsetIndices.Stratified)
-    cv = Orange.evaluation.CrossValidation(k=folds, random_state=random_seed, stratified=True)
+    cv = Orange.evaluation.CrossValidation(k=folds, random_state=random_seed, stratified=stratified)
     cv_indices = cv.get_indices(input_list)
 
     fold_contexts = []
