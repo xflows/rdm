@@ -157,10 +157,7 @@
 <span class="c1"># Cross-validation loop</span>
 <span class="n">predictions</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">folds</span> <span class="o">=</span> <span class="mi">10</span>
-
-<span class="n">a</span> <span class="o">=</span> <span class="n">cv_split</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">folds</span><span class="o">=</span><span class="n">folds</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">train_context</span><span class="p">,</span> <span class="n">test_context</span> <span class="ow">in</span> <span class="n">cv_split</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">folds</span><span class="o">=</span><span class="n">folds</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">train_context</span><span class="p">,</span> <span class="n">test_context</span> <span class="ow">in</span> <span class="n">cv_split</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">folds</span><span class="o">=</span><span class="n">folds</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stratified</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="c1"># Find features on the train set</span>
     <span class="n">conv</span> <span class="o">=</span> <span class="n">RSDConverter</span><span class="p">(</span><span class="n">train_context</span><span class="p">)</span>
     <span class="n">rsd</span> <span class="o">=</span> <span class="n">RSD</span><span class="p">()</span>

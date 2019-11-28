@@ -8,9 +8,14 @@ Latest release from PyPI::
 
     pip install python-rdm
 
-Latest from `GitHub <https://github.com/xflows/rdm/>`_::
+Latest 0.2 branch from `GitHub <https://github.com/xflows/rdm/>`_::
 
     pip install https://github.com/xflows/rdm/archive/master.zip
+
+Latest 0.3 branch (based on latest Orange3) from `GitHub <https://github.com/vpodpecan/rdm/>`_::
+
+    pip install git+https://github.com/vpodpecan/rdm.git
+
 
 The prerequisites are listed in ``requirements.txt``.
 

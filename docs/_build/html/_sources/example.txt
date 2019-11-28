@@ -26,10 +26,7 @@ Example use case
     # Cross-validation loop
     predictions = []
     folds = 10
-
-    a = cv_split(context, folds=folds, random_seed=0)
-
-    for train_context, test_context in cv_split(context, folds=folds, random_seed=0):
+    for train_context, test_context in cv_split(context, folds=folds, random_seed=None, stratified=True):
         # Find features on the train set
         conv = RSDConverter(train_context)
         rsd = RSD()
