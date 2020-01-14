@@ -25,19 +25,21 @@ import pandas as pd
 
 
 if __name__ == "__main__":
-    
+    print('Error: this benchmark needs fixing. Aborting evaluation.')
+    exit(1)
+
     parser = argparse.ArgumentParser(description='Benchmark setup')
     parser.add_argument('--learner',type=str,default="aleph")
     parser.add_argument('--dataset',type=str,default="trains")
     parser.add_argument('--target_label',type=str,default="direction")
     parser.add_argument('--target_attribute',type=str,default="east")
 
-    args = parser.parse_args()    
+    args = parser.parse_args()
     learner = args.learner
     dataset = args.dataset
     target_label = args.target_label
     target_attr_value = args.target_attribute
-    
+
     # Provide connection information
     connection = DBConnection(
         'guest',  # User
@@ -142,9 +144,9 @@ if __name__ == "__main__":
                     idf = cnt * idfs[feature]
                     doc_vec.append(idf)
                 feature_vectors.append(doc_vec)
-            print(feature_vectors,classes)                                
+            print(feature_vectors,classes)
 
-            test_arff = wordification_test.to_arff()            
+            test_arff = wordification_test.to_arff()
 
             entries = []
             targets = []
@@ -180,7 +182,7 @@ if __name__ == "__main__":
 
 
 
-        else: 
+        else:
             data = arff.loads(unicode(train_arff))
             entries = []
             targets = []

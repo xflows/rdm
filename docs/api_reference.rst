@@ -1,6 +1,6 @@
 
 API Reference
-======================================
+=============
 
 The package is divided into two main independent subpackages: ``rdm.db`` and ``rdm.wrappers``.
 
@@ -9,7 +9,9 @@ Database interaction
 
 .. py:module:: rdm.db.datasource
 
-Databases can be accessed via different so-called data sources. You can add your own data source by subclassing the base ``rdm.db.datasource.DataSource`` class.
+Databases can be accessed via different so-called data sources. You can add your own data source by subclassing the base :class:`~rdm.db.datasource.DataSource` class and implementing a custom :class:`~rdm.db.context.DBConnection`. For example, :class:`~rdm.db.datasource.SQLiteDataSource`, :class:`~rdm.db.context.SQLiteDBConnection` and :class:`~rdm.db.context.CSVConnection` enable accesing SQLite databases and collections of csv files.
+
+
 
 Base DataSource
 ^^^^^^^^^^^^^^^
@@ -19,13 +21,12 @@ Base DataSource
     :members:
 
 MySQLDataSource
-^^^^^^^^^^^^^^^ 
+^^^^^^^^^^^^^^^
 
 .. autoclass:: rdm.db.datasource.MySQLDataSource
     :special-members:
     :members:
 
-.. py:module:: rdm.db.datasource
 
 PgSQLDataSource
 ^^^^^^^^^^^^^^^
@@ -34,7 +35,44 @@ PgSQLDataSource
     :special-members:
     :members:
 
-.. py:module:: rdm.db.context
+
+SQLiteDataSource
+^^^^^^^^^^^^^^^^
+
+.. autoclass:: rdm.db.datasource.SQLiteDataSource
+    :special-members:
+    :members:
+
+
+
+DBConnection
+^^^^^^^^^^^^
+
+The :class:`~rdm.db.context.DBConnection` object is used to connect to a database or some other source of data.
+
+.. autoclass:: rdm.db.context.DBConnection
+    :special-members:
+    :members:
+
+SQLiteDBConnection
+^^^^^^^^^^^^^^^^^^
+
+The :class:`~rdm.db.context.SQLiteDBConnection` object is used to connect to an SQLite database.
+
+.. autoclass:: rdm.db.context.SQLiteDBConnection
+    :special-members:
+    :members:
+
+
+CSVConnection
+^^^^^^^^^^^^^^^^^^
+
+The :class:`~rdm.db.context.CSVConnection` object is used to load data from a collection of csv files.
+
+.. autoclass:: rdm.db.context.CSVConnection
+    :special-members:
+    :members:
+
 
 Database Context
 ^^^^^^^^^^^^^^^^
@@ -195,7 +233,6 @@ Caraf
     :undoc-members:
 
 
-.. py:module:: rdm.validation
 
 
 Utilities

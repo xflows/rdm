@@ -5,6 +5,8 @@ Classes for handling DBContexts for ILP systems.
 '''
 import re
 
+from .datasource import SQLiteDataSource
+
 
 class Converter:
     '''
@@ -177,8 +179,7 @@ class RSDConverter(ILPConverter):
             getters.extend(self.connecting_clause(table, ref_table))
         for table, atts in self.db.cols.items():
             for att in atts:
-                if att == self.db.target_att and table == self.db.target_table or \
-                                att in self.db.fkeys[table] or att == self.db.pkeys[table]:
+                if att == self.db.target_att and table == self.db.target_table or att in self.db.fkeys[table] or att == self.db.pkeys[table]:
                     continue
                 modeslist.append(self.mode('%s_%s' % (table, att), [('+', table), ('-', att)]))
                 modeslist.append(self.mode('instantiate', [('+', att)]))
@@ -264,8 +265,7 @@ class AlephConverter(ILPConverter):
             getters.extend(self.connecting_clause(table, ref_table))
         for table, atts in self.db.cols.items():
             for att in atts:
-                if att == self.db.target_att and table == self.db.target_table or \
-                                att in self.db.fkeys[table] or att == self.db.pkeys[table]:
+                if att == self.db.target_att and table == self.db.target_table or att in self.db.fkeys[table] or att == self.db.pkeys[table]:
                     continue
                 modeslist.append(self.mode('%s_%s' % (table, att), [('+', table), ('#', att.lower())], recall='*'))
                 determinations.append(':- determination(%s/1, %s_%s/2).' % (self.__target_predicate(), table, att))
@@ -290,9 +290,9 @@ class OrangeConverter(Converter):
     '''
     Converts the selected tables in the given context to Orange example tables.
     '''
-    continuous_types = ('FLOAT', 'DOUBLE', 'DECIMAL', 'NEWDECIMAL', 'double precision', 'numeric')
-    integer_types = ('TINY', 'SHORT', 'LONG', 'LONGLONG', 'INT24', 'integer')
-    ordinal_types = ('YEAR', 'VARCHAR', 'SET', 'VAR_STRING', 'STRING', 'BIT', 'text', 'character varying', 'character')
+    continuous_types = ('FLOAT', 'DOUBLE', 'DECIMAL', 'NEWDECIMAL', 'double precision', 'numeric') + SQLiteDataSource.continuous_types
+    integer_types = ('TINY', 'SHORT', 'LONG', 'LONGLONG', 'INT24', 'integer') + SQLiteDataSource.integer_types
+    ordinal_types = ('YEAR', 'VARCHAR', 'SET', 'VAR_STRING', 'STRING', 'BIT', 'text', 'character varying', 'character') + SQLiteDataSource.ordinal_types
 
     def __init__(self, *args, **kwargs):
         Converter.__init__(self, *args, **kwargs)
@@ -351,21 +351,22 @@ class OrangeConverter(Converter):
                     raise Exception('Unsuitable data type for a target variable: %s' % att_type)
                 class_var = att_var
                 continue
-            elif att_type == 'string' or table_name in self.db.pkeys and col in self.db.pkeys[
-                table_name] or table_name in self.db.fkeys and col in self.db.fkeys[table_name]:
+            elif att_type == 'string' or table_name in self.db.pkeys and col in self.db.pkeys[table_name] \
+                             or table_name in self.db.fkeys and col in self.db.fkeys[table_name]:
                 metas.append(att_var)
             else:
                 attributes.append(att_var)
         domain = Orange.data.Domain(attributes, class_vars=class_var, metas=metas)
         # for meta in metas:
         #    domain.addmeta(Orange.newmetaid(), meta)
-        dataset = Orange.data.Table(domain)
-        dataset.name = table_name
+        examples = []
         for row in self.db.rows(table_name, cols):
             example = Orange.data.Instance(domain)
             for col, val in zip(cols, row):
-                example[str(col)] = str(val) if val != None else '?'
-            dataset.append(example)
+                example[str(col)] = str(val) if val is not None else '?'
+            examples.append(example)
+        dataset = Orange.data.Table.from_list(domain, examples)
+        dataset.name = table_name
         return dataset
 
     def orng_type(self, table_name, col):
@@ -377,8 +378,7 @@ class OrangeConverter(Converter):
         '''
         mysql_type = self.types[table_name][col]
         n_vals = len(self.db.col_vals[table_name][col])
-        if mysql_type in OrangeConverter.continuous_types or (
-                        n_vals >= 50 and mysql_type in OrangeConverter.integer_types):
+        if mysql_type in OrangeConverter.continuous_types or (n_vals >= 50 and mysql_type in OrangeConverter.integer_types):
             return 'c'
         elif mysql_type in OrangeConverter.ordinal_types + OrangeConverter.integer_types:
             return 'd'
@@ -620,7 +620,7 @@ class PrdFctConverter(Converter):
             val_id = data[inst][pkey_name]
             # if it is the main table or is the child of the previous table
             if not prev_table or (prev_table and prev_fcol and data[inst][prev_fcol].value == prev_val):
-                # if main table:        
+                # if main table:
                 if not prev_table:
                     # add an '!'
                     fct_str += '!\n'

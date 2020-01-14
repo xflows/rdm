@@ -8,9 +8,14 @@ Latest release from PyPI::
 
     pip install python-rdm
 
-Latest from `GitHub <https://github.com/xflows/rdm/>`_::
+Latest 0.2 branch from `GitHub <https://github.com/xflows/rdm/>`_::
 
     pip install https://github.com/xflows/rdm/archive/master.zip
+
+Latest 0.3 branch (based on latest Orange3) from `GitHub <https://github.com/vpodpecan/rdm/>`_::
+
+    pip install git+https://github.com/vpodpecan/rdm.git
+
 
 The prerequisites are listed in ``requirements.txt``.
 
@@ -22,9 +27,7 @@ Depending on what algorithms you wish to use, these are their dependencies.
 Aleph and RSD
 ^^^^^^^^^^^^^
 
-* Yap prolog (preferably compiled with ``--tabling`` enabled for speedups)
-
-There are sources as well as binaries for Windows and OS X available `here <https://www.dcc.fc.up.pt/~vsc/Yap/downloads.html>`_.
+* Yap prolog (preferably compiled with ``--tabling`` enabled for speedups). Please use version `6.3.3 <https://github.com/vscosta/yap-6.3/tree/yap-6.3.3>`_ which is known to work. Other versions may or may not work correctly.
 
 On Debian-based systems you can simply install it as::
 
