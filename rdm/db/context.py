@@ -165,24 +165,48 @@ class CSVConnection(SQLiteDBConnection):
     '''
     def __init__(self, file_list):
         self.sqlite_database = os.path.join(tempfile.mkdtemp(), 'tempdb.sqlite3')
-        self.csv2db(file_list)
+        self.__csv2db(file_list)
         self.src = SQLiteDataSource(self)
         if not(sqlite3.sqlite_version_info[0] >= 3 and sqlite3.sqlite_version_info[1] >= 16):
             raise Exception('Your SQLite does not support pragma functions. Please upgrade to at least 3.16.0')
         self.check_connection()
 
+    def __getstate__(self):
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+
+        # Now store a dump of the db file. This is required for unpickled instance to work.
+        self.dbdump = open(self.sqlite_database, 'rb').read()
+        state = self.__dict__.copy()
+        # Remove the unpicklable entries.
+        del state['src']
+        del state['sqlite_database']
+        return state
+
+    def __setstate__(self, state):
+        # Restore instance attributes
+        self.__dict__.update(state)
+        sqldb = os.path.join(tempfile.mkdtemp(), 'tempdb.sqlite3')
+        with open(sqldb, 'wb') as fp:
+            fp.write(self.dbdump)
+        src = SQLiteDataSource(self)
+        self.sqlite_database = sqldb
+        self.src = src
+
     def __del__(self):
-        tmpdir, _ = os.path.split(self.sqlite_database)
         try:
-            os.remove(self.sqlite_database)
-            os.rmdir(tmpdir)
+            tmpdir, _ = os.path.split(self.sqlite_database)
+            if os.path.exists(self.sqlite_database):
+                os.remove(self.sqlite_database)
+                os.rmdir(tmpdir)
         except Exception as e:
             print('Warning: cannot remove temporary database "{}"'.format(self.sqlite_database))
 
     def connect(self):
         return self.Manager(self.sqlite_database, sqlite3.connect)
 
-    def csv2db(self, file_list):
+    def __csv2db(self, file_list):
         '''
         Loads csv files into an SQLite database and checks foreign keys constraints
         '''
@@ -255,12 +279,12 @@ class CSVConnection(SQLiteDBConnection):
         constraints.append('PRIMARY KEY ({})'.format(','.join(['"{}"'.format(x) for x in pkeys])))
 
         ddl = 'CREATE TABLE "{}" (\n{}\n)'.format(tablename, ',\n'.join(declarations + constraints))
-        insert = 'INSERT INTO "{}" VALUES ({})'.format(tablename, ','.join('?'*len(declarations)))
+        insert = 'INSERT INTO "{}" VALUES ({})'.format(tablename, ','.join('?' * len(declarations)))
         return ddl, insert, data
 
     def dump_sql(self, sqlfile):
         '''
-        Dumps the in-memory database contructed from csv files into an SQLite SQL file
+        Dumps the database contructed from csv files into an SQLite SQL file
 
             :param sqlfile: name of the output file
         '''
@@ -269,16 +293,16 @@ class CSVConnection(SQLiteDBConnection):
                 for line in con.iterdump():
                     fp.write('{}\n'.format(line))
 
-    def dump_db(self, sqlite_database):
+    def dump_db(self, sqlite_database_file):
         '''
-        Dumps the in-memory database contructed from csv files into an SQLite database file.
+        Dumps the database constructed from csv files into an SQLite database file.
 
         Python 3.7 and SQLite 3.6.11 or newer are required to use this function.
         '''
         if not(sys.version_info.major >= 3 and sys.version_info.minor >= 7):
             raise EnvironmentError('Python >= 3.7 and SQLite >= 3.6.11 are required for backuping SQLite databases')
         with sqlite3.connect(self.sqlite_database) as con:
-            with sqlite3.connect(sqlite_database) as bck:
+            with sqlite3.connect(sqlite_database_file) as bck:
                 con.backup(bck, pages=0)
 
 
