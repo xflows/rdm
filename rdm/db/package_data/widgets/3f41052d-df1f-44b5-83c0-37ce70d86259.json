@@ -1,0 +1,57 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Load database from SQLite",
+      "action": "database_from_sqlite_db",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "Establishes a connection to an SQLite database.",
+      "category": "b66b71b1-99d6-4efc-b264-a914a3e42911",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "3f41052d-df1f-44b5-83c0-37ce70d86259",
+      "package": "rdm.db",
+      "always_save_results": true,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "SQLite database",
+      "short_name": "sdb",
+      "description": "An SQLite database.",
+      "variable": "sqlite_db_file",
+      "widget": "3f41052d-df1f-44b5-83c0-37ce70d86259",
+      "required": true,
+      "parameter": false,
+      "multi": false,
+      "default": "",
+      "parameter_type": "file",
+      "order": 1,
+      "uid": "88ce9c00-2dc7-41d8-9df1-007da6fd1ff6"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Connection",
+      "short_name": "con",
+      "description": "A connection to the SQL database",
+      "variable": "connection",
+      "widget": "3f41052d-df1f-44b5-83c0-37ce70d86259",
+      "order": 1,
+      "uid": "9019cc1a-001f-49ea-8c46-d2f4fe5b141b"
+    }
+  }
+]

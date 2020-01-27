@@ -9,7 +9,7 @@ import time
 # from django import forms
 # import mysql.connector as sql
 # from .datasource import MySQLDataSource, PgSQLDataSource
-from .context import DBConnection, DBContext, DBVendor
+from .context import DBConnection, DBContext, DBVendor, CSVConnection, SQLiteDBConnection
 from .converters import RSDConverter, AlephConverter, OrangeConverter, TreeLikerConverter, PrdFctConverter
 from .mapper import domain_map
 
@@ -146,3 +146,13 @@ def do_map(input_dict, feature_format, positive_class=None):
                              test_context, format=format,
                              positive_class=positive_class)
     return {'evaluations': evaluations}
+
+
+def database_from_csv(input_dict):
+    fnames = input_dict['csvfiles']
+    return {'connection': CSVConnection(fnames)}
+
+
+def database_from_sqlite_db(input_dict):
+    sqlite_db_file = input_dict['sqlite_db_file']
+    return {'connection': SQLiteDBConnection(sqlite_db_file)}

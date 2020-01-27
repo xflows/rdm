@@ -1,0 +1,57 @@
+[
+  {
+    "model": "workflows.abstractwidget",
+    "fields": {
+      "name": "Load database from CSV",
+      "action": "database_from_csv",
+      "wsdl": "",
+      "wsdl_method": "",
+      "description": "Establishes a connection to a database which is constructed from a set of CSV files (with special headers defining columns, primary and foreign keys. See python-rdm documentation for more info.",
+      "category": "b66b71b1-99d6-4efc-b264-a914a3e42911",
+      "visualization_view": "",
+      "streaming_visualization_view": "",
+      "interactive": false,
+      "interaction_view": "",
+      "post_interact_action": "",
+      "image": "",
+      "treeview_image": "",
+      "static_image": "",
+      "has_progress_bar": false,
+      "is_streaming": false,
+      "order": 1,
+      "uid": "6c168f2e-e47f-409a-97c1-58d50fbbec4d",
+      "package": "rdm.db",
+      "always_save_results": true,
+      "windows_queue": false
+    }
+  },
+  {
+    "model": "workflows.abstractinput",
+    "fields": {
+      "name": "CSV file",
+      "short_name": "csv",
+      "description": "A CSV file describing one database table",
+      "variable": "csvfiles",
+      "widget": "6c168f2e-e47f-409a-97c1-58d50fbbec4d",
+      "required": true,
+      "parameter": false,
+      "multi": true,
+      "default": "",
+      "parameter_type": null,
+      "order": 1,
+      "uid": "16d1fe96-ce53-4a94-8c3e-90ac444b45f8"
+    }
+  },
+  {
+    "model": "workflows.abstractoutput",
+    "fields": {
+      "name": "Connection",
+      "short_name": "con",
+      "description": "Connection to a database constructed from CSV files",
+      "variable": "connection",
+      "widget": "6c168f2e-e47f-409a-97c1-58d50fbbec4d",
+      "order": 1,
+      "uid": "966682c1-1407-4eb2-ae73-3bd660dee3f0"
+    }
+  }
+]
