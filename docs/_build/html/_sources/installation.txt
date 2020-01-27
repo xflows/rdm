@@ -4,17 +4,16 @@ Installation
 
 The package was successfully installed on Linux, Windows and OS X systems.
 
+Latest version from the `master` branch on `GitHub <https://github.com/xflows/rdm/>`_::
+
+    pip install git+https://github.com/xflows/rdm.git
+
+
 Latest release from PyPI::
 
     pip install python-rdm
 
-Latest 0.2 branch from `GitHub <https://github.com/xflows/rdm/>`_::
-
-    pip install https://github.com/xflows/rdm/archive/master.zip
-
-Latest 0.3 branch (based on latest Orange3) from `GitHub <https://github.com/vpodpecan/rdm/>`_::
-
-    pip install git+https://github.com/vpodpecan/rdm.git
+(Please note that the PyPI version is likely not the latest one.)
 
 
 The prerequisites are listed in ``requirements.txt``.

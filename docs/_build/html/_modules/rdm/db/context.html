@@ -300,24 +300,48 @@
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_list</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(),</span> <span class="s1">&#39;tempdb.sqlite3&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">csv2db</span><span class="p">(</span><span class="n">file_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__csv2db</span><span class="p">(</span><span class="n">file_list</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">src</span> <span class="o">=</span> <span class="n">SQLiteDataSource</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="n">sqlite3</span><span class="o">.</span><span class="n">sqlite_version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">sqlite_version_info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">16</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Your SQLite does not support pragma functions. Please upgrade to at least 3.16.0&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_connection</span><span class="p">()</span>
 
+    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Copy the object&#39;s state from self.__dict__ which contains</span>
+        <span class="c1"># all our instance attributes. Always use the dict.copy()</span>
+        <span class="c1"># method to avoid modifying the original state.</span>
+
+        <span class="c1"># Now store a dump of the db file. This is required for unpickled instance to work.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dbdump</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="c1"># Remove the unpicklable entries.</span>
+        <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;src&#39;</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;sqlite_database&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">state</span>
+
+    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="c1"># Restore instance attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">sqldb</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(),</span> <span class="s1">&#39;tempdb.sqlite3&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">sqldb</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dbdump</span><span class="p">)</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">SQLiteDataSource</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span> <span class="o">=</span> <span class="n">sqldb</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">src</span> <span class="o">=</span> <span class="n">src</span>
+
     <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">tmpdir</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">)</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">rmdir</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
+            <span class="n">tmpdir</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">)</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">rmdir</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Warning: cannot remove temporary database &quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Manager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">,</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">)</span>
 
-<div class="viewcode-block" id="CSVConnection.csv2db"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.CSVConnection.csv2db">[docs]</a>    <span class="k">def</span> <span class="nf">csv2db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_list</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__csv2db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_list</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Loads csv files into an SQLite database and checks foreign keys constraints</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -338,7 +362,7 @@
             <span class="n">errors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;PRAGMA foreign_key_check&#39;</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">errors</span><span class="p">:</span>
                 <span class="n">errlines</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;table &quot;{}&quot;, row {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">]</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Foreign key constraint error:</span><span class="se">\n</span><span class="s1">{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">errlines</span><span class="p">)))</span></div>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Foreign key constraint error:</span><span class="se">\n</span><span class="s1">{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">errlines</span><span class="p">)))</span>
 
 <div class="viewcode-block" id="CSVConnection.csv2sql"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.CSVConnection.csv2sql">[docs]</a>    <span class="k">def</span> <span class="nf">csv2sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -390,12 +414,12 @@
         <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;PRIMARY KEY ({})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;&quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pkeys</span><span class="p">])))</span>
 
         <span class="n">ddl</span> <span class="o">=</span> <span class="s1">&#39;CREATE TABLE &quot;{}&quot; (</span><span class="se">\n</span><span class="s1">{}</span><span class="se">\n</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">declarations</span> <span class="o">+</span> <span class="n">constraints</span><span class="p">))</span>
-        <span class="n">insert</span> <span class="o">=</span> <span class="s1">&#39;INSERT INTO &quot;{}&quot; VALUES ({})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">declarations</span><span class="p">)))</span>
+        <span class="n">insert</span> <span class="o">=</span> <span class="s1">&#39;INSERT INTO &quot;{}&quot; VALUES ({})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;?&#39;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">declarations</span><span class="p">)))</span>
         <span class="k">return</span> <span class="n">ddl</span><span class="p">,</span> <span class="n">insert</span><span class="p">,</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="CSVConnection.dump_sql"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.CSVConnection.dump_sql">[docs]</a>    <span class="k">def</span> <span class="nf">dump_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sqlfile</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Dumps the in-memory database contructed from csv files into an SQLite SQL file</span>
+<span class="sd">        Dumps the database contructed from csv files into an SQLite SQL file</span>
 
 <span class="sd">            :param sqlfile: name of the output file</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -404,16 +428,16 @@
                 <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">con</span><span class="o">.</span><span class="n">iterdump</span><span class="p">():</span>
                     <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="CSVConnection.dump_db"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.CSVConnection.dump_db">[docs]</a>    <span class="k">def</span> <span class="nf">dump_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sqlite_database</span><span class="p">):</span>
+<div class="viewcode-block" id="CSVConnection.dump_db"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.CSVConnection.dump_db">[docs]</a>    <span class="k">def</span> <span class="nf">dump_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sqlite_database_file</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Dumps the in-memory database contructed from csv files into an SQLite database file.</span>
+<span class="sd">        Dumps the database constructed from csv files into an SQLite database file.</span>
 
 <span class="sd">        Python 3.7 and SQLite 3.6.11 or newer are required to use this function.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">minor</span> <span class="o">&gt;=</span> <span class="mi">7</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">EnvironmentError</span><span class="p">(</span><span class="s1">&#39;Python &gt;= 3.7 and SQLite &gt;= 3.6.11 are required for backuping SQLite databases&#39;</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">)</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">sqlite_database</span><span class="p">)</span> <span class="k">as</span> <span class="n">bck</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">sqlite_database_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">bck</span><span class="p">:</span>
                 <span class="n">con</span><span class="o">.</span><span class="n">backup</span><span class="p">(</span><span class="n">bck</span><span class="p">,</span> <span class="n">pages</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div></div>
 
 
