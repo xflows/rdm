@@ -9,13 +9,13 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='python-rdm',
-    version='0.3.0',
+    version='0.3.1',
     packages=['rdm'],
     include_package_data=True,
     license='MIT License',
     description='Relational data mining in python',
     long_description=README,
-    url='https://github.com/anzev/rdm',
+    url='https://github.com/xflows/rdm',
     author='Anze Vavpetic',
     author_email='anze.vavpetic@ijs.si',
     classifiers=[
