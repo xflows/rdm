@@ -24,6 +24,7 @@ def arffheader2domain(header, target_idx=[-1]):
     metas = []
     for aname, atype in header:
         if isinstance(atype, list):
+            atype = [x for x in atype if x not in [None, '']]
             var = Orange.data.DiscreteVariable(name=aname, values=atype)
         else:
             atype = atype.lower()
