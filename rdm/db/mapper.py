@@ -43,6 +43,9 @@ def domain_map(features, feature_format, train_context, test_context,
 
       >>> test_arff = mapper.domain_map(features, 'rsd', train_context, test_context)
     '''
+    if feature_format == 'aleph' and positive_class is None:
+        raise ValueError("positive_class parameter is required for 'aleph' feature format")
+    
     dataset = None
     if feature_format in ['rsd', 'aleph']:
         train_rsd = RSDConverter(train_context)
@@ -50,7 +53,7 @@ def domain_map(features, feature_format, train_context, test_context,
         mapper_target_name = train_context.target_table + '_mapper'
         train_examples = train_rsd.all_examples(pred_name=mapper_target_name)
         test_examples = test_rsd.all_examples(pred_name=mapper_target_name)
-        
+
         if feature_format == 'aleph':
             features = aleph_to_rsd_features(features)
 
@@ -59,7 +62,7 @@ def domain_map(features, feature_format, train_context, test_context,
             '%% test examples',
             test_examples,
             '%% train examples',
-            train_examples, 
+            train_examples,
             '%% train background knowledge',
             train_rsd.background_knowledge(),
             '%% test background knowledge',
@@ -85,7 +88,7 @@ def domain_map(features, feature_format, train_context, test_context,
     elif feature_format == 'treeliker':
         # We provide treeliker with the test dataset
         # since it has a built-in ability to evaluate features
-        treeliker_test = TreeLikerConverter(test_context, 
+        treeliker_test = TreeLikerConverter(test_context,
                                             discr_intervals=intervals)
         treeliker = features
         treeliker.test_dataset = treeliker_test.dataset()
@@ -95,7 +98,7 @@ def domain_map(features, feature_format, train_context, test_context,
             dataset = test_dataset
         else:
             return 'unsupported format'
-    
+
     return dataset
 
 
