@@ -292,7 +292,7 @@ class OrangeConverter(Converter):
     '''
     continuous_types = ('FLOAT', 'DOUBLE', 'DECIMAL', 'NEWDECIMAL', 'double precision', 'numeric') + SQLiteDataSource.continuous_types
     integer_types = ('TINY', 'SHORT', 'LONG', 'LONGLONG', 'INT24', 'integer') + SQLiteDataSource.integer_types
-    ordinal_types = ('YEAR', 'VARCHAR', 'SET', 'VAR_STRING', 'STRING', 'BIT', 'text', 'character varying', 'character') + SQLiteDataSource.ordinal_types
+    ordinal_types = ('YEAR', 'VARCHAR', 'SET', 'VAR_STRING', 'STRING', 'BIT', 'text', 'character varying', 'character', 'char') + SQLiteDataSource.ordinal_types
 
     def __init__(self, *args, **kwargs):
         Converter.__init__(self, *args, **kwargs)
