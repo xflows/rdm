@@ -12,6 +12,16 @@ setup(
     version='0.3.1',
     packages=['rdm'],
     include_package_data=True,
+    install_requires=[
+        'PyMySQL',
+        'psycopg2',
+        'liac-arff',
+        'Orange3>=3.24.1'
+    ],
+    # only for documentation building
+    extras_require=[
+        'Sphinx',
+        'sphinx_rtd_theme'],
     license='MIT License',
     description='Relational data mining in python',
     long_description=README,
