@@ -19,9 +19,7 @@ setup(
         'Orange3>=3.24.1'
     ],
     # only for documentation building
-    extras_require=[
-        'Sphinx',
-        'sphinx_rtd_theme'],
+    extras_require={'dev': ['Sphinx', 'sphinx_rtd_theme']},
     license='MIT License',
     description='Relational data mining in python',
     long_description=README,
