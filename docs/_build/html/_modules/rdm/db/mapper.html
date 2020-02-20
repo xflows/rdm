@@ -178,6 +178,9 @@
 
 <span class="sd">      &gt;&gt;&gt; test_arff = mapper.domain_map(features, &#39;rsd&#39;, train_context, test_context)</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">feature_format</span> <span class="o">==</span> <span class="s1">&#39;aleph&#39;</span> <span class="ow">and</span> <span class="n">positive_class</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;positive_class parameter is required for &#39;aleph&#39; feature format&quot;</span><span class="p">)</span>
+    
     <span class="n">dataset</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="k">if</span> <span class="n">feature_format</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;rsd&#39;</span><span class="p">,</span> <span class="s1">&#39;aleph&#39;</span><span class="p">]:</span>
         <span class="n">train_rsd</span> <span class="o">=</span> <span class="n">RSDConverter</span><span class="p">(</span><span class="n">train_context</span><span class="p">)</span>
@@ -185,7 +188,7 @@
         <span class="n">mapper_target_name</span> <span class="o">=</span> <span class="n">train_context</span><span class="o">.</span><span class="n">target_table</span> <span class="o">+</span> <span class="s1">&#39;_mapper&#39;</span>
         <span class="n">train_examples</span> <span class="o">=</span> <span class="n">train_rsd</span><span class="o">.</span><span class="n">all_examples</span><span class="p">(</span><span class="n">pred_name</span><span class="o">=</span><span class="n">mapper_target_name</span><span class="p">)</span>
         <span class="n">test_examples</span> <span class="o">=</span> <span class="n">test_rsd</span><span class="o">.</span><span class="n">all_examples</span><span class="p">(</span><span class="n">pred_name</span><span class="o">=</span><span class="n">mapper_target_name</span><span class="p">)</span>
-        
+
         <span class="k">if</span> <span class="n">feature_format</span> <span class="o">==</span> <span class="s1">&#39;aleph&#39;</span><span class="p">:</span>
             <span class="n">features</span> <span class="o">=</span> <span class="n">aleph_to_rsd_features</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
 
@@ -194,7 +197,7 @@
             <span class="s1">&#39;</span><span class="si">%%</span><span class="s1"> test examples&#39;</span><span class="p">,</span>
             <span class="n">test_examples</span><span class="p">,</span>
             <span class="s1">&#39;</span><span class="si">%%</span><span class="s1"> train examples&#39;</span><span class="p">,</span>
-            <span class="n">train_examples</span><span class="p">,</span> 
+            <span class="n">train_examples</span><span class="p">,</span>
             <span class="s1">&#39;</span><span class="si">%%</span><span class="s1"> train background knowledge&#39;</span><span class="p">,</span>
             <span class="n">train_rsd</span><span class="o">.</span><span class="n">background_knowledge</span><span class="p">(),</span>
             <span class="s1">&#39;</span><span class="si">%%</span><span class="s1"> test background knowledge&#39;</span><span class="p">,</span>
@@ -220,7 +223,7 @@
     <span class="k">elif</span> <span class="n">feature_format</span> <span class="o">==</span> <span class="s1">&#39;treeliker&#39;</span><span class="p">:</span>
         <span class="c1"># We provide treeliker with the test dataset</span>
         <span class="c1"># since it has a built-in ability to evaluate features</span>
-        <span class="n">treeliker_test</span> <span class="o">=</span> <span class="n">TreeLikerConverter</span><span class="p">(</span><span class="n">test_context</span><span class="p">,</span> 
+        <span class="n">treeliker_test</span> <span class="o">=</span> <span class="n">TreeLikerConverter</span><span class="p">(</span><span class="n">test_context</span><span class="p">,</span>
                                             <span class="n">discr_intervals</span><span class="o">=</span><span class="n">intervals</span><span class="p">)</span>
         <span class="n">treeliker</span> <span class="o">=</span> <span class="n">features</span>
         <span class="n">treeliker</span><span class="o">.</span><span class="n">test_dataset</span> <span class="o">=</span> <span class="n">treeliker_test</span><span class="o">.</span><span class="n">dataset</span><span class="p">()</span>
@@ -230,7 +233,7 @@
             <span class="n">dataset</span> <span class="o">=</span> <span class="n">test_dataset</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="s1">&#39;unsupported format&#39;</span>
-    
+
     <span class="k">return</span> <span class="n">dataset</span></div>
 
 
