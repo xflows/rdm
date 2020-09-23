@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='python-rdm',
-    version='0.3.1',
+    version='0.3.3',
     packages=['rdm'],
     include_package_data=True,
     install_requires=[
@@ -23,6 +23,7 @@ setup(
     license='MIT License',
     description='Relational data mining in python',
     long_description=README,
+    long_description_content_type='text/markdown',
     url='https://github.com/xflows/rdm',
     author='Anze Vavpetic',
     author_email='anze.vavpetic@ijs.si',
