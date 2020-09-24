@@ -7,6 +7,7 @@ from math import log
 import string, itertools
 import multiprocessing
 
+import Orange
 
 def chunks(l, n):
     """ Yield n successive chunks from l.
@@ -104,7 +105,7 @@ class Wordification(object):
     def __init__(self, target_table, other_tables, context, word_att_length=1, idf=None):
         """
         Wordification object constructor.
-        
+
             :param target_table: Orange ExampleTable, representing the primary table
             :param other_tables: secondary tables, Orange ExampleTables
         """
@@ -178,9 +179,9 @@ class Wordification(object):
 
             :param measure: example weights approach (can be one of ``tfidf, binary, tf``).
         """
-        from math import log
+        # from math import log
 
-        # TODO replace with spipy matrices (and calculate with scikit)
+        # TODO replace with scipy matrices (and calculate with scikit)
 
         if measure == 'tfidf':
             self.calculate_idf()
@@ -199,7 +200,7 @@ class Wordification(object):
                     tf = train_word_count[word]
                     idf = 1 if measure == "tf" else (self.idf[word] if word in self.idf else None)
 
-                if idf != None:
+                if idf is not None:
                     self.tf_idfs[doc_idx][word] = tf * idf
 
     def calculate_idf(self):
@@ -217,12 +218,18 @@ class Wordification(object):
             for word, count in self.word_in_how_many_documents.items():
                 self.idf[word] = log(no_of_documents / float(self.word_in_how_many_documents[word]))
 
+    def __check_weights(self):
+        if self.tf_idfs == defaultdict(dict):
+            raise ValueError('Weights are not available. Call calculate_weights() first.')
+
     def to_arff(self):
         '''
         Returns the "wordified" representation in ARFF.
 
             :rtype: str
         '''
+        self.__check_weights()
+
         arff_string = "@RELATION " + self.target_table.name + "\n\n"
         words = set()
         for document in self.resulting_documents:
@@ -251,6 +258,33 @@ class Wordification(object):
             arff_string += "\n"
 
         return arff_string
+
+    def to_orange(self):
+        self.__check_weights()
+
+        targetvals = set([a.value for a in self.resulting_classes])
+        targetvar = Orange.data.DiscreteVariable(name=self.context.target_att, values=targetvals)
+
+        words = set()
+        for document in self.resulting_documents:
+            for word in document:
+                words.add(word)
+        words = sorted(words)
+        variables = [Orange.data.ContinuousVariable(name=word) for word in words]
+        domain = Orange.data.Domain(variables, class_vars=targetvar)
+
+        data = []
+        for doc_idx in range(len(self.resulting_documents)):
+            features = []
+            for word in words:
+                if word in self.tf_idfs[doc_idx]:
+                    features.append(self.tf_idfs[doc_idx][word])
+                else:
+                    features.append(0)
+            features.append(self.resulting_classes[doc_idx].value)
+            data.append(features)
+        table = Orange.data.Table.from_list(domain=domain, rows=data)
+        return table
 
     def prune(self, minimum_word_frequency_percentage=1):
         """
