@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,44 +11,45 @@
   
 
   
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="Python-RDM 0.1 documentation" href="../../../index.html"/>
-        <link rel="up" title="Module code" href="../../index.html"/> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> Python-RDM
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Python-RDM
           
 
           
@@ -76,11 +76,15 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
@@ -93,40 +97,59 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../index.html">Python-RDM</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Python-RDM</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-      
-    <li>rdm.db.converters</li>
+        
+      <li>rdm.db.converters</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -148,7 +171,7 @@
 <span class="sd">    Base class for converters.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="Converter.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.Converter.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dbcontext</span><span class="p">):</span>
+<div class="viewcode-block" id="Converter.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.Converter.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dbcontext</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Base class for handling converting DBContexts to various relational learning systems.</span>
 
@@ -172,12 +195,12 @@
 <span class="sd">        :param settings: dictionary of ``setting: value`` pairs</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ILPConverter.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.ILPConverter.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;settings&#39;</span><span class="p">,</span> <span class="p">{})</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">discr_intervals</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;discr_intervals&#39;</span><span class="p">,</span> <span class="p">{})</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dump</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;dump&#39;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="bp">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tabling</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;tabling&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="bp">False</span>
-        <span class="n">Converter</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dump</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;dump&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabling</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;tabling&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="kc">False</span>
+        <span class="n">Converter</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ILPConverter.user_settings"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.ILPConverter.user_settings">[docs]</a>    <span class="k">def</span> <span class="nf">user_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -185,7 +208,7 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;:- set(</span><span class="si">%s</span><span class="s1">,</span><span class="si">%s</span><span class="s1">).&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span></div>
 
-<div class="viewcode-block" id="ILPConverter.mode"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.ILPConverter.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">predicate</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">recall</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="ILPConverter.mode"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.ILPConverter.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">predicate</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">recall</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Emits mode declarations in Aleph-like format.</span>
 
@@ -264,10 +287,10 @@
         <span class="k">for</span> <span class="n">num_type</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">complex</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">num_type</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
-                <span class="k">return</span> <span class="bp">True</span>
+                <span class="k">return</span> <span class="kc">True</span>
             <span class="k">except</span><span class="p">:</span>
                 <span class="k">pass</span>
-        <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="kc">False</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">fmt_col</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
@@ -291,7 +314,7 @@
 <span class="sd">    Inherits from ILPConverter.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="RSDConverter.all_examples"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.RSDConverter.all_examples">[docs]</a>    <span class="k">def</span> <span class="nf">all_examples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred_name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="RSDConverter.all_examples"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.RSDConverter.all_examples">[docs]</a>    <span class="k">def</span> <span class="nf">all_examples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Emits all examples in prolog form for RSD.</span>
 
@@ -300,13 +323,13 @@
         <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span>
         <span class="n">pred_name</span> <span class="o">=</span> <span class="n">pred_name</span> <span class="k">if</span> <span class="n">pred_name</span> <span class="k">else</span> <span class="n">target</span>
         <span class="n">examples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">rows</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_att</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">pkeys</span><span class="p">[</span><span class="n">target</span><span class="p">]])</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">).&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">pred_name</span><span class="p">,</span> <span class="n">ILPConverter</span><span class="o">.</span><span class="n">fmt_col</span><span class="p">(</span><span class="n">cls</span><span class="p">),</span> <span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="n">cls</span><span class="p">,</span> <span class="n">pk</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">])</span></div>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">).&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">pred_name</span><span class="p">,</span> <span class="n">ILPConverter</span><span class="o">.</span><span class="n">fmt_col</span><span class="p">(</span><span class="bp">cls</span><span class="p">),</span> <span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">pk</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="RSDConverter.background_knowledge"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.RSDConverter.background_knowledge">[docs]</a>    <span class="k">def</span> <span class="nf">background_knowledge</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Emits the background knowledge in prolog form for RSD.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">modeslist</span><span class="p">,</span> <span class="n">getters</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">)],</span> <span class="n">head</span><span class="o">=</span><span class="bp">True</span><span class="p">)],</span> <span class="p">[]</span>
+        <span class="n">modeslist</span><span class="p">,</span> <span class="n">getters</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">)],</span> <span class="n">head</span><span class="o">=</span><span class="kc">True</span><span class="p">)],</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">ref_table</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">connected</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">ref_table</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">:</span>
                 <span class="k">continue</span>  <span class="c1"># Skip backward connections</span>
@@ -330,7 +353,7 @@
 <span class="sd">    Inherits from ILPConverter.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="AlephConverter.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.AlephConverter.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="AlephConverter.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.AlephConverter.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            :param discr_intervals: (optional) discretization intervals in the form:</span>
 
@@ -343,8 +366,8 @@
 <span class="sd">            :param target_att_val: target attribute *value* for learning.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">target_att_val</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;target_att_val&#39;</span><span class="p">)</span>
-        <span class="n">ILPConverter</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__pos_examples</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__neg_examples</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+        <span class="n">ILPConverter</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__pos_examples</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__neg_examples</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">target_predicate</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_att_val</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">__target_predicate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -386,7 +409,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Emits the background knowledge in prolog form for Aleph.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">modeslist</span><span class="p">,</span> <span class="n">getters</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__target_predicate</span><span class="p">(),</span> <span class="p">[(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">)],</span> <span class="n">head</span><span class="o">=</span><span class="bp">True</span><span class="p">)],</span> <span class="p">[]</span>
+        <span class="n">modeslist</span><span class="p">,</span> <span class="n">getters</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__target_predicate</span><span class="p">(),</span> <span class="p">[(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">)],</span> <span class="n">head</span><span class="o">=</span><span class="kc">True</span><span class="p">)],</span> <span class="p">[]</span>
         <span class="n">determinations</span><span class="p">,</span> <span class="n">types</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">ref_table</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">connected</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">ref_table</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">:</span>
@@ -429,12 +452,12 @@
     <span class="n">integer_types</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;TINY&#39;</span><span class="p">,</span> <span class="s1">&#39;SHORT&#39;</span><span class="p">,</span> <span class="s1">&#39;LONG&#39;</span><span class="p">,</span> <span class="s1">&#39;LONGLONG&#39;</span><span class="p">,</span> <span class="s1">&#39;INT24&#39;</span><span class="p">,</span> <span class="s1">&#39;integer&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">SQLiteDataSource</span><span class="o">.</span><span class="n">integer_types</span>
     <span class="n">ordinal_types</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;YEAR&#39;</span><span class="p">,</span> <span class="s1">&#39;VARCHAR&#39;</span><span class="p">,</span> <span class="s1">&#39;SET&#39;</span><span class="p">,</span> <span class="s1">&#39;VAR_STRING&#39;</span><span class="p">,</span> <span class="s1">&#39;STRING&#39;</span><span class="p">,</span> <span class="s1">&#39;BIT&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;character varying&#39;</span><span class="p">,</span> <span class="s1">&#39;character&#39;</span><span class="p">,</span> <span class="s1">&#39;char&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">SQLiteDataSource</span><span class="o">.</span><span class="n">ordinal_types</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">Converter</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="viewcode-block" id="OrangeConverter.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.OrangeConverter.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">Converter</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">tables</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">[</span><span class="n">table</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">fetch_types</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">cols</span><span class="p">[</span><span class="n">table</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">compute_col_vals</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">compute_col_vals</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="OrangeConverter.target_Orange_table"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.OrangeConverter.target_Orange_table">[docs]</a>    <span class="k">def</span> <span class="nf">target_Orange_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -456,11 +479,11 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">target_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">orng_tables</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">convert_table</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">tables</span> <span class="k">if</span> <span class="n">table</span> <span class="o">!=</span> <span class="n">target_table</span><span class="p">]</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">convert_table</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">tables</span> <span class="k">if</span> <span class="n">table</span> <span class="o">!=</span> <span class="n">target_table</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">table</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">table</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">orng_tables</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="n">target_table</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="OrangeConverter.convert_table"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.OrangeConverter.convert_table">[docs]</a>    <span class="k">def</span> <span class="nf">convert_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">cls_att</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="OrangeConverter.convert_table"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.OrangeConverter.convert_table">[docs]</a>    <span class="k">def</span> <span class="nf">convert_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">cls_att</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Returns the specified table as an orange example table.</span>
 
@@ -471,7 +494,7 @@
         <span class="kn">import</span> <span class="nn">Orange</span>
 
         <span class="n">cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">cols</span><span class="p">[</span><span class="n">table_name</span><span class="p">]</span>
-        <span class="n">attributes</span><span class="p">,</span> <span class="n">metas</span><span class="p">,</span> <span class="n">class_var</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="bp">None</span>
+        <span class="n">attributes</span><span class="p">,</span> <span class="n">metas</span><span class="p">,</span> <span class="n">class_var</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
             <span class="n">att_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orng_type</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">att_type</span> <span class="o">==</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span>
@@ -498,7 +521,7 @@
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">rows</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
             <span class="n">example</span> <span class="o">=</span> <span class="n">Orange</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Instance</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
-                <span class="n">example</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="s1">&#39;?&#39;</span>
+                <span class="n">example</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;?&#39;</span>
             <span class="n">examples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>
         <span class="n">dataset</span> <span class="o">=</span> <span class="n">Orange</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">examples</span><span class="p">)</span>
         <span class="n">dataset</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">table_name</span>
@@ -533,15 +556,15 @@
 <span class="sd">        ``att1 =&lt; 0.4, 0.4 &lt; att1 =&lt; 1.0, att1 &gt;= 1.0``</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="TreeLikerConverter.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.converters.TreeLikerConverter.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">discr_intervals</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;discr_intervals&#39;</span><span class="p">,</span> <span class="p">{})</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_template</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_predicates</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_output_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="n">Converter</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">Converter</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_row_pk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
-        <span class="n">row_pk</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">row_pk</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">cols</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">pkeys</span><span class="p">[</span><span class="n">target</span><span class="p">]:</span>
                 <span class="n">row_pk</span> <span class="o">=</span> <span class="n">col</span>
@@ -657,7 +680,7 @@
             <span class="n">intervals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">discr_intervals</span><span class="p">[</span><span class="n">table</span><span class="p">][</span><span class="n">att</span><span class="p">]</span>
             <span class="n">n_intervals</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
 
-            <span class="n">prev_value</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">prev_value</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">intervals</span><span class="p">):</span>
 
                 <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -688,9 +711,9 @@
         <span class="n">db_examples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">rows</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_att</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">pkeys</span><span class="p">[</span><span class="n">target</span><span class="p">]])</span>
 
         <span class="n">examples</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">cls</span><span class="p">,</span> <span class="n">pk</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">db_examples</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ex</span><span class="p">:</span> <span class="n">ex</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">pk</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">db_examples</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ex</span><span class="p">:</span> <span class="n">ex</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
             <span class="n">facts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_facts</span><span class="p">(</span><span class="n">pk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">pkeys</span><span class="p">[</span><span class="n">target</span><span class="p">],</span> <span class="n">target</span><span class="p">,</span> <span class="n">visited</span><span class="o">=</span><span class="nb">set</span><span class="p">())</span>
-            <span class="n">examples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">facts</span><span class="p">)))</span>
+            <span class="n">examples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">facts</span><span class="p">)))</span>
 
         <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">examples</span><span class="p">)</span></div>
 
@@ -708,8 +731,8 @@
 <span class="sd">    Used for Cardinalization, Quantiles, Relaggs, 1BC, 1BC2, Tertius.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">Converter</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">Converter</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">tables</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">[</span><span class="n">table</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">fetch_types</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">cols</span><span class="p">[</span><span class="n">table</span><span class="p">])</span>
@@ -742,7 +765,7 @@
         <span class="n">fct_str</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fct_rec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">target_table</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">fct_str</span>
 
-    <span class="k">def</span> <span class="nf">fct_rec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">prev_table</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">prev_fcol</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">prev_val</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fct_rec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">prev_table</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prev_fcol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prev_val</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">fct_str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">orng_tables</span><span class="p">[</span><span class="n">table</span><span class="p">]</span>
@@ -781,6 +804,7 @@
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
   
@@ -789,11 +813,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Anze Vavpetic, Matic Perovsek.
+        
+        &copy; Copyright 2016, Anze Vavpetic, Matic Perovsek
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -805,36 +837,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'0.1',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

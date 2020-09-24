@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,44 +11,45 @@
   
 
   
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="Python-RDM 0.1 documentation" href="../../../index.html"/>
-        <link rel="up" title="Module code" href="../../index.html"/> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> Python-RDM
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Python-RDM
           
 
           
@@ -76,11 +76,15 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
@@ -93,40 +97,59 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../index.html">Python-RDM</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Python-RDM</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-      
-    <li>rdm.db.datasource</li>
+        
+      <li>rdm.db.datasource</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -136,7 +159,7 @@
 <span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
-<span class="kn">import</span> <span class="nn">pymysql</span> <span class="kn">as</span> <span class="nn">mysql</span>
+<span class="kn">import</span> <span class="nn">pymysql</span> <span class="k">as</span> <span class="nn">mysql</span>
 
 
 <span class="n">MYSQL_FIELD_TYPES</span> <span class="o">=</span> <span class="p">{</span>
@@ -214,7 +237,7 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="DataSource.connected"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.connected">[docs]</a>    <span class="k">def</span> <span class="nf">connected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tables</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">find_connections</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="DataSource.connected"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.DataSource.connected">[docs]</a>    <span class="k">def</span> <span class="nf">connected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tables</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">find_connections</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Returns a list of tuples of connected table pairs.</span>
 
@@ -318,16 +341,16 @@
 <span class="sd">    A DataSource implementation for accessing datasets from a MySQL DBMS.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="MySQLDataSource.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.MySQLDataSource.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
+<div class="viewcode-block" id="MySQLDataSource.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.MySQLDataSource.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            :param connection: a DBConnection instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">connection</span></div>
 
-    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<div class="viewcode-block" id="MySQLDataSource.connect"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.MySQLDataSource.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">foreign_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="MySQLDataSource.foreign_keys"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.MySQLDataSource.foreign_keys">[docs]</a>    <span class="k">def</span> <span class="nf">foreign_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
@@ -335,9 +358,9 @@
 <span class="s2">                FROM information_schema.KEY_COLUMN_USAGE </span><span class="se">\</span>
 <span class="s2">                WHERE referenced_table_name IS NOT NULL AND table_schema=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">database</span><span class="p">)</span>
             <span class="n">fk_result</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">fk_result</span>
+        <span class="k">return</span> <span class="n">fk_result</span></div>
 
-    <span class="k">def</span> <span class="nf">table_column_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="MySQLDataSource.table_column_names"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.MySQLDataSource.table_column_names">[docs]</a>    <span class="k">def</span> <span class="nf">table_column_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
@@ -345,26 +368,26 @@
 <span class="s2">                 FROM information_schema.KEY_COLUMN_USAGE </span><span class="se">\</span>
 <span class="s2">                 WHERE constraint_name=&#39;PRIMARY&#39; AND table_schema=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">database</span><span class="p">)</span>
             <span class="n">tbl_col_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">tbl_col_names</span>
+        <span class="k">return</span> <span class="n">tbl_col_names</span></div>
 
-    <span class="k">def</span> <span class="nf">tables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="MySQLDataSource.tables"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.MySQLDataSource.tables">[docs]</a>    <span class="k">def</span> <span class="nf">tables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SHOW tables&#39;</span><span class="p">)</span>
             <span class="n">tables</span> <span class="o">=</span> <span class="p">[</span><span class="n">table</span> <span class="k">for</span> <span class="p">(</span><span class="n">table</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">tables</span>
+        <span class="k">return</span> <span class="n">tables</span></div>
 
-    <span class="k">def</span> <span class="nf">table_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">):</span>
+<div class="viewcode-block" id="MySQLDataSource.table_columns"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.MySQLDataSource.table_columns">[docs]</a>    <span class="k">def</span> <span class="nf">table_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT column_name FROM information_schema.columns WHERE table_name = &#39;</span><span class="si">%s</span><span class="s2">&#39; AND table_schema=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">database</span><span class="p">))</span>
             <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="p">(</span><span class="n">col</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">columns</span>
+        <span class="k">return</span> <span class="n">columns</span></div>
 
     <span class="k">def</span> <span class="nf">fmt_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;`</span><span class="si">%s</span><span class="s2">`&quot;</span> <span class="o">%</span> <span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="nf">fetch_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+<div class="viewcode-block" id="MySQLDataSource.fetch_types"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.MySQLDataSource.fetch_types">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT </span><span class="si">%s</span><span class="s2"> FROM `</span><span class="si">%s</span><span class="s2">` LIMIT 1&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">table</span><span class="p">))</span>
@@ -373,29 +396,29 @@
             <span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
                 <span class="c1"># types[desc[0]] = mysql.FieldType.get_info(desc[1])</span>
                 <span class="n">types</span><span class="p">[</span><span class="n">desc</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">MYSQL_FIELD_TYPES</span><span class="p">[</span><span class="n">desc</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-        <span class="k">return</span> <span class="n">types</span>
+        <span class="k">return</span> <span class="n">types</span></div>
 
-    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+<div class="viewcode-block" id="MySQLDataSource.fetch"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.MySQLDataSource.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT </span><span class="si">%s</span><span class="s2"> FROM </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">table</span><span class="p">))</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span> <span class="k">for</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
-    <span class="k">def</span> <span class="nf">select_where</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+<div class="viewcode-block" id="MySQLDataSource.select_where"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.MySQLDataSource.select_where">[docs]</a>    <span class="k">def</span> <span class="nf">select_where</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT </span><span class="si">%s</span><span class="s2"> FROM </span><span class="si">%s</span><span class="s2"> WHERE `</span><span class="si">%s</span><span class="s2">`=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">attributes</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">))</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span> <span class="k">for</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
-    <span class="k">def</span> <span class="nf">column_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+<div class="viewcode-block" id="MySQLDataSource.column_values"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.MySQLDataSource.column_values">[docs]</a>    <span class="k">def</span> <span class="nf">column_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT DISTINCT BINARY `</span><span class="si">%s</span><span class="s2">`, `</span><span class="si">%s</span><span class="s2">` FROM `</span><span class="si">%s</span><span class="s2">`&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">table</span><span class="p">))</span>
             <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">val</span> <span class="k">for</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">values</span>
+        <span class="k">return</span> <span class="n">values</span></div>
 
     <span class="k">def</span> <span class="nf">get_driver_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;com.mysql.jdbc.Driver&#39;</span>
@@ -408,16 +431,16 @@
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    A DataSource implementation for accessing datasets from a PosgreSQL DBMS.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-<div class="viewcode-block" id="PgSQLDataSource.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.PgSQLDataSource.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
+<div class="viewcode-block" id="PgSQLDataSource.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.PgSQLDataSource.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            :param connection: a DBConnection instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">connection</span></div>
 
-    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<div class="viewcode-block" id="PgSQLDataSource.connect"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.PgSQLDataSource.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">foreign_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PgSQLDataSource.foreign_keys"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.PgSQLDataSource.foreign_keys">[docs]</a>    <span class="k">def</span> <span class="nf">foreign_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">database</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">database</span>
@@ -433,9 +456,9 @@
 <span class="s2">                      ON ccu.constraint_name = tc.constraint_name </span><span class="se">\</span>
 <span class="s2">                      WHERE constraint_type = &#39;FOREIGN KEY&#39; AND tc.table_catalog=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">database</span><span class="p">)</span>
             <span class="n">fk_result</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">fk_result</span>
+        <span class="k">return</span> <span class="n">fk_result</span></div>
 
-    <span class="k">def</span> <span class="nf">table_column_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PgSQLDataSource.table_column_names"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.PgSQLDataSource.table_column_names">[docs]</a>    <span class="k">def</span> <span class="nf">table_column_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">database</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">database</span>
@@ -448,30 +471,30 @@
 <span class="s2">                ON tc.constraint_name = kcu.constraint_name </span><span class="se">\</span>
 <span class="s2">                WHERE constraint_type = &#39;PRIMARY KEY&#39; AND tc.table_catalog=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">database</span><span class="p">)</span>
             <span class="n">tbl_col_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">tbl_col_names</span>
+        <span class="k">return</span> <span class="n">tbl_col_names</span></div>
 
-    <span class="k">def</span> <span class="nf">tables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PgSQLDataSource.tables"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.PgSQLDataSource.tables">[docs]</a>    <span class="k">def</span> <span class="nf">tables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">database</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">database</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT table_name FROM information_schema.tables WHERE table_schema=</span><span class="se">\&#39;</span><span class="s2">public</span><span class="se">\&#39;</span><span class="s2"> </span><span class="se">\</span>
 <span class="s2">                            AND table_type=</span><span class="se">\&#39;</span><span class="s2">BASE TABLE</span><span class="se">\&#39;</span><span class="s2"> AND table_catalog=&#39;</span><span class="si">%s</span><span class="s2">&#39; AND table_name NOT LIKE </span><span class="se">\&#39;\\</span><span class="s2">_</span><span class="si">%%</span><span class="se">\&#39;</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">database</span><span class="p">))</span> <span class="c1"># to escape this sql command: ... NOT LIKE &#39;\_%&#39;</span>
             <span class="n">tables</span> <span class="o">=</span> <span class="p">[</span><span class="n">table</span> <span class="k">for</span> <span class="p">(</span><span class="n">table</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">tables</span>
+        <span class="k">return</span> <span class="n">tables</span></div>
 
-    <span class="k">def</span> <span class="nf">table_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+<div class="viewcode-block" id="PgSQLDataSource.table_columns"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.PgSQLDataSource.table_columns">[docs]</a>    <span class="k">def</span> <span class="nf">table_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">database</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">database</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT column_name FROM information_schema.columns </span><span class="se">\</span>
 <span class="s2">            WHERE table_name = &#39;</span><span class="si">%s</span><span class="s2">&#39; AND table_catalog=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">table</span><span class="p">,</span><span class="n">database</span><span class="p">))</span>
             <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="p">(</span><span class="n">col</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">columns</span>
+        <span class="k">return</span> <span class="n">columns</span></div>
 
     <span class="k">def</span> <span class="nf">fmt_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="nf">fetch_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+<div class="viewcode-block" id="PgSQLDataSource.fetch_types"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.PgSQLDataSource.fetch_types">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">types</span> <span class="o">=</span> <span class="p">{}</span>
@@ -480,29 +503,29 @@
 <span class="s2">                        AND attnum &gt; 0 AND NOT attisdropped ORDER  BY attnum;&quot;</span> <span class="o">%</span> <span class="n">table</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">rows</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
                 <span class="n">types</span><span class="p">[</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">types</span>
+        <span class="k">return</span> <span class="n">types</span></div>
 
-    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+<div class="viewcode-block" id="PgSQLDataSource.fetch"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.PgSQLDataSource.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT </span><span class="si">%s</span><span class="s2"> FROM </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">table</span><span class="p">))</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span> <span class="k">for</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
-    <span class="k">def</span> <span class="nf">select_where</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+<div class="viewcode-block" id="PgSQLDataSource.select_where"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.PgSQLDataSource.select_where">[docs]</a>    <span class="k">def</span> <span class="nf">select_where</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT </span><span class="si">%s</span><span class="s2"> FROM </span><span class="si">%s</span><span class="s2"> WHERE </span><span class="si">%s</span><span class="s2">=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">attributes</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">att</span><span class="p">,</span> <span class="n">val_att</span><span class="p">))</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span> <span class="k">for</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
-    <span class="k">def</span> <span class="nf">column_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+<div class="viewcode-block" id="PgSQLDataSource.column_values"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.PgSQLDataSource.column_values">[docs]</a>    <span class="k">def</span> <span class="nf">column_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT DISTINCT </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2"> FROM </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">table</span><span class="p">))</span>
             <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">val</span> <span class="k">for</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">values</span>
+        <span class="k">return</span> <span class="n">values</span></div>
 
     <span class="k">def</span> <span class="nf">get_driver_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;org.postgresql.Driver&#39;</span>
@@ -520,92 +543,93 @@
     <span class="n">integer_types</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;integer&#39;</span><span class="p">,</span> <span class="s1">&#39;tinyint&#39;</span><span class="p">,</span> <span class="s1">&#39;smallint&#39;</span><span class="p">,</span> <span class="s1">&#39;mediumint&#39;</span><span class="p">,</span> <span class="s1">&#39;bigint&#39;</span><span class="p">,</span> <span class="s1">&#39;unsigned big int&#39;</span><span class="p">,</span> <span class="s1">&#39;int2&#39;</span><span class="p">,</span> <span class="s1">&#39;int8&#39;</span><span class="p">)</span>
     <span class="n">ordinal_types</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;character&#39;</span><span class="p">,</span> <span class="s1">&#39;varchar&#39;</span><span class="p">,</span> <span class="s1">&#39;varying character&#39;</span><span class="p">,</span> <span class="s1">&#39;nchar&#39;</span><span class="p">,</span> <span class="s1">&#39;native character&#39;</span><span class="p">,</span> <span class="s1">&#39;nvarchar&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;clob&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="SQLiteDataSource.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.SQLiteDataSource.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
+<div class="viewcode-block" id="SQLiteDataSource.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.SQLiteDataSource.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            :param connection: a DBConnection instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">connection</span></div>
 
-    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<div class="viewcode-block" id="SQLiteDataSource.connect"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.SQLiteDataSource.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">foreign_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SQLiteDataSource.foreign_keys"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.SQLiteDataSource.foreign_keys">[docs]</a>    <span class="k">def</span> <span class="nf">foreign_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">tables</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="p">()</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
                 <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT &quot;from&quot;,&quot;table&quot;,&quot;to&quot; FROM pragma_foreign_key_list(&quot;{}&quot;);&#39;&#39;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table</span><span class="p">))</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT &quot;from&quot;,&quot;table&quot;,&quot;to&quot; FROM pragma_foreign_key_list(&quot;</span><span class="si">{}</span><span class="s1">&quot;);&#39;&#39;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table</span><span class="p">))</span>
                 <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
                     <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">table</span><span class="p">,)</span> <span class="o">+</span> <span class="n">row</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
-    <span class="k">def</span> <span class="nf">table_column_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SQLiteDataSource.table_column_names"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.SQLiteDataSource.table_column_names">[docs]</a>    <span class="k">def</span> <span class="nf">table_column_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">tables</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="p">()</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
                 <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT name FROM pragma_table_info(&quot;{}&quot;) WHERE pk=1;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table</span><span class="p">))</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT name FROM pragma_table_info(&quot;</span><span class="si">{}</span><span class="s1">&quot;) WHERE pk=1;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table</span><span class="p">))</span>
                 <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">table</span><span class="p">,</span> <span class="p">[</span><span class="n">row</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
-        <span class="k">return</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
-    <span class="k">def</span> <span class="nf">tables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SQLiteDataSource.tables"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.SQLiteDataSource.tables">[docs]</a>    <span class="k">def</span> <span class="nf">tables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT name FROM sqlite_master </span><span class="se">\</span>
 <span class="s2">                            WHERE type=&#39;table&#39; AND name NOT LIKE &#39;sqlite_%&#39;;&quot;</span><span class="p">)</span>
             <span class="n">tables</span> <span class="o">=</span> <span class="p">[</span><span class="n">table</span> <span class="k">for</span> <span class="p">(</span><span class="n">table</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">tables</span>
+        <span class="k">return</span> <span class="n">tables</span></div>
 
-    <span class="k">def</span> <span class="nf">table_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">):</span>
+<div class="viewcode-block" id="SQLiteDataSource.table_columns"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.SQLiteDataSource.table_columns">[docs]</a>    <span class="k">def</span> <span class="nf">table_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT name FROM pragma_table_info(&quot;{}&quot;);&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table_name</span><span class="p">))</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT name FROM pragma_table_info(&quot;</span><span class="si">{}</span><span class="s1">&quot;);&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table_name</span><span class="p">))</span>
             <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="p">(</span><span class="n">col</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">columns</span>
+        <span class="k">return</span> <span class="n">columns</span></div>
 
     <span class="k">def</span> <span class="nf">fmt_cols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;&quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">])</span>
+        <span class="k">return</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="nf">fetch_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+<div class="viewcode-block" id="SQLiteDataSource.fetch_types"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.SQLiteDataSource.fetch_types">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="n">types</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT &quot;name&quot;, &quot;type&quot; from pragma_table_info(&quot;{}&quot;) WHERE &quot;name&quot; IN ({})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">)))</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT &quot;name&quot;, &quot;type&quot; from pragma_table_info(&quot;</span><span class="si">{}</span><span class="s1">&quot;) WHERE &quot;name&quot; IN (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">)))</span>
             <span class="n">types</span> <span class="o">=</span> <span class="p">{</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;\([0-9a-zA-Z ,]*\)&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">}</span>
-        <span class="k">return</span> <span class="n">types</span>
+        <span class="k">return</span> <span class="n">types</span></div>
 
-    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+<div class="viewcode-block" id="SQLiteDataSource.fetch"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.SQLiteDataSource.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT </span><span class="si">%s</span><span class="s1"> FROM &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">table</span><span class="p">))</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span> <span class="k">for</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
-    <span class="k">def</span> <span class="nf">select_where</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+<div class="viewcode-block" id="SQLiteDataSource.select_where"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.SQLiteDataSource.select_where">[docs]</a>    <span class="k">def</span> <span class="nf">select_where</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT </span><span class="si">%s</span><span class="s1"> FROM &quot;</span><span class="si">%s</span><span class="s1">&quot; WHERE &quot;</span><span class="si">%s</span><span class="s1">&quot;=&quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">attributes</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">pk_att</span><span class="p">,</span> <span class="n">pk</span><span class="p">))</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span> <span class="k">for</span> <span class="n">cols</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
-    <span class="k">def</span> <span class="nf">column_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+<div class="viewcode-block" id="SQLiteDataSource.column_values"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.datasource.SQLiteDataSource.column_values">[docs]</a>    <span class="k">def</span> <span class="nf">column_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT DISTINCT &quot;</span><span class="si">%s</span><span class="s1">&quot; FROM &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">table</span><span class="p">))</span>
             <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">values</span>
+        <span class="k">return</span> <span class="n">values</span></div>
 
     <span class="k">def</span> <span class="nf">get_driver_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;java.sql.DriverManager&#39;</span>
 
     <span class="k">def</span> <span class="nf">get_jdbc_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;jdbc:sqlite:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="s1">&#39;jdbc:sqlite:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
   
@@ -614,11 +638,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Anze Vavpetic, Matic Perovsek.
+        
+        &copy; Copyright 2016, Anze Vavpetic, Matic Perovsek
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -630,36 +662,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'0.1',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

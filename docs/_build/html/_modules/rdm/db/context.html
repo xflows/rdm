@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,44 +11,45 @@
   
 
   
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="Python-RDM 0.1 documentation" href="../../../index.html"/>
-        <link rel="up" title="Module code" href="../../index.html"/> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> Python-RDM
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Python-RDM
           
 
           
@@ -76,11 +76,15 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
@@ -93,40 +97,59 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../index.html">Python-RDM</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Python-RDM</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-      
-    <li>rdm.db.context</li>
+        
+      <li>rdm.db.context</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -144,8 +167,8 @@
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="kn">import</span> <span class="nn">pymysql</span> <span class="kn">as</span> <span class="nn">mysql</span>
-<span class="kn">import</span> <span class="nn">psycopg2</span> <span class="kn">as</span> <span class="nn">postgresql</span>
+<span class="kn">import</span> <span class="nn">pymysql</span> <span class="k">as</span> <span class="nn">mysql</span>
+<span class="kn">import</span> <span class="nn">psycopg2</span> <span class="k">as</span> <span class="nn">postgresql</span>
 <span class="kn">from</span> <span class="nn">.converters</span> <span class="kn">import</span> <span class="n">OrangeConverter</span>
 
 <span class="kn">from</span> <span class="nn">.datasource</span> <span class="kn">import</span> <span class="n">MySQLDataSource</span><span class="p">,</span> <span class="n">PgSQLDataSource</span><span class="p">,</span> <span class="n">SQLiteDataSource</span>
@@ -154,12 +177,12 @@
 <span class="k">def</span> <span class="nf">is_open</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
     <span class="n">s</span><span class="o">.</span><span class="n">settimeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
-    <span class="n">status</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">host</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">port</span><span class="p">)))</span>
         <span class="n">s</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SHUT_RDWR</span><span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">finally</span><span class="p">:</span>
         <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">status</span>
@@ -182,27 +205,27 @@
 <span class="sd">        Context Manager.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
 
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">dal_connect_fun</span><span class="p">):</span>
+<div class="viewcode-block" id="DBConnection.Manager.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.DBConnection.Manager.__init__">[docs]</a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">dal_connect_fun</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">con</span> <span class="o">=</span> <span class="n">dal_connect_fun</span><span class="p">(</span>
                 <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
                 <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">,</span>
                 <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span>
                 <span class="n">database</span><span class="o">=</span><span class="n">database</span>
-            <span class="p">)</span>
+            <span class="p">)</span></div>
 
-        <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">con</span>
+<div class="viewcode-block" id="DBConnection.Manager.__enter__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.DBConnection.Manager.__enter__">[docs]</a>        <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">con</span></div>
 
-        <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+<div class="viewcode-block" id="DBConnection.Manager.__exit__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.DBConnection.Manager.__exit__">[docs]</a>        <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">vendor</span><span class="o">=</span><span class="n">DBVendor</span><span class="o">.</span><span class="n">MySQL</span><span class="p">):</span>
+<div class="viewcode-block" id="DBConnection.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.DBConnection.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">vendor</span><span class="o">=</span><span class="n">DBVendor</span><span class="o">.</span><span class="n">MySQL</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">password</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="n">database</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vendor</span> <span class="o">=</span> <span class="n">vendor</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vendor</span> <span class="o">==</span> <span class="n">DBVendor</span><span class="o">.</span><span class="n">MySQL</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">src</span> <span class="o">=</span> <span class="n">MySQLDataSource</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -211,14 +234,14 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">src</span> <span class="o">=</span> <span class="n">PgSQLDataSource</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">5432</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown DB vendor: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vendor</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown DB vendor: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vendor</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">check_port</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">check_connection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_connection</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">check_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Port {} is not open on host {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Port </span><span class="si">{}</span><span class="s1"> is not open on host </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">check_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -231,14 +254,14 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span><span class="o">.</span><span class="n">con</span>
 
     <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">dal_connect_fun</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">dal_connect_fun</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vendor</span> <span class="o">==</span> <span class="n">DBVendor</span><span class="o">.</span><span class="n">MySQL</span><span class="p">:</span>
             <span class="n">dal_connect_fun</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connect</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">vendor</span> <span class="o">==</span> <span class="n">DBVendor</span><span class="o">.</span><span class="n">PostgreSQL</span><span class="p">:</span>
             <span class="n">dal_connect_fun</span> <span class="o">=</span> <span class="n">postgresql</span><span class="o">.</span><span class="n">connect</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">dal_connect_fun</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Unsupported or unset database vendor: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dal_connect_fun</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Unsupported or unset database vendor: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dal_connect_fun</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">DBConnection</span><span class="o">.</span><span class="n">Manager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">dal_connect_fun</span><span class="p">)</span></div>
 
@@ -253,21 +276,21 @@
 <span class="sd">        Context Manager.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
 
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sqlite_database</span><span class="p">,</span> <span class="n">dal_connect_fun</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">con</span> <span class="o">=</span> <span class="n">dal_connect_fun</span><span class="p">(</span><span class="n">sqlite_database</span><span class="p">)</span>
+<div class="viewcode-block" id="SQLiteDBConnection.Manager.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.SQLiteDBConnection.Manager.__init__">[docs]</a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sqlite_database</span><span class="p">,</span> <span class="n">dal_connect_fun</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">con</span> <span class="o">=</span> <span class="n">dal_connect_fun</span><span class="p">(</span><span class="n">sqlite_database</span><span class="p">)</span></div>
 
-        <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">con</span>
+<div class="viewcode-block" id="SQLiteDBConnection.Manager.__enter__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.SQLiteDBConnection.Manager.__enter__">[docs]</a>        <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">con</span></div>
 
-        <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+<div class="viewcode-block" id="SQLiteDBConnection.Manager.__exit__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.SQLiteDBConnection.Manager.__exit__">[docs]</a>        <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sqlite_database</span><span class="p">,</span> <span class="n">vendor</span><span class="o">=</span><span class="n">DBVendor</span><span class="o">.</span><span class="n">SQLite</span><span class="p">):</span>
+<div class="viewcode-block" id="SQLiteDBConnection.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.SQLiteDBConnection.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sqlite_database</span><span class="p">,</span> <span class="n">vendor</span><span class="o">=</span><span class="n">DBVendor</span><span class="o">.</span><span class="n">SQLite</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span> <span class="o">=</span> <span class="n">sqlite_database</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">src</span> <span class="o">=</span> <span class="n">SQLiteDataSource</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="n">sqlite3</span><span class="o">.</span><span class="n">sqlite_version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">sqlite_version_info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">16</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Your SQLite does not support pragma functions. Please upgrade to at least 3.16.0&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">check_connection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_connection</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Manager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">,</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">)</span>
@@ -298,13 +321,13 @@
 
 <span class="sd">    Finally, composite foreign keys are not (yet) supported because there is no simple way of expressing such constraints in the csv header.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_list</span><span class="p">):</span>
+<div class="viewcode-block" id="CSVConnection.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.CSVConnection.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_list</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(),</span> <span class="s1">&#39;tempdb.sqlite3&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__csv2db</span><span class="p">(</span><span class="n">file_list</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">src</span> <span class="o">=</span> <span class="n">SQLiteDataSource</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="n">sqlite3</span><span class="o">.</span><span class="n">sqlite_version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">sqlite_version_info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">16</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Your SQLite does not support pragma functions. Please upgrade to at least 3.16.0&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">check_connection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_connection</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Copy the object&#39;s state from self.__dict__ which contains</span>
@@ -313,7 +336,7 @@
 
         <span class="c1"># Now store a dump of the db file. This is required for unpickled instance to work.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dbdump</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="c1"># Remove the unpicklable entries.</span>
         <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;src&#39;</span><span class="p">]</span>
         <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;sqlite_database&#39;</span><span class="p">]</span>
@@ -321,7 +344,7 @@
 
     <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
         <span class="c1"># Restore instance attributes</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
         <span class="n">sqldb</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(),</span> <span class="s1">&#39;tempdb.sqlite3&#39;</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">sqldb</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
             <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dbdump</span><span class="p">)</span>
@@ -329,14 +352,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span> <span class="o">=</span> <span class="n">sqldb</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">src</span> <span class="o">=</span> <span class="n">src</span>
 
-    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">tmpdir</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">):</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">)</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">rmdir</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Warning: cannot remove temporary database &quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: cannot remove temporary database &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Manager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">,</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">)</span>
@@ -361,8 +384,8 @@
             <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;PRAGMA foreign_keys = 1&#39;</span><span class="p">)</span>
             <span class="n">errors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;PRAGMA foreign_key_check&#39;</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">errors</span><span class="p">:</span>
-                <span class="n">errlines</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;table &quot;{}&quot;, row {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">]</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Foreign key constraint error:</span><span class="se">\n</span><span class="s1">{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">errlines</span><span class="p">)))</span>
+                <span class="n">errlines</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;table &quot;</span><span class="si">{}</span><span class="s1">&quot;, row </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">]</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Foreign key constraint error:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">errlines</span><span class="p">)))</span>
 
 <div class="viewcode-block" id="CSVConnection.csv2sql"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.CSVConnection.csv2sql">[docs]</a>    <span class="k">def</span> <span class="nf">csv2sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -378,7 +401,7 @@
             <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">]</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">types</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)]))</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s1">&#39;Invalid header lines 1-3 in &quot;{}&quot;: not the same length&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s1">&#39;Invalid header lines 1-3 in &quot;</span><span class="si">{}</span><span class="s1">&quot;: not the same length&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
 
             <span class="n">declarations</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
@@ -386,35 +409,35 @@
             <span class="c1"># this can parse complex declarations such as &quot;primary key foreign key [table.col]&quot;</span>
             <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">typ</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="p">:</span>
-                    <span class="n">declarations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&quot;{}&quot; {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">typ</span><span class="p">))</span>
+                    <span class="n">declarations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot; </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">typ</span><span class="p">))</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">found</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;primary[ ]+key[ ]*&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
-                    <span class="n">added</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="n">added</span> <span class="o">=</span> <span class="kc">False</span>
                     <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
                         <span class="n">pkeys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-                        <span class="n">declarations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&quot;{}&quot; {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">typ</span><span class="p">))</span>
-                        <span class="n">added</span> <span class="o">=</span> <span class="bp">True</span>
+                        <span class="n">declarations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot; </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">typ</span><span class="p">))</span>
+                        <span class="n">added</span> <span class="o">=</span> <span class="kc">True</span>
                         <span class="n">key</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;[ ]*primary[ ]+key[ ]*&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
 
                     <span class="n">found</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;foreign[ ]+key[ ]*\[[^\[]+\]&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
                         <span class="k">if</span> <span class="ow">not</span> <span class="n">added</span><span class="p">:</span>
-                            <span class="n">declarations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&quot;{}&quot; {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">typ</span><span class="p">))</span>
+                            <span class="n">declarations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot; </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">typ</span><span class="p">))</span>
                         <span class="n">fkref</span> <span class="o">=</span> <span class="n">found</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># only the first declaration, ignore the rest because it is invalid</span>
                         <span class="n">fkref</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;[ ]*foreign[ ]+key[ ]*&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">fkref</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
                         <span class="n">fkref</span> <span class="o">=</span> <span class="n">fkref</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
                         <span class="k">try</span><span class="p">:</span>
                             <span class="n">ftable</span><span class="p">,</span> <span class="n">fcol</span> <span class="o">=</span> <span class="n">fkref</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
                         <span class="k">except</span><span class="p">:</span>
-                            <span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s1">&#39;Invalid FOREIGN KEY declaration: &quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">found</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span>
-                        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;FOREIGN KEY(&quot;{}&quot;) REFERENCES &quot;{}&quot;(&quot;{}&quot;)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ftable</span><span class="p">,</span> <span class="n">fcol</span><span class="p">))</span>
+                            <span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s1">&#39;Invalid FOREIGN KEY declaration: &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">found</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span>
+                        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;FOREIGN KEY(&quot;</span><span class="si">{}</span><span class="s1">&quot;) REFERENCES &quot;</span><span class="si">{}</span><span class="s1">&quot;(&quot;</span><span class="si">{}</span><span class="s1">&quot;)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ftable</span><span class="p">,</span> <span class="n">fcol</span><span class="p">))</span>
             <span class="n">data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pkeys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No primary key is defined in file &quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
-        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;PRIMARY KEY ({})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;&quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pkeys</span><span class="p">])))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No primary key is defined in file &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;PRIMARY KEY (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pkeys</span><span class="p">])))</span>
 
-        <span class="n">ddl</span> <span class="o">=</span> <span class="s1">&#39;CREATE TABLE &quot;{}&quot; (</span><span class="se">\n</span><span class="s1">{}</span><span class="se">\n</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">declarations</span> <span class="o">+</span> <span class="n">constraints</span><span class="p">))</span>
-        <span class="n">insert</span> <span class="o">=</span> <span class="s1">&#39;INSERT INTO &quot;{}&quot; VALUES ({})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;?&#39;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">declarations</span><span class="p">)))</span>
+        <span class="n">ddl</span> <span class="o">=</span> <span class="s1">&#39;CREATE TABLE &quot;</span><span class="si">{}</span><span class="s1">&quot; (</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">declarations</span> <span class="o">+</span> <span class="n">constraints</span><span class="p">))</span>
+        <span class="n">insert</span> <span class="o">=</span> <span class="s1">&#39;INSERT INTO &quot;</span><span class="si">{}</span><span class="s1">&quot; VALUES (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;?&#39;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">declarations</span><span class="p">)))</span>
         <span class="k">return</span> <span class="n">ddl</span><span class="p">,</span> <span class="n">insert</span><span class="p">,</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="CSVConnection.dump_sql"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.CSVConnection.dump_sql">[docs]</a>    <span class="k">def</span> <span class="nf">dump_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sqlfile</span><span class="p">):</span>
@@ -426,7 +449,7 @@
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">sqlfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sqlite_database</span><span class="p">)</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">con</span><span class="o">.</span><span class="n">iterdump</span><span class="p">():</span>
-                    <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></div>
+                    <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="CSVConnection.dump_db"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.CSVConnection.dump_db">[docs]</a>    <span class="k">def</span> <span class="nf">dump_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sqlite_database_file</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -442,8 +465,8 @@
 
 
 <div class="viewcode-block" id="DBContext"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.DBContext">[docs]</a><span class="k">class</span> <span class="nc">DBContext</span><span class="p">:</span>
-<div class="viewcode-block" id="DBContext.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.DBContext.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">target_table</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">target_att</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">find_connections</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">in_memory</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="DBContext.__init__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.DBContext.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">target_table</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target_att</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">find_connections</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">in_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initializes a new DBContext object from the given DBConnection.</span>
 
@@ -471,9 +494,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pkeys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fkeys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reverse_fkeys</span> <span class="o">=</span> <span class="n">conn_data</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">target_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">target_table</span> <span class="k">else</span> <span class="n">target_table</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">target_att</span> <span class="o">=</span> <span class="bp">None</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">target_att</span> <span class="k">else</span> <span class="n">target_att</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_att</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">target_att</span> <span class="k">else</span> <span class="n">target_att</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">orng_tables</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">orng_tables</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">in_memory</span> <span class="o">=</span> <span class="n">in_memory</span>
 
         <span class="k">if</span> <span class="n">in_memory</span><span class="p">:</span>
@@ -563,7 +586,7 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DBContext.__repr__"><a class="viewcode-back" href="../../../api_reference.html#rdm.db.context.DBContext.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">({</span>
             <span class="s1">&#39;target_table&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_table</span><span class="p">,</span>
             <span class="s1">&#39;target attribute&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_att</span><span class="p">,</span>
@@ -574,10 +597,11 @@
             <span class="s1">&#39;fkeys&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fkeys</span><span class="p">,</span>
             <span class="s1">&#39;orng_tables&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="n">name</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">table</span><span class="p">))</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">table</span> <span class="ow">in</span>
                             <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">orng_tables</span><span class="o">.</span><span class="n">items</span><span class="p">())]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">orng_tables</span> <span class="k">else</span> <span class="s1">&#39;not in memory&#39;</span>
-        <span class="p">})</span></div>
+        <span class="p">})</span></div></div>
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
   
@@ -586,11 +610,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Anze Vavpetic, Matic Perovsek.
+        
+        &copy; Copyright 2016, Anze Vavpetic, Matic Perovsek
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -602,36 +634,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'0.1',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

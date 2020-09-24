@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,45 +11,47 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="Python-RDM 0.1 documentation" href="index.html"/>
-        <link rel="next" title="Example use case" href="example.html"/>
-        <link rel="prev" title="Installation" href="installation.html"/> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Example use case" href="example.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="index.html" class="icon icon-home"> Python-RDM
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Python-RDM
           
 
           
@@ -77,11 +78,15 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
@@ -100,40 +105,61 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Python-RDM</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python-RDM</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Getting started</li>
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Getting started</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/getting_started.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/getting_started.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -143,162 +169,162 @@
 <h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="using-csv-files">
 <h2>Using csv files<a class="headerlink" href="#using-csv-files" title="Permalink to this headline">¶</a></h2>
-<p>Here is a simple example which loads the famous <a class="reference external" href="https://relational.fit.cvut.cz/dataset/Trains">East-West challenge dataset (trains)</a> from two .csv files using <a class="reference internal" href="api_reference.html#rdm.db.context.CSVConnection" title="rdm.db.context.CSVConnection"><code class="xref py py-class docutils literal"><span class="pre">CSVConnection</span></code></a>. CSV files must contain two additional header lines beside column names which specify data types using SQLite syntax, and constraints such as primary and foreign key using simplified SQLite syntax. The</p>
-<table border="1" class="docutils" id="id1">
-<caption><span class="caption-text"><a class="reference download internal" href="_downloads/trains.csv" download=""><code class="xref download docutils literal"><span class="pre">trains.csv</span></code></a></span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<p>Here is a simple example which loads the famous <a class="reference external" href="https://relational.fit.cvut.cz/dataset/Trains">East-West challenge dataset (trains)</a> from two .csv files using <a class="reference internal" href="api_reference.html#rdm.db.context.CSVConnection" title="rdm.db.context.CSVConnection"><code class="xref py py-class docutils literal notranslate"><span class="pre">CSVConnection</span></code></a>. CSV files must contain two additional header lines beside column names which specify data types using SQLite syntax, and constraints such as primary and foreign key using simplified SQLite syntax. The</p>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text"><a class="reference download internal" download="" href="_downloads/c58d02489f5f4a546c94e5fe658f0d0f/trains.csv"><code class="xref download docutils literal notranslate"><span class="pre">trains.csv</span></code></a></span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col width="50%" />
-<col width="50%" />
+<col style="width: 50%" />
+<col style="width: 50%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">id</th>
-<th class="head">direction</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>direction</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>integer</td>
-<td>varchar</td>
+<tbody>
+<tr class="row-even"><td><p>integer</p></td>
+<td><p>varchar</p></td>
 </tr>
-<tr class="row-odd"><td>primary key</td>
-<td>&nbsp;</td>
+<tr class="row-odd"><td><p>primary key</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>1</td>
-<td>east</td>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>east</p></td>
 </tr>
-<tr class="row-odd"><td>2</td>
-<td>east</td>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>east</p></td>
 </tr>
-<tr class="row-even"><td>...</td>
-<td>...</td>
+<tr class="row-even"><td><p>…</p></td>
+<td><p>…</p></td>
 </tr>
-<tr class="row-odd"><td>19</td>
-<td>west</td>
+<tr class="row-odd"><td><p>19</p></td>
+<td><p>west</p></td>
 </tr>
-<tr class="row-even"><td>20</td>
-<td>west</td>
+<tr class="row-even"><td><p>20</p></td>
+<td><p>west</p></td>
 </tr>
 </tbody>
 </table>
-<table border="1" class="docutils" id="id2">
-<caption><span class="caption-text"><a class="reference download internal" href="_downloads/cars.csv" download=""><code class="xref download docutils literal"><span class="pre">cars.csv</span></code></a></span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text"><a class="reference download internal" download="" href="_downloads/5cf1d3eedc47c97a95f457448fde1e39/cars.csv"><code class="xref download docutils literal notranslate"><span class="pre">cars.csv</span></code></a></span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">id</th>
-<th class="head">tid</th>
-<th class="head">position</th>
-<th class="head">shape</th>
-<th class="head">len</th>
-<th class="head">sides</th>
-<th class="head">roof</th>
-<th class="head">wheels</th>
-<th class="head">load_shape</th>
-<th class="head">load_num</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>tid</p></th>
+<th class="head"><p>position</p></th>
+<th class="head"><p>shape</p></th>
+<th class="head"><p>len</p></th>
+<th class="head"><p>sides</p></th>
+<th class="head"><p>roof</p></th>
+<th class="head"><p>wheels</p></th>
+<th class="head"><p>load_shape</p></th>
+<th class="head"><p>load_num</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>integer</td>
-<td>integer</td>
-<td>integer</td>
-<td>varchar</td>
-<td>varchar</td>
-<td>varchar</td>
-<td>varchar</td>
-<td>integer</td>
-<td>varchar</td>
-<td>integer</td>
+<tbody>
+<tr class="row-even"><td><p>integer</p></td>
+<td><p>integer</p></td>
+<td><p>integer</p></td>
+<td><p>varchar</p></td>
+<td><p>varchar</p></td>
+<td><p>varchar</p></td>
+<td><p>varchar</p></td>
+<td><p>integer</p></td>
+<td><p>varchar</p></td>
+<td><p>integer</p></td>
 </tr>
-<tr class="row-odd"><td>primary key</td>
-<td>foreign key [trains.id]</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<tr class="row-odd"><td><p>primary key</p></td>
+<td><p>foreign key [trains.id]</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>1</td>
-<td>1</td>
-<td>1</td>
-<td>rectangle</td>
-<td>short</td>
-<td>not_double</td>
-<td>none</td>
-<td>2</td>
-<td>circle</td>
-<td>1</td>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>rectangle</p></td>
+<td><p>short</p></td>
+<td><p>not_double</p></td>
+<td><p>none</p></td>
+<td><p>2</p></td>
+<td><p>circle</p></td>
+<td><p>1</p></td>
 </tr>
-<tr class="row-odd"><td>2</td>
-<td>1</td>
-<td>2</td>
-<td>rectangle</td>
-<td>long</td>
-<td>not_double</td>
-<td>none</td>
-<td>3</td>
-<td>hexagon</td>
-<td>1</td>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>rectangle</p></td>
+<td><p>long</p></td>
+<td><p>not_double</p></td>
+<td><p>none</p></td>
+<td><p>3</p></td>
+<td><p>hexagon</p></td>
+<td><p>1</p></td>
 </tr>
-<tr class="row-even"><td>3</td>
-<td>1</td>
-<td>3</td>
-<td>rectangle</td>
-<td>short</td>
-<td>not_double</td>
-<td>peaked</td>
-<td>2</td>
-<td>triangle</td>
-<td>1</td>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>1</p></td>
+<td><p>3</p></td>
+<td><p>rectangle</p></td>
+<td><p>short</p></td>
+<td><p>not_double</p></td>
+<td><p>peaked</p></td>
+<td><p>2</p></td>
+<td><p>triangle</p></td>
+<td><p>1</p></td>
 </tr>
-<tr class="row-odd"><td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
+<tr class="row-odd"><td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
 </tr>
-<tr class="row-even"><td>62</td>
-<td>20</td>
-<td>1</td>
-<td>rectangle</td>
-<td>long</td>
-<td>not_double</td>
-<td>flat</td>
-<td>3</td>
-<td>hexagon</td>
-<td>1</td>
+<tr class="row-even"><td><p>62</p></td>
+<td><p>20</p></td>
+<td><p>1</p></td>
+<td><p>rectangle</p></td>
+<td><p>long</p></td>
+<td><p>not_double</p></td>
+<td><p>flat</p></td>
+<td><p>3</p></td>
+<td><p>hexagon</p></td>
+<td><p>1</p></td>
 </tr>
-<tr class="row-odd"><td>63</td>
-<td>20</td>
-<td>2</td>
-<td>u_shaped</td>
-<td>short</td>
-<td>not_double</td>
-<td>none</td>
-<td>2</td>
-<td>triangle</td>
-<td>1</td>
+<tr class="row-odd"><td><p>63</p></td>
+<td><p>20</p></td>
+<td><p>2</p></td>
+<td><p>u_shaped</p></td>
+<td><p>short</p></td>
+<td><p>not_double</p></td>
+<td><p>none</p></td>
+<td><p>2</p></td>
+<td><p>triangle</p></td>
+<td><p>1</p></td>
 </tr>
 </tbody>
 </table>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rdm.db</span> <span class="k">import</span> <span class="n">DBVendor</span><span class="p">,</span> <span class="n">DBContext</span><span class="p">,</span> <span class="n">AlephConverter</span><span class="p">,</span> <span class="n">SQLiteDBConnection</span><span class="p">,</span> <span class="n">CSVConnection</span>
-<span class="kn">from</span> <span class="nn">rdm.wrappers</span> <span class="k">import</span> <span class="n">Aleph</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rdm.db</span> <span class="kn">import</span> <span class="n">DBVendor</span><span class="p">,</span> <span class="n">DBContext</span><span class="p">,</span> <span class="n">AlephConverter</span><span class="p">,</span> <span class="n">SQLiteDBConnection</span><span class="p">,</span> <span class="n">CSVConnection</span>
+<span class="kn">from</span> <span class="nn">rdm.wrappers</span> <span class="kn">import</span> <span class="n">Aleph</span>
 
 <span class="c1"># Provide data</span>
 <span class="n">connection</span> <span class="o">=</span> <span class="n">CSVConnection</span><span class="p">([</span><span class="s1">&#39;examples/data/trains/trains.csv&#39;</span><span class="p">,</span>
@@ -320,15 +346,15 @@
 <div class="section" id="using-sqlite">
 <h2>Using SQLite<a class="headerlink" href="#using-sqlite" title="Permalink to this headline">¶</a></h2>
 <p>If the third line of the code above is changed as shown below the SQLite database containing the same data will be used.</p>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">SQLiteDBConnection</span><span class="p">(</span><span class="s1">&#39;examples/data/trains/trains.sqlite3&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">SQLiteDBConnection</span><span class="p">(</span><span class="s1">&#39;examples/data/trains/trains.sqlite3&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="using-mysql">
 <h2>Using MySQL<a class="headerlink" href="#using-mysql" title="Permalink to this headline">¶</a></h2>
-<p>The same example but the data is now loaded from a MySQL database using <a class="reference internal" href="api_reference.html#rdm.db.context.DBConnection" title="rdm.db.context.DBConnection"><code class="xref py py-class docutils literal"><span class="pre">DBConnection</span></code></a>.</p>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rdm.db</span> <span class="k">import</span> <span class="n">DBVendor</span><span class="p">,</span> <span class="n">DBConnection</span><span class="p">,</span> <span class="n">DBContext</span><span class="p">,</span> <span class="n">AlephConverter</span>
-<span class="kn">from</span> <span class="nn">rdm.wrappers</span> <span class="k">import</span> <span class="n">Aleph</span>
+<p>The same example but the data is now loaded from a MySQL database using <a class="reference internal" href="api_reference.html#rdm.db.context.DBConnection" title="rdm.db.context.DBConnection"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBConnection</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rdm.db</span> <span class="kn">import</span> <span class="n">DBVendor</span><span class="p">,</span> <span class="n">DBConnection</span><span class="p">,</span> <span class="n">DBContext</span><span class="p">,</span> <span class="n">AlephConverter</span>
+<span class="kn">from</span> <span class="nn">rdm.wrappers</span> <span class="kn">import</span> <span class="n">Aleph</span>
 
 <span class="c1"># Provide connection information</span>
 <span class="n">connection</span> <span class="o">=</span> <span class="n">DBConnection</span><span class="p">(</span>
@@ -359,15 +385,16 @@
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="example.html" class="btn btn-neutral float-right" title="Example use case" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="example.html" class="btn btn-neutral float-right" title="Example use case" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -376,11 +403,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Anze Vavpetic, Matic Perovsek.
+        
+        &copy; Copyright 2016, Anze Vavpetic, Matic Perovsek
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -392,36 +427,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.1',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>
