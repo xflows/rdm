@@ -417,7 +417,12 @@
 
         <span class="k">return</span> <span class="n">arff_string</span></div>
 
-    <span class="k">def</span> <span class="nf">to_orange</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Wordification.to_orange"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.Wordification.to_orange">[docs]</a>    <span class="k">def</span> <span class="nf">to_orange</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns an Orange Table instance populated with the data.</span>
+
+<span class="sd">            :rtype: Orange.data.Table</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__check_weights</span><span class="p">()</span>
 
         <span class="n">targetvals</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">a</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">resulting_classes</span><span class="p">])</span>
@@ -442,7 +447,7 @@
             <span class="n">features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resulting_classes</span><span class="p">[</span><span class="n">doc_idx</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
             <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
         <span class="n">table</span> <span class="o">=</span> <span class="n">Orange</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="n">domain</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">table</span>
+        <span class="k">return</span> <span class="n">table</span></div>
 
 <div class="viewcode-block" id="Wordification.prune"><a class="viewcode-back" href="../../../../api_reference.html#rdm.wrappers.Wordification.prune">[docs]</a>    <span class="k">def</span> <span class="nf">prune</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minimum_word_frequency_percentage</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

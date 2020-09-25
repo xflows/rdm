@@ -62,6 +62,7 @@ class Aleph(object):
         Creates an Aleph object.
 
             :param logging: Can be DEBUG, INFO or NOTSET (default).
+
             This controls the verbosity of the output.
 
         """
@@ -91,6 +92,7 @@ class Aleph(object):
         Parses a string of settings.
 
             :param setting: String of settings in the form:
+            
             ``set(name1, val1), set(name2, val2)...``
 
         """

@@ -260,6 +260,11 @@ class Wordification(object):
         return arff_string
 
     def to_orange(self):
+        '''
+        Returns an Orange Table instance populated with the data.
+
+            :rtype: Orange.data.Table
+        '''
         self.__check_weights()
 
         targetvals = set([a.value for a in self.resulting_classes])

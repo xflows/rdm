@@ -1,5 +1,5 @@
 # Python interface to RSD.
-# 
+#
 # author: Anze Vavpetic <anze.vavpetic@ijs.si>, 2012
 #
 import os.path
@@ -55,7 +55,9 @@ class RSD(object):
         Creates an RSD object.
 
             :param logging: Can be DEBUG, INFO or NOTSET (default).
+
             This controls the verbosity of the output.
+
         """
         self.tmpdir = tempfile.mkdtemp()
         self.settings = dict()
@@ -80,6 +82,7 @@ class RSD(object):
         Parses a string of settings.
 
             :param setting: String of settings in the form:
+            
             ``set(name1, val1), set(name2, val2)...``
 
         """
@@ -96,7 +99,7 @@ class RSD(object):
                printOutput=False):
         """
         Generate features and find subgroups.
-        
+
             :param filestem: The base name of this experiment.
             :param examples: Classified examples; can be used instead of separate pos / neg files below.
             :param pos: String of positive examples.
@@ -105,10 +108,12 @@ class RSD(object):
             :param cn2sd: Find subgroups after feature construction?
 
             :return: a tuple ``(features, weka, rules)``, where:
+
             - features is a set of prolog clauses of generated features,
             - weka is the propositional form of the input data,
-            - rules is a set of generated cn2sd subgroup descriptions; 
+            - rules is a set of generated cn2sd subgroup descriptions;
               this will be an empty string if cn2sd is set to False.
+
             :rtype: tuple
         """
         # Write the inputs
