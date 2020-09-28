@@ -383,7 +383,7 @@ class SQLiteDataSource(DataSource):
     '''
     continuous_types = ('real', 'double', 'double precision', 'float', 'decimal')
     integer_types = ('int', 'integer', 'tinyint', 'smallint', 'mediumint', 'bigint', 'unsigned big int', 'int2', 'int8')
-    ordinal_types = ('character', 'varchar', 'varying character', 'nchar', 'native character', 'nvarchar', 'text', 'clob')
+    ordinal_types = ('character', 'varchar', 'varying character', 'nchar', 'native character', 'nvarchar', 'text', 'clob', 'char')
 
     def __init__(self, connection):
         '''
@@ -438,7 +438,7 @@ class SQLiteDataSource(DataSource):
         with self.connect() as con:
             cursor = con.cursor()
             cursor.execute('SELECT "name", "type" from pragma_table_info("{}") WHERE "name" IN ({})'.format(table, self.fmt_cols(cols)))
-            types = {row[0]: re.sub('\([0-9a-zA-Z ,]*\)', '', row[1].strip().lower()) for row in cursor}
+            types = {row[0]: re.sub('\([0-9a-zA-Z ,]*\)', '', row[1].strip().lower()).strip() for row in cursor}
         return types
 
     def fetch(self, table, cols):
