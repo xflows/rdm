@@ -7,12 +7,11 @@ algorithm implementations. One important aim of the project is to offer a common
 
 This project also includes the UI components (widgets) for the [ClowdFlows](https://github.com/xflows/clowdflows/) data mining platform.
 
-Currently, the project offers support for MySQL and PostgreSQL databases and the following algorithms: Aleph, RSD, Wordification, TreeLiker, Caraf, Relaggs, Quantiles, Cardinalization, 1BC, 1BC2, and Tertius.
+Currently, the project offers support for MySQL, PostgreSQL, SQLite and CSV files-based databases and the following algorithms: Aleph, RSD, Wordification, TreeLiker, Caraf, Relaggs, Quantiles, Cardinalization, 1BC, 1BC2, and Tertius.
 
 ## Included approaches ##
 
-Although python-rdm itself is MIT licensed, we include approaches that have their own licenses (all of the sources are unmodified). To be sure, please contact the respective authors
-if you want to use their approach for any commercial purposes.
+Although python-rdm itself is MIT licensed, we include approaches that have their own licenses (all of the sources are unmodified). To be sure, please contact the respective authors if you want to use their approach for any commercial purposes.
 
 * **Aleph**
     * [Official page](http://www.cs.ox.ac.uk/activities/machinelearning/Aleph/aleph)
