@@ -16,7 +16,7 @@ setup(
         'PyMySQL',
         'psycopg2-binary',
         'liac-arff',
-        'Orange3>=3.24.1'
+        'Orange3==3.24.1'
     ],
     # only for documentation building
     extras_require={'dev': ['Sphinx', 'sphinx_rtd_theme']},
