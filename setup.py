@@ -9,14 +9,14 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='python-rdm',
-    version='0.3.6',
+    version='0.3.7',
     packages=['rdm'],
     include_package_data=True,
     install_requires=[
         'PyMySQL',
         'psycopg2-binary',
         'liac-arff',
-        'Orange3==3.24.1'
+        'Orange3==3.26.0'
     ],
     # only for documentation building
     extras_require={'dev': ['Sphinx', 'sphinx_rtd_theme']},
